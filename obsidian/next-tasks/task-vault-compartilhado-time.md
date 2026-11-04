@@ -16,7 +16,7 @@ anotado_em: 2026-10-14
 
 # Criar vault compartilhado do time
 
-Criar um vault compartilhado do time, para que o conhecimento hoje guardado no vault pessoal (`ctbz/`) e as skills possam ser usados por todos.
+Criar um vault compartilhado do time, para que o conhecimento hoje guardado no meu vault corporativo (`~/ctbz-vault/obsidian/`) e as skills possam ser usados por todos.
 
 Possibilidade: montar um marketplace de skills do time, no estilo de agent-skills.tchleads.club/skills.
 

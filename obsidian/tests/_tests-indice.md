@@ -13,8 +13,8 @@ Roteiros para preparar massa de teste, disparar fluxos e conferir o resultado no
 
 ## Visões
 
-- [[ctbz/tests/_por-dominio|Por domínio]]
-- [[ctbz/tests/_por-repositorio|Por repositório]]
+- [[tests/_por-dominio|Por domínio]]
+- [[tests/_por-repositorio|Por repositório]]
 
 ## Estrutura
 
@@ -23,6 +23,6 @@ Roteiros para preparar massa de teste, disparar fluxos e conferir o resultado no
 
 ## Vocabulário
 
-- **dominio:** mesmo vocabulário de [[ctbz/PRDs/_prds-indice|PRDs]]: `atendimento`, `copilot`, `csat`, `impostos`, `monitoria-ia`, `notas-fiscais`, `notificacoes`, `plataforma`, `ultimate`
-- **repositorios:** nome do repositório em `~/repositories` (ou `dotfiles` para scripts próprios)
+- **dominio:** mesmo vocabulário de [[PRDs/_prds-indice|PRDs]]: `atendimento`, `copilot`, `csat`, `impostos`, `monitoria-ia`, `notas-fiscais`, `notificacoes`, `plataforma`, `ultimate`
+- **repositorios:** nome do repositório em `~/repositories` (ou `dotfiles`/`ctbz-vault` para scripts e skills próprios)
 - **ambiente:** `local`, `dev`, `prd`

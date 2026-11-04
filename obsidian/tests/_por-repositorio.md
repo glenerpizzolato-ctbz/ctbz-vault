@@ -19,9 +19,12 @@ Um roteiro aparece em todos os repositórios que ele envolve.
 
 - [[preparar-grupo-guia-agrupamento]] — rota `envia-empresa-ms-agrupamento-guia/{idEmpresa}` que publica em `agrupar-guias-empresa`
 
+## ctbz-vault
+
+- [[fechar-tickets-teste-zendesk]] — skill `~/ctbz-vault/skills/zendesk/fechar-tickets-teste-zendesk`
+
 ## dotfiles
 
-- [[fechar-tickets-teste-zendesk]] — skill `docs/ai/skills/ctbz/zendesk/fechar-tickets-teste-zendesk`
 - [[preparar-grupo-guia-agrupamento]] — `src/google/publish-topic.google.js topic=agrupar-guias-empresa`
 
 ## bots-api

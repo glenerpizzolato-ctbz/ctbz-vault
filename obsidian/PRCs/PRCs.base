@@ -1,6 +1,6 @@
 filters:
   and:
-    - file.inFolder("ctbz/PRCs/itens")
+    - file.inFolder("PRCs/itens")
 views:
   - type: table
     name: Por recorrência

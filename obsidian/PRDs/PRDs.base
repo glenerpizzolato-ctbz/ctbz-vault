@@ -1,6 +1,6 @@
 filters:
   and:
-    - file.inFolder("ctbz/PRDs/itens")
+    - file.inFolder("PRDs/itens")
 views:
   - type: table
     name: Todas

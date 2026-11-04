@@ -22,7 +22,7 @@ atualizado_em: 2026-10-27
 
 As rotas que o bot de WhatsApp da Ultimate chama (plataforma-crm-web e atendimento-zendesk) passam pelo API gateway (Kong) do atendimento, autenticadas por `x-api-key`. Essa chave **não** é o token do SSO ([[sso-token-dev-prd]]): é a mesma que a Ultimate usa, e quem a fornece é a cloud function `zendeskbot-config`.
 
-Skills que fazem isso sozinhas: `buscar-empresas-por-telefone` e `autenticar-empresa-whatsapp` (script `bots_api.py`). A chave fica salva em `~/dotfiles/docs/ai/skills/ctbz/empresas/buscar-empresas-por-telefone/bruno/.env` (gitignored, renovada pelo script quando o Kong a recusa; `bots_api.py credenciais --env todos` força), e a pasta `bruno/` da skill é uma collection Bruno com as três rotas usando essa autenticação. Ela substitui a pasta `glener-funcionando` da collection da plataforma-crm-web, que tinha a chave de prd fixa no `folder.bru` (em 2026-10-27 ainda igual à atual de prd; a de dev é outra).
+Skills que fazem isso sozinhas: `buscar-empresas-por-telefone` e `autenticar-empresa-whatsapp` (script `bots_api.py`). A chave fica salva em `~/ctbz-vault/skills/empresas/buscar-empresas-por-telefone/bruno/.env` (gitignored, renovada pelo script quando o Kong a recusa; `bots_api.py credenciais --env todos` força), e a pasta `bruno/` da skill é uma collection Bruno com as três rotas usando essa autenticação. Ela substitui a pasta `glener-funcionando` da collection da plataforma-crm-web, que tinha a chave de prd fixa no `folder.bru` (em 2026-10-27 ainda igual à atual de prd; a de dev é outra).
 
 ## Como obter a x-api-key (o jeito certo)
 

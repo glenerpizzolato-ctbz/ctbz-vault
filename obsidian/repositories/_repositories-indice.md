@@ -11,7 +11,7 @@ tags:
 
 Uma pasta por repositório de `~/repositories`, cada uma com seu índice `_<repositório>-indice.md`. Ali vai tudo o que vale guardar sobre o repositório: como rodar localmente, como testar, como funciona um fluxo, armadilhas, comandos úteis. Ao criar uma nota sobre um repositório, salvar na pasta dele e adicionar a linha no índice dele; se o repositório for novo, criar a pasta e o índice e adicionar a linha aqui.
 
-Fora do mapeamento por decisão do usuário: `back-payments-service`, `back-email-service`, `gateway-kong` e `ide-bahcode`, que são pessoais e ficam no vault pessoal (`pessoal/repositories/`).
+Fora do mapeamento por decisão do usuário: `back-payments-service`, `back-email-service`, `gateway-kong` e `ide-bahcode`, que são pessoais e ficam no vault pessoal (`~/dotfiles/docs/ai/obsidian/repositories/`).
 
 - [[_agent-eval-indice|agent-eval]]
 - [[_agrupamento-guias-service-indice|agrupamento-guias-service]]

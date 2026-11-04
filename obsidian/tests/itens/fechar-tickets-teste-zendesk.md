@@ -11,7 +11,7 @@ dominio:
   - ultimate
 repositorios:
   - experts-bruno
-  - dotfiles
+  - ctbz-vault
 ambiente: prd
 atualizado_em: 2026-10-26
 ---
@@ -20,7 +20,7 @@ atualizado_em: 2026-10-26
 
 Testar os bots de WhatsApp em produção (Ultimate, clientes inativos etc.) abre tickets reais no Zendesk, que ficam nas filas dos times. Os tickets saem em nome do usuário de teste do Glener: end-user "Glener", id `21878313229212`, o telefone de teste ([tickets dele](https://contabilizei.zendesk.com/agent/users/21878313229212/requested_tickets)). Depois de cada rodada de testes, fechar os que ficaram abertos.
 
-- **Skill:** `fechar-tickets-teste-zendesk`, versionada em `~/dotfiles/docs/ai/skills/ctbz/zendesk/fechar-tickets-teste-zendesk/`. Basta pedir ao Claude Code "fecha meus tickets de teste no Zendesk".
+- **Skill:** `fechar-tickets-teste-zendesk`, versionada em `~/ctbz-vault/skills/zendesk/fechar-tickets-teste-zendesk/`. Basta pedir ao Claude Code "fecha meus tickets de teste no Zendesk".
 - **Script direto:** `python3 ~/.claude/skills/fechar-tickets-teste-zendesk/scripts/fechar_tickets.py list | close [--dry-run]`.
 - **Escopo:** só atua nesse requester e confere o `requester_id` de cada ticket antes de fechar. `closed` é definitivo: o ticket não pode ser reaberto.
 - **Credenciais:** `user_email` e `personal_user_token_prod` do `.env` da coleção Bruno `~/repositories/experts-bruno/zendesk-api`, com auth basic `email/token`.
