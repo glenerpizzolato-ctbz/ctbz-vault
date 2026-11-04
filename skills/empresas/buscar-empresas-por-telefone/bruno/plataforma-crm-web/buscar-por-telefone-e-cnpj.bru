@@ -1,0 +1,22 @@
+meta {
+  name: buscar-por-telefone-e-cnpj
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/atendimento/zendesk/bots/whatsapp/plataforma/atendimento/v2/bots/whatsapp/dados-cliente/buscar-por-telefone-e-cnpj
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "telefone": "{{telefone}}",
+    "cnpj": "{{cnpj}}"
+  }
+}
+
+docs {
+  Dados da empresa logada: possuiTelefoneVinculadoEmpresa, empresaInativa, acessos (básico/bank/experts), status, plano, telefones, assessor.
+}

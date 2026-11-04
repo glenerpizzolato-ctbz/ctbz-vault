@@ -1,0 +1,24 @@
+headers {
+  x-api-key: {{api_key}}
+  x-cloud-trace-context: 7b26189bd6df39d7c8f4e38f91088cbb/728731927520958731;o=1
+  x-atendimento-id: 66ab8fcdaed5868f72d0acbf
+  x-conversation-id: bruno
+}
+
+auth {
+  mode: none
+}
+
+vars:pre-request {
+  telefone: +555596981032
+  cnpj: 67593589000150
+  area: CRM
+}
+
+docs {
+  Rotas de empresa do bot de WhatsApp (Ultimate) pelo API gateway (Kong) do atendimento, com a mesma x-api-key que a Ultimate usa.
+  
+  A chave fica em `.env` (gitignored), gerado/renovado por `python3 ../scripts/bots_api.py credenciais --env todos`, que a busca na cloud function `zendeskbot-config`. Se der 401/403 em JSON, rodar de novo.
+  
+  Os headers `x-cloud-trace-context` e `x-atendimento-id` são obrigatórios no Kong, mas aceitam qualquer valor no formato.
+}

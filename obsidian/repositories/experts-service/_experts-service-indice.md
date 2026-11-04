@@ -1,0 +1,19 @@
+---
+name: experts-service-indice
+description: "Índice de notas do repositório experts-service: como rodar localmente, como testar, fluxos e particularidades"
+metadata:
+  type: reference
+tags:
+  - repositories-indice
+  - experts-service
+repositorio: experts-service
+caminho: ~/repositories/experts-service
+---
+
+# experts-service
+
+Repositório em `~/repositories/experts-service`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
+
+- [[fluxo-encerramento-com-ia]] — Encerramento com IA (desconexão): validações, estados, IA, timeout, fora de horário, parâmetros e tempos
+- [[notificacao-individual-guias-x-agrupamento|Notificação individual de guias x agrupamento]] — filtros do consumer `processar-guia-imposto`, regra do dia 15, listas de impostos divergentes e armadilhas de duplicidade/silêncio com o agrupamento
+- [[historico-mrs-experts-service|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode

@@ -1,0 +1,23 @@
+meta {
+  name: autenticar-basico-padrao
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/atendimento/zendesk/bots/whatsapp/fluxo/interacao/api/v1/bots/whatsapp/autenticacao/basico-padrao
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "area": "{{area}}",
+    "telefone": "{{telefone}}",
+    "cnpj": "{{cnpj}}"
+  }
+}
+
+docs {
+  Decisão do bot na autenticação: statusBot, statusAutenticacao, status2FA, categoriaPlano. area: CRM, BANK, EXPERT ou ATIVACAO (cliente Expert com CRM volta SEM_AUTORIZACAO). Sem cnpj, busca só pelo telefone.
+}

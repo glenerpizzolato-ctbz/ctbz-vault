@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "name": "bots-whatsapp-empresas",
+  "type": "collection",
+  "ignore": ["node_modules", ".git"]
+}

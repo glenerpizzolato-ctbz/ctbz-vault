@@ -1,0 +1,23 @@
+---
+name: html-to-pdf-build-e-imagem
+description: "Imagem Docker do html-to-pdf (golang:1.23/bookworm + wkhtmltopdf), como testar localmente e a correção da libbrotli1 (CVE-2026-111497)"
+metadata:
+  type: reference
+tags:
+  - html-to-pdf
+---
+
+# Build e imagem do html-to-pdf
+
+- O `Dockerfile` tem um estágio só, sobre `golang:1.23` (Debian bookworm): instala o `wkhtmltopdf` (0.12.6) via apt (até o html-to-pdf!1 também baixava a `libssl1.1` do Ubuntu, que nenhum pacote usava: o Qt5 do bookworm usa o OpenSSL 3), e compila o binário Go na mesma imagem. A imagem final carrega toda a toolchain do Go e os pacotes do Debian, por isso cai em scans de CVE de SO.
+- O serviço é uma rota só: `POST /` com o HTML cru no body, devolve o PDF (`application/pdf`). Porta 8080.
+- Teste local: `docker build -t html-to-pdf:local . && docker run --rm -p 18080:8080 html-to-pdf:local` e `curl -X POST --data '<h1>oi</h1>' localhost:18080/ -o out.pdf`.
+- CVE-2026-111497 (node2shell): a `libbrotli1` da base vinha 1.0.9-2+b6; o Dockerfile passou a rodar `apt-get install -y --only-upgrade libbrotli1`, que puxa a 1.0.9-2+deb12u1 do bookworm-security (branch `fix/PRD-174638`, 2026-10-30). Validado em 2026-10-30: build ok, `dpkg-query -W libbrotli1` na imagem dá `1.0.9-2+deb12u1` e o `POST /` devolve 200 `application/pdf`. Para conferir: `docker run --rm --entrypoint dpkg-query <imagem> -W libbrotli1`. MR [html-to-pdf!1](https://gitlab.com/ctbz/experts/backend/html-to-pdf/-/merge_requests/1) aberto em draft em 2026-10-30. No fluxo da sub-task, a transição para o status *Pull Request* se chama `Gerar Pull Request` (id 331). Ver [[cve-2026-111497-node2shell]].
+- Onde roda e quem usa (conferido em 2026-10-30): GitLab `ctbz/experts/backend/html-to-pdf`; Cloud Run `html-to-pdf` em `contabilizei-experts-dev` (`https://html-to-pdf-uzyfdfmsca-uc.a.run.app`) e `contabilizei-experts-prd` (`https://html-to-pdf-gky3vljvwq-uc.a.run.app`), deploy pela pipeline (`vaultpipeline-cloud-*`). Não está depreciado: em prd recebe centenas de POSTs por dia (`axios`) das functions `email-holerites` e `email-sender` (`experts-functions` / `experts-dominios-functions`, variável `URL_HTML_TO_PDF`). Em dev só aparece tráfego de scanner (403).
+
+## Pipeline de MR (conferido em 2026-10-30, html-to-pdf!1)
+
+- **Sonar:** o quality gate exige zero issues novos e 100% dos hotspots revisados. Mexer num `RUN` faz o S7031 ("junte os RUN seguidos") contar como novo na primeira linha da cadeia, e cada mudança na linha do `wget` gerava um hotspot novo (S5332 http, S6506 redirect). A saída foi remover a `libssl1.1` e ficar com um `RUN` só (`apt-get update && install --no-install-recommends ... && rm -rf /var/lib/apt/lists/*`).
+- **`build-push-container` falha em todo MR:** é repo Go, e a pipeline central não tem job que gere a `VERSION` para Go. Com o `DEPLOY_FROM_MR` ligado, a tag sai `:-<sha>-dev` (invalid reference format). A correção é `DEPLOY_FROM_MR: "false"` em `custom/ctbz/experts/backend/html-to-pdf.yml` da `ctbz/devops/recursos/pipeline` ([pipeline!3271](https://gitlab.com/ctbz/devops/recursos/pipeline/-/merge_requests/3271)). O deploy do serviço sai por tag (`0.0.x`).
+- **`lint`/`test` com Go 1.20:** o `custom/ctbz/experts/backend/html-to-pdf.yml` define `CI_CONTAINER_IMAGE: golang:1.20-bookworm`, mas o `go.mod` está em `go 1.23.0` + `toolchain` (`invalid go version` / `unknown directive: toolchain`). Enquanto o `DEPLOY_FROM_MR` estava ligado, esses jobs rodavam na `golang:1.23-bookworm`, que não aparece na pipeline central (a fonte não foi identificada; variáveis de grupo dão 403). Ao desligá-lo, os jobs voltaram para a 1.20. Correção em [pipeline!3276](https://gitlab.com/ctbz/devops/recursos/pipeline/-/merge_requests/3276), integrada em 2026-10-30; depois dela, o pipeline 3010315801 do html-to-pdf!1 passou inteiro (Sonar, SAST, secret detection e dependency scanning) e o comentário do GitLab-Security-Bot sumiu. O yamllint da pipeline central às vezes falha por timeout ao baixar a imagem `registry.gitlab.com/niclas-zone/ctr/yamllint`: basta dar retry no job.
+- **Pipeline de `master` é cancelada de propósito:** depois do merge, a pipeline do push em `master` roda até o job `version-validation`, que sem `VERSION` loga "Sem VERSION não é possível continuar a pipeline. Talvez queira ou precise gerar uma tag." e cancela a própria pipeline (`glab ci cancel`). Não é erro: o release/deploy (`release-artifact-registry`, `cloudrun-deploy-dev`, `cloudrun-deploy-prd`) só roda na pipeline de uma tag semver (`0.0.x`, a última era `0.0.3`). Visto na pipeline 3010333905 (merge do html-to-pdf!1, 2026-10-30).

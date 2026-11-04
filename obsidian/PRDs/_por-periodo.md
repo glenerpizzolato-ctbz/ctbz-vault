@@ -1,0 +1,427 @@
+---
+name: _por-periodo
+description: "Índice das demandas (PRDs) agrupadas por quadrimestre (AAAAQDn)"
+metadata:
+  type: reference
+tags:
+  - prd-indice
+---
+
+# Demandas por período
+
+Períodos em quadrimestres: QD1 = jan–abr, QD2 = mai–ago, QD3 = set–dez. A data de referência é a data de pronto (ou fim, início, teste; sem nenhuma, a criação do card no Jira). O mês (`AAAAMM`) fica na propriedade `mes` de cada nota.
+
+## 2026QD3 (57)
+
+- [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3
+- [[PRD-174790]] — [Opt-out notificações impostos] Enviar a finalidade do opt-out e o CNPJ nos e-mails de impostos · backlog · 2026QD3
+- [[PRD-174617]] — Node2Shell (CVE-2026-111497) - corrigir imagens Node e libbrotli dos Cloud Runs · backlog · 2026QD3
+- [[PRD-174558]] — [Super Ouvidoria] Subir em produção o menu de desidratação da Ouvidoria na Ultimate · pronto · 2026QD3
+- [[PRD-174490]] — Guias do agrupamento no detalhe do envio (Agrupamento de Guias) · pronto · 2026QD3
+- [[PRD-173035]] — Desidratar Ouvidoria em menu do número exclusivo da Super Ouvidoria · pronto · 2026QD3
+- [[PRD-174256]] — Monitorar quem entra no número de Ouvidoria sem processo de abertura nem empresa · backlog · 2026QD3
+- [[PRD-174011]] — [ACR] Análise de Falha no Disparo de Notificações por Falta de Idempotência no Microsserviço Agrupamento-Guias · pronto · 2026QD3
+- [[PRD-173273]] — Remover flag de rollout para o BP · backlog · 2026QD3
+- [[PRD-173036]] — Desidratar Ouvidoria em menu clientes inativos · backlog · 2026QD3
+- [[PRD-170836]] — [Agrupamento de guias BP] Notificar o agrupamento de guias do BP por WhatsApp · pronto · 2026QD3
+- [[PRD-170837]] — [Agrupamento de guias BP] Notificar o agrupamento de guias do BP por e-mail · pronto · 2026QD3
+- [[PRD-170830]] — [Agrupamento de guias BP] Receber regime tributário e plano da empresa no agrupamento e separar as crons de notificação por plano (Experts e BP) · pronto · 2026QD3
+- [[PRD-170697]] — [Explicação Impostos] Template de email PROPORCAO_FAT_INTERNO_EXTERNO: criação, mapeamento do uuid e teste · backlog · 2026QD3
+- [[PRD-170696]] — [Explicação Impostos] Template de email PROPORCAO_ANEXOS: criação, mapeamento do uuid e teste · backlog · 2026QD3
+- [[PRD-170695]] — [Explicação Impostos] Template de email DESENQUADRAMENTO_FATOR_R: criação, mapeamento do uuid e teste · backlog · 2026QD3
+- [[PRD-170694]] — [Explicação Impostos] Template de email MUDANCA_FAIXA_SIMPLES_INTERNO_EXTERNO: criação, mapeamento do uuid e teste · backlog · 2026QD3
+- [[PRD-170692]] — [Explicação Impostos] Template de email MUDANCA_FAIXA_SIMPLES_EXTERNO: criação, mapeamento do uuid e teste · backlog · 2026QD3
+- [[PRD-170691]] — [Explicação Impostos] Template de email MUDANCA_FAIXA_SIMPLES_INTERNO: criação, mapeamento do uuid e teste · backlog · 2026QD3
+- [[PRD-170664]] — [Contatos] Permitir remover telefone e e-mail de um contato · pronto · 2026QD3
+- [[PRD-170306]] — [Opt-out notificações] Permitir informar a finalidade do opt-out e registrar o bloqueio no envio de e-mail · pronto · 2026QD3
+- [[PRD-170272]] — [Opt-out notificações impostos] Subir em produção a finalidade do opt-out e o bloqueio no envio de WhatsApp ativo · pronto · 2026QD3
+- [[PRD-169776]] — [Opt-out notificações impostos] Respeitar opt-out de WhatsApp no envio do agrupamento de guias · pronto · 2026QD3
+- [[PRD-169775]] — [Opt-out notificações impostos] Respeitar opt-out de WhatsApp na notificação individual do experts-service · pronto · 2026QD3
+- [[PRD-170025]] — [Opt-out notificações impostos] Permitir informar a finalidade do opt-out e registrar o bloqueio no envio de WhatsApp ativo · pronto · 2026QD3
+- [[PRD-170057]] — [Opt-out] Remover o opt-out a nível de empresa, mantendo apenas o opt-out por contato · pronto · 2026QD3
+- [[PRD-169773]] — [Opt-out notificações impostos] Criar opt-out de WhatsApp no contato-service e gerenciá-lo no atendimento-canais · pronto · 2026QD3
+- [[PRD-169220]] — [Avisos MR] Criar agendamento para chamar rota que notifica MRs ainda não revisados · pronto · 2026QD3
+- [[PRD-169300]] — [ACR] PRCs sem problema identificado - atendimento do cliente já normalizado · pronto · 2026QD3
+- [[PRD-169219]] — [Avisos MR] Criar rota para notificar MRs ainda não revisados · pronto · 2026QD3
+- [[PRD-169104]] — Criar client HTTP do contato-service no experts-service · pronto · 2026QD3
+- [[PRD-168706]] — Lock de 90s na ultimate · resolvido-outro-dev · 2026QD3
+- [[PRD-169149]] — [CSAT Transbordo] Diminuir cache no fechamento de ticket-off · pronto · 2026QD3
+- [[PRD-169004]] — [ACR] Falha no envio de empacotamento de guias por conta de diagnóstico de aumento de imposto não suportado · pronto · 2026QD3
+- [[PRD-168944]] — [ACR] Adicionar CNPJs à blocklist de CSAT de clientes que não querem receber · pronto · 2026QD3
+- [[PRD-168707]] — [email-service] aumentar observabilidade de envios bloqueados · pronto · 2026QD3
+- [[PRD-168648]] — Contorno em conflito de pesquisa CSAT com outros ativos · pronto · 2026QD3
+- [[PRD-168550]] — CSAT Transbordo Ajustes cenários de borda · pronto · 2026QD3
+- [[PRD-168429]] — [ACR] Notificações (e-mail/WhatsApp) não enviadas por campo obrigatório nulo na montagem do template · pronto · 2026QD3
+- [[PRD-168230]] — [atnd-canais-admin] criar CRUD de tel internacional · pronto · 2026QD3
+- [[PRD-168171]] — [ACR] Falha sistêmica na recepção de e-mails enviados pelos clientes à Contabilizei (Zendesk inbound) · pronto · 2026QD3
+- [[PRD-168129]] — [ACR] Aviso de guia de ISS cadastrada na plataforma - cliente recebeu notificação de guia individual por e-mail - BZ HEALTH PARTNERS LTDA · pronto · 2026QD3
+- [[PRD-167733]] — Análise de Bloqueio e Whitelisting dos e-mails no Canal de Atendimento · resolvido-outro-dev · 2026QD3
+- [[PRD-167692]] — [Clientes Inativos] Remover feature-flag · pronto · 2026QD3
+- [[PRD-167666]] — Zendesk: rotina via API impedindo resolução de tickets em B&P · pronto · 2026QD3
+- [[PRD-167446]] — [Remoção Menu Ultimate] Ajustar fluxos paralelos a remoção do menu · pronto · 2026QD3
+- [[PRD-167347]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
+- [[PRD-167156]] — [atnd-canais-admin] Exportar base de CNPJs em uma flag · pronto · 2026QD3
+- [[PRD-166516]] — [2026-QD3] Controle de horário de atendimento para clientes inativos (WhatsApp) · pronto · 2026QD3
+- [[PRD-165982]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
+- [[PRD-167012]] — [atnd-canais-admin] Melhorias no dash de agrupamento-guias · pronto · 2026QD3
+- [[PRD-166752]] — [Remoção Menu Ultimate] Testar cenários mapeados e validar implementação · pronto · 2026QD3
+- [[PRD-166692]] — [sql2bq] ingestão tabela para monitoramento de notificação de guia avulsa · pronto · 2026QD3
+- [[PRD-165762]] — Remover etapa de escolha "Contabilidade/Bank/Corretora" · pronto · 2026QD3
+- [[PRD-166064]] — [Flow] Adicionar flow em templates de CRM · pronto · 2026QD3
+- [[PRD-166053]] — [CSAT Transbordo] Subir CNPJs na feature-flag · pronto · 2026QD3
+- [[PRD-165453]] — Listagem e envio de email no front de atnd-canais · pronto · 2026QD3
+
+## 2026QD2 (95)
+
+- [[PRD-165229]] — [atnd-canais-admin] criação de template de email · pronto · 2026QD2
+- [[PRD-165090]] — [atnd-canais-admin] integração email-service · pronto · 2026QD2
+- [[PRD-165086]] — [atnd-canais-admin] permissão nas features-flags por flag · pronto · 2026QD2
+- [[PRD-165082]] — [atnd-canais-admin] dash flow · pronto · 2026QD2
+- [[PRD-165076]] — [atnd-canais-admin] dash ms-agrupamento-guias · pronto · 2026QD2
+- [[PRD-165073]] — [experts-admin] Mensagens de aviso · pronto · 2026QD2
+- [[PRD-165066]] — Ura não reconhece opções no menu "Saúde e Benefícios" · pronto · 2026QD2
+- [[PRD-164698]] — Tickets BP caindo no atendimento de experts · pronto · 2026QD2
+- [[PRD-164695]] — Tickets BP caindo no atendimento de experts · pronto · 2026QD2
+- [[PRD-164686]] — Mensagem sendo enviada indevidamente em retorno de ativo · pronto · 2026QD2
+- [[PRD-164000]] — [Clientes Inativos] Subir CNPJs na feature-flag · pronto · 2026QD2
+- [[PRD-163933]] — [Explicação Impostos] Remover feature-flag · pronto · 2026QD2
+- [[PRD-163952]] — [CSAT Transbordo] Remover regra que valida campo "id_ticket_atendimento" no Jira · pronto · 2026QD2
+- [[PRD-163772]] — [CSAT Transbordo] Aumentar observabilidade e ajustar regra do campo "due_data" no Jira · pronto · 2026QD2
+- [[PRD-163393]] — Recolocar aba do WhatsApp ativo no Zendesk · pronto · 2026QD2
+- [[PRD-162644]] — Remover mensagem IR da URA Contabilidade · pronto · 2026QD2
+- [[PRD-163436]] — [CSAT Transbordo] Validação fluxo de transbordo experts · pronto · 2026QD2
+- [[PRD-163352]] — [Clientes Inativos] Subir CNPJs na feature-flag · pronto · 2026QD2
+- [[PRD-163238]] — [Diagnostico Imposto] Ajustar base de envio para disparo do dia 15/08/2026 · pronto · 2026QD2
+- [[PRD-162603]] — [Componentes Ricos] Criar template com header img/doc/video · pronto · 2026QD2
+- [[PRD-162532]] — [Componentes Ricos] Enviar var em Header txt · pronto · 2026QD2
+- [[PRD-162494]] — [Componentes Ricos] Permitir Header com var na criação de template · pronto · 2026QD2
+- [[PRD-162125]] — [meta-flow] Linkar resposta do flow ao ativo enviado · pronto · 2026QD2
+- [[PRD-162036]] — [Clientes Inativos] Subir base de CNPJs na feature-flag onda 2 · pronto · 2026QD2
+- [[PRD-161937]] — [meta-flow] Salvar template na resposta do flow · pronto · 2026QD2
+- [[PRD-161762]] — [meta-flow] [experts] adição componente flow e ajuste em novos templates · pronto · 2026QD2
+- [[PRD-161243]] — [meta-flow] [bp] rollout pesquisa · pronto · 2026QD2
+- [[PRD-161003]] — [meta-flow] [bp] desenvolvimento principal e utilitários · pronto · 2026QD2
+- [[PRD-161046]] — [meta-flow] [experts] rollout pesquisa · pronto · 2026QD2
+- [[PRD-160735]] — [meta-flow] Criar pesquisa final, ajustar ultimate e templates · pronto · 2026QD2
+- [[PRD-160527]] — [meta-flow] ajustes para envio de pesquisa · pronto · 2026QD2
+- [[PRD-160351]] — [Clientes Inativos] Subir base de CNPJs na feature-flag e alterar ponteiros · pronto · 2026QD2
+- [[PRD-153624]] — [Clientes Inativos] Ajustes tags, mensagens e feature-flag · pronto · 2026QD2
+- [[PRD-160018]] — [ms-agrupamento-guias] Migrar pub/sub para tf - work item 7 · pronto · 2026QD2
+- [[PRD-159252]] — [meta-flow] [POC] Criar flow e persistir resposta · pronto · 2026QD2
+- [[PRD-159269]] — [diagnostico-aumento-imposto] subir base para disparo 15/07/2026 · pronto · 2026QD2
+- [[PRD-157792]] — Virar V2 N1/N2 · pronto · 2026QD2
+- [[PRD-159103]] — [POC] Validação Técnica de Captura de Dados Nativos via WhatsApp Flows (Caso de Uso: Planejamento Tributário) · pronto · 2026QD2
+- [[PRD-158026]] — [CSAT Transbordo] Feature-flag para executar transbordo · pronto · 2026QD2
+- [[PRD-157805]] — Criar mecanimos de mensagens de aviso para a Ultimate · pronto · 2026QD2
+- [[PRD-157829]] — Inconsistência na Sincronização de Telefones (Plataforma vs. Zendesk) · resolvido-outro-dev · 2026QD2
+- [[PRD-157501]] — Segmentação de Fluxos de Atendimento Wpp ZD – Expert - N1 Ativação e N2 Onboarding - Entrega 02 · pronto · 2026QD2
+- [[PRD-157359]] — 01/07/2026 Virar V1 N1/N2 · pronto · 2026QD2
+- [[PRD-157471]] — Mensagem do jogo da copa 29/06 · pronto · 2026QD2
+- [[PRD-156374]] — [back] Criação de templates com componentes ricos: Header IMG, VIDEO e DOCUMENT · resolvido-outro-dev · 2026QD2
+- [[PRD-154611]] — Segmentação de Fluxos de Atendimento Wpp ZD – Expert - N1 Ativação e N2 Onboarding · pronto · 2026QD2
+- [[PRD-156793]] — 24/06/2026 21:00 Retirar mensagem de jogo do Brasil · pronto · 2026QD2
+- [[PRD-156408]] — MENSAGEM NA URA PARA DIAS DE JOGOS DA COPA DO MUNDO - PRC-141316 - 24/06 · pronto · 2026QD2
+- [[PRD-156622]] — [front] Criação de templates com componentes ricos: Header IMG, VIDEO e DOCUMENT · resolvido-outro-dev · 2026QD2
+- [[PRD-155987]] — Criação de templates com componentes ricos: Exemplos nas variáveis, validações/limites e Footer · pronto · 2026QD2
+- [[PRD-156274]] — Otimizações na notificação de agrupamento de guias · pronto · 2026QD2
+- [[PRD-155690]] — MENSAGEM NA URA PARA DIAS DE JOGOS DA COPA DO MUNDO - PRC-141316 - 19/06 · pronto · 2026QD2
+- [[PRD-155654]] — Criação de templates com componentes ricos: Permissionamento e Preview · pronto · 2026QD2
+- [[PRD-155633]] — Alterar consumer ms-agrupamento-guias no bots-api · pronto · 2026QD2
+- [[PRD-155502]] — Criação de templates com componentes ricos (header txt e botões) · pronto · 2026QD2
+- [[PRD-155157]] — [ms-agrupamento-guias] Migrar crons · pronto · 2026QD2
+- [[PRD-154337]] — Alterar mensagem de erro ao autenticar no chat plataforma · pronto · 2026QD2
+- [[PRD-154929]] — [PRD] Migrar banco de dados e redis do repositório ms-agrupamento-guias para gcp atnd-canais · pronto · 2026QD2
+- [[PRD-155905]] — [CSAT Transbordo] Evolução de Regras CSAT Transbordo: Demandas Preventivas e Cenários de Borda · pronto · 2026QD2
+- [[PRD-154460]] — [DEV] Migrar banco de dados e redis do repositório ms-agrupamento-guias para gcp atnd-canais · pronto · 2026QD2
+- [[PRD-154281]] — [ms-agrupamento-guias] Ajustes no consumo da sub de processar-guia (fintech) · pronto · 2026QD2
+- [[PRD-154246]] — [experts-service] workitem 14 renomear pasta com typo · pronto · 2026QD2
+- [[PRD-154082]] — Migrar pub/sub agrupamento ms-agrupamento-guias para GCP atendimento-canais · pronto · 2026QD2
+- [[PRD-153623]] — [Clientes Inativos] Testes, evidências e ajustes na Ultimate · pronto · 2026QD2
+- [[PRD-153904]] — Migrar pub/sub notificação ms-agrupamento-guias para GCP atendimento-canais · pronto · 2026QD2
+- [[PRD-153625]] — [Clientes Inativos] Retornar motivo endpoint autenticação telefone/cnpj e validações ultimate · pronto · 2026QD2
+- [[PRD-153622]] — [Clientes Inativos] Endpoint listagem inativos e criação intents e ponteiros na ultimate · pronto · 2026QD2
+- [[PRD-153330]] — [business hours] Alterar origem 'CORE' por 'AIDA' · pronto · 2026QD2
+- [[PRD-153132]] — [CNPJ Alfanumérico] Ajustar pipelines com problema · pronto · 2026QD2
+- [[PRD-153118]] — [Explicação Impostos] Melhorar performance busca diagnósticos BP · pronto · 2026QD2
+- [[PRD-152968]] — [CNPJ Alfanumérico] Ajustes finos de adequação de CNPJ V4 · pronto · 2026QD2
+- [[PRD-152934]] — [CNPJ Alfanumérico] Ajustes finos de adequação de CNPJ V3 · pronto · 2026QD2
+- [[PRD-152874]] — [CNPJ Alfanumérico] Ajustes finos de adequação de CNPJ V2 · pronto · 2026QD2
+- [[PRD-152817]] — [CNPJ Alfanumérico] Ajustes finos de adequação de CNPJ · pronto · 2026QD2
+- [[PRD-152674]] — [CNPJ Alfanumérico] Adequação tarefas-assessor-admin · pronto · 2026QD2
+- [[PRD-152667]] — [CNPJ Alfanumérico] Adequação relacionamento-service · pronto · 2026QD2
+- [[PRD-152662]] — [CNPJ Alfanumérico] Adequação experts-admin · pronto · 2026QD2
+- [[PRD-152592]] — [CNPJ Alfanumérico] Adequação experts-scripts · pronto · 2026QD2
+- [[PRD-152578]] — [CNPJ Alfanumérico] Adequação ticketing-service · pronto · 2026QD2
+- [[PRD-152490]] — [CNPJ Alfanumérico] Adequação experts-nfs v2 · pronto · 2026QD2
+- [[PRD-152471]] — [CNPJ Alfanumérico] Adequação ms-agrupamento-guias v2 · pronto · 2026QD2
+- [[PRD-152446]] — [CNPJ Alfanumérico] Adequação experts-service V2 · pronto · 2026QD2
+- [[PRD-152433]] — [CNPJ Alfanumérico] Adequação contabilizei-agents · pronto · 2026QD2
+- [[PRD-152197]] — Estrutura de agendamento task-scheduler no experts-service apontando para o heimdall · pronto · 2026QD2
+- [[PRD-152101]] — [CNPJ Alfanumérico] Adequação experts-service · pronto · 2026QD2
+- [[PRD-148387]] — [Explicação Impostos] Remover trava por tipo de diagnóstico · pronto · 2026QD2
+- [[PRD-147647]] — [CNPJ Alfanumérico] Adequação experts-nfs · pronto · 2026QD2
+- [[PRD-152105]] — [CNPJ Alfanumérico] Adequação ms-agrupamento-guias · pronto · 2026QD2
+- [[PRD-151916]] — [CSAT Transbordo] Testes E2E e Evidências · pronto · 2026QD2
+- [[PRD-151795]] — [CSAT Transbordo 4.3.2] No evento de fechamento ticket off considerar status CSAT_FUP_SLA_16H_EXPIRED_SENT · pronto · 2026QD2
+- [[PRD-151592]] — [CSAT Transbordo 4.3.2] Disparo de ativo em cenário limite - Agendar/Cancelar evento da notificação 16h · pronto · 2026QD2
+- [[PRD-151218]] — [CSAT Transbordo 4.3.2] Disparo de ativo em cenário limite - Endpoint utilitário e Ultimate · pronto · 2026QD2
+- [[PRD-150920]] — [CSAT Transbordo] Padronização do formulário de Ticket OFF para formalização do transbordo · pronto · 2026QD2
+- [[PRD-150809]] — [Depende correção sonar pipeline contabilizei-abertura] Rodar pipe do MR de padronização de telefone · pronto · 2026QD2
+- [[PRD-150691]] — [4/5] [URA] Remover mensagem de feriado 01/05 · pronto · 2026QD2
+
+## 2026QD1 (68)
+
+- [[PRD-150576]] — [Redimensionamento Chat] Atualizar redimensionamento vertical de chat · pronto · 2026QD1
+- [[PRD-150122]] — [Deixar MR pronto] Padronização do telefone submetido na Ativação para o ZD · pronto · 2026QD1
+- [[PRD-150134]] — [Redimensionamento Chat] Atualizar redimensionamento de chat · pronto · 2026QD1
+- [[PRD-150455]] — [Bot Médicos] Revisão de itens legados no bot · resolvido-outro-dev · 2026QD1
+- [[PRD-149515]] — [Envio de Ativo] Número alto de retentativas de envio de ativo · pronto · 2026QD1
+- [[PRD-149507]] — [Envio de Ativo] Número alto de retentativas de envio de ativo · pronto · 2026QD1
+- [[PRD-149337]] — [Explicação Impostos] Ajuste criação duplicada de notificação WPP · pronto · 2026QD1
+- [[PRD-149241]] — [Explicação Impostos] Melhorias na notificação diagnóstico de BP · pronto · 2026QD1
+- [[PRD-149031]] — [Explicação Impostos] Ajustes diversos no ms-agrupamento-guias · pronto · 2026QD1
+- [[PRD-149113]] — [Explicação Impostos] Subir 1.498 CNPJs experts para envio de diagnóstico de AUMENTO_FATURAMENTO · pronto · 2026QD1
+- [[PRD-148930]] — [Explicação Impostos] Mapear uuid template AUMENTO_FATURAMENTO e trava para não disparar outro diagnóstico de aumento de imposto · pronto · 2026QD1
+- [[PRD-148922]] — [Explicação Impostos] Criação/Validação template AUMENTO_FATURAMENTO notificação agrupamento email · pronto · 2026QD1
+- [[PRD-148881]] — [Explicação Impostos] Ajustar template de email default de agrupamento de guias experts · pronto · 2026QD1
+- [[PRD-148390]] — [Explicação Impostos] Rota para chamada da cron e envio de notificação WPP B&P · pronto · 2026QD1
+- [[PRD-147619]] — [Explicação Impostos] Selecionar template do diagnóstico na notificação de agrupamento de Email · pronto · 2026QD1
+- [[PRD-148394]] — [Explicação Impostos] Criação da cron que chama rota de notificação WPP de diagnóstico de B&P · esquecido · 2026QD1
+- [[PRD-148062]] — [Explicação Impostos] Criar feature-flag para envio de notificações de diagnóstico de aumento de impostos WPP · pronto · 2026QD1
+- [[PRD-147979]] — Padronização do telefone submetido na Ativação para o ZD · arquivado · 2026QD1
+- [[PRD-147628]] — [Explicação Impostos] Criação/Validação demais (menos AUMENTO_FATURAMENTO) templates notificação agrupamento email · arquivado · 2026QD1
+- [[PRD-147596]] — [Explicação Impostos] Callback envio de ativo · pronto · 2026QD1
+- [[PRD-147488]] — [Explicação Impostos] Selecionar template do diagnóstico na notificação de agrupamento de Wpp · pronto · 2026QD1
+- [[PRD-147146]] — [Explicação Impostos] Utilitários ms-agrupamento-guias + Teste produção · pronto · 2026QD1
+- [[PRD-146797]] — [Explicação Impostos] Atualizar documentação de notificação de agrupamento de guias · pronto · 2026QD1
+- [[PRD-146795]] — [Explicação Impostos] Callback envio do email de notificação de agrupamento de guia · pronto · 2026QD1
+- [[PRD-146817]] — [Explicação Impostos] Ajustes envio de ativo nova rota com att do envio de email pelo email-service · pronto · 2026QD1
+- [[PRD-146799]] — [Explicação Impostos] Remover endpoint de delete de template no email-service · pronto · 2026QD1
+- [[PRD-146143]] — [Explicação Impostos] Usar novo serviço de envio de email email-service na notificação de agrupamento de guias · pronto · 2026QD1
+- [[PRD-145521]] — [Explicação Impostos] Alterar endpoint legado envio ativo individual experts · pronto · 2026QD1
+- [[PRD-142979]] — [módulo ações] Melhorar consumo de eventos de classificação de nota fiscal · pronto · 2026QD1
+- [[PRD-144792]] — [copilot][envio automático] ajuste debounce · pronto · 2026QD1
+- [[PRD-144313]] — [copilot] documentar ações a serem tomadas para manter qualidade do Copilot Experts em depreciações de modelos · pronto · 2026QD1
+- [[PRD-144504]] — [módulo ações] estudar API pay-to-go da vertex para reduzir custos · esquecido · 2026QD1
+- [[PRD-144502]] — [módulo ações] separar permissão do Concierge do Módulo de ações · resolvido-outro-dev · 2026QD1
+- [[PRD-144501]] — [módulo ações] permissionamento pela flag "actions" no front-end · esquecido · 2026QD1
+- [[PRD-144500]] — [módulo ações] depreciação repo mcp-notas-fiscais · esquecido · 2026QD1
+- [[PRD-143028]] — [módulo ações] não sugerir ações idênticas · pronto · 2026QD1
+- [[PRD-143919]] — [módulo ações] Persistir atendente que a ação foi sugerida · pronto · 2026QD1
+- [[PRD-143664]] — [módulo ações] Sugestão de Ação Parcial · pronto · 2026QD1
+- [[PRD-143338]] — [copilot] Ajustar exibição de geração de perguntas similares no front · pronto · 2026QD1
+- [[PRD-143334]] — [copilot] ajustar prompt filtro de conteúdo relevante com novo modelo · arquivado · 2026QD1
+- [[PRD-143713]] — [copilot] habilitar copilot para carteira · pronto · 2026QD1
+- [[PRD-143679]] — [copilot] processar 4000 tickets na análise de semelhança · pronto · 2026QD1
+- [[PRD-143513]] — [copilot] erro no agrupamento de mensagens da análise de semelhança · pronto · 2026QD1
+- [[PRD-143510]] — [copilot] erro no agrupamento de mensagens da análise de semelhança · pronto · 2026QD1
+- [[PRD-142980]] — [módulo ações] Agente emissão NF sugerir ação parcial + tool busca CEP · pronto · 2026QD1
+- [[PRD-143336]] — [copilot] Criar testes de regressão para futuras trocas de modelo · esquecido · 2026QD1
+- [[PRD-143262]] — [módulo ações] possibilidade de sugerir multiplas ações · esquecido · 2026QD1
+- [[PRD-143225]] — Criação de sessão ações copilot contaminando sessão de outros agentes · pronto · 2026QD1
+- [[PRD-143001]] — [copilot] rodar tickets retroativos 09/02 para análise de semelhança · pronto · 2026QD1
+- [[PRD-142977]] — [módulo ações] Alterar sinalização de quando abrimos Jira na emissão · resolvido-outro-dev · 2026QD1
+- [[PRD-142971]] — [hubspot] configurar kong para o consumer do hubspot · esquecido · 2026QD1
+- [[PRD-142944]] — [copilot] Revisão prompts smalltalk e guardrails (envio automático) com troca de modelo · pronto · 2026QD1
+- [[PRD-139869]] — [Hubspot/ZD] Criar endpoint para consulta de mensagens ativas baseadas no id_message_broker · pronto · 2026QD1
+- [[PRD-142787]] — [copilot] Ausência de dados de análise de semelhança · pronto · 2026QD1
+- [[PRD-142785]] — [copilot] Ausência de dados de análise de semelhança · pronto · 2026QD1
+- [[PRD-142641]] — [copilot] Melhorar observabilidade na análise de semelhança · pronto · 2026QD1
+- [[PRD-142648]] — [copilot] Filtro de mensagens na construção do trecho de conversa · esquecido · 2026QD1
+- [[PRD-142382]] — [copilot] ajustar prompt que gera perguntas similares · pronto · 2026QD1
+- [[PRD-139962]] — [módulo de ações] melhorias emissão de nf · resolvido-outro-dev · 2026QD1
+- [[PRD-132704]] — [módulo de ações] interface/front · pronto · 2026QD1
+- [[PRD-134749]] — [módulo de ações] callback emissão de nf · pronto · 2026QD1
+- [[PRD-138560]] — [módulo de ações] preparação chamada pelo front aceitar/recusar ação · pronto · 2026QD1
+- [[PRD-137732]] — [módulo de ações] chamar tool quando ação é aceita · pronto · 2026QD1
+- [[PRD-137304]] — Não parar processamento do copilot quando acontecer exceção em alguma função · pronto · 2026QD1
+- [[PRD-136676]] — [Bot Trial] Espelhar nova ura multibenefícios - médicos para prod · pronto · 2026QD1
+- [[PRD-136879]] — [Bot Trial] Ajustes homologação · pronto · 2026QD1
+- [[PRD-136790]] — Ajustar soma do valor das notas na função buscar_notas_fiscais_experts · pronto · 2026QD1
+- [[PRD-136496]] — Ajuste função cnaes_atendidos_contabilizei para buscar cnaes por descrição · pronto · 2026QD1
+
+## 2025QD3 (56)
+
+- [[PRD-136467]] — Atualização prompts reescrita geral e emissão de nf copilot experts · pronto · 2025QD3
+- [[PRD-135009]] — [desenvolvimento] Nova Ura multibenefícios - Médicos · pronto · 2025QD3
+- [[PRD-136360]] — Atualização prompt reescrita geral copilot experts [DEV] · pronto · 2025QD3
+- [[PRD-135974]] — Atualizações Debounce Envio Automático Copilot · pronto · 2025QD3
+- [[PRD-135950]] — Autenticação 2 tel internacional sem validar CNPJ/telefone · resolvido-outro-dev · 2025QD3
+- [[PRD-135769]] — Reverter commit que retirou transferência do corujão -> default da automação diária · pronto · 2025QD3
+- [[PRD-135547]] — Tickets Retidos na atualização Corujão -> Default · pronto · 2025QD3
+- [[PRD-135472]] — Tickets Retidos na atualização Corujão -> Default · pronto · 2025QD3
+- [[PRD-134927]] — verificar se atualização de assessor na plataforma plano multibenefícios reflete na zendesk · pronto · 2025QD3
+- [[PRD-134632]] — Falha na Entrega do envio de Guias - Healthy Ecosystem Engagement · resolvido-outro-dev · 2025QD3
+- [[PRD-132702]] — prepação p/ execução de ações de emissão · pronto · 2025QD3
+- [[PRD-133266]] — vincular apenas uma request_id ao envio automático · pronto · 2025QD3
+- [[PRD-132701]] — sugestão de ação de emissão de nf · pronto · 2025QD3
+- [[PRD-132707]] — [módulo ações] agendamento de nf (abertura Jira) ações copilot · esquecido · 2025QD3
+- [[PRD-132706]] — [módulo ações] cancelamento de nf (abertura Jira) ações copilot · arquivado · 2025QD3
+- [[PRD-132559]] — tirar remoção de chave do redis quando processamento está em andamento · pronto · 2025QD3
+- [[PRD-132072]] — adicionar atributo categoria evento classificação e permissionamento das ações · pronto · 2025QD3
+- [[PRD-132320]] — Envio automático em partes enviou 3 respostas quando deveria ter enviado somente 2 · pronto · 2025QD3
+- [[PRD-132310]] — Envio automático em partes enviou 3 respostas quando deveria ter enviado somente 2 · pronto · 2025QD3
+- [[PRD-131810]] — Labels chamadas IA no copilot via Lite LLM (PoC) · pronto · 2025QD3
+- [[PRD-131163]] — enviar resposta automática em partes no copilot experts · pronto · 2025QD3
+- [[PRD-131107]] — adicionar categoria na métrica de envio automático no copilot experts · pronto · 2025QD3
+- [[PRD-130970]] — liberar categoria impostos no envio automático no copilot experts · pronto · 2025QD3
+- [[PRD-130544]] — tempo de espera dinâmico no envio automático por agente e por tema · pronto · 2025QD3
+- [[PRD-128784]] — Função buscar notas fiscais da plataforma, experts-nfs e ticketing-service · pronto · 2025QD3
+- [[PRD-129805]] — Filtrar por instância a busca de jiras no endpoint v2 GET no ticketing-service · arquivado · 2025QD3
+- [[PRD-129804]] — Contemplar dados de NFs no mapeamento v2 no webhook do jira no upsert de réplicas no ticketing-service · arquivado · 2025QD3
+- [[PRD-128406]] — Remover atributo de link de nota quando for nulo · pronto · 2025QD3
+- [[PRD-128666]] — Análise resposta copilot com "Resposta Gerada:" no conteúdo · pronto · 2025QD3
+- [[PRD-128383]] — Encontrar ponto de melhoria para IA identificar período corretamente · pronto · 2025QD3
+- [[PRD-128221]] — Bloquear envio automático caso aconteça uma transferência · pronto · 2025QD3
+- [[PRD-128039]] — Atualização persona experts para ser mais educada e gentil v2 · pronto · 2025QD3
+- [[PRD-128009]] — Retirar "contextual_precision" ragas do validador de resposta e envio automático · pronto · 2025QD3
+- [[PRD-127963]] — Envio de 2 mensagens automáticas consecutivas copilot experts · pronto · 2025QD3
+- [[PRD-127867]] — reverter persona experts · pronto · 2025QD3
+- [[PRD-127741]] — Atualização persona experts para ser mais gentil e educada · pronto · 2025QD3
+- [[PRD-127521]] — Melhorar observabilidade no envio automático · pronto · 2025QD3
+- [[PRD-127460]] — Confusões com data no copilot · pronto · 2025QD3
+- [[PRD-126970]] — Alterar cronômetro fixo do copilot/front para ler eventos · pronto · 2025QD3
+- [[PRD-127459]] — Envio automático de resposta copilot, retirar debounce de agentes específicos · pronto · 2025QD3
+- [[PRD-126978]] — Ajuste prompt guardrails no validador de resposta para envio automático · pronto · 2025QD3
+- [[PRD-126912]] — Retirar debounce de 60s de envio automático de resposta para agente específica · pronto · 2025QD3
+- [[PRD-126706]] — Alterar tempo de início de processamento copilot de 5s para 10s · pronto · 2025QD3
+- [[PRD-126780]] — Copilot parou de funcionar em dev · pronto · 2025QD3
+- [[PRD-124937]] — Aumentar score para 0.7 na busca semântica da base fatpag somente copilot experts · pronto · 2025QD3
+- [[PRD-125807]] — Alguns tickets sem informações de notas fiscais recém emitidas · pronto · 2025QD3
+- [[PRD-125450]] — copilot: função buscar_notas_fiscais por default buscar últimos 2 períodos · pronto · 2025QD3
+- [[PRD-124941]] — Validador e envio automático: Alterar regra de categoria elegível · pronto · 2025QD3
+- [[PRD-125672]] — Prompts de saudação (reescrita) trazendo instruções na resposta · pronto · 2025QD3
+- [[PRD-125594]] — Ajustar prompt smalltalk copilot experts para não trazer a mensagem "Vou verificar oque você precisa" · pronto · 2025QD3
+- [[PRD-125231]] — Copilot colocando nomes aleatórios nos processamentos de saudação · pronto · 2025QD3
+- [[PRD-125221]] — Copilot colocando nomes aleatórios nos processamentos de saudação · pronto · 2025QD3
+- [[PRD-124931]] — Criar prompt de filtro de conteúdo relevante específico de experts · pronto · 2025QD3
+- [[PRD-124927]] — Copilot sugerindo CNAE inválido · pronto · 2025QD3
+- [[PRD-124926]] — Copilot sugerindo CNAE inválido · pronto · 2025QD3
+- [[PRD-124659]] — Adicionar categoria "CNAE" como elegível no envio automático do copilot · pronto · 2025QD3
+
+## 2025QD2 (66)
+
+- [[PRD-124638]] — Liberar função solicitar_recalculo para guardiões específicos no config cat · arquivado · 2025QD2
+- [[PRD-124343]] — Liberar função solicitar_recalculo para agentes específicos no copilot de experts · pronto · 2025QD2
+- [[PRD-124297]] — Detalhar métrica de cancelamento de envio automático copilot experts · pronto · 2025QD2
+- [[PRD-124172]] — Remoção lib i18n local com possível vulnerabilidade · pronto · 2025QD2
+- [[PRD-124140]] — Adicionar contextual recall no ragas do validador e envio automático de resposta no copilot experts · pronto · 2025QD2
+- [[PRD-124127]] — Limpar mensagem de envio automático após mensagem ter sido enviada · pronto · 2025QD2
+- [[PRD-123970]] — Métricas validador do envio automático · pronto · 2025QD2
+- [[PRD-123828]] — Computar Métricas no avaliador e envio automático de respostas · pronto · 2025QD2
+- [[PRD-122785]] — Avaliador de respota e envio automático no copilot · pronto · 2025QD2
+- [[PRD-122408]] — Copilot verificação de plano por tag quando não existir campo 'organization_plano' · pronto · 2025QD2
+- [[PRD-122312]] — alterar apontamento serviço de transcrição no monitoria-ia · pronto · 2025QD2
+- [[PRD-122206]] — Confirmação de execução de ações complexas pelo atendente no copilot · arquivado · 2025QD2
+- [[PRD-121950]] — Copilot transcrever arquivos xlsx · pronto · 2025QD2
+- [[PRD-121598]] — Copilot transcrever arquivos xml · pronto · 2025QD2
+- [[PRD-121428]] — Remover função solicitar_recalculo blocklist copilot experts · arquivado · 2025QD2
+- [[PRD-121353]] — Retirar mensagens de transferência função conversao_extratos_bancarios copilot experts · pronto · 2025QD2
+- [[PRD-121100]] — Criar blocklist funções copilot específica experts · pronto · 2025QD2
+- [[PRD-121167]] — Computar métrica de cópia no histórico no copilot · pronto · 2025QD2
+- [[PRD-120959]] — Remover botão de edição do copilot · pronto · 2025QD2
+- [[PRD-120975]] — Ajustar prompt saudação experts e melhorar obsevabilidade · pronto · 2025QD2
+- [[PRD-120864]] — Função de recálculo copilot experts · pronto · 2025QD2
+- [[PRD-120750]] — Remover gargalo no endpoint de busca de atendimento e remoção de endpoint de deleção visando manter histórico · pronto · 2025QD2
+- [[PRD-120673]] — Adicionar canal junto das conversas na monitoria · pronto · 2025QD2
+- [[PRD-120587]] — Não realizar transcrições repetidas ao chamar endpoint manual do monitoria sem deletar o atendimento antes · pronto · 2025QD2
+- [[PRD-120452]] — Problema de concorrência nas transcrições de arquivos · pronto · 2025QD2
+- [[PRD-120244]] — Cenário experts na função analise_situacao_guia · pronto · 2025QD2
+- [[PRD-120246]] — Enviar executor quando acontece erro em todas transcrições · pronto · 2025QD2
+- [[PRD-120001]] — Botão copiar com caracteres especiais bugados · pronto · 2025QD2
+- [[PRD-119746]] — atualizar prompts de saudação · pronto · 2025QD2
+- [[PRD-117849]] — Atualizar prompt de saudação do Copilot · pronto · 2025QD2
+- [[PRD-119337]] — Função cnaes_empresa não busca cnae_principal corretamente · pronto · 2025QD2
+- [[PRD-118204]] — Exibir o histórico das perguntas/respostas no Copilot (zd) · pronto · 2025QD2
+- [[PRD-118480]] — Atualizar função Copilot de experts que busca impostos · arquivado · 2025QD2
+- [[PRD-118179]] — Função nova de Experts para Copilot para buscar impostos · pronto · 2025QD2
+- [[PRD-118358]] — Copilot, prompts Nota Fiscal Retroativa · pronto · 2025QD2
+- [[PRD-118320]] — Subir prompts Emissão nota fiscal · pronto · 2025QD2
+- [[PRD-118219]] — Copilot ajuste de prompts da arvore de Emissão nota fiscal · pronto · 2025QD2
+- [[PRD-118186]] — Alterando 2 perguntas que vieram no contexto de impostos mas não tem relação com o assunto · pronto · 2025QD2
+- [[PRD-118181]] — Atualização pergunta copilot árvore de Nota Fiscal Retroativa · pronto · 2025QD2
+- [[PRD-117971]] — Avaliar e atualizar (se necessário) prompts de Nf retroativa · pronto · 2025QD2
+- [[PRD-117838]] — Avaliar e atualizar (se necessário) prompts de impostos, árvore "Impostos pendentes ou em atraso" v6 · pronto · 2025QD2
+- [[PRD-117716]] — Avaliar e atualizar (se necessário) prompts de impostos, árvore "Impostos pendentes ou em atraso" v5 · pronto · 2025QD2
+- [[PRD-117692]] — Avaliar e atualizar (se necessário) prompts de impostos, árvore "Impostos pendentes ou em atraso" v4 · pronto · 2025QD2
+- [[PRD-117663]] — Monitoria-IA Atualizar labels para monitorar billing · pronto · 2025QD2
+- [[PRD-117596]] — Avaliar e atualizar (se necessário) prompts de impostos, árvore "Impostos pendentes ou em atraso" v3 · pronto · 2025QD2
+- [[PRD-117452]] — Avaliar e atualizar (se necessário) prompts de impostos, árvore "Impostos pendentes ou em atraso" v2 · pronto · 2025QD2
+- [[PRD-117443]] — Alterar no copilot para usar somente GPT como modelo de embedding para Experts · pronto · 2025QD2
+- [[PRD-117310]] — Avaliar e atualizar (se necessário) prompts de impostos, árvore "Impostos pendentes ou em atraso" · pronto · 2025QD2
+- [[PRD-116735]] — DIsponinbilizar agenda do assesssor para IA · pronto · 2025QD2
+- [[PRD-117019]] — Avaliar e atualizar (se necessário) prompts de impostos · pronto · 2025QD2
+- [[PRD-116643]] — Mapear todas funções · pronto · 2025QD2
+- [[PRD-116400]] — Ajustar tela piscando e sumindo ao baixar o scroll no copilot · pronto · 2025QD2
+- [[PRD-116407]] — correções qualidade monitoria · pronto · 2025QD2
+- [[PRD-116380]] — Tela piscando no app copilot na zendesk · pronto · 2025QD2
+- [[PRD-116144]] — Incluir grupo no banco para encerramento automático e classificação automática · pronto · 2025QD2
+- [[PRD-115947]] — Alterar lib que chama a vertex para conseguir colocar labels (billing) · pronto · 2025QD2
+- [[PRD-115953]] — Incluir usuários para utilizar o app do concierge (copilot) · pronto · 2025QD2
+- [[PRD-115904]] — Refatorações endpoints que busca erros · pronto · 2025QD2
+- [[PRD-115769]] — Endpoint para monitorar erros para refinar prompts · pronto · 2025QD2
+- [[PRD-115487]] — [BE] monitoria-ia | parser: Atendimentos de formulário web sem distinguir nas mensagens se é cliente ou agente · pronto · 2025QD2
+- [[PRD-115479]] — Atendimentos de formulário web sem distinguir nas mensagens se é cliente ou agente · pronto · 2025QD2
+- [[PRD-110566]] — Monitoria com IA - transcrição de arquivos · pronto · 2025QD2
+- [[PRD-109055]] — Monitoria com IA - comportamento · pronto · 2025QD2
+- [[PRD-113651]] — Cadastrar novos grupos para encerramento automático · pronto · 2025QD2
+- [[PRD-113565]] — Cadastrar novos grupos para encerramento automático · pronto · 2025QD2
+- [[PRD-113494]] — Cadastrar novos grupos para encerramento automático · pronto · 2025QD2
+
+## 2025QD1 (29)
+
+- [[PRD-108032]] — Novas regras envio de ativo · pronto · 2025QD1
+- [[PRD-109417]] — Tickets de encerramento automático não sendo reatribuídos aos agentes · pronto · 2025QD1
+- [[PRD-109136]] — Ajuste desconexão automática para quando reconectar cliente remover ele da tabela que encerra atendimento depois de 4h · pronto · 2025QD1
+- [[PRD-108823]] — Sem retorno das notas anteriores - Whatsapp Zendesk · pronto · 2025QD1
+- [[PRD-108796]] — Sem retorno das notas anteriores - Whatsapp Zendesk · pronto · 2025QD1
+- [[PRD-107706]] — guia-imposto-notifier-consumer consumindo evento repetido · pronto · 2025QD1
+- [[PRD-108209]] — [BE] oi-contabilizei-functions | Ajuste endpoint considerar mais status de tickets na busca · pronto · 2025QD1
+- [[PRD-108132]] — Ajustar encerramento automático Experts · pronto · 2025QD1
+- [[PRD-107771]] — [BE] plataforma-web | Ajustar feature flag config cat · pronto · 2025QD1
+- [[PRD-105494]] — Ajustar fluxo da TakeBlip para receber uma nova configuração de mensageria · pronto · 2025QD1
+- [[PRD-106946]] — Problemas no encerramento com IA - Experts · pronto · 2025QD1
+- [[PRD-106783]] — Excluir endpoints deprecated que não estão sendo utilizados na ultimate · pronto · 2025QD1
+- [[PRD-106742]] — Alterar o tempo de espera da IA pra encerramento para 1h · arquivado · 2025QD1
+- [[PRD-105925]] — Melhorias task-scheduler · pronto · 2025QD1
+- [[PRD-106191]] — Ativar fila de disparo de ativos novamente · pronto · 2025QD1
+- [[PRD-101834]] — Incluir campo de busca na tela do novo emissor · pronto · 2025QD1
+- [[PRD-105806]] — Ajustes no envio de ativo e email de guia de impostos · pronto · 2025QD1
+- [[PRD-103936]] — Sinalização de especificidades de relacionamento no Zendesk · pronto · 2025QD1
+- [[PRD-100338]] — Alterar mensagem da URA ao não selecionar opção · pronto · 2025QD1
+- [[PRD-105165]] — Cadastrar grupos no encerramento por IA de experts · pronto · 2025QD1
+- [[PRD-104637]] — Método utilitário opções de menu · pronto · 2025QD1
+- [[PRD-104424]] — Método utilitário para retornar primeiro índice de um array · pronto · 2025QD1
+- [[PRD-104260]] — Tag faturamento faltando em op "falar com fiscal" · pronto · 2025QD1
+- [[PRD-104061]] — Ajuste disparo de e-mail de impostos · pronto · 2025QD1
+- [[PRD-101545]] — Email Guias · pronto · 2025QD1
+- [[PRD-102707]] — Ativo do empacotamento com possibilidade de receber as guias · pronto · 2025QD1
+- [[PRD-103582]] — Elegibilidade nf ext regime · pronto · 2025QD1
+- [[PRD-101122]] — Ativo Guias · pronto · 2025QD1
+- [[PRD-101837]] — Trocar tomador na replicação de nota · arquivado · 2025QD1
+
+## 2024QD3 (10)
+
+- [[PRD-101299]] — Alterar texto emissão ext descr · pronto · 2024QD3
+- [[PRD-101293]] — Alterar a cotação considerada no emissor de NFs para o Exterior · pronto · 2024QD3
+- [[PRD-99220]] — Docs · pronto · 2024QD3
+- [[PRD-99602]] — SSO PT2 · pronto · 2024QD3
+- [[PRD-99472]] — Nova etapa descrição NF Ext · pronto · 2024QD3
+- [[PRD-98893]] — SSO PT1 · pronto · 2024QD3
+- [[PRD-97120]] — Encerramento auto · pronto · 2024QD3
+- [[PRD-90265]] — NF Ext · pronto · 2024QD3
+- [[PRD-94678]] — Alterar texto menu inicial · pronto · 2024QD3
+- [[PRD-92019]] — Config testes RHC · pronto · 2024QD3
+
+## 2024QD2 (6)
+
+- [[PRD-91468]] — Agendamentos transferência de atendimentos · pronto · 2024QD2
+- [[PRD-90721]] — Corrigir ativo não sendo enviado · pronto · 2024QD2
+- [[PRD-88592]] — Ajustes Wpp Ativo · pronto · 2024QD2
+- [[PRD-89849]] — Segurança, travar atnd para clientes não autenticados · pronto · 2024QD2
+- [[PRD-88634]] — Twilio fluxo reclamação · pronto · 2024QD2
+- [[PRD-80587]] — Holerites · pronto · 2024QD2
+
+## 2024QD1 (1)
+
+- [[PRD-77741]] — [Atendimento] [Expert] PRC's indevidos. · resolvido-outro-dev · 2024QD1

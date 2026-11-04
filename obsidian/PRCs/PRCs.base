@@ -1,0 +1,17 @@
+filters:
+  and:
+    - file.inFolder("ctbz/PRCs/itens")
+views:
+  - type: table
+    name: Por recorrência
+    order:
+      - file.name
+      - canal
+      - dominio
+      - sistemas
+      - acr
+      - qtd_ocorrencias
+      - ultima_ocorrencia
+    sort:
+      - property: qtd_ocorrencias
+        direction: DESC

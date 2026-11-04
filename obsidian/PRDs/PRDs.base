@@ -1,0 +1,35 @@
+filters:
+  and:
+    - file.inFolder("ctbz/PRDs/itens")
+views:
+  - type: table
+    name: Todas
+    order:
+      - file.name
+      - titulo
+      - situacao
+      - tipo
+      - periodo
+      - dominio
+      - epico
+      - atuacao
+      - data_referencia
+    sort:
+      - property: data_referencia
+        direction: DESC
+  - type: table
+    name: Prontas
+    filters:
+      and:
+        - situacao == "pronto"
+    order:
+      - file.name
+      - titulo
+      - tipo
+      - periodo
+      - dominio
+      - epico
+      - data_referencia
+    sort:
+      - property: data_referencia
+        direction: DESC

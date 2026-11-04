@@ -1,0 +1,128 @@
+---
+name: pubsub-contabilizei-experts-prd
+description: "Tópicos e subscriptions do Pub/Sub em contabilizei-experts-prd (Experts, prod) com consumidor e repositórios que citam cada um"
+metadata:
+  type: reference
+tags:
+  - infra
+  - pubsub
+atualizado_em: 2026-10-09
+---
+
+# Pub/Sub: contabilizei-experts-prd
+
+Experts, prod. Fotografia de 2026-10-09. Formato: tópico → subscriptions (tipo e consumidor) · repositórios que citam o nome do tópico/subscription em `~/repositories` (`config:` = repos de configuração que citam quase tudo). Ver [[_infra-indice]] para o significado de cada campo.
+
+- **`atendimento-zendesk-ticket-criado-atualizado-banco-de-dados`** (tópico de `contabilizei-crm`) · repos: atendimento-zendesk, experts-drawio, experts-service
+    - `experts-service.sub.csat-fup.ticket-off-closed` (pull, consumidor provável `experts-service`) · repos: experts-service
+    - `experts-service.sub.csat-fup.ticket-off-merged` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`atendimento-zendesk-ticket-criado-atualizado-banco-de-dados`** · repos: atendimento-zendesk, experts-drawio, experts-service
+- **`atendimento-zendesk.erros.atualizar-ticket`** (tópico de `contabilizei-crm`) · repos: atendimento-zendesk, bots-api, experts-service
+    - `experts-service.sub.desconexao.ticket-update-error` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`atendimento-zendesk.whatsapp-ativo-status`** (tópico de `contabilizei-crm`) · repos: atendimento-zendesk, microsservico-agrupamento-guias
+    - `zendesk.status-whatsapp-message.ticket-assessor.v2` (push → Cloud Run `experts-zendesk` /api/v1/uploads/subscription/ack-status-whatsapp-message)
+- **`emissor-callback`** · repos: atendimento-zendesk, experts-nfs
+    - `experts-nfs.sub.ack-nfs-recorrente` (push → Cloud Run `experts-nfs` /v1/worker/notas-recorrentes/ack) · repos: experts-nfs
+    - `experts-nfs.sub.emissor-callback.massivo` (push → Cloud Run `experts-nfs` /v1/massivo/acknowledge) · repos: experts-nfs
+    - `experts-nfs.sub.emissor-callback.whatsapp` (push → Cloud Run `experts-nfs` /v1/emissor-whatsapp/acknowledge) · repos: experts-nfs
+    - `experts-nfs.sub.nfs-jira.send-whatsapp-message` (push → Cloud Run `experts-nfs` /v1/worker/emissor-jira/ack/send-whatsapp-message) · repos: experts-nfs
+    - `experts-nfs.sub.nfs-jira.update-issue` (push → Cloud Run `experts-nfs` /v1/worker/emissor-jira/ack/update-jira-issue, DLQ `experts-nfs.dead-letter`) · repos: experts-nfs
+    - `experts-nfs.sub.v3.emissor-callback.copilot-massivo` (push → Cloud Run `experts-nfs` /v3/emissor/copilot-massivo/callback)
+    - `experts-nfs.sub.v3.emissor-callback.massivo` (push → Cloud Run `experts-nfs` /v3/emissor/massivo/callback) · repos: experts-nfs
+    - `experts-nfs.sub.v3.emissor-callback.result` (push → Cloud Run `experts-nfs` /v3/emissor/callback) · repos: experts-nfs
+    - `experts-nfs.sub.v3.emissor-callback.whatsapp-message` (push → Cloud Run `experts-nfs` /v3/emissor/notify/whatsapp) · repos: experts-nfs
+- **`emissor-experts`** · repos: experts-nfs
+    - `emissor-experts-sub` (pull)
+- **`emissor-individual-emitir`** · repos: experts-drawio
+    - `emissor-individual-emitir-sub` (push → `experts.contabilizei.com.br/v2/emissor-whatsapp/emitir`)
+- **`emissor-massivo-check-issuance`** · repos: emissor-whatsapp, experts-drawio
+    - `emissor-whatsapp-check-issuance` (push → Cloud Run `emissor-whatsapp-massivo` /emissor-whatsapp/massivo/verifica-emissao)
+- **`emissor-massivo-processar`** · repos: emissor-whatsapp, experts-drawio
+    - `emissor-whatsapp-processar` (push → Cloud Run `emissor-whatsapp-massivo` /emissor-whatsapp/massivo/nota-massiva)
+- **`emissor-massivo-reports`** · repos: emissor-whatsapp, experts-drawio, experts-nfs
+    - `emissor-massivo-reports` (push → Cloud Run `emissor-whatsapp-reports` /whatsapp-massivo) · repos: emissor-whatsapp, experts-drawio, experts-nfs
+- **`experts-nfs.bcast.nfs.result`** · repos: experts-nfs, zendesk-agents
+    - `experts-nfs.sub.nfs-result.transbordo-whatsapp` (push → Cloud Run `experts-nfs` /v3/emissor/notify/whatsapp/transbordo)
+- **`experts-nfs.dead-letter`** · repos: experts-nfs
+- **`experts-nfs.p2p.create-nfs-jira`** · repos: experts-nfs
+    - `experts-nfs.sub.create-nfs-jira` (push → Cloud Run `experts-nfs` /v1/emissor-jira) · repos: experts-nfs
+- **`experts-nfs.p2p.nfs.retroativa`** · repos: experts-nfs
+    - `experts-nfs.sub.nfs.retroativa` (push → Cloud Run `experts-nfs` /v1/emissor/retroativa) · repos: experts-nfs
+- **`experts-service.bcast.csat-response`** · repos: experts-service, zendesk-agents
+- **`experts-service.dead-letters`** · repos: experts-service
+- **`experts-service.p2p.csat-fup-sla-16h`** · repos: experts-service
+    - `experts-service.sub.csat-fup-sla-16h` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`experts-service.p2p.desconexao.check-timeout`**
+- **`experts-service.p2p.feedback-hub.create-jira-issue`** · repos: experts-service, js-libraries
+    - `experts-service.sub.feedback-hub.create-jira-issue` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`experts.assessor`** · repos: experts-ms-nps, experts-service, file-transcriber, ms-relatorio-faturamento
+- **`experts.empresa`** · repos: atendimento-zendesk, experts-service, plataforma-back-worker
+    - `experts.empresa__experts-service__events-consumer-sub` (pull, consumidor provável `experts`) · repos: experts-service
+    - `plataforma.update-assessor-empresa-sub` (push → App Engine `contabilizei-back-worker` /rest/auth/experts/assessor) · repos: experts-service
+- **`expired-twilio-tasks`** · repos: experts-dominios-functions, experts-drawio, experts-functions
+    - `expired-twilio-tasks-sub` (push → `experts.contabilizei.com.br/api/twilio/v1/experts-gateway/task-expired/processar`)
+    - `functions.ia-desvio-conduta.single-from-evt.system-deleted.4o-sub` (push → Cloud Run `function-ia-desvio-conduta` /tw/task/single/evt) · repos: experts-dominios-functions, experts-functions
+- **`functions.email-holerites`** · repos: experts-dominios-functions, experts-functions, plataforma-fopag-worker
+    - `eventarc-us-central1-email-holerites-sub-224` (push → Cloud Run `function-email-holerites` /rhc/folha/notificar)
+- **`functions.ia-desvio-conduta.single-from-batch`** · repos: experts-dominios-functions, experts-functions
+    - `functions.ia-desvio-conduta.single-from-batch.3-5-turbo-0125-temp0-sub` (push → Cloud Run `function-ia-desvio-conduta` /tw/task/single/queue) · repos: experts-dominios-functions, experts-functions
+    - `functions.ia-desvio-conduta.single-from-batch.4o-temp0-sub` (push → Cloud Run `function-ia-desvio-conduta` /tw/task/single/queue) · repos: experts-dominios-functions, experts-functions
+- **`functions.ia-desvio-conduta.single_chat-from-batch`** · repos: experts-dominios-functions, experts-functions
+    - `functions.ia-desvio-conduta.single_chat-from-batch-sub` (push → Cloud Run `function-ia-desvio-conduta` /tw/chat/parse-msgs/single/queue) · repos: experts-dominios-functions, experts-functions
+- **`functions.p2p.email-sender`** · repos: experts-dominios-functions, experts-functions
+    - `eventarc-us-central1-email-sender-sub-671` (push → `function-email-sender-gky3vljvwq-uc.a.run.app?__GCP_CloudEventsMode=CUSTOM_PUBSUB_projects%2Fcontabilizei-experts-prd%2Ftopics%2Ffunctions.p2p.email-sender`)
+- **`functions.pendencias-oportunidades`** · repos: experts-dominios-functions, experts-functions
+    - `eventarc-us-central1-pendencias-oportunidades-sub-707` (push → `function-pendencias-oportunidades-gky3vljvwq-uc.a.run.app?__GCP_CloudEventsMode=CUSTOM_PUBSUB_projects%2Fcontabilizei-experts-prd%2Ftopics%2Ffunctions.pendencias-oportunidades`)
+- **`functions.zendesk-organizations-update`**
+    - `eventarc-us-central1-zendesk-organizations-update-sub-792` (push → Cloud Run `function-zendesk-organizations-update` /update_org)
+- **`jira-troca-assessor-elogio-sugestao`** · repos: experts-twilio
+    - `jira-troca-assessor-elogio-sugestao-sub` (push → Cloud Run `experts-gateway-twilio` /v1/feedback-hub/open-feedback-jira-issue)
+- **`nfs.instabilidade-prefeitura`** · repos: experts-twilio
+    - `nfs.instabilidade-prefeitura-sub` (BigQuery → `contabilizei-dataflow.dw_experts_nfs.instabilidade_prefeitura`)
+- **`nfs.non-elegible`** · repos: atendimento-zendesk, experts-nfs, experts-twilio
+    - `nfs.non-elegible-bigquery-sub` (BigQuery → `contabilizei-dataflow.dw_experts_nfs.nota_inelegivel`)
+    - `nfs.non-elegible-nfs-sub` (push → Cloud Run `experts-nfs` /v1/emissor/inelegivel)
+- **`notas-worker.bcast.nfs-concluida`** (tópico de `contabilizeiapp`) · repos: experts-nfs, plataforma-importacao-notas-worker
+    - `experts-nfs.sub.confianca.nfs-concluida` (push → Cloud Run `experts-nfs` /v3/confianca/desfecho, DLQ `experts-nfs.dead-letter`)
+    - `experts-nfs.sub.nfs-concluida` (push → Cloud Run `experts-nfs` /v2/emissor/acknowledge) · repos: experts-nfs
+- **`nps.p2p.save`** · repos: experts-ms-nps
+    - `plataforma.save-nps-sub` (push → App Engine `contabilizei-back-worker` /rest/auth/nps/resposta) · repos: experts-ms-nps
+- **`p2p.update-assessor-empresa`** · repos: experts-service
+    - `experts-service.p2p.update-assessor-empresa.sub` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`pesquisa-nps-whatsapp`** · repos: atendimento-zendesk
+    - `pesquisa-nps-whatsapp-dlq-gcs` (Cloud Storage → `cloud-task-dlq`)
+    - `pesquisa-nps-whatsapp-dlq-local-sub` (pull)
+- **`plataforma.bcast.empresa-alteracao-plano`** · repos: contabilizei-back-core, experts-service
+    - `experts-service.sub.plataforma-alteracao-plano` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`processar-guia-imposto`** (tópico de `fintech-228118`) · repos: contabilizei-back-core, contabilizei-guias, experts-service, microsservico-agrupamento-guias, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `experts-service.sub.guia-imposto` (pull, consumidor provável `experts-service`, DLQ `experts-service.dead-letters`) · repos: experts-service
+- **`processar-guia-imposto`** · repos: contabilizei-back-core, contabilizei-guias, experts-service, microsservico-agrupamento-guias, plataforma-fopag-worker, plataforma-importacao-notas-worker
+- **`relatorio-faturamento.p2p.processing`** · repos: ms-relatorio-faturamento
+    - `relatorio-faturamento.p2p.processing-sub` (pull, consumidor provável `relatorio-faturamento`) · repos: ms-relatorio-faturamento
+- **`status-mensagem-whatsapp`** (tópico de `contabilizei-crm`)
+    - `zendesk.status-whatsapp-message.ticket-assessor` (push → Cloud Run `experts-zendesk` /api/v1/uploads/subscription/ack-status-whatsapp-message)
+- **`submit-single-wpp-message`** · repos: experts-tarefas-assessor, experts-zendesk
+    - `submit-single-wpp-message-sub` (push → `experts.contabilizei.com.br/zendesk/api/v1/uploads/subscription/submit-single-whatsapp-message`)
+- **`teste`**
+- **`ticketing.bcast.ticket-jira`** (tópico de `contabilizei-issue`) · repos: experts-service, ticketing-service
+    - `experts-service.sub.ticket-transbordo.ticket-jira-v1` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`ticketing.bcast.v2.ticket-jira`** (tópico de `contabilizei-issue`) · repos: experts-service, ticketing-service
+    - `experts-service.sub.ticket-transbordo.ticket-jira-v2` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`twilio-metrics-flow`** · repos: emissor-whatsapp, experts-twilio, experts-twilio-flows
+    - `twilio-metrics-flow` (push → Cloud Run `experts-twilio-metrics` /v1/twilio-metrics/pubsub) · repos: emissor-whatsapp, experts-twilio, experts-twilio-flows
+- **`twilio-republish-evts-from-crm`** · repos: experts-dominios-functions, experts-drawio, experts-functions
+    - `functions.ia-desvio-conduta.single-from-evt.task-completed.4o-sub` (push → Cloud Run `function-ia-desvio-conduta` /tw/task/single/evt) · repos: experts-dominios-functions, experts-functions
+- **`twilio-webhooks-tasks`** (tópico de `contabilizei-crm`) · repos: contabilizei-crm-webhooks, experts-dominios-functions, experts-drawio, experts-functions, pipeline
+    - `task-router-events-experts` (push → `experts.contabilizei.com.br/api/twilio/v1/experts-gateway/task-router/events`)
+    - `tw-tasks-republish-to-experts-sub` (push → Cloud Run `experts-async-publisher` /pubsub/twilio-republish-evts-from-crm) · repos: experts-dominios-functions, experts-drawio, experts-functions
+- **`zendesk-tickets-callback`** · repos: experts-drawio, experts-tarefas-assessor, experts-zendesk
+    - `zendesk-tickets-callback-tarefas-organicas-sub` (push → Cloud Run `experts-zendesk` /api/v1/autoclose-tickets/callback-consumer)
+- **`zendesk-tickets-upsert`** · repos: experts-drawio, experts-tarefas-assessor, experts-twilio, experts-zendesk
+    - `zendesk-tickets-upsert-sub` (push → `experts.contabilizei.com.br/zendesk/api/v1/pubsub-consumer/zendesk/upsert`)
+- **`zendesk-trigger.p2p.csat-survey`** · repos: experts-service
+    - `experts-service.sub.run-survey-engine` (pull, consumidor provável `experts-service`) · repos: experts-service
+    - `experts-service.sub.send-csat-fup-atendimento` (pull, consumidor provável `experts-service`) · repos: experts-service
+- **`zendesk-webhooks-conversations`** (tópico de `contabilizei-crm`) · repos: atendimento-api-gateway, atendimento-zendesk, bots-api, contabilizei-crm-webhooks, experts-service, kong-config, pipeline, zendesk-agents
+    - `experts-service.sub.desconexao.evalutate-message-ia` (pull, consumidor provável `experts-service`) · repos: experts-service, pipeline
+- **`zendesk-webhooks-tickets`** (tópico de `contabilizei-crm`) · repos: atendimento-api-gateway, bots-api, contabilizei-crm-webhooks, experts-drawio, experts-service, kong-config, monitoria-ia, pipeline, zendesk-agents
+    - `experts-service.sub.desconexao.create` (pull, consumidor provável `experts-service`) · repos: experts-service

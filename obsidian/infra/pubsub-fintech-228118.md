@@ -1,0 +1,277 @@
+---
+name: pubsub-fintech-228118
+description: "Tópicos e subscriptions do Pub/Sub em fintech-228118 (Fintech, prod) com consumidor e repositórios que citam cada um"
+metadata:
+  type: reference
+tags:
+  - infra
+  - pubsub
+atualizado_em: 2026-10-09
+---
+
+# Pub/Sub: fintech-228118
+
+Fintech, prod. Fotografia de 2026-10-09. Formato: tópico → subscriptions (tipo e consumidor) · repositórios que citam o nome do tópico/subscription em `~/repositories` (`config:` = repos de configuração que citam quase tudo). Ver [[_infra-indice]] para o significado de cada campo.
+
+- **`agendar-transferencia`**
+    - `sub.agendar-transferencia` (pull, consumidor provável `sub`, DLQ `agendar-transferencia-dlq`)
+- **`agendar-transferencia-dlq`**
+    - `sub.agendar-transferencia-dlq` (pull, consumidor provável `sub`)
+- **`alarme-abertura-conta`** · repos: pipeline
+    - `gcf-alarme-abertura-conta-us-central1-alarme-abertura-conta` (push → App Engine `c789d9779360155f0ec3ecb7f21d4a30` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/alarme-abertura-conta)
+- **`alarme-autopilot`** · repos: pipeline
+    - `gcf-alarme-autopilot-us-central1-alarme-autopilot` (push → App Engine `55a226f608a2f026fdb3b82cb3fb3df4` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/alarme-autopilot)
+- **`alarme-importacao-extrato`** · repos: pipeline
+    - `gcf-alarme-importacao-extrato-us-central1-alarme-importacao-extrato` (push → App Engine `2348ee00f9bd3ebd9a871e07988bc146` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/alarme-importacao-extrato)
+- **`alarme-tickets-fintech`** · repos: pipeline
+    - `gcf-alarme-tickets-fintech-us-central1-alarme-tickets-fintech` (push → App Engine `cf459ccedcb10d008d290cea0c520bb9` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/alarme-tickets-fintech)
+- **`alarme-votos-nps`** · repos: pipeline
+    - `gcf-alarme-votos-nps-us-central1-alarme-votos-nps` (push → App Engine `71d6190ccbc651000d7ff23838684912` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/alarme-votos-nps)
+- **`ativar-collections`** · repos: pipeline
+    - `eventarc-us-central1-ativar-collections-703100-sub-900` (push → `ativar-collections-yzhaaqb2rq-uc.a.run.app?__GCP_CloudEventsMode=CUSTOM_PUBSUB_projects%2Ffintech-228118%2Ftopics%2Fativar-collections`)
+- **`atualizar-forma-pagamento`** (tópico de `contabilizei-pagamentos`)
+    - `atualizar-forma-pagamento-fintech-payments-sub` (pull) · repos: fintech-payments
+- **`autopilot-desligamento-clientes-inelegiveis`** · repos: pipeline
+    - `gcf-autopilot-desligamento-clientes-inelegiveis-us-central1-autopilot-desligamento-clientes-inelegiveis` (push → App Engine `4a732f2c1a718e04d343503184acc391` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/autopilot-desligamento-clientes-inelegiveis)
+- **`autopilot-liberacao-novos-clientes`** · repos: pipeline
+    - `gcf-autopilot-liberacao-novos-clientes-us-central1-autopilot-liberacao-novos-clientes` (push → App Engine `57ba5b136f3a0e946d56c45a0a29c9e2` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/autopilot-liberacao-novos-clientes)
+- **`bank.google-chat`**
+- **`boleto-update`**
+    - `boleto-update-sub` (pull)
+- **`bs2-sync-conta`** · repos: pipeline
+    - `gcf-bs2-sync-conta-us-central1-bs2-sync-conta` (push → App Engine `037045790d3d1e174c08ab6dfb7084e1` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/bs2-sync-conta)
+- **`cerc.cadastro-empresa-resultado`**
+    - `collections.cadastro-empresa-resultado-sub` (pull, consumidor provável `collections`)
+- **`cerc.processar-baixa-ur`**
+    - `cerc.processar-baixa-ur-sub` (pull, consumidor provável `cerc`)
+- **`cerc.sync-estabelecimento-comercial`**
+    - `cerc.sync-estabelecimento-comercial-sub` (pull, consumidor provável `cerc`)
+- **`cerc.sync-transacoes`**
+    - `cerc.sync-transacoes-sub` (pull, consumidor provável `cerc`)
+- **`cerc.teste-topico`**
+- **`cerc.webhook`**
+    - `cerc.webhook-sub` (pull, consumidor provável `cerc`)
+- **`check-status-solicitacao`**
+    - `sub.check-status-solicitacao` (pull, consumidor provável `sub`)
+- **`cloud-builds`**
+- **`cobrepj-cadastro-adiq.pre-cadastro`**
+    - `cobrepj-cadastro-adiq.pre-cadastro.sub` (pull, consumidor provável `cobrepj-cadastro-adiq`, DLQ `cobrepj-cadastro-adiq.pre-cadastro-dlq`)
+- **`cobrepj-cadastro-adiq.pre-cadastro-dlq`**
+    - `cobrepj-cadastro-adiq.pre-cadastro-dlq.sub` (pull, consumidor provável `cobrepj-cadastro-adiq`)
+- **`cobrepj-cadastro-adiq.retorno-webhook`**
+    - `cobrepj-cadastro-adiq.retorno-webhook.sub` (pull, consumidor provável `cobrepj-cadastro-adiq`, DLQ `cobrepj-cadastro-adiq.retorno-webhook-dlq`)
+- **`cobrepj-cadastro-adiq.retorno-webhook-dlq`**
+    - `cobrepj-cadastro-adiq.retorno-webhook-dlq.sub` (pull, consumidor provável `cobrepj-cadastro-adiq`)
+- **`collections.agendar-liquidacao`**
+    - `fintech-recebiveis.agendar-liquidacao-sub` (pull, consumidor provável `fintech-recebiveis`) · repos: k8s-configmap
+- **`collections.atualiza-forma-pagamento-adiq`**
+    - `collections.atualiza-forma-pagamento-adiq.sub` (pull, consumidor provável `collections`, DLQ `collections.atualiza-forma-pagamento-adiq-dlq`)
+- **`collections.atualiza-forma-pagamento-adiq-dlq`**
+    - `collections.atualiza-forma-pagamento-adiq-dlq.sub` (pull, consumidor provável `collections`)
+- **`collections.atualizar-dados-empresa`**
+    - `cerc.atualizar-dados-empresa-sub` (pull, consumidor provável `cerc`)
+- **`collections.atualizar-dados-nota-boleto`**
+    - `fintech-nota.atualizar-dados-nota-boleto-sub` (pull, consumidor provável `fintech-nota`)
+- **`collections.criar-jira-conta-bancaria`**
+    - `collections.criar-jira-conta-bancaria-sub` (pull, consumidor provável `collections`)
+- **`collections.criar-jira-pendencia`**
+    - `collections.criar-jira-pendencia-sub` (pull, consumidor provável `collections`)
+- **`collections.gerar-cobranca-recorrente`**
+    - `collections.gerar-cobranca-recorrente-sub` (pull, consumidor provável `collections`)
+- **`collections.notificacao-dados-nota`**
+    - `fintech-nota.notificacao-dados-nota-sub` (pull, consumidor provável `fintech-nota`)
+- **`collections.notificacao-pagamento-efetuado`**
+    - `fintech-nota.notificacao-pagamento-efetuado-sub` (pull, consumidor provável `fintech-nota`)
+- **`collections.notificar-cobranca-cartao-paga`**
+    - `cerc.notificar-cobranca-cartao-paga-sub` (pull, consumidor provável `cerc`)
+- **`collections.notificar-liquidacao-transacao`**
+    - `cerc.processar-liquidacao-transacao-sub` (pull, consumidor provável `cerc`)
+- **`collections.registrar-antecipacao-precontratada`**
+    - `fintech-recebiveis.registrar-antecipacao-precontratada-sub` (pull, consumidor provável `fintech-recebiveis`) · repos: k8s-configmap
+- **`collections.resolver-jira-conta-bancaria`**
+    - `collections.resolver-jira-conta-bancaria-sub` (pull, consumidor provável `collections`)
+- **`collections.resolver-jira-pendencia`**
+    - `collections.resolver-jira-pendencia-sub` (pull, consumidor provável `collections`)
+- **`collections.validar-pendenciamento`**
+    - `collections.validar-pendenciamento-sub` (pull, consumidor provável `collections`)
+- **`collections.webhook-mandrill`**
+    - `collections.webhook-mandrill-sub` (pull, consumidor provável `collections`)
+- **`consulta-saldo-bs2`**
+    - `sub.consulta-saldo-bs2` (pull, consumidor provável `sub`)
+- **`contabilizei-bank.abertura-conta-digital`**
+    - `contabilizei-bank.abertura-conta-digital-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.abertura-conta-digital-validacao-dados`**
+    - `contabilizei-bank.abertura-conta-digital-validacao-dados-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.agendar-pagamento`** · repos: fintech-payments
+    - `contabilizei-bank.agendar-pagamento.sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.atualizar-conta-alias`**
+    - `contabilizei-bank.atualizar-conta-alias-fintech-payments-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `contabilizei-bank.atualizar-conta-alias-fintech-payments-dlq`) · repos: fintech-payments
+- **`contabilizei-bank.atualizar-conta-alias-fintech-payments-dlq`**
+- **`contabilizei-bank.cancelar-agendamento`** · repos: fintech-payments
+    - `contabilizei-bank.cancelar-agendamento-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.contas-baixadas-receita-federal`**
+    - `contabilizei-bank.contas-baixadas-receita-federal-encerramento-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `contabilizei-bank.contas-baixadas-receita-federal-encerramento-dlq`)
+- **`contabilizei-bank.contas-baixadas-receita-federal-encerramento-dlq`**
+- **`contabilizei-bank.criar-conta-bancaria-collections`**
+    - `contabilizei-bank.criar-conta-bancaria-collections-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.criar-conta-bancaria-contabil`**
+    - `contabilizei-bank.criar-conta-bancaria-contabil-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.documento-empresa-abertura`**
+    - `contabilizei-bank.documento-empresa-abertura-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.empresa-validada`**
+- **`contabilizei-bank.hubspot-events-input`** · repos: fintech-payments
+    - `contabilizei-bank.hubspot-events-input-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `contabilizei-bank.hubspot-events-input-dlq`)
+- **`contabilizei-bank.hubspot-events-input-dlq`**
+    - `contabilizei-bank.hubspot-events-input-dlq-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.iniciar-importacao-extrato-mensal`**
+    - `contabilizei-bank.iniciar-importacao-extrato-mensal-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.notificar-agendamento-cancelado`**
+    - `contabilizei-bank.notificar-agendamento-cancelado-sub` (pull, consumidor provável `contabilizei-bank`) · repos: fintech-payments
+- **`contabilizei-bank.notificar-payments`**
+    - `sub.processar-controle-debito-guia-payments` (pull, consumidor provável `sub`) · repos: fintech-payments
+- **`contabilizei-bank.onboarding-contas`**
+    - `contabilizei-bank.onboarding-contas-integracao-bank-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `contabilizei-bank.onboarding-contas-integracao-bank-dlq`)
+    - `contabilizei-bank.onboarding-contas-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.onboarding-contas-integracao-bank-dlq`**
+    - `contabilizei-bank.onboarding-contas-integracao-bank-dlq-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.onboarding-empresa`**
+    - `contabilizei-bank.onboarding-empresa-integracao-bank-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `contabilizei-bank.onboarding-empresa-integracao-bank-dlq`)
+    - `contabilizei-bank.onboarding-empresa-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.onboarding-empresa-integracao-bank-dlq`**
+    - `contabilizei-bank.onboarding-empresa-integracao-bank-dlq-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.onboarding-resultado-kyc-dlq`**
+    - `contabilizei-bank.onboarding-resultado-kyc-dlq-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.onboarding-started`** (tópico de `contabilizei-banking`)
+    - `contabilizei-bank.onboarding-started-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `dlq-contabilizei-bank.onboarding-started`)
+- **`contabilizei-bank.processar-extrato-conta-digital`**
+    - `contabilizei-bank.processar-extrato-conta-digital-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `dlq-processar-extrato-conta-digital`)
+- **`contabilizei-bank.processar-extrato-conta-digital-morpheus`**
+    - `contabilizei-bank.processar-extrato-conta-digital-morpheus-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `dlq-processar-extrato-conta-digital`)
+- **`contabilizei-bank.resultado-kyc`**
+    - `contabilizei-bank.onboarding-resultado-kyc-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `contabilizei-bank.onboarding-resultado-kyc-dlq`)
+    - `contabilizei-bank.resultado-kyc-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.resultado-kyc-dlq`**
+    - `contabilizei-bank.resultado-kyc-dlq-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.retentativa-pagamento-imediato`** · repos: fintech-payments
+    - `contabilizei-bank.retentativa-pagamento-imediato-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.update-extrato`**
+    - `contabilizei-bank.update-extrato-sub` (pull, consumidor provável `contabilizei-bank`)
+- **`contabilizei-bank.webhook-dock`** · repos: pipeline
+    - `contabilizei-bank.sync-pagamentos-manual-sub` (pull, consumidor provável `contabilizei-bank`)
+    - `contabilizei-bank.webhook-dock-sub` (pull, consumidor provável `contabilizei-bank`)
+    - `gcf-dock-webhook-us-central1-contabilizei-bank.webhook-dock` (push → App Engine `2f614efdf5786c81fa782f2fc7759de2` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/contabilizei-bank.webhook-dock)
+- **`container-analysis-notes-v1`**
+- **`container-analysis-notes-v1beta1`**
+- **`container-analysis-occurrences-v1`**
+- **`container-analysis-occurrences-v1beta1`**
+- **`dataflow-streaming-eventos-solicitacao-contas`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+- **`desativar-collections`** · repos: pipeline
+    - `gcf-desativar-collections-us-central1-desativar-collections` (push → App Engine `48bd44557a33935ce0076548dac321c2` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/desativar-collections)
+- **`disparo-campanha`**
+    - `sub.disparo-campanha` (pull, consumidor provável `sub`)
+- **`dlq-contabilizei-bank.onboarding-started`**
+- **`dlq-import-extrato`**
+    - `sub.dlq-import-extrato` (pull, consumidor provável `sub`)
+- **`dlq-processar-extrato-conta-digital`**
+    - `dlq-processar-extrato-conta-digital-sub` (pull)
+- **`dock-webhook-card`**
+    - `dock-webhook-card-sub` (pull, DLQ `dock-webhook-card-dlq`)
+- **`dock-webhook-card-dlq`**
+- **`dock-webhook-payments`**
+    - `dock-webhook-payments-sub` (pull, DLQ `dock-webhook-payments-dlq`)
+- **`dock-webhook-payments-dlq`**
+    - `dock-webhook-payments-dlq-sub` (pull)
+- **`dock-webhook-pix`**
+    - `dock-webhook-pix-sub` (pull, DLQ `dock-webhook-pix-dlq`)
+- **`dock-webhook-pix-dlq`**
+    - `dock-webhook-pix-dlq-sub` (pull)
+- **`dock-webhook-precautionary-block`**
+    - `contabilizei-bank.integracao-bank-precautionary-block-sub` (pull, consumidor provável `contabilizei-bank`, DLQ `dock-webhook-precautionary-block-dlq`)
+- **`dock-webhook-precautionary-block-dlq`**
+    - `contabilizei-bank.integracao-bank-precautionary-block-dlq-sub` (pull, consumidor provável `contabilizei-bank`)
+    - `dock-webhook-precautionary-block-dlq-sub` (pull)
+- **`eventarc-nam5-firestore-default-037`** (Eventarc)
+    - `firestore-default-fintech-pull` (pull)
+- **`eventos-solicitacao-contas-crm`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+- **`financeiro-chat-payments`** · repos: pipeline
+    - `gcf-financeiro-chat-payments-us-central1-financeiro-chat-payments` (push → App Engine `4b5604862f4bb895a6e8b095551507d5` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/financeiro-chat-payments)
+- **`fintech-crm.enviar-email`** · repos: fintech-payments, k8s-configmap
+    - `fintech-crm.enviar-email-sub` (pull, consumidor provável `fintech-crm`)
+- **`fintech-crm.enviar-google-chat`** · repos: fintech-payments
+    - `fintech-crm.enviar-google-chat-sub` (pull, consumidor provável `fintech-crm`)
+- **`fintech-crm.enviar-notificacao`**
+    - `fintech-crm.enviar-notificacao-sub` (pull, consumidor provável `fintech-crm`)
+- **`fintech-crm.enviar-push-notification`** · repos: fintech-payments, k8s-configmap
+    - `fintech-crm.enviar-push-notification-sub` (pull, consumidor provável `fintech-crm`)
+- **`fintech-crm.enviar-whatsapp`**
+    - `fintech-crm.enviar-whatsapp-sub` (pull, consumidor provável `fintech-crm`, DLQ `fintech-crm.enviar-whatsapp.dead`)
+- **`fintech-crm.enviar-whatsapp-sub.dead`**
+- **`fintech-crm.enviar-whatsapp.dead`**
+    - `fintech-crm.enviar-whatsapp-sub.dead` (pull, consumidor provável `fintech-crm`)
+- **`fintech-extrato.solicitar-extrato-consolidado`**
+    - `fintech-extrato.solicitar-extrato-consolidado-sub` (pull, consumidor provável `fintech-extrato`, DLQ `fintech-extrato.solicitar-extrato-consolidado-dlq`)
+- **`fintech-extrato.solicitar-extrato-consolidado-dlq`**
+    - `fintech-extrato.solicitar-extrato-consolidado-dlq-sub` (pull, consumidor provável `fintech-extrato`)
+- **`fintech-recebiveis.notificacao-015`** · repos: k8s-configmap
+    - `collections.notificacao-015-externa-precontratada-sub` (pull, consumidor provável `collections`)
+- **`fintech-recebiveis.retorno-liquidacao`** · repos: k8s-configmap
+    - `collections.retorno-liquidacao-sub` (pull, consumidor provável `collections`)
+- **`fintech-recebiveis.retorno-registro-antecipacao-precontratada`** · repos: k8s-configmap
+    - `collections.retorno-registro-antecipacao-precontratada-sub` (pull, consumidor provável `collections`)
+- **`fintech.update-extrato`** · repos: experts-contabil
+    - `fintech-web.update-extrato-sub` (push → App Engine `default` /fintech/rest/extrato-fintech/import-semanal/cnpj)
+- **`firestore-default-fintech-dlq`**
+- **`importacao-extrato-clientes-bs2`**
+    - `sub.importacao-extrato-clientes-bs2` (pull, consumidor provável `sub`, DLQ `importacao-extrato-clientes-bs2-dead`)
+- **`importacao-extrato-clientes-bs2-dead`**
+    - `sub.importacao-extrato-clientes-bs2-dead` (pull, consumidor provável `sub`)
+- **`integracao-cobrancas.seller-analisado`**
+    - `integracao-cobrancas.seller-analisado-sub` (pull, consumidor provável `integracao-cobrancas`, DLQ `integracao-cobrancas.seller-analisado-dlq`)
+- **`integracao-cobrancas.seller-analisado-dlq`**
+    - `integracao-cobrancas.seller-analisado-dlq-sub` (pull, consumidor provável `integracao-cobrancas`)
+- **`notificacao-autopilot`**
+    - `sub.notificacao-autopilot` (pull, consumidor provável `sub`)
+- **`notificacao-cobrancas`**
+    - `sub.notificacao-cobrancas` (pull, consumidor provável `sub`)
+- **`oferta-da-payments`** · repos: pipeline
+    - `gcf-oferta-da-payments-us-central1-oferta-da-payments` (push → App Engine `4c0db41c869ad7c6d4589313a4c6b9e1` /_ah/push-handlers/pubsub/projects/fintech-228118/topics/oferta-da-payments)
+- **`oferta-da-payments-debito`** · repos: pipeline
+    - `eventarc-us-central1-oferta-da-payments-debito-125293-sub-471` (push → `oferta-da-payments-debito-yzhaaqb2rq-uc.a.run.app?__GCP_CloudEventsMode=CUSTOM_PUBSUB_projects%2Ffintech-228118%2Ftopics%2Foferta-da-payments-debito`)
+    - `eventarc-us-central1-trigger-nwh6f1q2-sub-057` (push → Cloud Run `oferta-da-payments-debito` /oferta-da-payments-debito)
+- **`pagamento.automatico.agendar-pagamento`**
+    - `pagamento.automatico.agendar-pagamento-sub` (pull, consumidor provável `pagamento`)
+- **`payments.criar-lote-pagamento-recorrente`** · repos: fintech-payments
+    - `payments.criar-lote-recorrente-sub` (pull, consumidor provável `payments`) · repos: fintech-payments
+- **`payments.enviar-dados-lote-para-fintech-web`** · repos: fintech-payments
+    - `payments.enviar-dados-lote-para-fintech-web-sub` (pull, consumidor provável `payments`) · repos: fintech-payments
+- **`payments.notificacao-email-pagamento-recorrente`** · repos: fintech-payments
+    - `payments.notificacao-email-pagamento-recorrente-sub` (pull, consumidor provável `payments`) · repos: fintech-payments
+- **`payments.oferta-debito-automatico`**
+- **`payments.pagar-lote-recorrente`** · repos: fintech-payments
+    - `payments.pagar-lote-recorrente-sub` (pull, consumidor provável `payments`) · repos: fintech-payments
+- **`processar-empresa-pagamentos`**
+- **`processar-faturas`** · repos: contabilizei-pagamentos
+    - `sub.processar-faturas` (pull, consumidor provável `sub`)
+    - `sub.processar-faturas-payments` (pull, consumidor provável `sub`) · repos: fintech-payments
+- **`processar-guia-imposto`** · repos: contabilizei-back-core, contabilizei-guias, experts-service, microsservico-agrupamento-guias, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `sub.processar-guia-imposto-auto-pilot` (pull, consumidor provável `sub`)
+    - `sub.processar-guia-imposto-auto-pilot-historico` (pull, consumidor provável `sub`)
+    - `sub.processar-guia-imposto-payments` (pull, consumidor provável `sub`) · repos: fintech-payments
+- **`processar-guia-impostos-dead`**
+- **`relatorios-recebidos-adyen`**
+    - `relatorios-recebidos-adyen-sub` (pull)
+- **`solicitar-pagamento-empresa`**
+    - `sub.solicitar-pagamento-empresa` (pull, consumidor provável `sub`)
+- **`sync-pagamento-transfeera`**
+    - `sync-pagamento-transfeera-sub` (pull)
+- **`sync-sms-enviado`**
+    - `sub.sync-sms-enviado` (pull, consumidor provável `sub`)
+- **`tomador-servico`** (tópico de `contabilizei-notas`)
+    - `tomador-servico-to-cliente` (push → App Engine `default` /pubsub/tomador/salvar)
+- **`update-empresa`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `sub.update-empresa` (pull, consumidor provável `sub`)
+    - `sub.update-empresa-clientes` (push → App Engine `default` /pubsub/empresas/create)
+    - `sub.update-empresa-cobrancas` (pull, consumidor provável `sub`)
+    - `sub.update-empresa-crm` (pull, consumidor provável `sub`)
+    - `sub.update-empresa-payments` (pull, consumidor provável `sub`) · repos: fintech-payments
+- **`update-integracao-conta-bancaria`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker

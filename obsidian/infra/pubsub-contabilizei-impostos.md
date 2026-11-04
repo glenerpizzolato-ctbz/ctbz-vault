@@ -1,0 +1,441 @@
+---
+name: pubsub-contabilizei-impostos
+description: "Tópicos e subscriptions do Pub/Sub em contabilizei-impostos (Impostos, prod) com consumidor e repositórios que citam cada um"
+metadata:
+  type: reference
+tags:
+  - infra
+  - pubsub
+atualizado_em: 2026-10-09
+---
+
+# Pub/Sub: contabilizei-impostos
+
+Impostos, prod. Fotografia de 2026-10-09. Formato: tópico → subscriptions (tipo e consumidor) · repositórios que citam o nome do tópico/subscription em `~/repositories` (`config:` = repos de configuração que citam quase tudo). Ver [[_infra-indice]] para o significado de cada campo.
+
+- **`adiciona-tag-intercom`**
+- **`agrupar-guias-empresa`** · repos: microsservico-agrupamento-guias, plataforma-faturamento-worker
+    - `sub.agrupar-guias-empresa` (pull, consumidor provável `sub`) · repos: microsservico-agrupamento-guias
+- **`agrupar-guias-empresa-retry`** · repos: microsservico-agrupamento-guias
+    - `sub.agrupar-guias-empresa-retry` (pull, consumidor provável `sub`) · repos: microsservico-agrupamento-guias
+- **`answer-pgdas`**
+    - `dados.answer.pgdas` (push → App Engine `faturamento-worker` /rest/das/auth/processar/transmissao)
+- **`atualizar-proxy-tfe-bh`**
+    - `dados.atualizar-proxy-tfe-bh` (pull, consumidor provável `dados`)
+- **`audit-inss`** · repos: contabilizei-back-core, contabilizei-guias, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.audit-inss` (pull, consumidor provável `dados`)
+- **`audit-inss-retorno`**
+    - `dados.audit-inss-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/auditGuiaInss/auditRetorno)
+- **`audit-pagamentos-tfe`** · repos: plataforma-back-worker, plataforma-central-rotinas, plataforma-crm-web, plataforma-faturamento-worker, plataforma-fopag-worker, plataforma-importacao-notas-worker, plataforma-monolito, plataforma-web
+    - `dados.audit-pagamentos-tfe` (pull, consumidor provável `dados`)
+- **`audit-pagamentos-tfe-retorno`**
+    - `dados.audit-pagamentos-tfe-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/auditPagamentosTfe/processaRetornoAuditPagamentos)
+- **`audit-pagamentos-tfe-retry`**
+    - `dados.audit-pagamentos-tfe-retry` (pull, consumidor provável `dados`)
+- **`audit-parcelamento-especial`** · repos: plataforma-back-worker, plataforma-central-rotinas, plataforma-crm-web, plataforma-faturamento-worker, plataforma-fopag-worker, plataforma-importacao-notas-worker, plataforma-monolito, plataforma-web
+    - `dados.audit-parcelamento-especial` (pull, consumidor provável `dados`)
+- **`audit-parcelamento-especial-retorno`**
+    - `dados.audit-parcelamento-especial-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/parcelamentoEspecial/auditParcelamentoEspecialRetorno)
+- **`audit-parcelamento-especial-retry`**
+    - `dados.audit-parcelamento-especial-retry` (pull, consumidor provável `dados`)
+- **`audit-simples-ecac`** · repos: contabilizei-back-core, contabilizei-guias, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.audit-simples-ecac` (pull, consumidor provável `dados`)
+- **`audit-simples-ecac-retorno`**
+    - `dados.audit-simples-ecac-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/auditGuiaSimplesEcac/auditRetorno)
+- **`baixa-imposto-das`**
+- **`buscar-baixa-das`** · repos: contabilizei-guias
+    - `dados.buscar-baixa-das-prod` (pull, consumidor provável `dados`) · repos: pipeline
+- **`buscar-baixa-das-anterior`** · repos: contabilizei-guias
+    - `dados.buscar-baixa-das-anterior-prod` (pull, consumidor provável `dados`) · repos: pipeline
+- **`buscar-baixa-das-anterior-response`**
+- **`buscar-dados-empresa-pre-fator-r`**
+    - `dados.buscar-dados-empresa-pre-fator-r` (pull, consumidor provável `dados`)
+- **`buscar-dados-empresa-pre-fator-r-retry`**
+    - `dados.buscar-dados-empresa-pre-fator-r-retry` (pull, consumidor provável `dados`)
+- **`buscar-faturamento`**
+    - `dados.buscar-faturamento` (pull, consumidor provável `dados`)
+- **`buscar-informacoes-inss`**
+    - `dados.buscar-informacoes-inss` (pull, consumidor provável `dados`)
+- **`cadastro-senha-dataprev`**
+    - `dados.cadastro-senha-dataprev` (pull, consumidor provável `dados`)
+- **`cadastro-senha-dataprev-retorno`**
+    - `dados.cadastro-senha-dataprev-retorno` (push → App Engine `faturamento-worker` /rest/worker/processarDataprev/auth/finalizarRegistro)
+- **`calcula-impostos-nota-tomada`** · repos: contabilizei-impostos, plataforma-faturamento-worker
+    - `dados.calcula-impostos-nota-tomada` (push → App Engine `faturamento-worker` /rest/worker/impostopagar/auth/calcula-impostos-nota-tomada, DLQ `calcula-impostos-nota-tomada-callback-erro`)
+- **`calcula-impostos-nota-tomada-callback-erro`**
+    - `sub.calcula-impostos-nota-tomada-callback-erro` (push → App Engine `contabilizei-impostos-worker` /api/v1/darf-unificado/callback-erro)
+- **`calcular-impostos-lucro-presumido`** · repos: plataforma-faturamento-worker
+    - `dados.calcular-impostos-lucro-presumido` (push → App Engine `contabilizei-impostos-worker` /api/v1/imposto-lucro-presumido/calcular, DLQ `calcular-impostos-lucro-presumido-DLQ`)
+- **`calcular-impostos-lucro-presumido-DLQ`**
+    - `sub-calcular-impostos-lucro-presumido-DLQ` (pull)
+- **`callback-calculo-impostos-nota-tomada`** · repos: plataforma-faturamento-worker
+    - `dados.callback-calculo-impostos-nota-tomada` (push → App Engine `contabilizei-impostos-worker` /api/v1/darf-unificado/callback, DLQ `callback-calculo-impostos-nota-tomada-DLQ`)
+- **`callback-calculo-impostos-nota-tomada-DLQ`**
+    - `sub-callback-calculo-impostos-nota-tomada-DLQ` (pull)
+- **`callback-pgdas`**
+    - `dados.callback-pgdas` (push → App Engine `contabilizei-impostos-worker` /api/v1/pgdas/transmissao/callback)
+- **`callback-plataforma-confirmar-mes`** · repos: contabilizei-guias
+    - `dados-callback-plataforma-confirmar-mes` (push → App Engine `faturamento-worker` /rest/mescontabil/auth/confirma-mes-contabil)
+- **`callback.plataforma`** · repos: contabilizei-guias, contabilizei-impostos
+    - `dados.callback.plataforma` (push → App Engine `default` /rest/moduloImpostos/auth/seta-mes-contabil-erro-negocio)
+- **`cloud-builds`**
+- **`cobranca.recalculo.guia`** · repos: contabilizei-guias
+- **`confirmar-mes-lucro-presumido`** · repos: contabilizei-guias
+    - `dados.confirmar-mes-lucro-presumido` (push → App Engine `faturamento-worker` /rest/moduloImpostos/auth/finalizar-mes-lucro-presumido)
+- **`consulta-regime-tributario`**
+    - `dados.consulta-regime-tributario` (pull, consumidor provável `dados`)
+- **`consulta-sitfis-DLQ`**
+- **`consulta-situacao-fiscal`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.consulta-situacao-fiscal` (pull, consumidor provável `dados`)
+- **`consulta-situacao-fiscal-retorno`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.consulta-situacao-fiscal-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/situacaoFiscal/processarConsultaSituacaoFiscal)
+- **`consultar-desenquadramento-dte`** · repos: plataforma-faturamento-worker
+    - `dados.consultar-desenquadramento-dte` (pull, consumidor provável `dados`)
+- **`consultar-desenquadramento-dte-retorno`**
+    - `dados.consultar-desenquadramento-dte-retorno` (push → App Engine `faturamento-worker` /rest/controleDesenquadramentoSimples/auth/processaCallback)
+- **`consultar-desenquadramento-dte-retry`**
+    - `dados.consultar-desenquadramento-dte-retry` (pull, consumidor provável `dados`)
+- **`consultar-tfe`** · repos: plataforma-back-worker, plataforma-central-rotinas, plataforma-crm-web, plataforma-faturamento-worker, plataforma-fopag-worker, plataforma-importacao-notas-worker, plataforma-monolito, plataforma-web
+    - `dados.consultar-tfe` (pull, consumidor provável `dados`)
+- **`consultar-tfe-retorno`**
+    - `dados.consultar-tfe-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/tfe/processarRetornoConsultarTfe)
+- **`consultar-tfe-retry`**
+    - `dados.consultar-tfe-retry` (pull, consumidor provável `dados`)
+- **`contabilizei-integrador-robo`**
+    - `dados.contabilizei-integrador-robo` (pull, consumidor provável `dados`, DLQ `robos-retorno-dlq`)
+- **`contabilizei-robos`**
+    - `contabilizei-robos-pull-temp-rafael.andrade` (pull, consumidor provável `contabilizei-robos-pull-temp-rafael`)
+    - `contabilizei-robos-sub` (push → Cloud Run `contabilizei-robos-prd` /pubsub/push, DLQ `robos-dlq`)
+- **`contabilizei-robos-alertas`**
+    - `sub-contabilizei-robos-alertas` (pull)
+- **`crawler-pgfn-consulta-parcelamento`**
+    - `crawler-pgfn-consulta-parcelamento-sub` (pull, DLQ `crawler-pgfn-consulta-parcelamento-dead-letter`)
+- **`crawler-pgfn-retorno-emitir-parcela`**
+    - `crawler-pgfn-retorno-emitir-parcela-sub` (push → App Engine `contabilizei-guias-worker` /api/v1/parcelaPgfn/processarRetornoEmissao)
+- **`criar-empresa-pre-fator-r`** · repos: plataforma-faturamento-worker
+    - `dados.criar-empresa-pre-fator-r` (pull, consumidor provável `dados`)
+- **`dados-eng-dead-letter-topic`**
+- **`darf-entrada`** · repos: contabilizei-back-core, contabilizei-guias, plataforma-faturamento-worker, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `darf-sicalc-push` (push → Cloud Run `emissor-guias-darf-sicalc` /emissao-darf-sicalc)
+- **`darf-saida`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.darf-saida` (push → App Engine `contabilizei-guias-worker` /api/v1/guia-lucro-presumido/auth/callbackDarf) · repos: contabilizei-back-core, contabilizei-guias
+- **`efetivar-perfil-fator-r`** · repos: contabilizei-impostos
+    - `dados.efetivar-perfil-fator-r` (push → App Engine `faturamento-worker` /rest/worker/perfilamento/efetiva-perfil-fator-r)
+- **`efetivar-status-empresa-pre-fator-r`**
+    - `dados.efetivar-status-empresa-pre-fator-r` (pull, consumidor provável `dados`)
+- **`efetivar-status-empresa-pre-fator-r-retry`**
+    - `dados.efetivar-status-empresa-pre-fator-r-retry` (pull, consumidor provável `dados`)
+- **`emitir-parcela`** · repos: contabilizei-guias
+    - `dados.emitir-parcela` (pull, consumidor provável `dados`)
+- **`emitir-parcela-info-simples-callback`**
+    - `dados.emitir-parcela-info-simples-callback` (pull, consumidor provável `dados`)
+- **`emitir-parcela-pgfn`** · repos: contabilizei-guias
+    - `dados.emitir-parcela-pgfn` (pull, consumidor provável `dados`)
+- **`emitir-parcela-retorno`**
+    - `emitir-parcela-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/parcela/processarRetornoEmissao)
+- **`emitir-parcela-retry`**
+    - `dados.emitir-parcela-retry` (pull, consumidor provável `dados`)
+- **`empresa-criada`**
+    - `gestao-eventos-snh-empresa-criada` (pull, DLQ `empresa-criada-dlq`)
+- **`empresa-criada-dlq`**
+    - `gestao-eventos-snh-empresa-criada-dlq` (pull)
+- **`enquadramento-regime-tributario`**
+    - `consulta-enquadramento-final` (pull, DLQ `enquadramento-regime-tributario-DLQ`) · repos: plataforma-faturamento-worker
+    - `consulta-enquadramento-inicial` (pull, DLQ `enquadramento-regime-tributario-DLQ`) · repos: plataforma-faturamento-worker
+    - `consulta-solicitacao-enquadramento` (pull, DLQ `enquadramento-regime-tributario-DLQ`) · repos: plataforma-faturamento-worker
+    - `solicita-enquadramento` (pull) · repos: plataforma-faturamento-worker
+    - `troca-regime-tributario-final` (pull, DLQ `enquadramento-regime-tributario-DLQ`) · repos: plataforma-faturamento-worker
+    - `troca-regime-tributario-lp` (pull, DLQ `enquadramento-regime-tributario-DLQ`) · repos: plataforma-faturamento-worker
+    - `troca-regime-tributario-restricao-cidade` (pull, DLQ `enquadramento-regime-tributario-DLQ`) · repos: plataforma-faturamento-worker
+- **`enquadramento-regime-tributario-DLQ`**
+    - `consulta-enquadramento-final-DLQ` (pull)
+    - `consulta-enquadramento-inicial-DLQ` (pull)
+    - `consulta-solicitacao-enquadramento-DLQ` (pull)
+    - `solicita-enquadramento-DLQ` (pull)
+    - `troca-regime-tributario-final-DLQ` (pull)
+    - `troca-regime-tributario-lp-DLQ` (pull)
+    - `troca-regime-tributario-restricao-cidade-DLQ` (pull)
+- **`escrituracao.exclusao.guia`**
+- **`escrituracao.update.guia`**
+- **`eventarc-nam5-dados-streaming-service-188`** (Eventarc)
+- **`finalizar-importacao-lucro-presumido`** · repos: contabilizei-guias, plataforma-faturamento-worker
+    - `dados.finalizar-importacao-lucro-presumido` (push → App Engine `faturamento-worker` /rest/moduloImpostos/auth/finalizar-importacao-lucro-presumido)
+- **`gerar-darf-inss-avulsa`** · repos: contabilizei-guias
+    - `dados.gerar-darf-inss-avulsa` (pull, consumidor provável `dados`)
+- **`gerar-darf-inss-avulsa-retorno`**
+    - `dados.gerar-darf-inss-avulsa-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/darf-inss-avulsa/processaRetorno)
+- **`gerar-darf-inss-avulsa-retry`**
+    - `dados.gerar-darf-inss-avulsa-retry` (pull, consumidor provável `dados`)
+- **`gerar-das`** · repos: contabilizei-back-core, pipeline
+    - `dados.gerar-das` (push → App Engine `contabilizei-guias-worker` /api/v1/guiaReceita/gera)
+- **`gerar-das-avulsa`** · repos: contabilizei-guias
+    - `dados.gerar-das-avulsa` (pull, consumidor provável `dados`)
+- **`gerar-das-avulsa-response`**
+    - `dados.gerar-das-avulsa-response` (push → App Engine `contabilizei-guias-worker` /api/v1/dasAvulsa/processaRetorno)
+- **`gerar-das-avulsa-retry`**
+    - `dados.gerar-das-avulsa-retry` (pull, consumidor provável `dados`)
+- **`gerar-guia-darf`** · repos: contabilizei-guias
+    - `dados.gerar-guia-darf` (pull, consumidor provável `dados`)
+- **`gerar-guia-darf-retorno`**
+    - `dados.gerar-guia-darf-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/processamentoGuiaMesImposto/processaRetorno)
+- **`gerar-guia-darf-retry`**
+    - `dados.gerar-guia-darf-retry` (pull, consumidor provável `dados`)
+- **`gerar-guia-das`** · repos: contabilizei-guias
+    - `dados.gerar-guia-das` (pull, consumidor provável `dados`)
+- **`gerar-guia-das-retry`**
+    - `dados.gerar-guia-das-retry` (pull, consumidor provável `dados`)
+- **`gerar-imposto-composicao-darf-unificado`** · repos: plataforma-fopag-worker
+    - `dados.gerar-imposto-composicao-darf-unificado` (push → App Engine `contabilizei-impostos-worker` /api/v1/imposto-composicao/DARF_UNIFICADO)
+- **`gerar-imposto-folha-fgts`** · repos: plataforma-fopag-worker
+    - `gerar-imposto-folha-fgts-sub` (push → App Engine `contabilizei-impostos-worker` /api/v1/impostosFolha/processar, DLQ `gerar-imposto-folha-fgts-sub-DLQ`)
+- **`gerar-imposto-folha-fgts-sub-DLQ`**
+    - `sub-gerar-imposto-folha-fgts-DLQ` (pull)
+- **`gerar-iss`** · repos: contabilizei-guias, plataforma-faturamento-worker
+    - `dados.gerar-iss` (pull, consumidor provável `dados`)
+    - `dados.gerar-iss-sp` (pull, consumidor provável `dados`)
+- **`gerar-iss-retorno`**
+    - `dados.gerar-iss-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/guia-lucro-presumido/auth/callbackIss) · repos: plataforma-faturamento-worker
+- **`gerar-iss-retorno-DLQ`**
+- **`gerar-iss-sp-retry`**
+    - `dados.gerar-iss-sp-retry` (pull, consumidor provável `dados`)
+- **`gerar-tfe`** · repos: contabilizei-guias, plataforma-back-worker, plataforma-central-rotinas, plataforma-crm-web, plataforma-faturamento-worker, plataforma-fopag-worker, plataforma-importacao-notas-worker, plataforma-monolito, plataforma-web
+    - `dados.gerar-tfe` (pull, consumidor provável `dados`, DLQ `gerar-tfe-DLQ`)
+    - `dados.gerar-tfe-temporario` (pull, consumidor provável `dados`)
+- **`gerar-tfe-DLQ`**
+    - `dados-gerar-tfe-DLQ` (pull)
+- **`gerar-tfe-retorno`**
+    - `dados.gerar-tfe-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/tfe/processarRetornoGerarTfe)
+- **`gerar-tfe-retry`**
+    - `dados.gerar-tfe-retry` (pull, consumidor provável `dados`)
+- **`gestao-regime-tributario`** · repos: plataforma-faturamento-worker
+    - `dados.gestao-regime-tributario` (pull, consumidor provável `dados`)
+- **`gps-solicita-recalculo`** · repos: contabilizei-back-core, plataforma-faturamento-worker
+    - `dados.gps-solicita-recalculo` (pull, consumidor provável `dados`)
+- **`gps-solicita-recalculo-retorno`**
+    - `dados.gps-solicita-recalculo-retorno` (push → App Engine `faturamento-worker` /rest/gps/auth/callbackSolicitacaoRecalculo)
+- **`guia-darf-entrada`**
+    - `dados.guia-darf-entrada` (pull, consumidor provável `dados`)
+- **`guia-darf-saida`**
+    - `dados.guia-darf-saida` (pull, consumidor provável `dados`)
+- **`importar-guias-empresa`** · repos: contabilizei-impostos
+    - `dados.importar-guias-empresa` (push → App Engine `contabilizei-guias-worker` /api/v1/importacao-guia/importar)
+- **`integra-contador`** · repos: plataforma-faturamento-worker
+    - `sub.caixapostal-ic` (pull, consumidor provável `sub`)
+    - `sub.dctfweb-ic` (pull, consumidor provável `sub`)
+    - `sub.defis-ic` (pull, consumidor provável `sub`)
+    - `sub.eventosatualizacao-ic` (pull, consumidor provável `sub`)
+    - `sub.mit-ic` (pull, consumidor provável `sub`)
+    - `sub.pagtoweb-ic` (pull, consumidor provável `sub`)
+    - `sub.parcsn-ic` (pull, consumidor provável `sub`)
+    - `sub.pgdasd-ic` (pull, consumidor provável `sub`)
+    - `sub.pgmei-ic` (pull, consumidor provável `sub`)
+    - `sub.procuracoes-ic` (pull, consumidor provável `sub`)
+    - `sub.regimeapuracao-ic` (pull, consumidor provável `sub`)
+    - `sub.sicalc-ic` (pull, consumidor provável `sub`)
+    - `sub.sitfis-ic` (pull, consumidor provável `sub`)
+- **`integra-contador-auditor`**
+    - `sub.integra-contador-auditor` (BigQuery → `contabilizei-impostos.integra_contador_auditoria.requisicoes`, DLQ `integra-contador-auditor-DLQ`)
+- **`integra-contador-auditor-DLQ`**
+    - `sub.integra-contador-auditor-DLQ` (BigQuery → `contabilizei-impostos.integra_contador_auditoria.requisicoes`)
+- **`integra-contador-dctfweb-deadletter`**
+    - `sub.obrigacoes-service-dctfweb-consulta-recibo-dlq` (pull, consumidor provável `sub`)
+    - `sub.obrigacoes-service-dctfweb-declaracao-completa-dlq` (pull, consumidor provável `sub`)
+- **`integra-contador-defis-deadletter`**
+    - `integra-contador-defis-deadletter-sub` (pull)
+- **`integra-contador-mit-deadletter`**
+    - `integra-contador-mit-deadletter-sub` (pull)
+- **`integra-contador-retorno`**
+    - `darf-sicalc-retorno` (push → Cloud Run `emissor-guias-darf-sicalc` /emissao-darf-sicalc/retorno)
+    - `sub.caixa-postal-retorno` (pull, consumidor provável `sub`)
+    - `sub.consulta-declaracao-retorno` (pull, consumidor provável `sub`)
+    - `sub.consulta-pagamentos-impostos` (pull, consumidor provável `sub`)
+    - `sub.consulta-sitfis` (push → Cloud Run `contabilizei-sitfis-worker-prd` /v0/retorno, DLQ `consulta-sitfis-DLQ`)
+    - `sub.gerar-das-retorno` (pull, consumidor provável `sub`)
+    - `sub.guia-darf-inss` (pull, consumidor provável `sub`)
+    - `sub.obrigacoes-service-dctfweb-consulta-recibo` (pull, consumidor provável `sub`, DLQ `integra-contador-dctfweb-deadletter`)
+    - `sub.obrigacoes-service-dctfweb-declaracao-completa` (pull, consumidor provável `sub`, DLQ `integra-contador-dctfweb-deadletter`)
+    - `sub.obrigacoes-service-dctfweb-transmissao` (pull, consumidor provável `sub`, DLQ `integra-contador-dctfweb-deadletter`)
+    - `sub.obrigacoes-service-dctfweb-xml-declaracao` (pull, consumidor provável `sub`, DLQ `integra-contador-dctfweb-deadletter`)
+    - `sub.opcao-regime-apuracao` (push → Cloud Run `regime-apuracao-pgdas` /retorno-integra-contador, DLQ `opcao-regime-apuracao-dead-letter`)
+    - `sub.parcsn-ic-retorno-emissao` (pull, consumidor provável `sub`)
+    - `sub.parcsn-ic-retorno-sincronizacao` (pull, consumidor provável `sub`)
+    - `sub.parcsn-retorno` (pull, consumidor provável `sub`)
+    - `sub.recibo-defis-retorno` (pull, consumidor provável `sub`, DLQ `integra-contador-defis-deadletter`)
+    - `sub.recibo-mit-retorno` (pull, consumidor provável `sub`, DLQ `integra-contador-mit-deadletter`)
+    - `sub.retorno-consulta-eventos-impostos` (pull, consumidor provável `sub`)
+    - `sub.transmitir-defis-retorno` (pull, consumidor provável `sub`, DLQ `integra-contador-defis-deadletter`)
+    - `sub.transmitir-mit-retorno` (pull, consumidor provável `sub`, DLQ `integra-contador-mit-deadletter`)
+    - `transmitir-pgdas-retorno` (pull)
+- **`local-sink-vazio`**
+    - `dados.local-sink-vazio` (pull, consumidor provável `dados`)
+- **`mes-contabil-listener`** · repos: contabilizei-back-core, plataforma-importacao-notas-worker
+- **`migrar-impostos-lucro-presumido`** · repos: plataforma-faturamento-worker
+    - `dados.migrar-impostos-lucro-presumido` (push → App Engine `contabilizei-impostos-worker` /api/v1/importacao-empresa/importar)
+- **`notifica-alteracao-manual-socio`** (tópico de `contabilizei-obrigacoes-core`)
+    - `sub-notifica-alteracao-manual-socio` (push → App Engine `contabilizei-impostos-worker` /api/v1/fator-r/notifica-alteracao-socio/notificar, DLQ `notificacao-alteracao-socio-DLQ`)
+- **`notificacao-alteracao-socio-DLQ`**
+    - `sub-notificacao-alteracao-socio-DLQ` (pull)
+- **`notificacao-grupo-guia-email`** · repos: microsservico-agrupamento-guias
+- **`notificacao-grupo-guia-whatsapp`** · repos: microsservico-agrupamento-guias
+- **`notificacao-guia-email`** · repos: microsservico-agrupamento-guias
+    - `sub.notificacao-guia-email` (pull, consumidor provável `sub`)
+- **`notificacao-transmissao-dctfweb-mit`** (tópico de `contabilizei-obrigacoes-core`)
+    - `sub-notificacao-transmissao-dctfweb-mit` (push → App Engine `contabilizei-guias-worker` /api/v1/guia-lucro-presumido/notifica-transmissao-dctfweb-mit, DLQ `notificacao-transmissao-dctfweb-mit-DLQ`)
+- **`notificacao-transmissao-dctfweb-mit-DLQ`**
+    - `sub-notificacao-transmissao-dctfweb-mit-DLQ` (pull)
+- **`notificacao.recalculo.guia`** · repos: contabilizei-guias
+    - `notificacao.recalculo.guia` (push → App Engine `faturamento-worker` /rest/moduloImpostos/auth/enviarNotificacaoRecalculo) · repos: contabilizei-guias
+- **`notificacao.vencimento.guia`** · repos: contabilizei-guias
+    - `dados.notificacao.vencimento` (push → App Engine `faturamento-worker` /rest/moduloImpostos/auth/enviarNotificacaoVencimentoGuia)
+- **`notificacao.vencimento.guia.homol`**
+- **`notificacao.vencimento.parcela`** · repos: contabilizei-guias
+    - `notificacao.vencimento.parcela` (push → App Engine `faturamento-worker` /rest/moduloImpostos/auth/enviarNotificacaoVencimentoParcela) · repos: contabilizei-guias
+- **`notificar-alteracao-inss-darf`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.notificar-alteracao-inss-darf` (push → App Engine `contabilizei-impostos-worker` /api/v1/impostosFolha/processar)
+- **`notificar-liberacao-guia-tfe`** · repos: contabilizei-guias
+    - `dados.notificar-email-tfe` (push → App Engine `default` /rest/moduloImpostos/auth/enviarNotificacaoGuiaTfe)
+- **`notificar-liberacao-guias-compra`** · repos: contabilizei-guias
+    - `dados.notificar-liberacao-guias-compra` (push → App Engine `faturamento-worker` /rest/moduloImpostos/auth/enviarNotificacaoGuiasCompra)
+- **`notificar-liberacao-parcela-guia`** · repos: contabilizei-guias
+    - `notificar-liberacao-parcela-guia` (push → App Engine `default` /rest/moduloImpostos/auth/enviarNotificacaoLiberacaoParcela) · repos: contabilizei-guias
+- **`opcao-regime-apuracao-dead-letter`**
+    - `opcao-regime-apuracao-dead-letter-sub` (pull)
+- **`optar-regime-apuracao`**
+    - `dados.optar-regime-apuracao` (pull, consumidor provável `dados`)
+- **`optar-regime-apuracao-retry`**
+    - `dados.optar-regime-apuracao-retry` (pull, consumidor provável `dados`)
+- **`parcelamento-rpa-callback`** · repos: k8s-configmap
+- **`processar-empresa-pre-fator-r`**
+    - `dados.processar-empresa-pre-fator-r` (pull, consumidor provável `dados`)
+- **`processar-empresa-pre-fator-r-retry`**
+    - `dados.processar-empresa-pre-fator-r-retry` (pull, consumidor provável `dados`)
+- **`processar-guia`**
+- **`processar-guia-imposto`** (tópico de `fintech-228118`) · repos: contabilizei-back-core, contabilizei-guias, experts-service, microsservico-agrupamento-guias, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `sub.processar-guia-imposto-impostos` (pull, consumidor provável `sub`) · repos: microsservico-agrupamento-guias
+- **`processar-impostos`**
+    - `dados.processar-impostos-push` (push → App Engine `contabilizei-impostos-worker` /api/v1/impostos/processar, DLQ `processar-impostos-DLQ`) · repos: contabilizei-impostos
+- **`processar-impostos-DLQ`**
+    - `sub-processar-impostos-DLQ` (pull)
+- **`processar-impostos-homol`**
+- **`recalcular-guia-das`** · repos: contabilizei-guias
+    - `dados.recalcular-guia-das` (pull, consumidor provável `dados`)
+- **`recalculo-iss`** · repos: contabilizei-guias, plataforma-faturamento-worker
+    - `dados.recalculo-iss` (pull, consumidor provável `dados`)
+    - `dados.recalculo-iss-sp` (pull, consumidor provável `dados`)
+- **`recalculo-iss-retorno`**
+    - `dados.recalculo-iss-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/guia-lucro-presumido/auth/callbackRecalculoIss)
+- **`recalculo-iss-sp-retry`**
+    - `dados.recalculo-iss-sp-retry` (pull, consumidor provável `dados`)
+- **`recalculo.guia`**
+- **`reexecutar-status-pre-fator-r`** · publicado por scheduler `reexecucao-diaria-pre-motor-fator-r`, `reexecucao-mensal-pre-motor-fator-r`
+    - `dados.reexecutar-status-pre-fator-r` (pull, consumidor provável `dados`)
+- **`refresh-rate-limit`**
+    - `dados.refresh-rate-limit` (pull, consumidor provável `dados`)
+- **`regime-apuracao-pgdas-retorno`**
+    - `sub-regime-apuracao-pgdas-retorno` (push → App Engine `faturamento-worker` /rest/auth/mescontabil/callback-regime-apuracao, DLQ `regime-apuracao-pgdas-retorno-dlq`)
+- **`regime-apuracao-pgdas-retorno-dlq`**
+    - `sub-regime-apuracao-pgdas-retorno-dlq` (push → App Engine `faturamento-worker` /rest/auth/mescontabil/callback-regime-apuracao/dlq)
+- **`response-audit-guia`**
+    - `response-audit-guia` (push → App Engine `contabilizei-guias-worker` /api/v1/auditGuia/processaRetorno)
+- **`response-baixa-das`**
+    - `dados.response-baixa-das` (push → App Engine `contabilizei-guias-worker` /api/v1/controlePagamentoGuia/baixadas)
+- **`resposta-ecac`**
+- **`robos-dlq`**
+    - `robos-dlq-sub` (pull)
+- **`robos-retorno`**
+    - `gestao-enquadramento-sub` (pull)
+    - `sub-geracao-contabilizei-guias` (push → App Engine `contabilizei-guias-worker` /api/v1/robosRetorno/processarRetorno, DLQ `robos-retorno-dlq`)
+- **`robos-retorno-dlq`**
+    - `sub-geracao-contabilizei-guias-DLQ` (push → App Engine `contabilizei-guias-worker` /api/v1/robosRetorno/processarRetornoDlq)
+- **`rpa-regularize-pgfn`** · repos: contabilizei-guias, k8s-configmap
+    - `rpa-regularize-pgfn-sub` (pull) · repos: k8s-configmap
+- **`rpa-simples-nacional`** · repos: k8s-configmap
+    - `rpa-simples-nacional-sub` (pull) · repos: k8s-configmap
+- **`rpa-simples-nacional-teste`** · repos: contabilizei-guias
+    - `sub-rpa-simples-nacional-teste` (pull)
+- **`simular-transmissao-pgdas`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.simular-transmissao-pgdas` (pull, consumidor provável `dados`)
+- **`simular-transmissao-pgdas-retry`**
+    - `dados.simular-transmissao-pgdas-retry` (pull, consumidor provável `dados`)
+- **`sitfis-eventos`**
+- **`sitfis-extracao-dados`**
+    - `dados.sitfis-extracao-dados` (push → Cloud Run `contabilizei-sitfis-worker-prd` /v0/extracao-dados, DLQ `sitfis-extracao-dados-DLQ`)
+- **`sitfis-extracao-dados-DLQ`**
+- **`snh-alteracao-modalidade`**
+    - `plataforma-monolito-alteracao-modalidade` (push → App Engine `default` /rest/auth/modalidade-simples-nacional, DLQ `snh-alteracao-modalidade-dlq`)
+- **`snh-alteracao-modalidade-dlq`**
+    - `gestao-eventos-snh-alteracao-modalidade-dlq` (pull)
+- **`snh-alteracao-modalidade-resultado`**
+    - `gestao-eventos-snh-alteracao-modalidade-resultado` (pull, DLQ `snh-alteracao-modalidade-dlq`)
+- **`snh-alteracao-modalidade-trigger`** · publicado por scheduler `gestao-eventos-snh-publicacao-modalidade`
+    - `gestao-eventos-snh-alteracao-modalidade-trigger` (pull, DLQ `snh-alteracao-modalidade-trigger-dlq`)
+- **`snh-alteracao-modalidade-trigger-dlq`**
+    - `gestao-eventos-snh-alteracao-modalidade-trigger-dlq` (pull)
+- **`snh-lifecycle-events`**
+    - `snh-lifecycle-events-bq-sub` (BigQuery → `contabilizei-impostos:reforma_tributaria.snh_lifecycle_events_v1`)
+- **`snh-lifecycle-events-dlq`**
+- **`transmitir-pgdas`** · repos: plataforma-faturamento-worker
+    - `transmitir-pgdas-integra-contador` (pull)
+    - `transmitir-pgdas-robo` (pull)
+- **`transmitir-pgdas-ic`**
+    - `dados.transmitir-pgdas-ic` (pull, consumidor provável `dados`)
+- **`transmitir-pgdas-retry`**
+    - `transmitir-pgdas-retry` (pull)
+- **`update-guia`** · repos: contabilizei-back-core
+    - `dados.update-guia` (push → App Engine `contabilizei-guias-worker` /api/v1/guia/update)
+- **`update-guia-batch`** · repos: contabilizei-back-core
+- **`varredura-dte`** · repos: plataforma-faturamento-worker
+    - `dados.varredura-dte` (pull, consumidor provável `dados`)
+- **`varredura-dte-retorno`**
+    - `dados.varredura-dte-retorno` (push → App Engine `faturamento-worker` /rest/varreduraDte/auth/processaCallback)
+- **`varredura-dte-retry`**
+    - `dados.varredura-dte-retry` (pull, consumidor provável `dados`)
+- **`verifica-pagamento-dataprev-retorno`**
+    - `dados.verifica-pagamento-dataprev-retorno` (push → App Engine `faturamento-worker` /rest/worker/processarDataprev/auth/callbackVerificaPagamento)
+- **`verificador-dctf`**
+- **`verificador-dctf-retorno`**
+- **`verificador-pendencias`** · repos: plataforma-back-worker, plataforma-central-rotinas, plataforma-crm-web, plataforma-faturamento-worker, plataforma-fopag-worker, plataforma-importacao-notas-worker, plataforma-monolito, plataforma-web
+    - `dados.verificador-pendencias` (pull, consumidor provável `dados`)
+- **`verificador-pendencias-cnd`** · repos: plataforma-back-worker, plataforma-central-rotinas, plataforma-crm-web, plataforma-faturamento-worker, plataforma-fopag-worker, plataforma-importacao-notas-worker, plataforma-monolito, plataforma-web
+    - `dados.verificador-pendencias-cnd` (pull, consumidor provável `dados`)
+- **`verificador-pendencias-cnd-retorno`**
+    - `dados.verificador-pendencias-cnd-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/verificadorPendencias/processarVerificadorPendenciasCnd)
+- **`verificador-pendencias-divida-ativa`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.verificador-pendencias-divida-ativa` (pull, consumidor provável `dados`)
+- **`verificador-pendencias-divida-ativa-retorno`**
+    - `verificador-pendencias-divida-ativa-retorno-sub` (push → App Engine `contabilizei-guias-worker` /api/v1/verificadorPendencias/processarVerificadorPendenciasDividaAtiva)
+- **`verificador-pendencias-retorno`**
+    - `dados.verificador-pendencias-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/verificadorPendencias/processarVerificadorPendencias)
+- **`verificar-cancelamento-parcelamento`** · repos: contabilizei-guias
+    - `dados.verificar-cancelamento-parcelamento` (pull, consumidor provável `dados`)
+- **`verificar-cancelamento-parcelamento-retorno`** · repos: k8s-configmap
+    - `dados.verificar-cancelamento-parcelamento-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/parcelamento/processarRetornoVerificarCancelamento)
+- **`verificar-cancelamento-parcelamento-retry`**
+    - `dados.verificar-cancelamento-parcelamento-retry` (pull, consumidor provável `dados`)
+- **`verificar-pagamento`** · repos: contabilizei-guias
+    - `dados.verificar-pagamento` (pull, consumidor provável `dados`)
+- **`verificar-pagamento-darf`** · repos: contabilizei-back-core, contabilizei-guias, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.verificar-pagamento-darf` (pull, consumidor provável `dados`)
+- **`verificar-pagamento-darf-retorno`**
+    - `dados.verificar-pagamento-darf-retorno` (push → App Engine `default` /rest/verificaPagamentoAutomatico/auth/callbackVerificaPagamentoGuiaDarf)
+- **`verificar-pagamento-darf-retorno-guias`**
+    - `dados.verificar-pagamento-darf-retorno-guias` (push → App Engine `contabilizei-guias-worker` /api/v1/controlePagamentoGuia/callbackVerificacaoPagamentoDarf)
+- **`verificar-pagamento-darf-retry`**
+    - `dados.verificar-pagamento-darf-retry` (pull, consumidor provável `dados`)
+- **`verificar-pagamento-retorno`**
+- **`verificar-pagamento-retry`**
+    - `dados.verificar-pagamento-retry` (pull, consumidor provável `dados`)
+- **`verificar-pagamento-tfe`** · repos: contabilizei-guias
+    - `dados.verificar-pagamento-tfe` (pull, consumidor provável `dados`)
+- **`verificar-pagamento-tfe-retorno`**
+    - `dados.verificar-pagamento-tfe-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/auditPagamentosTfe/retornoVerificaPagamento)
+- **`verificar-pagamento-tfe-retry`**
+    - `dados.verificar-pagamento-tfe-retry` (pull, consumidor provável `dados`)
+- **`verificar-sincronizacao-parcelamento`** · repos: contabilizei-guias
+    - `dados.verificar-sincronizacao-parcelamento` (pull, consumidor provável `dados`)
+- **`verificar-sincronizacao-parcelamento-retorno`**
+    - `dados.verificar-sincronizacao-parcelamento-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/parcelamento-sync/retorno-sync)
+- **`vinculo-certificado`** · repos: contabilizei-back-core, plataforma-fopag-worker, plataforma-importacao-notas-worker
+    - `dados.vinculo-certificado` (pull, consumidor provável `dados`)
+- **`vinculo-certificado-retorno`**
+    - `dados.vinculo-certificado-retorno` (push → App Engine `contabilizei-guias-worker` /api/v1/acessoGovBr/processarRetornoVinculoCertificado)

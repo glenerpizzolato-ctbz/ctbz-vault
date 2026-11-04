@@ -1,0 +1,21 @@
+meta {
+  name: buscar-por-telefone
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/atendimento/zendesk/bots/whatsapp/plataforma/atendimento/v2/bots/whatsapp/dados-cliente/buscar-por-telefone
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "telefone": "{{telefone}}"
+  }
+}
+
+docs {
+  CNPJs e categoriaPlano vinculados ao telefone (precisa começar com +), em empresasAtivasOuRascunho, empresasInativas e empresasQualquerStatus.
+}

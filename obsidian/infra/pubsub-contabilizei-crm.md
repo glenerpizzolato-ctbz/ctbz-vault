@@ -1,0 +1,317 @@
+---
+name: pubsub-contabilizei-crm
+description: "Tópicos e subscriptions do Pub/Sub em contabilizei-crm (CRM, prod) com consumidor e repositórios que citam cada um"
+metadata:
+  type: reference
+tags:
+  - infra
+  - pubsub
+atualizado_em: 2026-10-09
+---
+
+# Pub/Sub: contabilizei-crm
+
+CRM, prod. Fotografia de 2026-10-09. Formato: tópico → subscriptions (tipo e consumidor) · repositórios que citam o nome do tópico/subscription em `~/repositories` (`config:` = repos de configuração que citam quase tudo). Ver [[_infra-indice]] para o significado de cada campo.
+
+- **`(tópico apagado)`**
+    - `atendimento-zendesk-encerramento-enviar-fila-espera-sub` (pull)
+    - `atendimento-zendesk-encerramento-enviar-para-em-espera-local-sub` (pull)
+- **`aceite-distribuicao-de-lucros-e-envio-informe-de-rendimentos`**
+    - `aceite-distribuicao-de-lucros-e-envio-informe-de-rendimentos-pull` (pull)
+    - `aceite-distribuicao-de-lucros-e-envio-informe-de-rendimentos-push` (push → Cloud Run `contabilizei-comprovante-rendimentos` /api/v1/worker/aceite-distrubuicao-de-lucros-e-envio-ir)
+- **`aida-classifier-classification-event`** (tópico de `aida-prd`) · repos: aida-classifier, zendesk-agents
+    - `zendesk-agents.sub.v1.copilot-actions` (pull, consumidor provável `zendesk-agents`) · repos: zendesk-agents
+- **`alterar-plano-upgrade`**
+    - `alterar-plano-upgrade-pull` (pull, DLQ `alterar-plano-upgrade-dead-messages`)
+- **`alterar-plano-upgrade-dead-messages`**
+    - `alterar-plano-upgrade-dead-messages-pull` (pull)
+- **`atendimento-zendesk-agregador-conversa`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-agregador-conversa-sub` (pull)
+- **`atendimento-zendesk-atualizar-registro-ticket-formalizacao-sem-interacao`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-atualizar-registro-ticket-formalizacao-sem-interacao-sub` (pull)
+- **`atendimento-zendesk-atualizar-ticket`** · repos: aida-back, atendimento-api-gateway, atendimento-zendesk, bots-api, canais-adk, contabilizei-agents, contabilizei-crm-webhooks, experts-service, kong-config, pipeline, zendesk-agents
+    - `atendimento-zendesk-atualizar-ticket-sub` (pull)
+- **`atendimento-zendesk-chat-carregamento-dados-integracoes`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-chat-carregamento-dados-integracoes-sub` (pull)
+- **`atendimento-zendesk-classificacao-automatica-fechamento-tickets`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-classificacao-automatica-fechamento-tickets-sub` (pull)
+- **`atendimento-zendesk-criar-ticket`** · repos: atendimento-zendesk, bots-api
+    - `atendimento-zendesk-criar-ticket-sub` (pull)
+- **`atendimento-zendesk-desconexao-atualizar-ticket-na-zendesk`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-desconexao-atualizar-ticket-na-zendesk-sub` (pull)
+- **`atendimento-zendesk-desconexao-cliente-nao-deseja-continuar`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-desconexao-cliente-nao-deseja-continuar-sub` (pull)
+- **`atendimento-zendesk-desconexao-criar-novo-ticket-atendimento`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-desconexao-criar-novo-ticket-atendimento-sub` (pull)
+- **`atendimento-zendesk-desconexao-envio-de-mensagem-na-conversa`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-desconexao-envio-de-mensagem-na-conversa-sub` (pull)
+- **`atendimento-zendesk-desconexao-manual`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-desconexao-manual-sub` (pull)
+- **`atendimento-zendesk-desconexao-mensagem-cliente-desconectado`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-desconexao-mensagem-cliente-desconectado-sub` (pull)
+- **`atendimento-zendesk-desconexao-reconectar-atendimento-no-mesmo-ticket`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-desconexao-reconectar-atendimento-no-mesmo-ticket-sub` (pull)
+- **`atendimento-zendesk-encerramento-atualizar-ticket-na-zendesk`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-encerramento-atualizar-ticket-na-zendesk-sub` (pull)
+- **`atendimento-zendesk-encerramento-automatico-executar-ia`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-encerramento-automatico-executar-ia-sub` (pull)
+- **`atendimento-zendesk-encerramento-enviar-para-em-espera`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-encerramento-enviar-para-em-espera-sub` (pull)
+- **`atendimento-zendesk-enviar-arquivo-ticket`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-enviar-arquivo-ticket-sub` (pull)
+- **`atendimento-zendesk-enviar-atividade-sunshine`**
+    - `atendimento-zendesk-enviar-atividade-sunshine-sub` (pull)
+- **`atendimento-zendesk-enviar-mensagem-com-documento`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-enviar-mensagem-com-documento-sub` (pull)
+- **`atendimento-zendesk-enviar-mensagem-sunshine`** · repos: aida-back, atendimento-zendesk, bots-api, zendesk-agents
+    - `atendimento-zendesk-enviar-mensagem-sunshine-sub` (pull)
+- **`atendimento-zendesk-enviar-mensagem-sunshine-dlq`**
+    - `atendimento-zendesk-enviar-mensagem-sunshine-dlq-sub` (pull)
+- **`atendimento-zendesk-full-conversation`** · repos: atendimento-zendesk, monitoria-ia
+    - `atendimento-zendesk-full-conversation-resumo-atendimento-sub` (pull)
+- **`atendimento-zendesk-notificar-cliente-desconexao`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-notificar-cliente-desconexao-sub` (pull)
+- **`atendimento-zendesk-replicacao-tempo-real-bq-agentes-status`**
+    - `atendimento-zendesk-replicacao-tempo-real-bq-agentes-status-dataflow-sub` (pull)
+- **`atendimento-zendesk-replicacao-tempo-real-bq-tickets`**
+    - `atendimento-zendesk-replicacao-tempo-real-bq-tickets-dataflow-sub` (pull)
+- **`atendimento-zendesk-rotina-comentario-interno-cliente-em-fila`**
+    - `atendimento-zendesk-rotina-comentario-interno-cliente-em-fila-sub` (pull)
+- **`atendimento-zendesk-rotina-mensagem-cliente-em-fila`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-rotina-mensagem-cliente-em-fila-sub` (pull)
+- **`atendimento-zendesk-rotina-sincronizacao-agentes`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-rotina-sincronizacao-agentes-sub` (pull)
+- **`atendimento-zendesk-rotina-sincronizacao-grupos`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-rotina-sincronizacao-grupos-sub` (pull)
+- **`atendimento-zendesk-ticket-criado-atualizado-banco-de-dados`** · repos: atendimento-zendesk, experts-drawio, experts-service
+    - `atendimento-zendesk-ticket-criado-atualizado-banco-de-dados-atualizar-atribuicoes-agente-sub` (pull)
+    - `atendimento-zendesk-ticket-criado-atualizado-banco-de-dados-local-sub` (pull)
+    - `atendimento-zendesk-ticket-criado-atualizado-banco-de-dados-notificar-agente-sub` (pull)
+    - `atendimento-zendesk-ticket-criado-atualizado-banco-de-dados-registrar-evento-transferencia-sub` (pull)
+    - `atendimento-zendesk-ticket-criado-atualizado-banco-de-dados-replicar-bq-sub` (pull)
+    - `atendimento-zendesk-ticket-criado-atualizado-banco-de-dados-salvar-dados-de-conversation-no-ticket-sub` (pull)
+    - `atendimento-zendesk-ticket-criado-atualizado-banco-de-dados-sincronizar-organizacao-sub` (pull)
+- **`atendimento-zendesk-whatsapp-ativo-comentario-privado`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-whatsapp-ativo-comentario-privado-local-sub` (pull)
+    - `atendimento-zendesk-whatsapp-ativo-comentario-privado-sub` (pull)
+- **`atendimento-zendesk-whatsapp-carregamento-dados-integracoes`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-whatsapp-carregamento-dados-integracoes-sub` (pull)
+- **`atendimento-zendesk-whatsapp-experts-carregar-integracoes`** · repos: atendimento-zendesk, bots-api
+    - `atendimento-zendesk-whatsapp-experts-carregar-integracoes-sub` (pull)
+- **`atendimento-zendesk.envio-whatsapp-ativo`** · repos: atendimento-zendesk, experts-nfs, experts-service, js-libraries, microsservico-agrupamento-guias
+    - `atendimento-zendesk.envio-whatsapp-ativo-local-sub` (pull, consumidor provável `atendimento-zendesk`)
+    - `atendimento-zendesk.envio-whatsapp-ativo-sub` (pull, consumidor provável `atendimento-zendesk`)
+- **`atendimento-zendesk.erros.atualizar-ticket`** · repos: atendimento-zendesk, bots-api, experts-service
+- **`atendimento-zendesk.experts.update-assessor-empresa-callback`** · repos: atendimento-zendesk
+    - `atendimento-zendesk.experts.update-assessor-empresa-callback-sub` (pull, consumidor provável `atendimento-zendesk`)
+- **`atendimento-zendesk.experts.zendesk-job-pooler`** · repos: atendimento-zendesk
+    - `atendimento-zendesk.experts.zendesk-job-pooler-sub` (pull, consumidor provável `atendimento-zendesk`)
+- **`atendimento-zendesk.whatsapp-ativo-status`** · repos: atendimento-zendesk, microsservico-agrupamento-guias
+    - `atendimento-zendesk.whatsapp-ativo-status.hubspot-sub` (pull, consumidor provável `atendimento-zendesk`, DLQ `atendimento-zendesk.whatsapp-ativo-status.hubspot-dlq`)
+    - `sub-whatsapp-ativo-bq` (BigQuery → `contabilizei-dataflow.atendimento_zendesk_raw.mensagem_ativa_pubsub_raw`)
+- **`atendimento-zendesk.whatsapp-ativo-status.hubspot-dlq`**
+    - `atendimento-zendesk.whatsapp-ativo-status.hubspot-dlq-sub` (pull, consumidor provável `atendimento-zendesk`)
+- **`aumento-capacidade-agente`**
+    - `aumento-capacidade-agente-sub` (push → App Engine `default` /desconexao-cliente-sem-interacao/api/v1/worker/classificacao-atendimento/aumento-capacidade-agente)
+- **`bq-contabilizei-data-tb-tickets`** · repos: atendimento-zendesk
+    - `bq-contabilizei-data-tb-tickets-atendimento-zendesk-local-sub` (pull)
+    - `bq-contabilizei-data-tb-tickets-atendimento-zendesk-sub` (pull)
+    - `bq-contabilizei-data-tb-tickets-historico-atendimento-sub` (pull)
+- **`bq-contabilizei-data-tb-tickets-comments`**
+    - `bq-contabilizei-data-tb-tickets-comments-historico-atendimento-sub` (pull)
+- **`classificacao-atendimento`** · repos: atendimento-zendesk, k8s-configmap, pipeline
+    - `classificacao-atendimento-push` (push → App Engine `default` /encerramento-automatico/api/v1/worker/classificacao-atendimento)
+    - `classificacao-atendimento-sub` (pull)
+- **`contabilizei-crm-suporte-migrar-anexos-tw-zd`**
+    - `contabilizei-crm-suporte-migrar-anexos-tw-zd-sub` (pull)
+- **`contabilizei-suporte-add-ticket-comment`**
+    - `contabilizei-suporte-add-ticket-comment-sub` (pull)
+- **`contabilizei-suporte-agents`**
+    - `contabilizei-suporte-agents-sub` (pull)
+- **`contabilizei-suporte-jira-links`**
+    - `contabilizei-suporte-jira-links-sub` (pull)
+- **`contabilizei-suporte-synchronized-tickets-comments`**
+    - `contabilizei-suporte-synchronized-tickets-comments-sub` (pull)
+- **`contabilizei-suporte-tickets-comments-to-synchronize`**
+    - `contabilizei-suporte-tickets-comments-to-synchronize-sub` (pull, DLQ `contabilizei-suporte-tickets-comments-to-synchronize-dl`)
+- **`contabilizei-suporte-tickets-comments-to-synchronize-dl`**
+- **`contabilizei-suporte-tickets-comments-to-synchronize-schedule`**
+    - `contabilizei-suporte-tickets-comments-to-synchronize-schedule-sub` (pull)
+- **`contabilizei-suporte-validate-jira-links`**
+    - `contabilizei-suporte-validate-jira-links-sub` (pull)
+- **`container-analysis-notes-v1`**
+- **`container-analysis-notes-v1beta1`**
+- **`container-analysis-occurrences-v1`**
+- **`container-analysis-occurrences-v1beta1`**
+- **`dashboard-metricas-agentes-sync`** · repos: atendimento-zendesk
+    - `dashboard-metricas-agentes-sync-local-sub` (pull)
+    - `dashboard-metricas-agentes-sync-sub` (pull)
+- **`dashboard-metricas-email-backfill`** · repos: atendimento-zendesk
+    - `dashboard-metricas-email-backfill-sub` (pull)
+- **`dead-letter-atendimento-zendesk-webhooks-events-tickets-salvar-evento-atribuicao-sub`**
+    - `dead-letter-sub-atendimento-zendesk-webhooks-events-tickets-salvar-evento-atribuicao-sub` (pull, consumidor provável `dead-letter`)
+- **`diminuicao-capacidade-agente`**
+    - `diminuicao-capacidade-agente-sub` (push → App Engine `default` /desconexao-cliente-sem-interacao/api/v1/worker/classificacao-atendimento/diminuicao-capacidade-agente)
+- **`envio-mensagem-whatsapp`**
+    - `envio-mensagem-whatsapp-sub` (pull)
+- **`envio-mensagem-whatsapp-consulta`**
+- **`envio-mensagem-whatsapp-massivo`**
+    - `envio-mensagem-whatsapp-massivo-sub` (pull)
+- **`eventarc-nam5-firestore-default-853`** (Eventarc)
+    - `firestore-default-crm-pull` (pull)
+- **`experts.empresa`** (tópico de `contabilizei-experts-prd`) · repos: atendimento-zendesk, experts-service, plataforma-back-worker
+    - `atendimento-zendesk.experts.update-assessor-empresa-sub` (pull, consumidor provável `atendimento-zendesk`)
+- **`file-transcriber.bcast.transcription`** (tópico de `aida-prd`) · repos: file-transcriber, monitoria-ia, zendesk-agents
+    - `zendesk-agents.sub.file-transcriber-result` (pull, consumidor provável `zendesk-agents`) · repos: zendesk-agents
+- **`finalizar-task-cliente-nao-tem-interesse-continuar-conversa`**
+    - `finalizar-task-cliente-nao-tem-interesse-continuar-conversa-push-sub` (push → App Engine `default` /encerramento-automatico/api/v1/worker/classificacao-atendimento/finalizar-task-cliente-nao-tem-interesse-continuar-conversa)
+- **`firestore-default-crm-dlq`**
+- **`formalizar-atendimento-apos-encerramento-ia`**
+    - `formalizar-atendimento-apos-encerramento-ia-push-sub` (push → App Engine `default` /encerramento-automatico/api/v1/worker/classificacao-atendimento/formalizar-atendimento-apos-encerramento-ia)
+- **`inbound-outbound-ai-dlq-comments`**
+    - `inbound-outbound-ai-dlq-comments-inspecao` (pull)
+- **`inbound-outbound-ai-dlq-csat`**
+    - `inbound-outbound-ai-dlq-csat-inspecao` (pull)
+- **`inbound-outbound-ai-dlq-tickets`**
+    - `inbound-outbound-ai-dlq-tickets-inspecao` (pull)
+- **`ingestor-streaming`** · repos: atendimento-zendesk, contabilizei-abertura, contabilizei-abertura-BB, contabilizei-guias
+- **`jira-inativacao-empresa`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-jira-inativacao-empresa-sub` (pull)
+- **`jira-inativacao-empresa-consultas`** · repos: atendimento-zendesk
+    - `atendimento-zendesk-jira-inativacao-empresa-consultas-sub` (pull)
+- **`mensagem-cliente-em-fila`**
+    - `mensagem-cliente-em-fila-sub` (pull)
+- **`notificacao-autenticacao-empresa-2fa`** · repos: atendimento-zendesk
+    - `notificacao-autenticacao-empresa-2fa-sub` (pull)
+- **`notificacao-empresa-2fa`** · repos: atendimento-zendesk
+    - `notificacao-empresa-2fa-sub` (pull)
+- **`registrar-historico-evento`**
+    - `registrar-historico-evento-retorno-desconexao-sub` (pull)
+    - `registrar-historico-evento-sub` (pull)
+- **`relacionamento.jira-updater`** · repos: relacionamento-service
+    - `relacionamento.jira-updater-local-sub` (pull, consumidor provável `relacionamento`)
+    - `relacionamento.jira-updater-sub` (pull, consumidor provável `relacionamento`)
+- **`relacionamento.jira-updater-v2`** · repos: relacionamento-service
+    - `relacionamento.jira-updater-v2-sub` (pull, consumidor provável `relacionamento`)
+- **`status-mensagem-whatsapp`**
+- **`transferir-atendimento-fila-espera`**
+    - `transferir-atendimento-fila-espera-sub-push` (push → App Engine `default` /encerramento-automatico/api/v1/worker/classificacao-atendimento/enviar-task-para-fila)
+- **`twilio-criar-task`**
+    - `twilio-criar-task-pull` (pull)
+- **`twilio-webhooks-atualizar-status-cliente-que-excedeu-tempo-limite-de-retorno`**
+    - `twilio-webhooks-atualizar-status-cliente-que-excedeu-tempo-limite-de-retorno-sub` (pull)
+    - `twilio-webhooks-atualizar-status-cliente-que-excedeu-tempo-limite-de-retorno-sub-push` (push → Cloud Run `contabilizei-crm-desconexao-cliente-sem-interacao` /api/v1/worker/tempo-limite-de-retorno-do-cliente)
+- **`twilio-webhooks-desconexao-cliente-sem-interacao`**
+    - `twilio-webhooks-desconexao-cliente-sem-interacao-sub` (pull)
+    - `twilio-webhooks-desconexao-cliente-sem-interacao-sub-push` (push → Cloud Run `contabilizei-crm-desconexao-cliente-sem-interacao` /api/v1/worker/desconexao-cliente-sem-interacao)
+- **`twilio-webhooks-inativar-atendimentos`**
+    - `twilio-webhooks-inativar-atendimentos-sub` (pull)
+    - `twilio-webhooks-inativar-atendimentos-sub-push` (push → Cloud Run `contabilizei-crm-desconexao-cliente-sem-interacao` /api/v1/worker/inativacao-atendimento)
+- **`twilio-webhooks-messages`** · repos: contabilizei-crm-webhooks, pipeline
+- **`twilio-webhooks-notificar-cliente-sem-interacao`**
+    - `twilio-webhooks-notificar-cliente-sem-interacao-sub` (pull)
+    - `twilio-webhooks-notificar-cliente-sem-interacao-sub-push` (push → Cloud Run `contabilizei-crm-desconexao-cliente-sem-interacao` /api/v1/worker/notificacao-cliente-sem-interacao)
+- **`twilio-webhooks-tasks`** · repos: contabilizei-crm-webhooks, experts-dominios-functions, experts-drawio, experts-functions, pipeline
+    - `contabilizei-suporte-twilio-webhook-pos-encerramento-task-sub` (pull)
+    - `twilio-webhooks-tasks-historico-atendimento-sub` (pull)
+    - `twilio-webhooks-tasks-ingestor-streaming-sub` (pull)
+    - `twilio-webhooks-tasks-queue-timeline-sub` (pull)
+    - `twilio-webhooks-tasks-sub` (pull)
+    - `twilio-webhooks-tasks-sub-push` (push → Cloud Run `contabilizei-crm-desconexao-cliente-sem-interacao` /api/v1/worker/tasks)
+    - `twilio-webhooks-tasks-tasks-management-sub` (pull)
+- **`ultima-mensagem-cliente-encerramento`**
+    - `ultima-mensagem-cliente-encerramento-push-sub` (push → App Engine `default` /encerramento-automatico/api/v1/worker/classificacao-atendimento/identificar-encerramento-client-ia)
+- **`voltar-task-ao-atendimento-cliente-optou-por-continuar-atendimento`**
+    - `voltar-task-ao-atendimento-cliente-optou-por-continuar-atendimento-push-sub` (push → App Engine `default` /encerramento-automatico/api/v1/worker/classificacao-atendimento/voltar-task-ao-atendimento-cliente-optou-por-continuar-atendimento)
+- **`zedesk-criar-ticket`**
+- **`zendesk-adicionar-observacao-interna-ticket`**
+    - `zendesk-adicionar-observacao-interna-ticket-pull` (pull)
+- **`zendesk-atualizar-ticket`** · repos: zendesk-agents
+    - `zendesk-atualizar-ticket-pull` (pull, DLQ `zendesk-atualizar-ticket-dl`)
+- **`zendesk-atualizar-ticket-dl`**
+    - `zendesk-atualizar-ticket-dl-sub` (pull)
+- **`zendesk-criar-ticket`** · repos: oi-contabilizei-functions, plataforma-web
+    - `zendesk-criar-ticket-pull` (pull, DLQ `zendesk-criar-ticket-dl`)
+- **`zendesk-criar-ticket-dl`**
+    - `zendesk-criar-ticket-dl-sub` (pull)
+- **`zendesk-gatilho-dead-messages`**
+    - `zendesk-gatilho-dead-messages-pull` (pull)
+- **`zendesk-ticket-formalizacao-eventos`**
+    - `closed-tickets-pull` (pull)
+- **`zendesk-webhooks-agents`** · repos: contabilizei-crm-webhooks, kong-config, pipeline
+    - `dashboard-metricas-agents-sub` (pull)
+- **`zendesk-webhooks-articles`**
+    - `zendesk-webhooks-articles-sub` (pull)
+- **`zendesk-webhooks-capacidade-agentes`** · repos: atendimento-api-gateway, atendimento-zendesk, contabilizei-crm-webhooks, kong-config, pipeline
+    - `zendesk-webhooks-capacidade-agentes-sub` (pull)
+- **`zendesk-webhooks-comments`** · repos: contabilizei-crm-webhooks, kong-config, pipeline
+    - `aida-classifier-zendesk-webhooks-novo-comentario` (push → Cloud Run `aida-classifier-prd-api` /api/v1/webhook-zendesk/new-comment)
+    - `inbound-outbound-ai-new-comment-sub` (push → Cloud Run `inbound-outbound-ai-prd` /inbound/zendesk/comments, DLQ `inbound-outbound-ai-dlq-comments`)
+    - `zendesk-comments-to-bq` (BigQuery → `contabilizei-data.zendesk_streaming_raw.pubsub_events_comments_raw`)
+    - `zendesk-webhooks-comments-sub` (pull)
+- **`zendesk-webhooks-conversations`** · repos: atendimento-api-gateway, atendimento-zendesk, bots-api, contabilizei-crm-webhooks, experts-service, kong-config, pipeline, zendesk-agents
+    - `zendesk-agents.sub.conversations` (pull, consumidor provável `zendesk-agents`) · repos: zendesk-agents
+    - `zendesk-webhooks-conversations-debug-sub` (pull)
+    - `zendesk-webhooks-conversations-desconexao-sub` (pull)
+    - `zendesk-webhooks-conversations-fdps-sub` (pull)
+    - `zendesk-webhooks-conversations-reconexao-sub` (pull)
+    - `zendesk-webhooks-conversations-sub` (pull)
+- **`zendesk-webhooks-conversations-pages`**
+    - `zendesk-webhooks-conversations-pages-sub` (pull)
+- **`zendesk-webhooks-events-tickets`** · repos: atendimento-api-gateway, contabilizei-crm-webhooks, kong-config, pipeline
+    - `atendimento-zendesk-webhooks-events-ticket-criado-sub` (pull)
+    - `atendimento-zendesk-webhooks-events-ticket-fechado-sub` (pull)
+    - `atendimento-zendesk-webhooks-events-tickets-atendimento-atribuido-sub` (pull)
+    - `atendimento-zendesk-webhooks-events-tickets-salvar-evento-atribuicao-sub` (pull, DLQ `dead-letter-atendimento-zendesk-webhooks-events-tickets-salvar-evento-atribuicao-sub`)
+    - `inbound-outbound-ai-csat-event-sub` (push → Cloud Run `inbound-outbound-ai-prd` /inbound/zendesk/csat, DLQ `inbound-outbound-ai-dlq-csat`)
+    - `zendesk-ticket-events-to-bq` (BigQuery → `contabilizei-data.zendesk_streaming_raw.pubsub_events_ticket_events_raw`)
+- **`zendesk-webhooks-messages`** · repos: atendimento-api-gateway, atendimento-zendesk, bots-api, kong-config
+    - `aida-classifier-zendesk-webhooks-nova-mensagem` (push → Cloud Run `aida-classifier-prd-api` /api/v1/webhook-zendesk/new-message)
+    - `zendesk-webhooks-messages-encerramento-automatico-sub` (pull)
+    - `zendesk-webhooks-messages-monitoramento-em-tempo-real-sub` (pull)
+    - `zendesk-webhooks-messages-notificar-agente-ultima-mensagem-sub` (pull)
+- **`zendesk-webhooks-notifications`** · repos: atendimento-api-gateway, atendimento-zendesk, contabilizei-crm-webhooks, experts-bruno, kong-config, pipeline
+    - `zendesk-webhooks-notifications-local-sub` (pull)
+    - `zendesk-webhooks-notifications-sub` (pull, DLQ `zendesk-webhooks-notifications-dlq`)
+- **`zendesk-webhooks-notifications-dlq`**
+    - `zendesk-webhooks-notifications-dlq-sub` (pull)
+- **`zendesk-webhooks-organizations`**
+    - `zendesk-webhooks-organizations-sub` (pull, DLQ `zendesk-webhooks-organizations-dl`)
+- **`zendesk-webhooks-organizations-dl`**
+    - `zendesk-webhooks-organizations-dl-sub` (pull)
+- **`zendesk-webhooks-pesquisa-satisfacao`** · repos: atendimento-api-gateway, atendimento-zendesk, contabilizei-crm-webhooks, kong-config, pipeline
+    - `zendesk-webhooks-pesquisa-satisfacao-sub` (pull)
+- **`zendesk-webhooks-retorno-desconexao-sem-interacao`** · repos: atendimento-api-gateway, atendimento-zendesk, contabilizei-crm-webhooks, kong-config, pipeline
+    - `zendesk-webhooks-retorno-desconexao-sem-interacao-sub` (pull)
+- **`zendesk-webhooks-sync-batch`**
+    - `zendesk-webhooks-sync-batch-sub` (pull, DLQ `zendesk-webhooks-sync-batch-dl`)
+- **`zendesk-webhooks-sync-batch-dl`**
+    - `zendesk-webhooks-sync-batch-dl-sub` (pull)
+- **`zendesk-webhooks-sync-id`**
+    - `zendesk-webhooks-sync-id-sub` (pull, DLQ `zendesk-webhooks-sync-id-dl`)
+- **`zendesk-webhooks-sync-id-dl`**
+    - `zendesk-webhooks-sync-id-dl-sub` (pull)
+- **`zendesk-webhooks-tickets`** · repos: atendimento-api-gateway, bots-api, contabilizei-crm-webhooks, experts-drawio, experts-service, kong-config, monitoria-ia, pipeline, zendesk-agents
+    - `inbound-outbound-ai-ticket-event-sub` (push → Cloud Run `inbound-outbound-ai-prd` /inbound/zendesk/tickets, DLQ `inbound-outbound-ai-dlq-tickets`)
+    - `teste-filtro-pendente-sub` (pull)
+    - `zendesk-agents.sub.tickets` (pull, consumidor provável `zendesk-agents`) · repos: pipeline, zendesk-agents
+    - `zendesk-tickets-to-bq` (BigQuery → `contabilizei-data.zendesk_streaming_raw.pubsub_events_tickets_raw`, DLQ `zendesk-webhooks-tickets-dl`)
+    - `zendesk-webhooks-tickets-atendimento-zendesk-agregador-conversa-sub` (pull)
+    - `zendesk-webhooks-tickets-atendimento-zendesk-sub` (pull) · repos: experts-drawio
+    - `zendesk-webhooks-tickets-classificacao-automatica-sub` (pull)
+    - `zendesk-webhooks-tickets-desconexao-sub` (pull)
+    - `zendesk-webhooks-tickets-encerramento-ia-sub` (pull)
+    - `zendesk-webhooks-tickets-monitoramento-em-tempo-real-sub` (pull)
+    - `zendesk-webhooks-tickets-sub` (pull, DLQ `zendesk-webhooks-tickets-dl`)
+    - `zendesk-webhooks-tickets.sub.local-debug` (pull, consumidor provável `zendesk-webhooks-tickets`)
+- **`zendesk-webhooks-tickets-dl`**
+    - `zendesk-webhooks-tickets-dl-sub` (pull)
+- **`zendesk-webhooks-tickets-new`** · repos: contabilizei-crm-webhooks, kong-config, pipeline
+    - `dashboard-metricas-tickets-sub` (pull)
+- **`zendesk-webhooks-users`** · repos: atendimento-zendesk, contabilizei-crm-webhooks, kong-config, pipeline
+    - `dashboard-metricas-usuarios-sub` (pull)
+    - `zendesk-users-to-bq` (BigQuery → `contabilizei-data.zendesk_streaming_raw.pubsub_events_users_raw`, DLQ `zendesk-webhooks-users-dl`)
+- **`zendesk-webhooks-users-dl`**
+    - `zendesk-webhooks-users-dl-sub` (pull)
+- **`zendeskapps-events-frontends`** · repos: atendimento-zendesk
+    - `zendeskapps-events-frontends-sub-bq` (BigQuery → `contabilizei-dataflow.dw_atendimento_zendesk.zendeskapps_events_frontend`)

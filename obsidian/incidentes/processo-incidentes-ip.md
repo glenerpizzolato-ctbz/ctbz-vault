@@ -1,0 +1,33 @@
+---
+name: processo-incidentes-ip
+description: "Como preencher e fechar um incidente do projeto IP no Jira: relato na descrição seguindo o template de post-mortem do Outline, campos obrigatórios da transição Resolver e a automação de Plano de Ação"
+metadata:
+  type: reference
+tags:
+  - incidentes
+  - jira
+---
+
+# Incidentes (projeto IP) no Jira
+
+- **Onde vai o relato:** na **descrição** do card, não em comentário. Os comentários ficam só para atualizações posteriores (ex: "causa identificada"). A "Ação corretiva" leva um resumo de uma ou duas frases.
+- **Template do post-mortem:** Outline, Tecnologia > QD3 > [Postmortem](https://outline.ctbz.com.br/doc/postmortem-DKGbX7IFT5). O padrão (visto em ~40 IPs) é **um doc por IP, filho direto do QD3** (irmão do template, não filho dele), com título `IP-xxxx` (às vezes `IP-xxxx - <resumo>`), apontado no campo "Link do Post Mortem" (`customfield_19611`, texto com a URL). Ex: IP-4211 (Blip, fornecedor) e IP-4361 (Zendesk). Seções: autores, resumo, processo de detecção, processo de mitigação, impacto (técnico, negócio, usuários/clientes), SLA (MTTR em `00h00`), checklist "MTTR > 120 min" (detecção tardia, acionamento tardio, causa complexa, dependência externa, ownership, runbook, acesso, rollback), linha do tempo por data, causa raiz (5 porquês/Ishikawa), itens de ação, lições aprendidas (deu certo / deu errado / sorte) e anexos.
+- **Criar o doc pela API do Outline:** com a sessão do Chrome aberta em `outline.ctbz.com.br`, `POST /api/documents.create` com `{title, text (markdown), collectionId: "87b59db5-db09-4327-99da-770e40b52108", parentDocumentId: "2b4a9753-1645-4300-8778-4512cc56c031" (QD3), publish: true}`. As escritas exigem o header `x-csrf-token` com o valor do cookie `__Host-csrfToken` (sem ele volta `csrf_error`); leituras (`documents.info`, `documents.search`) funcionam sem.
+- **Material de apoio:** Outline, Tecnologia > [Material de Apoio](https://outline.ctbz.com.br/doc/material-de-apoio-fW8WCA8rGb) (processo, severidade, causas raiz mapeadas, matriz de impacto, plano de ação manual e automatizado).
+- **Automação de Plano de Ação:** ao mover um IP de severidade Crítica ou Grave de ABERTO para RESOLVIDO, um Rovo Agent analisa o incidente e cria um card "Plano de Ação - Incidente" (quadro Planos de Ação do projeto Incidentes), com sub-tarefas de post-mortem e de "criar monitoramento automático". Esta última só é criada se o IP **não** foi aberto via monitoramento. As ações do post-mortem viram sub-tarefas desse card (título `[Problema] - Plano de Ação - IP-xxxx` no fluxo manual).
+
+## Campos pela API (MCP Atlassian)
+
+- Transição `Resolver` (id 31) exige: "Item foi causado por um deploy?" (`customfield_40767`, Sim id 64352) e "Macrotema e Microtema" (`customfield_43868`, ex: "Atendimento Geral" id 74579). Também aceita VP Impactada, Serviços afetados (labels), Ação corretiva (`customfield_24319`, ADF, não texto puro), Produto e Subproduto (cascata, ex: Atendimento Zendesk > IA Atendimento), Fornecedor, Causa raiz, Item novo/legado.
+- "Quem identificou a falha?" (`customfield_20683`): Alertas automáticos (25729), Monitoramento Manual, Operação, Cliente.
+- "Informou o cliente/equipe/produto" (`customfield_19395/6/7`): passar `{"value": "Sim"}`.
+- "Tickets relacionados" (`customfield_37257`) exige ADF; usar web links do card no lugar.
+- A descrição com imagem precisa ser escrita em HTML (`contentFormat: html`); a mídia existente é mantida reaproveitando o `data-id`. A API não apaga comentários: excluir pela interface.
+
+Caso de referência: IP-4361 (indisponibilidade da Ultimate/Zendesk em 2026-11-03), ver [[eventos-de-erro-ultimate]].
+
+## Campos e web links (detalhes de API)
+
+- "Tempo de interrupção/inoperância (hs)" é `customfield_24311` (número, ex: `4.2`). "Áreas/processos afetados" é `customfield_24316` (texto rico: o `editJiraIssue` aceita string simples e grava como ADF).
+- O MCP do Atlassian não remove web links (remote links). Para apagar um, usar a sessão do Jira no Chrome: `GET /rest/api/3/issue/<key>/remotelink` para achar o `id` e `DELETE /rest/api/3/issue/<key>/remotelink/<id>` com o header `X-Atlassian-Token: no-check` (volta 204).
+- Na transição "Resolver" (31), "Item foi causado por um deploy?" (`customfield_40767`) e "Macrotema e Microtema" (`customfield_43868`) **não estão na tela da transição**: mandar os dois na transição volta 400 ("not on the appropriate screen"). Preencher antes com `editJiraIssue` e só depois transicionar com os demais campos (feito assim no IP-4361, 03/11/2026).
