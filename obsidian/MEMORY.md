@@ -1,0 +1,15 @@
+- [PRDs](PRDs/_prds-indice.md) — demandas (PRDs) que criei na Contabilizei: uma nota por PRD, épicos e visões por épico, período e domínio; fonte da verdade das demandas
+- [PRCs](PRCs/_prcs-indice.md) — playbooks de chamados (PRC) recorrentes, uma nota por problema, por canal
+- [Próximas tarefas](next-tasks/_next-tasks-indice.md) — tarefas e ideias que ainda não viraram PRD, por tema
+- [Retrospectivas](retros/_retros-indice.md) — histórico das retros do time e pauta da próxima
+- [Comunicação](comunicacao/_comunicacao-indice.md) — onde enviar mensagens por assunto (espaços do Google Chat etc.) e como enviar
+- [APIs](apis/_apis-indice.md) — como chamar APIs internas: tokens (SSO dev/prd), liberação de IP e requisições pelo Bruno/curl
+- [Testes](tests/_tests-indice.md) — roteiros de teste (preparar massa, disparar fluxos, conferir resultado) por domínio e por repositório
+- [Padrões](padroes/_padroes-indice.md) — convenções do time que valem para qualquer serviço (nomenclatura de recursos, organização de código)
+- [Infra](infra/_infra-indice.md) — catálogo GCP: onde cada serviço roda (GKE, Cloud Run/functions), Pub/Sub com consumidores, Scheduler e Cloud Tasks, com repositórios que citam cada recurso
+- [Bancos de dados](db/_db-indice.md) — bancos Cloud SQL Postgres por ambiente (dev/prd): instância, porta do proxy, database e como consultar via psql
+- [Repositórios](repositories/_repositories-indice.md) — uma pasta por repositório de `~/repositories`: como rodar localmente, como testar, fluxos e particularidades
+- [Incidentes](incidentes/_incidentes-indice.md) — gestão de incidentes (projeto IP no Jira, post-mortem no Outline)
+- [Segurança](seguranca/_seguranca-indice.md) — CVEs reportadas pelo Wiz, como mapear o serviço afetado para o repositório e o padrão de correção
+- [Claude Code](claude-code/_claude-code-indice.md) — uso do próprio Claude Code: sessões, resume global (`cr`) e configurações
+- [Máquina](maquina/_maquina-indice.md) — máquina local (hardware, drivers, SO)
