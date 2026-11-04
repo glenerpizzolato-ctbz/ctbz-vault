@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Keep the PRD notes of the Obsidian vault (ctbz/PRDs) in sync with Jira.
+"""Keep the PRD notes of the Obsidian vault (~/ctbz-vault/obsidian/PRDs) in sync with Jira.
 
 Subcommands:
     backlog                 print the keys of vault items still in `backlog` (to be re-checked in Jira)
@@ -15,7 +15,7 @@ import re
 import sys
 from collections import defaultdict
 
-VAULT = os.path.expanduser("~/dotfiles/docs/ai/obsidian/ctbz/PRDs")
+VAULT = os.path.expanduser("~/ctbz-vault/obsidian/PRDs")
 ITEMS = os.path.join(VAULT, "itens")
 EPICS = os.path.join(VAULT, "epicos")
 JIRA_URL = "https://contabilizeicontabilidade.atlassian.net/browse/"

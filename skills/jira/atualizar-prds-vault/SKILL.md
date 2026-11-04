@@ -1,12 +1,12 @@
 ---
 name: atualizar-prds-vault
-description: Sincroniza as demandas (PRDs) do vault Obsidian (ctbz/PRDs/) com o Jira — busca os últimos N cards criados pelo usuário ou atribuídos a ele (mais os que estão em backlog no vault), atualiza situação (backlog/pronto), título e datas, aponta cards novos, cancelados e divergências de épico, e regenera as visões, as notas de épico e os números. Use quando o usuário pedir para atualizar/sincronizar/conferir as PRDs ou demandas do vault com o Jira, ou perguntar se o status das demandas no vault está certo.
+description: Sincroniza as demandas (PRDs) do vault Obsidian CTBZ (`~/ctbz-vault/obsidian/PRDs/`) com o Jira — busca os últimos N cards criados pelo usuário ou atribuídos a ele (mais os que estão em backlog no vault), atualiza situação (backlog/pronto), título e datas, aponta cards novos, cancelados e divergências de épico, e regenera as visões, as notas de épico e os números. Use quando o usuário pedir para atualizar/sincronizar/conferir as PRDs ou demandas do vault com o Jira, ou perguntar se o status das demandas no vault está certo.
 argument-hint: "[quantidade]"
 ---
 
 # Atualizar as PRDs do vault a partir do Jira
 
-O vault (`~/dotfiles/docs/ai/obsidian/ctbz/PRDs/`, uso e vocabulário em `_prds-indice.md`) é a fonte da verdade das demandas, mas a situação e as datas mudam no Jira. Esta skill traz o Jira para o vault. O script `scripts/prds.py` faz a parte mecânica (editar front-matter, recalcular período, regenerar visões); a busca no Jira é feita pelo MCP do Atlassian.
+O vault (`~/ctbz-vault/obsidian/PRDs/`, uso e vocabulário em `_prds-indice.md`) é a fonte da verdade das demandas, mas a situação e as datas mudam no Jira. Esta skill traz o Jira para o vault. O script `scripts/prds.py` faz a parte mecânica (editar front-matter, recalcular período, regenerar visões); a busca no Jira é feita pelo MCP do Atlassian.
 
 ## O que é sincronizado
 
@@ -65,7 +65,7 @@ Não são tocados: `tipo`, `atuacao`, `dominio`, `epico`, `data_teste` e as anot
     ```
 
     Atualiza `_por-epico.md`, `_por-periodo.md`, `_por-dominio.md`, a seção "Demandas" e o front-matter (`dominio`, `periodos`, `qtd_demandas`) das notas de épico e os números do `_prds-indice.md`. Dentro de cada seção, a ordem é data de referência decrescente, com desempate pela chave. Épicos sem nenhuma demanda ficam como estão.
-7. **Conferir e reportar:** `git -C ~/dotfiles diff --stat docs/ai/obsidian/ctbz/PRDs` e um resumo para o usuário: quantos cards foram conferidos, o que mudou de situação e as pendências (novos, cancelados, épicos divergentes).
+7. **Conferir e reportar:** `git -C ~/ctbz-vault diff --stat obsidian/PRDs` e um resumo para o usuário: quantos cards foram conferidos, o que mudou de situação e as pendências (novos, cancelados, épicos divergentes).
 8. **Commit** só com autorização do usuário, ex: `docs(obsidian): sync PRDs with Jira`.
 
 ## Quando mexer no script
@@ -74,4 +74,4 @@ Não são tocados: `tipo`, `atuacao`, `dominio`, `epico`, `data_teste` e as anot
 - **Status novo no Jira** que signifique concluído ou cancelado: incluir em `DONE_STATUSES` ou `CANCEL_STATUSES`.
 - **Mudança no formato das visões:** ajustar o `rebuild` e rodar uma vez para validar o diff antes de commitar.
 
-O script vive em `~/dotfiles/docs/ai/skills/ctbz/jira/atualizar-prds-vault/` (versionado no dotfiles) e chega em `~/.claude/skills/` por symlink (`./installers/setup.sh --symlinks`). Editar sempre a versão do repositório.
+O script vive em `~/ctbz-vault/skills/jira/atualizar-prds-vault/` (versionado no ctbz-vault) e chega em `~/.claude/skills/` por symlink (`~/dotfiles/installers/setup.sh --symlinks`). Editar sempre a versão do repositório.

@@ -16,13 +16,13 @@ O script não usa token fixo nem a collection do Bruno (que quebra quando algué
 2. Chama `zendeskbot-config?auth_token=...`, que devolve o host e a `x-api-key` do gateway (`config.app.services.apigateway`).
 3. Chama a rota no gateway com `x-api-key`, `x-cloud-trace-context` e `x-atendimento-id` (os dois últimos são obrigatórios no Kong, mas aceitam qualquer valor no formato certo; o script gera).
 
-A URL e a `x-api-key` de cada ambiente ficam salvas em `bruno/.env` dentro da skill (gitignored, `chmod 600`), como `api_gateway_url_<prd|dev>` e `api_gateway_token_<prd|dev>`. O script usa o valor salvo e, se o Kong recusar a chave (401/403 em JSON), busca de novo na `zendeskbot-config` e regrava o `.env` sozinho. Nenhum valor de credencial é impresso. Detalhes em `~/dotfiles/docs/ai/obsidian/ctbz/apis/api-gateway-bots-whatsapp.md`.
+A URL e a `x-api-key` de cada ambiente ficam salvas em `bruno/.env` dentro da skill (gitignored, `chmod 600`), como `api_gateway_url_<prd|dev>` e `api_gateway_token_<prd|dev>`. O script usa o valor salvo e, se o Kong recusar a chave (401/403 em JSON), busca de novo na `zendeskbot-config` e regrava o `.env` sozinho. Nenhum valor de credencial é impresso. Detalhes em `~/ctbz-vault/obsidian/apis/api-gateway-bots-whatsapp.md`.
 
 ## Collection Bruno da skill
 
 A pasta `bruno/` da skill é uma collection Bruno com as três rotas (`plataforma-crm-web/buscar-por-telefone`, `plataforma-crm-web/buscar-por-telefone-e-cnpj`, `atendimento-zendesk/autenticar-basico-padrao`), ambientes `prd` e `dev` e os headers do Kong já preenchidos no `collection.bru`. Ela lê a mesma autenticação salva em `bruno/.env` (`{{process.env.api_gateway_token_<env>}}`), então substitui a pasta `glener-funcionando` (chave fixa) da collection da plataforma-crm-web.
 
-- Para abrir no Bruno: *Open Collection* em `~/dotfiles/docs/ai/skills/ctbz/empresas/buscar-empresas-por-telefone/bruno`, escolher o ambiente e ajustar `telefone`/`cnpj`/`area` nas vars do `collection.bru`.
+- Para abrir no Bruno: *Open Collection* em `~/ctbz-vault/skills/empresas/buscar-empresas-por-telefone/bruno`, escolher o ambiente e ajustar `telefone`/`cnpj`/`area` nas vars do `collection.bru`.
 - Se o `.env` não existir ou o Bruno receber 401/403 em JSON, gerar/renovar a autenticação e reabrir o ambiente no Bruno:
 
     ```bash

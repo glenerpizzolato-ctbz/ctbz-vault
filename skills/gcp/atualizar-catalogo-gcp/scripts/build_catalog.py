@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the CTBZ GCP service catalog in the Obsidian vault.
 
-Collects Pub/Sub (topics, subscriptions), Cloud Scheduler jobs, Cloud Tasks queues, Cloud Run (services, jobs, functions) and, with --gke, GKE workloads from every project in PROJECTS. Then cross-references every resource name with the source code in ~/repositories to find which repositories cite it, and writes one note per subject into the vault (default: ~/dotfiles/docs/ai/obsidian/ctbz/infra).
+Collects Pub/Sub (topics, subscriptions), Cloud Scheduler jobs, Cloud Tasks queues, Cloud Run (services, jobs, functions) and, with --gke, GKE workloads from every project in PROJECTS. Then cross-references every resource name with the source code in ~/repositories to find which repositories cite it, and writes one note per subject into the vault (default: ~/ctbz-vault/obsidian/infra).
 
 Usage:
     python3 build_catalog.py                 # collect + generate (GKE note is kept as is)
@@ -506,7 +506,7 @@ def main():
     ap.add_argument("--offline", action="store_true", help="do not call APIs, reuse the last raw collection")
     ap.add_argument("--projects", nargs="*", help="collect only these projects")
     ap.add_argument("--repos", default=os.path.join(HOME, "repositories"))
-    ap.add_argument("--out", default=os.path.join(HOME, "dotfiles", "docs", "ai", "obsidian", "ctbz", "infra"))
+    ap.add_argument("--out", default=os.path.join(HOME, "ctbz-vault", "obsidian", "infra"))
     args = ap.parse_args()
     os.makedirs(CACHE, exist_ok=True)
     os.makedirs(args.out, exist_ok=True)

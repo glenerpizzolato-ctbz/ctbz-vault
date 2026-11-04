@@ -39,7 +39,7 @@ BOTS = {  # bot name in the webhook log -> Ultimate bot id (dashboard URL)
     "[prod] ctbz wpp ouvidoria": "68289a56392101722adee8da",
     "[prod] ctbz chat main": "66bf4a1be43522b403cd876b",  # no real-time webhook configured
 }
-BOTS_API = Path.home() / "dotfiles/docs/ai/skills/ctbz/empresas/buscar-empresas-por-telefone/scripts/bots_api.py"
+BOTS_API = Path.home() / "ctbz-vault/skills/empresas/buscar-empresas-por-telefone/scripts/bots_api.py"
 WINDOW_BEFORE, WINDOW_AFTER = dt.timedelta(seconds=10), dt.timedelta(seconds=40)
 BOT_AUTHORS = (None, "Bot")
 # A text only becomes an error variant if it reads like one, or if it went out after errors many times (low-volume bots make greetings look like fallbacks).

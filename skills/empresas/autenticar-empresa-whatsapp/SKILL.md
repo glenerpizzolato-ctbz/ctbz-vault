@@ -13,7 +13,7 @@ Duas rotas, ambas somente leitura, chamadas pelo API gateway (Kong) do atendimen
 | `telefone-cnpj` | plataforma-crm-web | `POST /atendimento/v2/bots/whatsapp/dados-cliente/buscar-por-telefone-e-cnpj` | Dados da empresa logada: telefone vinculado, status, plano, acessos (básico/bank/experts), assessor, telefones cadastrados |
 | `autenticar` | atendimento-zendesk | `POST /api/v1/bots/whatsapp/autenticacao/basico-padrao` | Decisão do bot: `statusBot`, `statusAutenticacao`, `status2FA`, `categoriaPlano`, fluxos habilitados |
 
-O script é o mesmo da skill `buscar-empresas-por-telefone`: a `x-api-key` vem da cloud function `zendeskbot-config`, fica salva em `~/.claude/skills/buscar-empresas-por-telefone/bruno/.env` (gitignored) e é renovada sozinha quando o Kong a recusa. As duas rotas também estão na collection Bruno dessa skill (pasta `bruno/`), que usa a mesma autenticação salva. Detalhes em `~/dotfiles/docs/ai/obsidian/ctbz/apis/api-gateway-bots-whatsapp.md`.
+O script é o mesmo da skill `buscar-empresas-por-telefone`: a `x-api-key` vem da cloud function `zendeskbot-config`, fica salva em `~/.claude/skills/buscar-empresas-por-telefone/bruno/.env` (gitignored) e é renovada sozinha quando o Kong a recusa. As duas rotas também estão na collection Bruno dessa skill (pasta `bruno/`), que usa a mesma autenticação salva. Detalhes em `~/ctbz-vault/obsidian/apis/api-gateway-bots-whatsapp.md`.
 
 ## Passo a passo
 
@@ -35,7 +35,7 @@ O script é o mesmo da skill `buscar-empresas-por-telefone`: a `x-api-key` vem d
 
 ## Como ler o `autenticar`
 
-Regras completas em `~/dotfiles/docs/ai/obsidian/ctbz/repositories/atendimento-zendesk/categoria-plano-autenticacao-whatsapp.md`. Em resumo:
+Regras completas em `~/ctbz-vault/obsidian/repositories/atendimento-zendesk/categoria-plano-autenticacao-whatsapp.md`. Em resumo:
 
 - `categoriaPlano`: `AVANCADO`, `BASICO`, `EXPERT` (qualquer plano com "EXPERT"), `PREMIUM`, `MULTIBENEFICIOS` ou `NAO_IDENTIFICADO`.
 - `statusBot`: `BLOQUEADO` (telefone bloqueado), `SEM_AUTORIZACAO`, `AUTENTICADO`, `AUTENTICADO_VERIFICADO` (2FA ok), `EMPRESA_INATIVA`, `EVENTUAL`, `ONBOARDING`.
