@@ -42,3 +42,11 @@ Incidente documentado e fechado, textos de contingência revertidos (PRD-175013)
 - [[monitor-mensagens-sistema-indisponivel]]
 - [[abertura-automatica-ip-grafana]]
 - Jira: [PRD-175013](https://contabilizeicontabilidade.atlassian.net/browse/PRD-175013)
+
+## Desdobramento: abertura automática de IP (04/11/2026)
+
+- Investiguei por que o alerta do Grafana, que disparou às 08:18, não abriu o IP sozinho. Mapeei o caminho Grafana → JSM Ops → IP, comparei a configuração com a do time de notas (que abre IP) e descobri que a integração de Canais no JSM Ops não existia e que as regras chegariam como P3, por não terem `severity`. Com o Gabriel Egydio, a integração foi criada, e abri o chamado SS-10602 para o DevOps criar o contact point. Nota: [[abertura-automatica-ip-grafana]].
+
+## Atualização 04/11/2026: chat web nos alertas
+
+Descobri que o bot do chat web (`[prod] ctbz chat main`) nunca mandava eventos ao `ultimateai-webhook`: nos 30 dias anteriores, nenhuma chamada dele chegou ao serviço, nem recusada. O webhook dele estava desativado na Ultimate. Depois de ativado, validei o evento de teste no log e conferi que as 7 regras do Grafana cobrem qualquer bot. Assim, o chat web (866 conversas afetadas no incidente) passou a ter alerta em tempo real sem mudar código. A ação foi registrada no post-mortem e no plano de ação [IP-4381](https://contabilizeicontabilidade.atlassian.net/browse/IP-4381).
