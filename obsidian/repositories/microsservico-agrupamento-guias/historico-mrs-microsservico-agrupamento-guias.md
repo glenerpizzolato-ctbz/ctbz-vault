@@ -11,4 +11,4 @@ tags:
 
 ## Histórico
 - 2026-10-30: MR !90 `feat/experts-lp-email-template` — Draft: feat: usa um template próprio no e-mail do agrupamento de Experts LP
-- 2026-11-03: MR !95 `feat/PRD-174790` — Draft: PRD-174790 Opt-out de e-mails de impostos no agrupamento de guias (aberto)
+- 2026-11-03: MR !95 `feat/PRD-174790` — Draft: PRD-174790 Opt-out de e-mails de impostos no agrupamento de guias

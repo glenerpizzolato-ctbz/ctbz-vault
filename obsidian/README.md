@@ -27,6 +27,7 @@ Pastas livres por assunto (sem taxonomia fixa), direto na raiz do vault. O `MEMO
 - `repositories/` — Uma pasta por repositório com seu índice: como rodar localmente, como testar, fluxos e particularidades (`_repositories-indice.md`).
 - `incidentes/` — Gestão de incidentes (`_incidentes-indice.md`).
 - `seguranca/` — CVEs do Wiz e padrão de correção (`_seguranca-indice.md`).
+- `performance/` — Evidências para o ciclo de performance/promoção, uma nota por evidência em `itens/`, por categoria e período (`_performance-indice.md`, `performance.base`).
 - `claude-code/` — Uso do próprio Claude Code: onde ficam as sessões, resume global (`cr`) e configurações (`_claude-code-indice.md`).
 - `maquina/` — Máquina local: hardware, drivers e SO (`_maquina-indice.md`).
 

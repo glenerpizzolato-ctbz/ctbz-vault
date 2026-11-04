@@ -1,0 +1,30 @@
+filters:
+  and:
+    - file.inFolder("performance/itens")
+views:
+  - type: table
+    name: Todas
+    order:
+      - file.name
+      - titulo
+      - categorias
+      - impacto
+      - periodo
+      - data
+    sort:
+      - property: data
+        direction: DESC
+  - type: table
+    name: Impacto alto
+    filters:
+      and:
+        - impacto == "alto"
+    order:
+      - file.name
+      - titulo
+      - categorias
+      - periodo
+      - data
+    sort:
+      - property: data
+        direction: DESC

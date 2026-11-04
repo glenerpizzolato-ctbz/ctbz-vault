@@ -13,3 +13,4 @@
 - [Segurança](seguranca/_seguranca-indice.md) — CVEs reportadas pelo Wiz, como mapear o serviço afetado para o repositório e o padrão de correção
 - [Claude Code](claude-code/_claude-code-indice.md) — uso do próprio Claude Code: sessões, resume global (`cr`) e configurações
 - [Máquina](maquina/_maquina-indice.md) — máquina local (hardware, drivers, SO)
+- [Performance](performance/_performance-indice.md) — evidências para o ciclo de performance/promoção (segurança, IA, outros times, entregas, incidentes, processo), registradas automaticamente

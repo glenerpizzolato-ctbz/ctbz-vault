@@ -10,4 +10,4 @@ tags:
 # Histórico de MRs: experts-service
 
 ## Histórico
-- 2026-11-03: MR !147 `feat/PRD-174790` — Draft: PRD-174790 Envia optout_purpose TAX e cnpj no e-mail de guia de imposto (aberto)
+- 2026-11-03: MR !147 `feat/PRD-174790` — Draft: PRD-174790 Envia optout_purpose TAX e cnpj no e-mail de guia de imposto

@@ -20,3 +20,4 @@ Convenções que valem para qualquer serviço, uma nota por padrão.
 - [[pipeline-repo-novo-sem-variaveis-ci|Repo novo sem variáveis de CI]] — pipeline sem build/lint/test e Sonar do MR com cobertura 0%; copiar as variáveis de um repo do mesmo tipo
 - [[commit-push-automatico|Commit e push automáticos]] — em branch de trabalho ou com MR aberto, terminar o pedido já commitando, dando push e atualizando o MR, sem perguntar
 - [[sonar-cobertura-branches-kotlin|Sonar: cobertura de branches em Kotlin]] — gate de 90% de branches no código novo; safe calls, let/takeIf e lambdas inline geram ramos inalcançáveis; diagnosticar com jacoco.xml × git diff e trocar por orEmpty/!!
+- [[create-secret-value-cifrao|Secret com `$` no create-secret-value]] — ao gravar secret pelo job `create-secret-value` do `vault-roleset`, duplicar cada `$` do valor (`$$`); com um só, o valor gravado sai diferente e a autenticação falha (ex: 401 no Kong)
