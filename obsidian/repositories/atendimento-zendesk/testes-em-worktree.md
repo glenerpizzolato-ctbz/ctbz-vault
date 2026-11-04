@@ -19,3 +19,7 @@ Para rodar os testes:
 3. Remover o symlink ao terminar (`rm node_modules`) para não sujar o `git status`.
 
 Falhas que já existem no master (em 2026-10-30, sem relação com mudanças): `notificacao-empresa-2fa-producer.service.spec.ts`, `marcar-ativos-workflow-recebidas.service.spec.ts` e `marcar-mensagem-ativa-recebido.service.spec.ts`.
+
+## Cobertura de 100% no job test do MR
+
+O job `test` da pipeline exige cobertura global de **100% em branches** (além de statements, funções e linhas). Um único branch descoberto, como um `?? {}` ou `?.` sem teste do caso vazio, derruba o job mesmo com todos os testes passando: o log mostra `Jest: "global" coverage threshold for branches (100%) not met: 99.98%`. Para achar o culpado, procurar no log a tabela de cobertura com algum valor abaixo de 100 (a última coluna traz a linha). Para conferir localmente só os arquivos alterados: `node_modules/.bin/jest --coverage --coverageReporters=text --coverageThreshold='{}' --collectCoverageFrom='**/<arquivo>.ts' <specs>`. O glob do `collectCoverageFrom` é relativo ao `rootDir` (`src`), então `src/...` não casa e a tabela sai vazia; usar `**/`.
