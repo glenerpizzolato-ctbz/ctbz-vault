@@ -53,6 +53,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### IA
 
+- [[2026-11-05-opportunities-scan|Varredura diária com IA de oportunidades de melhoria (Opportunities)]] — 2026QD3, impacto medio
 - [[2026-11-04-auto-approve-mrs|Auto-approve de MRs do time com revisão por IA e regras restritivas]] — 2026QD3, impacto medio
 - [[2026-11-04-skills-fluxo-desenvolvimento|Automação do fluxo de MR com IA (skills mr, comentario, pipe)]] — 2026QD3, impacto medio
 - [[2026-11-03-skill-mapear-erros-ultimate|Levantamento de clientes afetados por incidente (skill mapear-erros-ultimate)]] — 2026QD3, impacto alto
