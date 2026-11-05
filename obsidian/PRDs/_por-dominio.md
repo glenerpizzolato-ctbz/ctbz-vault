@@ -11,8 +11,9 @@ tags:
 
 Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendimento`, `copilot`, `csat`, `impostos`, `monitoria-ia`, `notas-fiscais`, `notificacoes`, `plataforma`, `ultimate`.
 
-## atendimento — Zendesk, tickets, encerramento automático, filas, canais de atendimento, e-mail inbound (79)
+## atendimento — Zendesk, tickets, encerramento automático, filas, canais de atendimento, e-mail inbound (80)
 
+- [[PRD-175483]] — [Monitoramento Ouvidoria] Subir em produção a identificação de quem entra sem empresa nem processo de abertura · backlog · 2026QD3
 - [[PRD-174558]] — [Super Ouvidoria] Subir em produção o menu de desidratação da Ouvidoria na Ultimate · pronto · 2026QD3
 - [[PRD-173035]] — Desidratar Ouvidoria em menu do número exclusivo da Super Ouvidoria · pronto · 2026QD3
 - [[PRD-174256]] — Monitorar quem entra no número de Ouvidoria sem processo de abertura nem empresa · backlog · 2026QD3
@@ -565,8 +566,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-90721]] — Corrigir ativo não sendo enviado · pronto · 2024QD2
 - [[PRD-88592]] — Ajustes Wpp Ativo · pronto · 2024QD2
 
-## ultimate — Ultimate/URA/bots de WhatsApp, menus, autenticação no chat (67)
+## ultimate — Ultimate/URA/bots de WhatsApp, menus, autenticação no chat (68)
 
+- [[PRD-175483]] — [Monitoramento Ouvidoria] Subir em produção a identificação de quem entra sem empresa nem processo de abertura · backlog · 2026QD3
 - [[PRD-174558]] — [Super Ouvidoria] Subir em produção o menu de desidratação da Ouvidoria na Ultimate · pronto · 2026QD3
 - [[PRD-173035]] — Desidratar Ouvidoria em menu do número exclusivo da Super Ouvidoria · pronto · 2026QD3
 - [[PRD-174256]] — Monitorar quem entra no número de Ouvidoria sem processo de abertura nem empresa · backlog · 2026QD3

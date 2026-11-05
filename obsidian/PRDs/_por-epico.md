@@ -11,6 +11,14 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
+## [[PRD-173034]] — Desenvolvimentos para desidratar Ouvidoria (5)
+
+- [[PRD-175483]] — [Monitoramento Ouvidoria] Subir em produção a identificação de quem entra sem empresa nem processo de abertura · backlog · 2026QD3
+- [[PRD-174558]] — [Super Ouvidoria] Subir em produção o menu de desidratação da Ouvidoria na Ultimate · pronto · 2026QD3
+- [[PRD-173035]] — Desidratar Ouvidoria em menu do número exclusivo da Super Ouvidoria · pronto · 2026QD3
+- [[PRD-174256]] — Monitorar quem entra no número de Ouvidoria sem processo de abertura nem empresa · backlog · 2026QD3
+- [[PRD-173036]] — Desidratar Ouvidoria em menu clientes inativos · backlog · 2026QD3
+
 ## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (36)
 
 - [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3
@@ -49,13 +57,6 @@ tags:
 - [[PRD-166053]] — [CSAT Transbordo] Subir CNPJs na feature-flag · pronto · 2026QD3
 - [[PRD-165453]] — Listagem e envio de email no front de atnd-canais · pronto · 2026QD3
 - [[PRD-157829]] — Inconsistência na Sincronização de Telefones (Plataforma vs. Zendesk) · resolvido-outro-dev · 2026QD2
-
-## [[PRD-173034]] — Desenvolvimentos para desidratar Ouvidoria (4)
-
-- [[PRD-174558]] — [Super Ouvidoria] Subir em produção o menu de desidratação da Ouvidoria na Ultimate · pronto · 2026QD3
-- [[PRD-173035]] — Desidratar Ouvidoria em menu do número exclusivo da Super Ouvidoria · pronto · 2026QD3
-- [[PRD-174256]] — Monitorar quem entra no número de Ouvidoria sem processo de abertura nem empresa · backlog · 2026QD3
-- [[PRD-173036]] — Desidratar Ouvidoria em menu clientes inativos · backlog · 2026QD3
 
 ## [[PRD-147644]] — Remover etapa de escolha "Contabilidade/Bank/Corretora" (4)
 
