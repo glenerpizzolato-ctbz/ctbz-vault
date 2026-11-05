@@ -22,6 +22,17 @@ O campo `categoriaPlano` da resposta de `/api/v1/bots/whatsapp/autenticacao/basi
 
 O valor vem do `categoriaPlano` (ou `plano`) devolvido pela plataforma-crm-web e é classificado em `services/identificar-categoria-plano.usecase.ts`: remove acentos e tudo que não é letra/espaço, passa para maiúsculas e compara por igualdade com `AVANCADO`, `BASICO`, `PREMIUM` e `MULTIBENEFICIOS`. `EXPERT` é por `includes` (qualquer plano que contenha "EXPERT" vira `EXPERT`). Qualquer outro valor cai em `NAO_IDENTIFICADO`.
 
+## categoriaPlano na plataforma-crm-web (buscar-por-telefone-e-cnpj e demais rotas do bot)
+
+Na plataforma-crm-web, o `empresaLogada.categoriaPlano` da `POST .../dados-cliente/buscar-por-telefone-e-cnpj` (e das outras rotas do bot) não é o enum acima: é o valor cru de `Empresa.identificarCategoriaPlano()` (`domain/plataforma/extension/EmpresaExtension.kt`).
+
+1. Se o `PagtoPlano` tem `categoriaV2`, devolve o `nome` dessa entidade (`CategoriaPlano` do Datastore, no contabilizei-back-core). É um cadastro, não um enum, então pode vir qualquer nome que exista lá.
+2. Senão, devolve o enum `PagtoPlanoCategoria` do contabilizei-back-core: `BASICO`, `AVANCADO`, `PREMIUM`, `EXPERT_ESSENCIAL`, `EXPERT_PRO`, `MULTIBENEFICIOS`.
+3. Empresa sem categoria no plano volta `BASICO` (default).
+4. Se o CNPJ não é encontrado no telefone, o DTO volta sem empresa, com `categoriaPlano: ""`.
+
+O atendimento-zendesk normaliza esse valor para o seu enum (`EXPERT_ESSENCIAL`/`EXPERT_PRO` viram `EXPERT`).
+
 ## Como o statusBot é calculado
 
 O `statusBot` não é persistido: é recalculado a cada chamada em `autenticar-empresa.usecase.ts`.
