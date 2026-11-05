@@ -48,7 +48,9 @@ Vem do `meta.count` da `GET .../dados-cliente/basico-padrao` da plataforma-crm-w
 - Mais de uma, com alguma `ativo`/`rascunho`: o número de ativas/rascunho, e a `data` é a "melhor" delas (ordenação de `EmpresaAtivaOuRascunhoBasicoPadraoDTO`).
 - Mais de uma, todas inativas: o total de empresas, com a `data` da primeira.
 
-Com CNPJ é sempre `1` (ou `0` se não existir). Para saber ativas x inativas de verdade, usar a `buscar-por-telefone` (veja a seção abaixo).
+Com CNPJ é sempre `1` (ou `0` se não existir). CNPJ que não tem 14 dígitos nem chega a consultar e volta `0`.
+
+Nas áreas `EXPERT` e `ATIVACAO`, a busca vai ao contabilizei-abertura quando vem CPF no body ou quando a busca pelo telefone volta `0`. Nesse caso, `BuscarEmpresaEmAtivacaoPorCpfUseCase` monta o resultado com `meta: { count: 1 }` fixo e `status: 'Rascunho'`, mesmo que o processo venha vazio. Pelo telefone, sem CPF no processo, a busca lança erro. No atendimento-zendesk, o número é só repassado: `ResultadoBuscaEmpresaDTO` copia o `meta.count` (`|| 0`), e a `empresaLogada` só é preenchida quando ele é `1`. Para saber ativas x inativas de verdade, usar a `buscar-por-telefone` (veja a seção abaixo).
 
 ## Flags de vínculo na Ouvidoria (PRD-174256)
 
