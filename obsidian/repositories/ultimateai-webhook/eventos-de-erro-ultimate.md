@@ -27,7 +27,7 @@ Os 500 do nosso lado aparecem em `atendimento-zendesk-prd` e `atz-worker-*` (nam
 
 ## Caso de referência: 2026-11-03
 
-Duas frentes ao mesmo tempo: o enum novo `PagtoPlanoSegmento.PRECOS_2027` em 8 planos (só o default 5-0-333 conhecia o valor, os demais serviços quebravam com `IllegalArgumentException`) e um incidente da Zendesk nos AI Agents (status às 07:58 BRT). No webhook, `Technical Error` começou às 11:10Z (08:10 BRT, junto com o incidente da Zendesk) e chegou a ~2.100 em 30 min (~95% dos erros). Já `Action Failed` (~110/h, do baseline de ~1/h) foi o reflexo do nosso lado: 500 em ouvidoria, timeline, `bots/chat/temas` (BANK) e whatsapp-ativo.
+Duas frentes ao mesmo tempo: o enum novo `PagtoPlanoSegmento.PRECOS_2027` em 8 planos (só o default 5-0-333 conhecia o valor, os demais serviços quebravam com `IllegalArgumentException`) e um incidente da Zendesk nos AI Agents (status às 07:58 BRT; causa: rotação de segredo entre serviços que não propagou, ver [[causa-raiz-zendesk-ai-agents-2026-11-03]]). No webhook, `Technical Error` começou às 11:10Z (08:10 BRT, junto com o incidente da Zendesk) e chegou a ~2.100 em 30 min (~95% dos erros). Já `Action Failed` (~110/h, do baseline de ~1/h) foi o reflexo do nosso lado: 500 em ouvidoria, timeline, `bots/chat/temas` (BANK) e whatsapp-ativo.
 
 ## Mapear os clientes afetados
 
