@@ -1,6 +1,6 @@
 ---
 name: optout-registro-em-lote
-description: "contato-service: registro de opt-out com purpose/companyCode em array (produto cartesiano) e a rota POST /api/v1/optouts/batch, tudo ou nada"
+description: "contato-service: rota POST /api/v1/optouts/batch (array de opt-outs, um registro por item, em sequência, não atômica) — PRD-175747, MR !58"
 metadata:
   type: project
 tags:
@@ -10,11 +10,8 @@ tags:
 
 # Opt-out: registro em lote (PRD-175747)
 
-Branch `feat/PRD-175747`, encadeada em `feat/PRD-175745` (ver [[optout-empresa-obrigatoria]]).
-
-- `POST /api/v1/optouts`: `purpose` e `companyCode` aceitam string ou array (não vazio, sem repetidos, até 50 empresas). Grava uma linha por combinação finalidade × empresa (finalidade por fora, empresa por dentro).
-- **Resposta (decisão):** entrada escalar mantém `{ optout }`; com array em qualquer um dos dois campos, `{ optouts: [...] }` (mesmo com array de 1 item). Motivo: o consumidor atual, o `atendimento-canais-admin` (`useRegistrarOptout.ts` e `useRegistrarOptoutEmLote.ts`, que hoje faz N POSTs com `Promise.allSettled`), lê `{ optout }`.
-- `POST /api/v1/optouts/batch`: body `{ optouts: [...] }`, cada item no formato do registro (com arrays), até 100 itens e 500 combinações no total; resposta `{ optouts }`.
-- **Tudo ou nada:** uma transação só. Empresas resolvidas numa consulta (`CompanyDAO.findByCodes`), 404 lista os códigos inexistentes; `personId` resolvido uma vez por endereço; cache invalidado uma vez por endereço depois do commit.
-- **Canal único de `TAX` dentro do lote:** as linhas são gravadas em sequência na transação e a consulta `findOptedOutByPerson` roda na mesma `tx`, então cada combinação já enxerga o que o lote gravou antes. Não há estado em memória: o lote se comporta como chamadas seguidas (revogar WhatsApp e depois recusar e-mail no mesmo lote é aceito; recusar os dois dá 409 e desfaz tudo).
-- Um mesmo recorte repetido no lote é gravado duas vezes (o último vence), como duas chamadas seguidas.
+- **Escopo decidido pelo Glener (2026-11-06):** só uma rota nova, `POST /api/v1/optouts/batch`, que recebe um array `[{...}, {...}]`, com cada item no formato do `POST /api/v1/optouts`, e cria N registros. A rota atual **não** passou a aceitar `purpose`/`companyCode` em array: essa versão (produto cartesiano, tudo ou nada numa transação, MRs !56 e !57) foi descartada e os MRs foram fechados. O código dela ficou na branch `feat/PRD-175747` (remota) e no backup local da worktree `feature-8`.
+- Implementação (MR !58, branch `feat/PRD-175747-optouts-batch`, alvo `master`): `RegisterOptoutsBatchUsecase` chama o `RegisterOptoutUsecase` para cada item, em sequência; aceita de 1 a 100 itens e responde `{ optouts }` na ordem do array.
+- **Não é atômica:** cada item tem a sua transação; se um falhar (404 de empresa, 409 de `TAX`), o lote para e os anteriores ficam gravados. Reenviar o lote é seguro porque o registro é um upsert idempotente. Por ser sequencial, a regra de canal único de `TAX` de um item enxerga o que os itens anteriores gravaram.
+- Consumidor potencial: `atendimento-canais-admin` (`useRegistrarOptoutEmLote.ts`, que hoje faz N POSTs com `Promise.allSettled`).
+- A sub-task PRD-175747 do Jira já estava **Concluído**, com o título da entrega da PRD-175745 (empresa obrigatória), então não foi movida para este trabalho.
