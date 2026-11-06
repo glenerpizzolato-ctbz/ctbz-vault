@@ -26,3 +26,7 @@ O quality gate dos MRs (`sonar-merge-request`) exige `new_duplicated_lines_densi
 ## O que resolveu
 
 Extrair para um service comum o que é idêntico entre os públicos e deixar em cada classe específica só o que muda (ex: o público e a busca de elegíveis no job, o remetente e o template no e-mail), com poucos parâmetros e sem flag escolhendo o caminho. No !90, a duplicação caiu para 0,0%.
+
+## Código declarativo (ex: models do Drizzle)
+
+Quando a duplicação vem de declarações que se repetem por natureza, como as colunas de tabelas parecidas no Drizzle (estado e histórico do opt-out no `contato-service`), não há lógica para extrair. Basta mexer num comentário dentro do trecho para ele virar código novo e estourar o limite (no !55 do `contato-service`, foi para 6,12%). Nesse caso, excluir esses arquivos da detecção de duplicação no `sonar-project.properties`, com um comentário explicando o motivo: `sonar.cpd.exclusions=src/model/**/*.ts`. Os models desse repo já ficavam fora da cobertura. No !55, o quality gate passou depois disso.
