@@ -11,8 +11,9 @@ tags:
 
 Períodos em quadrimestres: QD1 = jan–abr, QD2 = mai–ago, QD3 = set–dez. A data de referência é a data de pronto (ou fim, início, teste; sem nenhuma, a criação do card no Jira). O mês (`AAAAMM`) fica na propriedade `mes` de cada nota.
 
-## 2026QD3 (59)
+## 2026QD3 (60)
 
+- [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
 - [[PRD-175483]] — [Monitoramento Ouvidoria] Subir em produção a identificação de quem entra sem empresa nem processo de abertura · backlog · 2026QD3
 - [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3
 - [[PRD-174790]] — [Opt-out notificações impostos] Enviar a finalidade do opt-out e o CNPJ nos e-mails de impostos · backlog · 2026QD3
@@ -71,7 +72,7 @@ Períodos em quadrimestres: QD1 = jan–abr, QD2 = mai–ago, QD3 = set–dez. A
 - [[PRD-166064]] — [Flow] Adicionar flow em templates de CRM · pronto · 2026QD3
 - [[PRD-166053]] — [CSAT Transbordo] Subir CNPJs na feature-flag · pronto · 2026QD3
 - [[PRD-165453]] — Listagem e envio de email no front de atnd-canais · pronto · 2026QD3
-- [[PRD-165484]] — Troca de assessor sem registro de autor · backlog · 2026QD3
+- [[PRD-165484]] — Troca de assessor sem registro de autor · resolvido-outro-dev · 2026QD3
 
 ## 2026QD2 (95)
 

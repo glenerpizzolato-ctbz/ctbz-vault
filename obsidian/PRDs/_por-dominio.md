@@ -248,9 +248,10 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-151218]] — [CSAT Transbordo 4.3.2] Disparo de ativo em cenário limite - Endpoint utilitário e Ultimate · pronto · 2026QD2
 - [[PRD-150920]] — [CSAT Transbordo] Padronização do formulário de Ticket OFF para formalização do transbordo · pronto · 2026QD2
 
-## experts (1)
+## experts (2)
 
-- [[PRD-165484]] — Troca de assessor sem registro de autor · backlog · 2026QD3
+- [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
+- [[PRD-165484]] — Troca de assessor sem registro de autor · resolvido-outro-dev · 2026QD3
 
 ## impostos — Guias de imposto, agrupamento de guias, diagnóstico/explicação de impostos (85)
 
@@ -569,6 +570,10 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-91468]] — Agendamentos transferência de atendimentos · pronto · 2024QD2
 - [[PRD-90721]] — Corrigir ativo não sendo enviado · pronto · 2024QD2
 - [[PRD-88592]] — Ajustes Wpp Ativo · pronto · 2024QD2
+
+## seguranca (1)
+
+- [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
 
 ## ultimate — Ultimate/URA/bots de WhatsApp, menus, autenticação no chat (68)
 
