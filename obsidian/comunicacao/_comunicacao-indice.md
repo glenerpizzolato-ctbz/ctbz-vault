@@ -16,6 +16,7 @@ Para onde vai cada mensagem, por assunto. Quando o usuário pedir para "enviar",
 | Assunto | Canal | Link |
 | --- | --- | --- |
 | PRCs (chamados): andamento, triagem, repasses, pedidos ao time | Espaço "PRCs \| Eng. Canais" (Google Chat) | https://mail.google.com/mail/u/0/#chat/space/AAQAfFlovh4 |
+| Alertas de prod do Cloud Monitoring (Pub/Sub, memória do Cloud Run, % de erro) e as investigações automáticas: responder na thread do alerta | Espaço "Engenharia Canais \| Alertas" (Google Chat) | https://chat.google.com/room/AAAA22umHGg |
 
 ## Como enviar
 
