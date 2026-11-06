@@ -1,6 +1,6 @@
 ---
 name: mr
-description: Abre (ou atualiza) o Merge Request no GitLab da branch atual pelo glab - confere se os commits da branch condizem com a feature/card (o não commitado é ignorado), dá push e cria o MR com a descrição da feature, o card do Jira, o work-item (Closes) e o branch chaining, e move a sub-task do Jira para Pull Request. Use quando o usuário pedir para abrir/criar/subir o MR, ou quando o BahCode mandar `/mr` (botão MR do conjunto ou aba MR da feature), com instruções extras nos argumentos (ex: "Abra em draft", override do pré-voo).
+description: Abre (ou atualiza) o Merge Request no GitLab da branch atual pelo glab - confere se os commits da branch condizem com a feature/card (o não commitado é ignorado), dá push e cria o MR com a descrição da feature, o card do Jira, o work-item (Closes) e o branch chaining, e move a sub-task do Jira para Pull Request; quando os commits formam mais de uma parte, divide sem perguntar em MRs pequenos em corrente (branch chaining). Use quando o usuário pedir para abrir/criar/subir o MR, ou quando o BahCode mandar `/mr` (botão MR do conjunto ou aba MR da feature), com instruções extras nos argumentos (ex: "Abra em draft", override do pré-voo).
 argument-hint: "[instruções]"
 ---
 
@@ -14,15 +14,27 @@ O BahCode manda `/mr` a partir da worktree do conjunto. O contexto da feature ch
 2. Ler o que vai no MR, **só o que está commitado**: `git fetch origin`, `git log --oneline origin/<base>..HEAD` e `git diff origin/<base>...HEAD --stat`. O não commitado da worktree (arquivos alterados, novos ou apagados no `git status`) não vai para o MR: não ler, não validar, não commitar e não bloquear por causa dele; deixar como está.
 3. Comparar os commits com a feature (descrição, card, work-item e o que os argumentos citam). Se algum commit trouxer alteração que não faz parte dela (arquivo de outra demanda, debug, config local, `.env`, lixo de build), **não abrir o MR**: listar o que destoa, com arquivo e motivo, e parar. Na dúvida, perguntar.
 
-## 2. Branch e commits
+## 2. Dividir em MRs pequenos (corrente)
+
+Mais MRs pequenos são preferíveis a poucos grandes. Antes de abrir, ver se os commits formam mais de uma parte que se sustenta sozinha (ex: refactor preparatório, migração ou contrato, a regra de negócio, os testes ou a doc de outra frente). Se formarem, **dividir sem perguntar**, em branch chaining, um MR atrás do outro na ordem da dependência:
+
+- A divisão segue a ordem dos commits: cada corte é um commit da branch. MR 1 = `origin/<base>..<corte 1>`, alvo a base; MR 2 = `<corte 1>..<corte 2>`, alvo a branch do MR 1; e assim por diante. A branch atual fica como o **último** MR da corrente (alvo a branch do penúltimo).
+- Criar as branches intermediárias nos cortes sem trocar a branch da worktree nem reescrever commits: `git branch <tipo>/<key>-<n>-<parte> <sha do corte>` e `git push -u origin <branch>`.
+- Se os commits misturam assuntos de um jeito que só daria para separar reescrevendo-os, não reescrever: separar só o que já está separado por commits (ou seguir com um MR só).
+- Cada MR leva o título com a key e a parte (ex: `PRD-123 (1/3) migração da tabela`), e na descrição a seção **Dependência** cita o MR anterior e o próximo da corrente.
+- Abrir na ordem, do primeiro ao último (o alvo de cada um precisa existir no remoto), todos com as mesmas flags (`--draft` etc.).
+- Não dividir quando a branch já tem MR aberto (só atualizar, como no passo 4) ou quando os argumentos pedirem um MR só.
+- **No BahCode**, o pedido traz o comando de registro (`'<binário>' extra-mr <feature> <pasta> <link do MR>`): rodar uma vez para cada MR da corrente que não é o da branch atual, na ordem, para cada um aparecer num bloco de MR do sub-terminal. O da branch atual o BahCode já acha sozinho.
+
+## 3. Branch e commits
 
 - Se estiver na branch padrão ou em HEAD solto, criar a branch: `feat/<key do card>` (ou `fix/…`, conforme a natureza), ou `<tipo>/<breve-descricao>` sem card.
 - Não commitar nada: o MR leva só os commits que já existem na branch. Se não houver nenhum commit à frente da base, não abrir o MR e avisar.
 - `git push -u origin <branch>`.
 
-## 3. Criar o MR
+## 4. Criar o MR
 
-Se a branch já tem MR aberto (`glab mr list --source-branch <branch>`), não criar outro: atualizar a descrição se preciso e devolver o link.
+Na corrente (passo 2), repetir para cada MR. Se a branch já tem MR aberto (`glab mr list --source-branch <branch>`), não criar outro: atualizar a descrição se preciso e devolver o link.
 
 Senão, `glab mr create` com:
 
@@ -37,7 +49,7 @@ Senão, `glab mr create` com:
   - `Closes <link do work-item>`, quando o conjunto resolve um;
   - o override do pré-voo, quando os argumentos pedirem para registrá-lo.
 
-## 4. Depois de abrir
+## 5. Depois de abrir
 
 - Mover no Jira (`transitionJiraIssue` pelo MCP do Atlassian) a sub-task do conjunto e a de Desenvolvimento `[repo]` para *Pull Request*, só pelos status do fluxo (ignorar outros, como *Code Review*).
-- Responder com o link do MR, a branch alvo e o que foi movido no Jira.
+- Responder com o link de cada MR (na ordem da corrente), a branch alvo de cada um e o que foi movido no Jira.
