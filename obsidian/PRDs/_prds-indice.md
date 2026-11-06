@@ -38,5 +38,5 @@ Todo PRD novo vai para um épico, nesta ordem: o citado na demanda; senão um é
 
 ## Números
 
-- 389 demandas, 46 épicos
-- pronto: 343, backlog: 13, arquivado: 12, resolvido-outro-dev: 12, esquecido: 9
+- 390 demandas, 46 épicos
+- pronto: 343, backlog: 14, arquivado: 12, resolvido-outro-dev: 12, esquecido: 9

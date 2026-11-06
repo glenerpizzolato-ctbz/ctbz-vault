@@ -248,6 +248,10 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-151218]] — [CSAT Transbordo 4.3.2] Disparo de ativo em cenário limite - Endpoint utilitário e Ultimate · pronto · 2026QD2
 - [[PRD-150920]] — [CSAT Transbordo] Padronização do formulário de Ticket OFF para formalização do transbordo · pronto · 2026QD2
 
+## experts (1)
+
+- [[PRD-165484]] — Troca de assessor sem registro de autor · backlog · 2026QD3
+
 ## impostos — Guias de imposto, agrupamento de guias, diagnóstico/explicação de impostos (85)
 
 - [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3

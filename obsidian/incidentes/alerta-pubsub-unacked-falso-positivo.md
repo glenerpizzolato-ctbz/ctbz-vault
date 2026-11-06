@@ -39,6 +39,12 @@ Medindo a idade da mensagem mais antiga sem ack (`oldest_unacked_message_age`):
 
 O caso do `plataforma-alteracao-plano` (2 mensagens presas até expirar) passa batido pela regra atual, que só olha volume.
 
+## Aplicado em 2026-11-06 12:46 UTC (Glener)
+
+- A condição da policy `8855052505336933525` foi trocada para `oldest_unacked_message_age` `ALIGN_MAX` 300s `> 900` com `duration 600s` (nome da condição: "Cloud Pub/Sub Subscription - Mensagem mais antiga sem ack > 15 min"). O nome da policy, o canal (`notificationChannels/6388798739835665203`), a severidade WARNING e o `autoClose` 1800s foram mantidos. Antes, depois e a proposta: `policy-antes.json`, `policy-depois.json` e `policy-proposta.json` em `~/.local/share/bahcode/features/f1793965969214.doc/`. Para reverter: `gcloud alpha monitoring policies update ... --policy-from-file=policy-antes.json`.
+- Com a regra antiga foram 10 incidentes em 30 dias, todos do `guia-imposto`. Só 4 coincidem com atraso real (09/10, 14/10, 01/11 manhã e tarde). Os outros 6 (10/10, 21/10, 25/10, 01/11 noite, 05/11, 06/11) foram rajadas que drenaram em minutos. Os incidentes ficam em `GET https://monitoring.googleapis.com/v3/projects/contabilizei-experts-prd/alerts?filter=policy.name="..."`.
+- Logo depois de aplicar, nenhuma das 64 assinaturas estava com mensagem acima de 900 s (a máxima era 2 s), então nada abriu.
+
 ## Proposta (backtest em 30 dias)
 
 - Trocar para `oldest_unacked_message_age`, `ALIGN_MAX` em 300s, `> 900` (15 min) com `duration 600s`. A policy original e a proposta ficam em `~/.local/share/bahcode/features/f1793965969214.doc/policy-antes.json` e `policy-proposta.json`. Aplicar com `gcloud alpha monitoring policies update projects/contabilizei-experts-prd/alertPolicies/8855052505336933525 --policy-from-file=policy-proposta.json`.

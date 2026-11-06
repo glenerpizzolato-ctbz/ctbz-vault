@@ -113,6 +113,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Qualidade
 
+- [[2026-11-06-alerta-pubsub-falso-positivo|Alerta de Pub/Sub do experts-prd sem falso-positivo]] — 2026QD3, impacto medio
 - [[2026-11-03-padroes-sonar-pipeline|Padrões de diagnóstico de Sonar e pipeline]] — 2026QD3, impacto medio
 
 ### Liderança

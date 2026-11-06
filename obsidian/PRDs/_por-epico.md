@@ -19,7 +19,7 @@ tags:
 - [[PRD-174256]] — Monitorar quem entra no número de Ouvidoria sem processo de abertura nem empresa · backlog · 2026QD3
 - [[PRD-173036]] — Desidratar Ouvidoria em menu clientes inativos · backlog · 2026QD3
 
-## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (36)
+## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (37)
 
 - [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3
 - [[PRD-174790]] — [Opt-out notificações impostos] Enviar a finalidade do opt-out e o CNPJ nos e-mails de impostos · backlog · 2026QD3
@@ -56,6 +56,7 @@ tags:
 - [[PRD-166064]] — [Flow] Adicionar flow em templates de CRM · pronto · 2026QD3
 - [[PRD-166053]] — [CSAT Transbordo] Subir CNPJs na feature-flag · pronto · 2026QD3
 - [[PRD-165453]] — Listagem e envio de email no front de atnd-canais · pronto · 2026QD3
+- [[PRD-165484]] — Troca de assessor sem registro de autor · backlog · 2026QD3
 - [[PRD-157829]] — Inconsistência na Sincronização de Telefones (Plataforma vs. Zendesk) · resolvido-outro-dev · 2026QD2
 
 ## [[PRD-147644]] — Remover etapa de escolha "Contabilidade/Bank/Corretora" (4)
