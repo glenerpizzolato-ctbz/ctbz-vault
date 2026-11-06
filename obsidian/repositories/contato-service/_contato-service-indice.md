@@ -16,3 +16,5 @@ Repositório em `~/repositories/contato-service`. Notas sobre ele (como rodar lo
 
 - [[vincular-contato-empresa]] — como vincular um contato a uma empresa (POST /api/v1/contacts hoje; PUT /companies/:code/memberships/:personId no MR !53)
 - [[optout-empresa-obrigatoria]] — opt-out sempre por empresa (companyCode obrigatório, PRD-175745), legado com company_id nulo e sinal da Meta
+- [[historico-mrs-contato-service|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[optout-registro-em-lote]] — opt-out com purpose/companyCode em array e rota `/optouts/batch` (PRD-175747), tudo ou nada
