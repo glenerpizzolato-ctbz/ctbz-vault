@@ -50,3 +50,7 @@ Incidente documentado e fechado, textos de contingência revertidos (PRD-175013)
 ## Atualização 04/11/2026: chat web nos alertas
 
 Descobri que o bot do chat web (`[prod] ctbz chat main`) nunca mandava eventos ao `ultimateai-webhook`: nos 30 dias anteriores, nenhuma chamada dele chegou ao serviço, nem recusada. O webhook dele estava desativado na Ultimate. Depois de ativado, validei o evento de teste no log e conferi que as 7 regras do Grafana cobrem qualquer bot. Assim, o chat web (866 conversas afetadas no incidente) passou a ter alerta em tempo real sem mudar código. A ação foi registrada no post-mortem e no plano de ação [IP-4381](https://contabilizeicontabilidade.atlassian.net/browse/IP-4381).
+
+## Atualização 06/11/2026: causa raiz da Zendesk
+
+- A Zendesk enviou a análise do evento: rotação de segredo entre os serviços dos AI Agents que não propagou (HTTP 401). Resumi com uma explicação simples no post-mortem, na linha do tempo e no IP-4361. Nota: [[causa-raiz-zendesk-ai-agents-2026-11-03]].

@@ -46,6 +46,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Segurança
 
+- [[2026-11-06-autoria-auditoria-troca-assessor|Gap de integridade na auditoria de troca de assessor (experts-service)]] — 2026QD3, impacto alto
 - [[2026-10-30-cve-node2shell|Coordenação da correção da CVE-2026-111497 (node2shell)]] — 2026QD3, impacto alto
 - [[2026-10-30-remocao-servicos-expostos|Remoção de serviços Cloud Run esquecidos e expostos na internet]] — 2026QD3, impacto alto
 - [[2025-08-26-copilot-lib-vulneravel|Remoção de biblioteca com possível vulnerabilidade no Copilot]] — 2025QD2, impacto medio
@@ -53,6 +54,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### IA
 
+- [[2026-11-06-nexts-fila-priorizada|Fila do que fazer a seguir priorizada por IA (Nexts)]] — 2026QD3, impacto medio
 - [[2026-11-05-opportunities-scan|Varredura diária com IA de oportunidades de melhoria (Opportunities)]] — 2026QD3, impacto medio
 - [[2026-11-04-auto-approve-mrs|Auto-approve de MRs do time com revisão por IA e regras restritivas]] — 2026QD3, impacto medio
 - [[2026-11-04-skills-fluxo-desenvolvimento|Automação do fluxo de MR com IA (skills mr, comentario, pipe)]] — 2026QD3, impacto medio
