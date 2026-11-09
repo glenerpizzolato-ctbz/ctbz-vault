@@ -14,4 +14,5 @@ Bancos Postgres no Cloud SQL acessados localmente pelos proxies de `~/dotfiles/c
 - [[como-conectar|Como conectar]] — subir os proxies, gerar `~/.pg_service.conf`/`~/.pgpass` a partir do DBeaver e consultar com `psql service=...` (dev leitura e escrita, prd só leitura)
 - [[bancos-dev|Bancos de dev]] — serviços `dev_*` disponíveis, instância, porta, database e situação do acesso; leitura e escrita liberadas
 - [[bancos-prd|Bancos de prod]] — serviços `prd_*`, **somente leitura**: nunca executar escrita em prod
+- [[cloud-sql-alteracoes-com-restart|Alterações do Cloud SQL que reiniciam]] — habilitar HA (REGIONAL) e afins derrubam conexões (57P01) por minutos; como achar no audit log
 - [[status-empresa-bigquery|Status da empresa (prod) pelo BigQuery]] — status, motivo de inatividade, plano e regime por CNPJ em `contabilizei-dataflow.saude_empresa.empresa` (snapshot mensal, só prod)
