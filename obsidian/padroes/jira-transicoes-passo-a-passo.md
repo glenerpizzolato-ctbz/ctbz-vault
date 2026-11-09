@@ -1,6 +1,6 @@
 ---
 name: jira-transicoes-passo-a-passo
-description: "No Jira, o status de qualquer card muda uma transição por vez pelo workflow; inclui a regra de sub-task de código ser do tipo Desenvolvimento e como converter Subtarefa → Desenvolvimento"
+description: "No Jira, o status de qualquer card muda uma transição por vez pelo workflow; inclui a regra de sub-task de código ser do tipo Desenvolvimento (a chamada de rotina é sempre Subtarefa) e como converter Subtarefa → Desenvolvimento"
 metadata:
   type: reference
 tags:
@@ -26,7 +26,7 @@ Como fazer pelo MCP do Atlassian:
 - `Backlog` → `Building`: não há transição direta; passar por `To-do` e depois `Started` (61).
 - `To-do` → `Building`: `Started` (id `61`). Ela exige **Story Points** (`customfield_10004`) preenchido: o campo aparece na tela da transição como não obrigatório, mas sem valor a transição é recusada. Passar em `fields` do `transitionJiraIssue` (`{"customfield_10004": 2}`) ou gravar antes com `editJiraIssue`; sem estimativa, 2 no card (1 na sub-task).
 - `Aguardando Priorização` → `To-do`: `To-do` (id `341`); sub-tasks recém-criadas costumam nascer nesse status e não têm `Started` disponível antes disso.
-- `Building` → `Pull Request`: `Gerar Pull Request` (id `331`). No mesmo ponto existe `Iniciar Revisão` (361 → `Code Review`), que não deve ser usada.
+- `Building` → `Pull Request`: `Gerar Pull Request` (id `331`). De `Pull Request` (sub-task `Desenvolvimento`) as únicas saídas são `To-do` (341), `Pronto para deploy` (211 → `Ready for Release`) e `Archived` (111): não há caminho direto para `Ready to Test` sem passar por `Code Review`, então a sub-task fica em `Pull Request` até o merge (visto na PRD-175907 em 2026-11-09). Para levar uma `Desenvolvimento` sem MR até `Concluído` (ex: para converter em `Subtarefa`, já que `Aguardando Priorização`/`Building` não existem no fluxo de `Subtarefa`), o caminho que funciona é: `To-do` (341), `Started` (61, com SP), `Pronto para teste` (191, vai para `Ready to Test`), `Testando` (201, vai para `Teste`), `Solicitar validação Produto` (291), `Aprovar Produto` (301, vai para `Pull Request`), `Pronto para deploy` (211) e `Finished` (171, vai para `Concluído`). De `Building` não existe `Finished` nesse fluxo. Em `Concluído`, `editJiraIssue` com `issuetype: {"id": "5"}` converte (PRD-175908, 2026-11-09). No mesmo ponto existe `Iniciar Revisão` (361 → `Code Review`), que não deve ser usada.
 - `Building` → `Concluído`: `Finished` (id `121`). Outras saídas de `Building`: `Waiting` (171), `Para Validação` (201), `Aguardar Processamento` (211).
 - `Ready for Release` → `Concluído`: `Released`.
 - De qualquer status: `Archived` (151) e `Backlog` (191).
@@ -40,6 +40,7 @@ Como fazer pelo MCP do Atlassian:
 ## Sub-task de código = `Desenvolvimento`
 
 - Sub-task que envolve código é do tipo **`Desenvolvimento`** (id `21253`), não `Subtarefa` (id `5`); `Subtarefa` só para o que não é código nem teste. Preencher também `Quarter` (`customfield_21194`) e `Assigned Squad` na sub-task.
+- Exceção: a sub-task que o usuário chama de **rotina** (ex: "sub-task de rotina", "a rotina de deploy") é **sempre** `Subtarefa` (id `5`), mesmo envolvendo um repositório; a indicação dele vale sobre a regra de código (pedido de 2026-11-09). O fluxo é o de `Subtarefa` (ver os caminhos acima).
 - Fluxo do `Desenvolvimento`: `To-do`, `Building`, `Pull Request`, `Code Review`, `Waiting Test`, `Ready to Test`, `Teste`, `Ready for Release`, `Concluído`, `Archived` etc. De `Concluído` volta para `To-do` com a transição `To-do` (id `341`).
 - Converter `Subtarefa` → `Desenvolvimento`: `editJiraIssue` com `issuetype: {"id": "21253"}`. Só funciona se o status atual existir nos dois fluxos (`Concluído`, `Archived`); senão volta 400 "O tipo de item selecionado é inválido". Para uma sub-task em `Tarefas pendentes`: `Executar` (21) → `Finalizar` (31, vai para `Concluído`) → trocar o tipo → `To-do` (341) → `editJiraIssue` com `resolution: null` (a resolução fica "Itens concluídos" depois da volta).
 
