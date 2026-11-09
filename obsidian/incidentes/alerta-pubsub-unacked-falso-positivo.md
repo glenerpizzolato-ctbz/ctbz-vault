@@ -45,6 +45,12 @@ O caso do `plataforma-alteracao-plano` (2 mensagens presas até expirar) passa b
 - Com a regra antiga foram 10 incidentes em 30 dias, todos do `guia-imposto`. Só 4 coincidem com atraso real (09/10, 14/10, 01/11 manhã e tarde). Os outros 6 (10/10, 21/10, 25/10, 01/11 noite, 05/11, 06/11) foram rajadas que drenaram em minutos. Os incidentes ficam em `GET https://monitoring.googleapis.com/v3/projects/contabilizei-experts-prd/alerts?filter=policy.name="..."`.
 - Logo depois de aplicar, nenhuma das 64 assinaturas estava com mensagem acima de 900 s (a máxima era 2 s), então nada abriu.
 
+## Ocorrências com a regra nova
+
+- **2026-11-09 15:39 BRT (18:39 UTC), `experts-service.sub.guia-imposto`, idade 1.244 s → máx. 2.056 s (34 min); normalizou às ~16:12 BRT.** Alerta verdadeiro, sem falha: o fintech publicou de uma vez ~63 mil guias `PENDENTE` (quase tudo `SIMPLES` e `DARF_UNIFICADO`, com `clock` entre 15:10 e 15:40 BRT, geração em massa da competência), e a entrada (~26 msg/s) passou da vazão do consumer. O backlog chegou a 31 mil às 15:35 BRT. O HPA subiu de 2 para 5 pods e a vazão foi de ~6 para ~23 msg/s, com CPU em ~10% do limite, sem nack relevante, sem DLQ e com só 3 ack deadlines expirados. O gargalo é o `flowControl` do `GuiaImpostoNotifierConsumer` (`maxMessages` = `CONSUMER_GUIA_IMPOSTO_NOTIFIER_MAX_MESSAGES`, padrão 3, `maxStreams: 1`): poucas mensagens em paralelo por pod num trabalho de I/O. O efeito para o cliente é um atraso de até ~34 min na notificação das guias Expert, e a maior parte da rajada nem é Expert ("is not experts plan").
+- Ajuste do `maxMessages` registrado no work-item https://gitlab.com/ctbz/experts/backend/experts-service/-/work_items/18 (2026-11-09).
+- Sem acesso às métricas do tópico em `fintech-228118` (403): a entrada é estimada como acks + crescimento do backlog da assinatura.
+
 ## Proposta (backtest em 30 dias)
 
 - Trocar para `oldest_unacked_message_age`, `ALIGN_MAX` em 300s, `> 900` (15 min) com `duration 600s`. A policy original e a proposta ficam em `~/.local/share/bahcode/features/f1793965969214.doc/policy-antes.json` e `policy-proposta.json`. Aplicar com `gcloud alpha monitoring policies update projects/contabilizei-experts-prd/alertPolicies/8855052505336933525 --policy-from-file=policy-proposta.json`.

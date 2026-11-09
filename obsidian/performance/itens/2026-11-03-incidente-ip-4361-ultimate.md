@@ -54,3 +54,8 @@ Descobri que o bot do chat web (`[prod] ctbz chat main`) nunca mandava eventos a
 ## Atualização 06/11/2026: causa raiz da Zendesk
 
 - A Zendesk enviou a análise do evento: rotação de segredo entre os serviços dos AI Agents que não propagou (HTTP 401). Resumi com uma explicação simples no post-mortem, na linha do tempo e no IP-4361. Nota: [[causa-raiz-zendesk-ai-agents-2026-11-03]].
+
+## Atualização 09/11/2026: contact point criado e proposta de limiar com dados
+
+- O contact point `ATENDIMENTO CANAIS - V2` foi criado pelo DevOps (EC-1704), ligado à integração nova de Canais no JSM Ops.
+- Para não abrir IPs por engano, simulei os limiares do alerta com 40 dias de dados da métrica `ultimateai_events` e o histórico de disparos do Grafana. Mostrei que o Technical error quase não tem ruído (só 2 episódios acima de 10 em 40 dias) e que o ruído do chat vem de outras regras (Falha de integração: 12 disparos; Webhook respondendo erro: 15, num padrão diário às 20h40). A proposta (regra agregada ≥20 em 5 min por 5 min, implantação em duas fases) pegaria só o IP-4361, 37 min antes da abertura manual. Ver [[proposta-ajuste-alerta-ultimate-ip]].
