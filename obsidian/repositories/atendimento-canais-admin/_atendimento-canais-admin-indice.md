@@ -17,4 +17,4 @@ Repositório em `~/repositories/atendimento-canais-admin`. Notas sobre ele (como
 - [[build-e-deploy|Build e deploy]] — antigo canais-bff; build local exige token do registry npm; build.sh faz deploy público sem --project (criou serviço avulso no aida-stg)
 - [[dashboard-agrupamento-guias-bigquery|Dashboard Agrupamento de Guias e BigQuery]] — tabelas de dw_ms_agrupamento_guias, item_grupo_guia com pares repetidos e órfãos, armadilhas de rodar check/testes em worktree; front não leva coleção Bruno
 - [[historico-mrs-atendimento-canais-admin|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
-- [[optout-tela-contato]] — como a tela de contato grava opt-out (um POST /optouts do contato-service por endereço × finalidade × empresa, sem lote)
+- [[optout-tela-contato]] — como a tela de contato grava e consulta opt-out no contato-service (POST /optouts, /optouts/batch em pedaços de 100 e /optouts/search em pedaços de 1000)
