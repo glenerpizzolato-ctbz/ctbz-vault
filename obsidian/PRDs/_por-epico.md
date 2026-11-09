@@ -11,8 +11,9 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
-## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (38)
+## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (39)
 
+- [[PRD-175906]] — email-service: retentar erro passageiro na validação de e-mail e reenviar os 2 e-mails perdidos na queda do banco · backlog · 2026QD3
 - [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
 - [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3
 - [[PRD-174790]] — [Opt-out notificações impostos] Enviar a finalidade do opt-out e o CNPJ nos e-mails de impostos · backlog · 2026QD3

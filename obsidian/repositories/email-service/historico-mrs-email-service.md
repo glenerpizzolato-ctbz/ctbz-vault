@@ -11,3 +11,4 @@ tags:
 
 ## Histórico
 - 2026-10-29: MR !72 `chore/remove-unrecorded-alert-policy` — Draft: chore(terraform): remove a alert policy "envio recusado ou sem registro" e mantém só o card no Google Chat
+- 2026-11-09: MR !74 `fix/validation-transient-retry` — Draft: email-service#52 (2/2) fix(sender): retenta erro passageiro na validação em vez de descartar o e-mail

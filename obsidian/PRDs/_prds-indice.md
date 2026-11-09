@@ -38,5 +38,11 @@ Todo PRD novo vai para um épico, nesta ordem: o citado na demanda; senão um é
 
 ## Números
 
-- 391 demandas, 46 épicos
-- pronto: 343, backlog: 14, arquivado: 12, resolvido-outro-dev: 13, esquecido: 9
+- 392 demandas, 46 épicos
+- pronto: 343, backlog: 15, arquivado: 12, resolvido-outro-dev: 13, esquecido: 9
+
+## Campos do Jira na criação
+
+- **Defeito** (e outros tipos do PRD) exige `Critérios para aceite` (`customfield_18415`, texto) e `Resultado Esperado` (`customfield_18416`, texto); sem eles o `createJiraIssue` volta 400.
+- **Tipo do card:** correção que deixa o sistema mais resiliente depois de um incidente causado por fator externo (ex: retentativa quando o banco cai, PRD-175906) é **`Melhoria do produto`** (id `19560`), não `Defeito` (id `23416`); o usuário corrigiu isso em 2026-11-09. A troca de tipo entre os dois funciona com `editJiraIssue` (`issuetype: {"id": "19560"}`) mantendo o status `Building`.
+- Na sub-task `Qualidade e Testes`, o campo de envolvimento se chama **`Envolvimento:`** (com dois-pontos), `customfield_21691`; pelo MCP, `{"Envolvimento:": "Testes / E2E"}` resolve o cascata (pai `Testes` id 29212, filho `E2E` id 29218).
