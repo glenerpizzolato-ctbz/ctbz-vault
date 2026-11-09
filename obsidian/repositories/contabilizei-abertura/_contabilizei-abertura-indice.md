@@ -14,4 +14,4 @@ caminho: ~/repositories/contabilizei-abertura
 
 Repositório em `~/repositories/contabilizei-abertura`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[contagem-processos-abertura-por-telefone]] (em `repositories/atendimento-zendesk/`) — `GET /rest/integracao/twilio/processo/telefone/{telefone}`: busca por `socios.telefone` com variantes com/sem 9 e devolve inclusive processos Finalizados

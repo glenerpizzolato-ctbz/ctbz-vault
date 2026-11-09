@@ -15,6 +15,7 @@ caminho: ~/repositories/atendimento-zendesk
 Repositório em `~/repositories/atendimento-zendesk`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
 - [[categoria-plano-autenticacao-whatsapp]] — valores do enum `categoriaPlano` no endpoint de autenticação basico-padrao do WhatsApp, como o plano do CRM é normalizado como o statusBot e o quantidadeEmpresas são calculados e o histórico da área OUVIDORIA (removida em 2026-11)
+- [[contagem-processos-abertura-por-telefone]] — contagem de processos de abertura por telefone do bot (rota da abertura pelo telefone do sócio) e por que dá zero (SOCI Finalizado ou telefone do sócio gravado errado no cadastro)
 - [[api-gateway-bots-whatsapp]] (em `apis/`) — como chamar a `autenticacao/basico-padrao` pelo gateway (`/atendimento/zendesk/bots/whatsapp/fluxo/interacao`) com a `x-api-key` da `zendeskbot-config`
 - [[deploy-dev-e-prd]] — como subir em dev (merge na `develop`, pipeline manual com `DEPLOY=true`, jobs service-account → migrations → helm) e em prd; a doc oficial é o README do repo
 - [[testes-em-worktree]] — como rodar jest/eslint/prettier numa worktree sem `node_modules` (symlink para o checkout principal) e as suítes que já falham no master; cobertura de 100% em branches exigida no job test do MR
