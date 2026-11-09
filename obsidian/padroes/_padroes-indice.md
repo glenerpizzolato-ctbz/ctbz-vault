@@ -24,3 +24,4 @@ Convenções que valem para qualquer serviço, uma nota por padrão.
 - [[sonar-cobertura-excluida-no-runner|Sonar: 0% em código testado]] — `new_coverage` 0.0 com teste existente: o arquivo está nas exclusões de cobertura do runner (vitest/jest/jacoco) e não entra no relatório importado pelo Sonar
 - [[consumidores-entre-repositorios|Consumidores entre repositórios]] — registrar quem consome cada rota, tópico ou tabela (no consumidor e na seção Consumidores do provedor), para a revisão de MRs achar quebra de fluxo dependente
 - [[gitlab-work-item-status|Status de work-item no GitLab]] — To do / In progress / Done é o widget STATUS via GraphQL (`workItemUpdate` com `statusWidget`), não label
+- [[zod-union-mensagens-de-erro]] — zod v4: `z.union` de valor único ou lista devolve "Invalid input" genérico com enum inválido; como recuperar a mensagem específica
