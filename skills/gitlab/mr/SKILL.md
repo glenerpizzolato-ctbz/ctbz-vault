@@ -24,7 +24,10 @@ Mais MRs pequenos são preferíveis a poucos grandes. Antes de abrir, ver se os 
 - Cada MR leva o título com a key e a parte (ex: `PRD-123 (1/3) migração da tabela`), e na descrição a seção **Dependência** cita o MR anterior e o próximo da corrente.
 - Abrir na ordem, do primeiro ao último (o alvo de cada um precisa existir no remoto), todos com as mesmas flags (`--draft` etc.).
 - Não dividir quando a branch já tem MR aberto (só atualizar, como no passo 4) ou quando os argumentos pedirem um MR só.
-- **No BahCode**, o pedido traz o comando de registro (`'<binário>' extra-mr <feature> <pasta> <link do MR>`): rodar uma vez para cada MR da corrente que não é o da branch atual, na ordem, para cada um aparecer num bloco de MR do sub-terminal. O da branch atual o BahCode já acha sozinho.
+- **No BahCode**, cada MR da corrente é uma **task** do sub-terminal (sub-task + MR, no mesmo workspace). O MR da branch atual é a task 1, que o BahCode já acha sozinho; cada um dos outros vira uma task a mais. O pedido traz os comandos:
+  - `'<binário>' extra-mr <feature> <pasta> <link do MR> --base <link do MR anterior da corrente> --subtask <KEY>`: rodar uma vez para cada MR que não é o da branch atual, na ordem da corrente. Omitir o `--base` no primeiro (ele sai da base da feature) e o `--subtask` quando não houver uma sub-task só daquela parte (a sub-task da task 1 não se repete).
+  - `'<binário>' mr-base <feature> <link do penúltimo MR>`: depois, para gravar de qual MR sai o da branch atual (o último da corrente).
+  - Ex. com 2 MRs: `extra-mr … <MR 1>` (sem `--base`), e `mr-base … <MR 1>`. Com 3: `extra-mr … <MR 1>`, `extra-mr … <MR 2> --base <MR 1>`, e `mr-base … <MR 2>`.
 
 ## 3. Branch e commits
 
@@ -51,5 +54,5 @@ Senão, `glab mr create` com:
 
 ## 5. Depois de abrir
 
-- Mover no Jira (`transitionJiraIssue` pelo MCP do Atlassian) a sub-task do conjunto e a de Desenvolvimento `[repo]` para *Pull Request*, só pelos status do fluxo (ignorar outros, como *Code Review*).
+- Mover no Jira (`transitionJiraIssue` pelo MCP do Atlassian) a sub-task do conjunto (a da task 1) e a de Desenvolvimento `[repo]` para *Pull Request*, só pelos status do fluxo (ignorar outros, como *Code Review*). Na corrente do BahCode, cada task a mais com `--subtask` tem a sua sub-task movida pelo próprio BahCode quando o MR dela abre (e concluída no merge); não mover a sub-task de uma task pelo MR de outra.
 - Responder com o link de cada MR (na ordem da corrente), a branch alvo de cada um e o que foi movido no Jira.
