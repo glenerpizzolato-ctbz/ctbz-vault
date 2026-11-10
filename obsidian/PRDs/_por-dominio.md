@@ -258,8 +258,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
 - [[PRD-165484]] — Troca de assessor sem registro de autor · resolvido-outro-dev · 2026QD3
 
-## impostos — Guias de imposto, agrupamento de guias, diagnóstico/explicação de impostos (86)
+## impostos — Guias de imposto, agrupamento de guias, diagnóstico/explicação de impostos (87)
 
+- [[PRD-176493]] — experts-service: aumentar a concorrência do consumer de guias de imposto para drenar rajadas do processar-guia-imposto · backlog · 2026QD3
 - [[PRD-176358]] — [Agrupamento de guias] Listar todas as guias e parcelas no e-mail do agrupamento · backlog · 2026QD3
 - [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3
 - [[PRD-174790]] — [Opt-out notificações impostos] Enviar a finalidade do opt-out e o CNPJ nos e-mails de impostos · backlog · 2026QD3
@@ -412,8 +413,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-99472]] — Nova etapa descrição NF Ext · pronto · 2024QD3
 - [[PRD-90265]] — NF Ext · pronto · 2024QD3
 
-## notificacoes — WhatsApp ativo, templates, Meta Flows, e-mails, opt-out (95)
+## notificacoes — WhatsApp ativo, templates, Meta Flows, e-mails, opt-out (96)
 
+- [[PRD-176493]] — experts-service: aumentar a concorrência do consumer de guias de imposto para drenar rajadas do processar-guia-imposto · backlog · 2026QD3
 - [[PRD-176358]] — [Agrupamento de guias] Listar todas as guias e parcelas no e-mail do agrupamento · backlog · 2026QD3
 - [[PRD-176052]] — Opt-out em lote no contato-service: atendimento-canais-admin usar as rotas batch e search · pronto · 2026QD3
 - [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3

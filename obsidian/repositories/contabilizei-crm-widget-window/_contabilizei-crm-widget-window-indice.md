@@ -14,4 +14,4 @@ caminho: ~/repositories/contabilizei-crm-widget-window
 
 Repositório em `~/repositories/contabilizei-crm-widget-window`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[widget-tags-roteamento-ouvidoria]] — como as conversationTags (`helpdesk:routing-tags`) chegam ao ticket, o botão Reclamação/Elogio que manda `sys_grupo_ouvidoria` e o risco de tags velhas no localStorage

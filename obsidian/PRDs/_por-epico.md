@@ -11,12 +11,9 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
-## [[PRD-164393]] — Empacotamento de Guias para BP (1)
+## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (41)
 
-- [[PRD-176358]] — [Agrupamento de guias] Listar todas as guias e parcelas no e-mail do agrupamento · backlog · 2026QD3
-
-## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (40)
-
+- [[PRD-176493]] — experts-service: aumentar a concorrência do consumer de guias de imposto para drenar rajadas do processar-guia-imposto · backlog · 2026QD3
 - [[PRD-176052]] — Opt-out em lote no contato-service: atendimento-canais-admin usar as rotas batch e search · pronto · 2026QD3
 - [[PRD-175906]] — email-service: retentar erro passageiro na validação de e-mail e reenviar os 2 e-mails perdidos na queda do banco · backlog · 2026QD3
 - [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
@@ -57,6 +54,10 @@ tags:
 - [[PRD-165453]] — Listagem e envio de email no front de atnd-canais · pronto · 2026QD3
 - [[PRD-165484]] — Troca de assessor sem registro de autor · resolvido-outro-dev · 2026QD3
 - [[PRD-157829]] — Inconsistência na Sincronização de Telefones (Plataforma vs. Zendesk) · resolvido-outro-dev · 2026QD2
+
+## [[PRD-164393]] — Empacotamento de Guias para BP (1)
+
+- [[PRD-176358]] — [Agrupamento de guias] Listar todas as guias e parcelas no e-mail do agrupamento · backlog · 2026QD3
 
 ## [[PRD-173034]] — Desenvolvimentos para desidratar Ouvidoria (5)
 

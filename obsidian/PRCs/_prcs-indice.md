@@ -21,6 +21,7 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 - **Ao resolver um PRC:** procurar aqui um playbook do mesmo problema. Se existir, adicionar o chamado em `ocorrencias`, atualizar `qtd_ocorrencias`/`ultima_ocorrencia` (data de criação do chamado) e enriquecer a nota se houver algo novo. Se não existir, criar `itens/<ACR> - <sintoma>.md` com o mesmo front-matter e adicionar a linha abaixo.
 - **Comunicar sobre PRCs:** mensagens sobre PRCs (andamento, repasses, pedidos ao time) vão para o [chat dedicado de PRCs](https://mail.google.com/mail/u/0/#chat/space/AAQAfFlovh4) (ver [[_comunicacao-indice|Comunicação]]).
 - **Transferir um PRC para outro squad:** não usar a transição `Transferido` nem mudar o status: o PRC fica em `TODO` e só se troca o campo **Assigned Squad** (`customfield_18419`) para o squad de destino (ex: `Fiscal`).
+- **Concluir uma ACR (tipo `Análise de Causa raiz`):** de `Backlog`, o único status de conclusão direto é `Archived`. Para ir a `Concluído`, seguir `Priorizar` (201) → `To-do` (661) → `Detalhar Hipótese` (481, status `Detalhamento`) → `Finalizar` (651). O `Finalizar` exige `Qual a origem do problema?` (`customfield_25658`), `Causa Raiz do Incidente/Defeito` (`customfield_21524`), `Item novo ou legado?` (`customfield_34238`), `Produto e Subproduto` (`customfield_35839`, cascata) e `Critérios para aceite` (`customfield_18415`, em ADF, não string), além de `A causa raiz é crítica?` e `Assigned Squad`. Ao concluir, uma automação troca o responsável para `SVC-Robo Ativacao e Fluxo Auto`.
 - **ACR:** em `acr`, usar link `"[[PRD-xxxxx]]"` quando a ACR tiver nota em [[_prds-indice|PRDs]] (e adicionar o playbook em `prcs` da nota do PRD); senão, só a chave.
 
 ## Vocabulário
@@ -51,3 +52,7 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 
 > [!warning] Armadilha do board (Engenharia Canais - PRCs)
 > A transição `Started` (To-do → Em Andamento, coluna "ajuste manual em andamento") reatribui o card para quem a executou. Para deixar o card com outra pessoa, atribuir **depois** de mover.
+
+## Chat
+
+- [[PRD-176094 - Ticket de chat web cai na Ouvidoria sem o cliente pedir]] — `sys_grupo_ouvidoria` vem do `zen:ticket:tags` do widget (botão Reclamação/Elogio, localStorage), não da Ultimate; confirmar no `ChatStartedEvent.control_context` dos audits e no Mixpanel; ACR PRD-176094 · 1 ocorrência

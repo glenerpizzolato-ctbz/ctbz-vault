@@ -21,4 +21,6 @@ Sintoma num repo recém-criado (ex: `agrupamento-guias-service`, MR !1 em 2026-1
 
 Causa: o projeto não tem nenhuma variável (`glab api "projects/:id/variables"` devolve `[]`). Um Node/Zezu que funciona (ex: `email-service`) tem `APP_TYPE`, `CUSTOM_JOB_TEST`/`_IMAGE`/`_SCRIPT`/`_TYPE`, `CUSTOM_JOB_LINT*`, `CUSTOM_JOB_BUILD*`, `CUSTOM_JOB_DB_MIGRATION*`, `CI_CONTAINER_IMAGE`, `DEPLOYMENT_*`, `SCALEDOBJECT_*`, `GCLOUD_PROJECT*`, `NAMESPACE` etc. Correção: copiar as variáveis de um repo do mesmo tipo e ajustar os valores.
 
+As variáveis não fixas (deploy, escala e também as env vars do app) costumam ficar versionadas no repositório `ctbz/devops/recursos/pipeline` (`~/repositories/pipeline`), em `custom/ctbz/<grupo>/<repo>.yml` e `<repo>.<env>.yml` (bloco `variables:`, aplicado na ordem grupo → repositório → ambiente). Para criar ou mudar uma variável de um serviço, é lá que se abre o MR.
+
 Contorno usado quando o dev decidiu fazer o merge mesmo assim: como Maintainer, merge `--no-ff` local de `origin/master` com a branch e `git push origin HEAD:master`. O GitLab marca o MR como `merged` sozinho.

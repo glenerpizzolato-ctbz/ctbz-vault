@@ -27,3 +27,5 @@ O gate dos projetos da CTBZ tem `new_violations` com limite **0**: qualquer issu
 Quando a issue está num commit do MR de baixo da corrente, corrigir na branch dele (worktree temporária, para não trocar a branch da worktree do conjunto) e fazer `git merge` dessa branch na de cima, em vez de rebase com force push.
 
 Visto em nov/2026 nos MRs !177/!178 do `atendimento-canais-admin` (opt-out em lote).
+
+- Ocorrência em 2026-11-10 (experts-service, MR !151): "quase todo I/O" num comentário em minúsculas também caiu na S1135 (a regra não diferencia maiúsculas). Corrigido reescrevendo para "praticamente só I/O". Ao escrever comentário em português, evitar a palavra "todo" em qualquer forma.

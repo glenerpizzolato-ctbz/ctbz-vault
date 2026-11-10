@@ -100,6 +100,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Incidentes
 
+- [[2026-11-10-concorrencia-consumer-guias|Correção do atraso nas notificações de guias após rajada de 63 mil mensagens (experts-service)]] — 2026QD3, impacto medio
 - [[2026-11-09-retentativa-validacao-email|E-mails perdidos no restart do Cloud SQL: causa raiz e retentativa na validação do email-service]] — 2026QD3, impacto alto
 - [[2026-11-03-incidente-ip-4361-ultimate|Incidente IP-4361 nos bots de WhatsApp: diagnóstico e post-mortem]] — 2026QD3, impacto alto
 - [[2026-10-28-incidente-deploy-experts-functions|Incidente no deploy de prd do experts-functions e regressão do html-to-pdf]] — 2026QD3, impacto alto
