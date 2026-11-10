@@ -22,3 +22,7 @@ Os testes não usam o SSO, então dá para rodá-los com uma versão que já est
 ```
 
 Para rodar uma classe só, `-Dtest=NomeDaClasseTest`. O override é só local: o `pom.xml` continua com a versão nova e a pipeline usa o registry do GitLab.
+
+## application-local.yml para rodar contra dev
+
+O `application-local.yml` commitado aponta para o Postgres do docker-compose (`localhost:5432`). A versão do usuário que roda contra o banco de dev (proxy `sql_atendimento_dev`, `localhost:5433/ms_agrupamento_guias`) e consome as subscriptions reais de `atendimento-canais-dev` fica num **stash do repo principal** (`stash@{0}` de 2026-10-30, "WIP on master: 25bae7bd"; o stash é compartilhado com as worktrees). Para levar a uma worktree sem aplicar o stash: `git show <sha-do-stash>:src/main/resources/application-local.yml > src/main/resources/application-local.yml`. Esse stash é anterior ao !97: acrescentar `processarParcela` (`subscription: ms-agrupamento-guias.sub.processar-parcela`, `project: atendimento-canais-dev`). Consumir as subs reais de dev compete com o pod de dev pelas mensagens. O arquivo tem credenciais: nunca commitar.
