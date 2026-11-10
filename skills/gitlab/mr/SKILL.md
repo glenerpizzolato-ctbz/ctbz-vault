@@ -16,14 +16,16 @@ O BahCode manda `/mr` a partir da worktree do conjunto. O contexto da feature ch
 
 ## 2. Dividir em MRs pequenos (corrente)
 
-Mais MRs pequenos são preferíveis a poucos grandes. Antes de abrir, ver se os commits formam mais de uma parte que se sustenta sozinha (ex: refactor preparatório, migração ou contrato, a regra de negócio, os testes ou a doc de outra frente). Se formarem, **dividir sem perguntar**, em branch chaining, um MR atrás do outro na ordem da dependência:
+Mais MRs pequenos são preferíveis a poucos grandes, mas só quando o MR é grande o bastante para a divisão ajudar a revisão. **Se a mudança toca poucos arquivos (até uns 5 arquivos, ou uns 200 linhas de diff), abrir um MR só, mesmo que os commits formem partes separáveis**: não forçar a corrente, que nesse tamanho só gera MRs vazios de contexto, mais pipelines e mais merges em ordem. O código, os testes dele e a doc da mesma mudança vão sempre juntos. Nesse caso, ignorar o pedido de dividir dos argumentos (e não rodar os `extra-mr`/`mr-base` do BahCode), e dizer na resposta que ficou um MR só pelo tamanho.
+
+Acima desse tamanho, ver se os commits formam mais de uma parte que se sustenta sozinha (ex: refactor preparatório, migração ou contrato, a regra de negócio, a doc de outra frente). Se formarem, **dividir sem perguntar**, em branch chaining, um MR atrás do outro na ordem da dependência:
 
 - A divisão segue a ordem dos commits: cada corte é um commit da branch. MR 1 = `origin/<base>..<corte 1>`, alvo a base; MR 2 = `<corte 1>..<corte 2>`, alvo a branch do MR 1; e assim por diante. A branch atual fica como o **último** MR da corrente (alvo a branch do penúltimo).
 - Criar as branches intermediárias nos cortes sem trocar a branch da worktree nem reescrever commits: `git branch <tipo>/<key>-<n>-<parte> <sha do corte>` e `git push -u origin <branch>`.
 - Se os commits misturam assuntos de um jeito que só daria para separar reescrevendo-os, não reescrever: separar só o que já está separado por commits (ou seguir com um MR só).
 - Cada MR leva o título com a key e a parte (ex: `PRD-123 (1/3) migração da tabela`), e na descrição a seção **Dependência** cita o MR anterior e o próximo da corrente.
 - Abrir na ordem, do primeiro ao último (o alvo de cada um precisa existir no remoto), todos com as mesmas flags (`--draft` etc.).
-- Não dividir quando a branch já tem MR aberto (só atualizar, como no passo 4) ou quando os argumentos pedirem um MR só.
+- Não dividir quando a mudança é pequena (acima), quando a branch já tem MR aberto (só atualizar, como no passo 4) ou quando os argumentos pedirem um MR só.
 - **No BahCode**, cada MR da corrente é uma **task** do sub-terminal (sub-task + MR, no mesmo workspace). O MR da branch atual é a task 1, que o BahCode já acha sozinho; cada um dos outros vira uma task a mais. O pedido traz os comandos:
   - `'<binário>' extra-mr <feature> <pasta> <link do MR> --base <link do MR anterior da corrente> --subtask <KEY>`: rodar uma vez para cada MR que não é o da branch atual, na ordem da corrente. Omitir o `--base` no primeiro (ele sai da base da feature) e o `--subtask` quando não houver uma sub-task só daquela parte (a sub-task da task 1 não se repete).
   - `'<binário>' mr-base <feature> <link do penúltimo MR>`: depois, para gravar de qual MR sai o da branch atual (o último da corrente).
