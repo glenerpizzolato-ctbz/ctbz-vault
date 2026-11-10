@@ -126,7 +126,7 @@ Como os diagnósticos nascem (fora do teste, para entender): no processamento da
 | DBP-01 | diagnóstico `AUMENTO_FATURAMENTO`, plano BASICO, guia da competência | WhatsApp `bp_diag_fatur_02` |
 | DBP-02 | diagnóstico `PROPORCAO_ANEXOS` (não habilitado) | ignorado |
 
-⚠️ = grupo com parcela: o WhatsApp falha com `FALHA / ERRO_DESCONHECIDO` ("Required value was null") até a correção da **PRD-176440** (`MetadadosGuiaFactory` exigia `controleGuia` em todo item). O verificador marca como `BUG` enquanto isso; depois da correção, esses cenários têm de dar `OK`.
+⚠️ = grupo com parcela: o WhatsApp falha com `FALHA / ERRO_DESCONHECIDO` ("Required value was null") até a correção da **PRD-176440** (`MetadadosGuiaFactory` exigia `controleGuia` em todo item). O verificador marca como `BUG` enquanto isso; depois da correção, esses cenários têm de dar `OK`. Correção na branch `fix/PRD-176440` (sobre o !97, commit `89e7249d`, ainda sem MR): os metadados do HubSpot passam a considerar só as guias do grupo (contrato de guias do atendimento-zendesk) e ignoram as parcelas.
 
 ## Execução
 
