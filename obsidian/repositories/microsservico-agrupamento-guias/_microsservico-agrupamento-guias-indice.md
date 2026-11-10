@@ -18,7 +18,7 @@ Repositório em `~/repositories/microsservico-agrupamento-guias`. Notas sobre el
 - [[PRD-174011 - Cliente não recebe notificação do agrupamento de guias|PRC: cliente não recebe notificação do agrupamento]] — como investigar por competência (grupo_guia, controle_notificacao, controle_guias) e por que `GUIAS_AGUARDANDO_GERACAO` nunca é retentado
 - [[notificacao-individual-guias-x-agrupamento|Convivência com a notificação individual do experts-service]] — `ERRO_NOVA_GUIA` sem renotificar, listas de impostos divergentes e dependência da rota `enviou-notificacao-agrupamento`
 - [[telefone-do-grupo-guia|Telefone do grupo_guia]] — telefone principal da Empresa (COMERCIAL > CELULAR > primeiro) definido no plataforma-faturamento-worker e congelado em `grupo_guia.contato`
-- [[rodar-testes-localmente|Rodar os testes localmente]] — `contabilizei-sso-client` 3.0.9 só no registry do GitLab (403 no Artifactory): rodar com `-o -Dcontabilizei-sso-client.version=3.0.5`
+- [[rodar-testes-localmente|Rodar os testes localmente]] — `contabilizei-sso-client` 3.0.9 só no registry do GitLab (403 no Artifactory): baixar o .pom/.jar pelo `glab api` para o `~/.m2`; `application-local` de dev no stash do repo principal
 
 A parte de notificação foi portada para o [[_agrupamento-guias-service-indice|agrupamento-guias-service]] em 2026-10-15 (ver [[arquitetura-e-migracao|arquitetura e migração]]); até a virada, as duas implementações coexistem.
 

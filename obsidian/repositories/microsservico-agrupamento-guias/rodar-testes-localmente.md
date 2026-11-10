@@ -1,6 +1,6 @@
 ---
 name: rodar-testes-localmente-microsservico-agrupamento-guias
-description: "Como rodar os testes do microsservico-agrupamento-guias localmente quando o contabilizei-sso-client novo (3.0.9+) só existe no registry Maven do GitLab e o Artifactory devolve 403"
+description: "Como rodar os testes e a aplicação do microsservico-agrupamento-guias localmente quando o contabilizei-sso-client novo (3.0.9+) só existe no registry Maven do GitLab e o Artifactory devolve 403"
 metadata:
   type: reference
 tags:
@@ -15,13 +15,21 @@ atualizado_em: 2026-11-10
 
 A partir do `contabilizei-sso-client` 3.0.9 (commit `8bd37199`), o artefato só está no registry Maven do GitLab, que o `pom.xml` lê de `${env.GITLAB_MAVEN_PACKAGES_URL}`. Sem essa variável, o `./mvnw` cai no Artifactory (`ctbz-central`) e falha com `Could not transfer artifact br.com.contabilizei:contabilizei-sso-client:pom:3.0.9 ... 403 Forbidden`.
 
-Os testes não usam o SSO, então dá para rodá-los com uma versão que já está no `~/.m2` (ex: 3.0.5), offline:
+**Solução definitiva (feita em 2026-11-10):** baixar o artefato uma vez para o `~/.m2` pelo `glab` autenticado. O pacote fica no projeto `ctbz/devops/recursos/packages` (id `66189044`):
 
 ```bash
-./mvnw -o test -Dcontabilizei-sso-client.version=3.0.5
+D=~/.m2/repository/br/com/contabilizei/contabilizei-sso-client/3.0.9; mkdir -p $D && cd $D
+for f in contabilizei-sso-client-3.0.9.pom contabilizei-sso-client-3.0.9.jar; do
+  glab api "projects/66189044/packages/maven/br/com/contabilizei/contabilizei-sso-client/3.0.9/$f" > $f
+done
+rm -f *.lastUpdated _remote.repositories
 ```
 
-Para rodar uma classe só, `-Dtest=NomeDaClasseTest`. O override é só local: o `pom.xml` continua com a versão nova e a pipeline usa o registry do GitLab.
+Depois disso, `./mvnw test` e `SPRING_PROFILES_ACTIVE=local ./mvnw spring-boot:run` funcionam sem `GITLAB_MAVEN_PACKAGES_URL`. Vale para qualquer lib `br.com.contabilizei` que só esteja no registry do GitLab (listar versões: `glab api "groups/ctbz/packages?package_name=<artifactId>&package_type=maven"`).
+
+Paliativo, se não der para baixar: os testes não usam o SSO, então dá para rodar com uma versão que já está no `~/.m2`, offline: `./mvnw -o test -Dcontabilizei-sso-client.version=3.0.5`. O override é só local.
+
+Armadilha: o repo principal pode continuar rodando normalmente enquanto a worktree falha, porque o checkout principal pode estar num master anterior ao bump (ex: `d48dada1`, com 3.0.2 em cache) e a worktree num commit posterior.
 
 ## application-local.yml para rodar contra dev
 
