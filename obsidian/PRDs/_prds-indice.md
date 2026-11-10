@@ -38,11 +38,12 @@ Todo PRD novo vai para um épico, nesta ordem: o citado na demanda; senão um é
 
 ## Números
 
-- 394 demandas, 47 épicos
-- pronto: 344, backlog: 16, arquivado: 12, resolvido-outro-dev: 13, esquecido: 9
+- 395 demandas, 47 épicos
+- pronto: 344, backlog: 17, arquivado: 12, resolvido-outro-dev: 13, esquecido: 9
 
 ## Campos do Jira na criação
 
 - **Defeito** (e outros tipos do PRD) exige `Critérios para aceite` (`customfield_18415`, texto) e `Resultado Esperado` (`customfield_18416`, texto); sem eles o `createJiraIssue` volta 400.
 - **Tipo do card:** correção que deixa o sistema mais resiliente depois de um incidente causado por fator externo (ex: retentativa quando o banco cai, PRD-175906) é **`Melhoria do produto`** (id `19560`), não `Defeito` (id `23416`); o usuário corrigiu isso em 2026-11-09. A troca de tipo entre os dois funciona com `editJiraIssue` (`issuetype: {"id": "19560"}`) mantendo o status `Building`.
 - Na sub-task `Qualidade e Testes`, o campo de envolvimento se chama **`Envolvimento:`** (com dois-pontos), `customfield_21691`; pelo MCP, `{"Envolvimento:": "Testes / E2E"}` resolve o cascata (pai `Testes` id 29212, filho `E2E` id 29218).
+- **Arquivar** (transição `Archived`, id `111`, resolução `Won't Do`): o motivo opcional `customfield_18509` ("Qual é o motivo para arquivar esta issue?") só aceita documento Atlassian (ADF), não texto simples: `{"type":"doc","version":1,"content":[{"type":"paragraph","content":[{"type":"text","text":"..."}]}]}` no `fields` do `transitionJiraIssue`.
