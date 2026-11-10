@@ -11,6 +11,10 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
+## [[PRD-164393]] — Empacotamento de Guias para BP (1)
+
+- [[PRD-176358]] — [Agrupamento de guias] Listar todas as guias e parcelas no e-mail do agrupamento · backlog · 2026QD3
+
 ## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (40)
 
 - [[PRD-176052]] — Opt-out em lote no contato-service: atendimento-canais-admin usar as rotas batch e search · pronto · 2026QD3
