@@ -17,5 +17,6 @@ Ao criar uma skill nova:
 - [Empresas](empresas/_empresas-indice.md) — massa de teste por plano, busca de empresas por telefone e autenticação no bot de WhatsApp
 - [GCP](gcp/_gcp-indice.md) — catálogo de infraestrutura GCP no vault
 - [GitLab](gitlab/_gitlab-indice.md) — abrir MR, tratar comentários de revisão e corrigir pipeline
+- [Impostos](impostos/_impostos-indice.md) — regressão das notificações do agrupamento de guias
 - [Jira](jira/_jira-indice.md) — sincronização das PRDs do vault com o Jira
-- [Zendesk](zendesk/_zendesk-indice.md) — fechar tickets de teste e mapear conversas afetadas por erros da Ultimate
+- [Zendesk](zendesk/_zendesk-indice.md) — buscar grupo por id/nome, fechar tickets de teste e mapear conversas afetadas por erros da Ultimate

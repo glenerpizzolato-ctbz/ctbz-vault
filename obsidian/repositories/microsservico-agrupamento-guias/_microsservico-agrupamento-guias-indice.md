@@ -19,6 +19,7 @@ Repositório em `~/repositories/microsservico-agrupamento-guias`. Notas sobre el
 - [[notificacao-individual-guias-x-agrupamento|Convivência com a notificação individual do experts-service]] — `ERRO_NOVA_GUIA` sem renotificar, listas de impostos divergentes e dependência da rota `enviou-notificacao-agrupamento`
 - [[telefone-do-grupo-guia|Telefone do grupo_guia]] — telefone principal da Empresa (COMERCIAL > CELULAR > primeiro) definido no plataforma-faturamento-worker e congelado em `grupo_guia.contato`
 - [[rodar-testes-localmente|Rodar os testes localmente]] — `contabilizei-sso-client` 3.0.9 só no registry do GitLab (403 no Artifactory): baixar o .pom/.jar pelo `glab api` para o `~/.m2`; `application-local` de dev no stash do repo principal
+- [[notifications-regression-tests|Testes de regressão das notificações]] — fluxo, crons, regras de elegibilidade, templates e catálogo de cenários (Experts SN, Experts LP, BP LP, diagnósticos) com a skill `regressao-notificacoes-agrupamento`; só o contato de teste
 
 A parte de notificação foi portada para o [[_agrupamento-guias-service-indice|agrupamento-guias-service]] em 2026-10-15 (ver [[arquitetura-e-migracao|arquitetura e migração]]); até a virada, as duas implementações coexistem.
 
