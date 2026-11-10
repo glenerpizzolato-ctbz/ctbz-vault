@@ -130,7 +130,7 @@ Como os diagnósticos nascem (fora do teste, para entender): no processamento da
 
 ## Execução
 
-Pré-requisitos: proxy de dev do atendimento (`sql_atendimento_dev`, serviço `dev_atendimento_canais_ms_agrupamento_guias`), `gcloud` autenticado (logs em `contabilizei-dev-01`) e o token do api-gateway de dev numa variável de ambiente (`DECK_BRUNO_EXPERTS_TO_MICROSSERVICO_AGRUPAMENTO_GUIAS_DEV`, do `docs/bruno/.env` do repo; ver `apis/`). O pod de dev precisa estar com a branch a testar.
+Deploy da branch em dev: é manual em todos os pipelines (MR e master): jobs `service-account-dev` e depois `helm-deploy-gke-dev` do pipeline do MR; troca a versão do pod de dev compartilhado, então combinar antes. Pré-requisitos: proxy de dev do atendimento (`sql_atendimento_dev`, serviço `dev_atendimento_canais_ms_agrupamento_guias`), `gcloud` autenticado (logs em `contabilizei-dev-01`) e o token do api-gateway de dev numa variável de ambiente (`DECK_BRUNO_EXPERTS_TO_MICROSSERVICO_AGRUPAMENTO_GUIAS_DEV`, do `docs/bruno/.env` do repo; ver `apis/`). O pod de dev precisa estar com a branch a testar.
 
 ```bash
 R=~/ctbz-vault/skills/impostos/regressao-notificacoes-agrupamento/scripts/regressao.py
@@ -153,6 +153,7 @@ Para disparar só uma rota sem alcançar os outros grupos (ex: reproduzir um cen
 - **E-mail em DEV nunca chega:** o SMTP de dev rejeita (`421 The from domain should be a connected email sending domain - hssmtp`), e o controle termina em `FALHA / ERRO_CALLBACK_ENVIO_EMAIL`. O que valida é o `sendEmailDTO` no log do pod (`templateId` e `nomeGuia`) e o `email_replications` do email-service de dev (`dev_atendimento_canais_email_service`). Para receber o e-mail de verdade: app local com banco de dev e só o envio em prod, ver [[rodar-testes-localmente]].
 - **Quebra de linha:** renderizar o HTML do template (`email_templates.html_content` do email-service) com as `variables` de um `email_replications` e tirar print (Chrome headless). O `{{nomeGuia}}` fica num `<p>`; `<br>` literal no print é regressão.
 - **WhatsApp em DEV chega** no telefone de teste (o callback do ativo volta `SUCESSO`).
+- **Metadados do WhatsApp (evento do HubSpot):** o pod não loga o `metadados` do `WhatsAppRequestDTO`. Para conferir as chaves ([[metadados-whatsapp-hubspot]]), ler o que o atendimento-zendesk gravou: `mensagem_ativa.metadados` (`jsonb`) no banco de dev do atendimento-zendesk (`service=dev_crm_atendimento_zendesk`, proxy `sql_crm_dev`, porta 5434), filtrando `doc_tipo = 'cnpj' and doc_valor like '990000%'` (CNPJs da massa) e `criado_em >= <início>`; o status fica em `mensagem_ativa_status` (FK `id_mensagem`). O esperado sai do banco do agrupamento (itens → `controle_guias`/`controle_parcelas`); as datas são `timestamp without time zone`, lidas em UTC pela JVM e formatadas em America/Sao_Paulo. Chave nova só chega ao HubSpot se estiver na whitelist `METADADOS_NA_WHITELIST` do `EventoHubspotAtivoService` do atendimento-zendesk e declarada no evento.
 - Evidências viram comentário na sub-task de testes do card (logs + banco + prints), como na PRD-176360.
 
 ## Armadilhas

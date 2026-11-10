@@ -28,3 +28,4 @@ Convenções que valem para qualquer serviço, uma nota por padrão.
 - [[zod-union-mensagens-de-erro]] — zod v4: `z.union` de valor único ou lista devolve "Invalid input" genérico com enum inválido; como recuperar a mensagem específica
 - [[pubsub-worker-errorhandler|errorHandler do PubsubWorker]] — event-workers 4.x: exceção no `errorHandler` é capturada e logada pela biblioteca, e mensagem sem ack/nack é nacada na hora (não fica presa no lease)
 - [[threads-mr-resolver-ao-responder|Resolver threads de MR ao responder]] — ao validar e responder threads de revisão (pessoas ou bots), resolver cada uma em seguida, sem deixá-la aberta
+- [[mr-pequeno-nao-dividir|MR pequeno não se divide]] — com poucos arquivos (até ~5 arquivos/~200 linhas), um MR só, sem forçar a corrente em branch chaining; como desfazer a corrente no BahCode

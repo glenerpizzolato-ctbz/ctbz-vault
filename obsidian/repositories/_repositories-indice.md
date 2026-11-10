@@ -116,6 +116,7 @@ Fora do mapeamento por decisão do usuário: `back-payments-service`, `back-emai
 - [[_relacionamento-admin-indice|relacionamento-admin]]
 - [[_relacionamento-service-indice|relacionamento-service]]
 - [[_relatorio-faturamento-admin-indice|relatorio-faturamento-admin]]
+- [[_rinha-ai-revisors-indice|rinha-ai-revisors]]
 - [[_saude-empresa-pendencias-indice|saude-empresa-pendencias]]
 - [[_sla-scripts-indice|sla-scripts]]
 - [[_sql2bq-indice|sql2bq]]
