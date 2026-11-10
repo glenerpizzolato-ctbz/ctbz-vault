@@ -38,3 +38,13 @@ O `application-local.yml` commitado aponta para o Postgres do docker-compose (`l
 ## PubSubInitConfig contra o Pub/Sub real de dev (a partir do !97)
 
 O `PubSubInitConfig` (`@Profile("local")`) cria no `project-id` global os tópicos e subscriptions que não encontrar. No master ele só garante `processarGuiaImposto`, `agruparGuiasEmpresa` e `agruparGuiasEmpresaRetry` (que existem em `atendimento-canais-dev`). O !97 (PRD-167515) ampliou para 9 pares (parcela, notificações, callbacks) mais os tópicos de `enviarAnexoEmail`, `enviarEmail` e `enviarAtivoWhatsapp`, pensando no emulador: os callbacks só têm `topic` no `application-local.yml` do !97. Rodando com o yml de dev (sem `emulator-host`), sobe com `NullPointerException` em `PubSubInitConfig.<init>` (`enviarEmailCallback.topic` nulo); e, preenchendo os tópicos, ele criaria cópias soltas em `atendimento-canais-dev` de tópicos que moram em outros projetos (`processar-parcela` em `contabilizei-impostos-teste`; `atendimento-zendesk.envio-whatsapp-ativo` e `atendimento-zendesk.whatsapp-ativo-status` em `contabilizei-crm-dev`). Correção local (não commitada): `@ConditionalOnProperty("spring.cloud.gcp.pubsub.emulator-host")` na classe, para o init só rodar com emulador. Todas as subscriptions `ms-agrupamento-guias.sub.*` já existem em dev.
+
+## Receber de verdade o e-mail do agrupamento (local, envio em prod)
+
+Em dev o e-mail nunca chega: o email-service de dev responde no callback `FAILED` / `REJECTED` com `421 The from domain should be a connected email sending domain ... - hssmtp` (o SMTP/HubSpot de dev não tem o domínio do remetente conectado), e o `controle_notificacao` vira `FALHA / ERRO_CALLBACK_ENVIO_EMAIL`. Para receber, rodar local com o banco de dev e apontar **só o envio** para prod no `application-local.yml`:
+
+- `enviarAnexoEmail.project` e `enviarEmail.project` = `atendimento-canais-prd` (os **dois**: o anexo sobe no email-service e o envio referencia o id dele; anexo em dev + envio em prod não fecha). A ADC do usuário tem `pubsub.topics.publish` nesses tópicos de prod.
+- Template de prod no `templateAgrupamento*Uuid` do público (Experts SN `123ccd0f-9b37-4912-98c7-277a1473f1a2`).
+- `notificacaoGrupoGuiaEmail` numa fila só do app local (`ms-agrupamento-guias.p2p.notifies-email-local` / `ms-agrupamento-guias.sub.notifies-email-local`, criados em `atendimento-canais-dev` em 2026-11-10): a fila normal `notifies-email` é consumida também pelo pod de dev, que pode pegar a mensagem e mandar pelo SMTP de dev.
+- O callback de prod volta no tópico de prod, que o app local não consome: o controle fica sem o status final.
+- A rota de lote ignora grupos que já têm qualquer `controle_notificacao` do tipo: apagar o registro anterior do grupo de teste antes de disparar de novo.
