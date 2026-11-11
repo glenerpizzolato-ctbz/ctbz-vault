@@ -12,6 +12,7 @@ categorias:
   - entrega
   - outros-times
 impacto: medio
+atualizado_em: 2026-11-11
 fontes:
   - "[[PRD-155502]]"
   - "[[PRD-155654]]"
@@ -43,6 +44,8 @@ Construí a criação de templates de WhatsApp com componentes ricos (header de 
 
 As equipes de negócio ganharam autonomia em tarefas que antes passavam pela engenharia.
 
+Em 2026-11-11: a tela de e-mail do `atendimento-canais-admin` (integração com o `email-service`, [[PRD-165090]]) passou a ajudar outros times que querem consumir o `email-service`, que a usam para entender e testar o serviço sem depender da engenharia de canais. Exemplo: Winderson Jose Barboza, do time de Impostos, citou a tela como apoio para consumir o serviço (conversa no Google Chat).
+
 ## Evidências
 
 - [[PRD-155502]]
@@ -57,3 +60,4 @@ As equipes de negócio ganharam autonomia em tarefas que antes passavam pela eng
 - [[PRD-168230]]
 - [[PRD-157805]]
 - [[PRD-165073]]
+- Reconhecimento de Winderson Jose Barboza (time de Impostos) sobre a tela de e-mail, 2026-11-11: https://chat.google.com/dm/riJmssAAAAE/6-pORS1hTsA/6-pORS1hTsA?cls=10

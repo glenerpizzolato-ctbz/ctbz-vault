@@ -82,7 +82,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 - [[2026-10-15-agrupamento-guias-service-redesenho|Redesenho da notificação do agrupamento de guias (agrupamento-guias-service)]] — 2026QD3, impacto alto
 - [[2026-10-08-opt-out-notificacoes-impostos|Opt-out de notificações de impostos por contato (WhatsApp e e-mail)]] — 2026QD3, impacto alto
 - [[2026-09-29-csat-transbordo-contencao|CSAT Transbordo: regras de contenção e tickets travados]] — 2026QD3, impacto alto
-- [[2026-09-22-autosservico-admin-templates|Autosserviço para o negócio: atendimento-canais-admin e templates ricos]] — 2026QD3, impacto medio
+- [[2026-09-22-autosservico-admin-templates|Autosserviço para o negócio: atendimento-canais-admin e templates ricos]] — 2026QD3, impacto medio (tela de e-mail adotada por outros times, 2026-11-11)
 - [[2026-09-17-clientes-inativos-whatsapp|Atendimento de clientes inativos no WhatsApp do Zendesk]] — 2026QD3, impacto alto
 - [[2026-09-17-remocao-escolha-area-ura|Remoção da escolha "Contabilidade/Bank/Corretora" na URA]] — 2026QD3, impacto medio
 - [[2026-08-21-explicacao-proativa-das|Explicação proativa da variação de impostos (DAS)]] — 2026QD2, impacto alto
@@ -117,6 +117,8 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Qualidade
 
+- [[2026-11-11-ativo-fim-de-semana-agrupamento|WhatsApp do agrupamento em fim de semana perde o vínculo com a resposta do cliente]] — 2026QD3, impacto medio
+- [[2026-11-11-limpeza-alertas-canais|Limpeza dos alertas ruidosos da Engenharia Canais (critério, 4 alertas, padrão)]] — 2026QD3, impacto alto
 - [[2026-11-06-alerta-pubsub-falso-positivo|Alerta de Pub/Sub do experts-prd sem falso-positivo]] — 2026QD3, impacto medio
 - [[2026-11-03-padroes-sonar-pipeline|Padrões de diagnóstico de Sonar e pipeline]] — 2026QD3, impacto medio
 
