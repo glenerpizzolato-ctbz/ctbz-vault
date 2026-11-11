@@ -44,6 +44,10 @@ Campos: **repos** = repositórios em `~/repositories` cujo código cita o nome e
 - [[deploy-saude-pos-deploy|Deploys e saúde pós-deploy]] — achar os deploys pela API do GitLab, ler no log do job onde foram parar (Cloud Run, Terraform, GKE) e verificar a saúde pelo Cloud Monitoring sem VPN
 - [[cloud-run-gen2-container-threat-detection|Cloud Run: Container Threat Detection exige gen2]] — deploy falha com INVALID_ARGUMENT em serviço gen1; trocar EXECUTION_ENVIRONMENT para gen2 (mín. 1 CPU / 512Mi)
 
+## Arquitetura (manual)
+
+- [[grafo-chamadas-canais|Grafo de chamadas Canais/Experts/AIDA]] — quem consome quem entre os repos do atendimento, papel e stack de cada um, fluxo do knowledge book e onde ficam envs, rotas do Kong, CI e libs
+
 ## Visões
 
 - [[por-repositorio|Recursos GCP por repositório]] — para cada repo, os tópicos, subscriptions, schedulers, filas e serviços que ele cita
