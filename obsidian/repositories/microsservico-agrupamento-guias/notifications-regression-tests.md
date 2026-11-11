@@ -130,7 +130,7 @@ Como os diagnósticos nascem (fora do teste, para entender): no processamento da
 
 ## Execução
 
-Deploy da branch em dev: é manual em todos os pipelines (MR e master): jobs `service-account-dev` e depois `helm-deploy-gke-dev` do pipeline do MR; troca a versão do pod de dev compartilhado, então combinar antes. Pré-requisitos: proxy de dev do atendimento (`sql_atendimento_dev`, serviço `dev_atendimento_canais_ms_agrupamento_guias`), `gcloud` autenticado (logs em `contabilizei-dev-01`) e o token do api-gateway de dev numa variável de ambiente (`DECK_BRUNO_EXPERTS_TO_MICROSSERVICO_AGRUPAMENTO_GUIAS_DEV`, do `docs/bruno/.env` do repo; ver `apis/`). O pod de dev precisa estar com a branch a testar.
+Deploy em dev: no pipeline do MR é manual (`service-account-dev` e depois `helm-deploy-gke-dev`, que fica `skipped` até o play) e troca a versão do pod de dev compartilhado, então combinar antes; no merge para o master, o pipeline do master faz `service-account-dev`, `terraform-resources-dev`, `helm-deploy-gke-dev` **e `helm-deploy-gke-prd`** (visto em 2026-11-11 no merge do !101: dev e prd na mesma rodada). Para conferir que o pod trocou, olhar no Cloud Logging o ReplicaSet novo (`microsservico-agrupamento-guias-<hash>-*`) e o `Started MicrosservicoAgrupamentoGuiasApplicationKt` depois do horário do deploy. Pré-requisitos: proxy de dev do atendimento (`sql_atendimento_dev`, serviço `dev_atendimento_canais_ms_agrupamento_guias`), `gcloud` autenticado (logs em `contabilizei-dev-01`) e o token do api-gateway de dev numa variável de ambiente (`DECK_BRUNO_EXPERTS_TO_MICROSSERVICO_AGRUPAMENTO_GUIAS_DEV`, do `docs/bruno/.env` do repo; ver `apis/`). O pod de dev precisa estar com a branch a testar.
 
 ```bash
 R=~/ctbz-vault/skills/impostos/regressao-notificacoes-agrupamento/scripts/regressao.py
@@ -160,10 +160,18 @@ Para disparar só uma rota sem alcançar os outros grupos (ex: reproduzir um cen
 
 - Rotas de lote alcançam tudo o que for elegível: sempre `checar` antes.
 - Qualquer `controle_notificacao` do tipo (até FALHA) tira o grupo da busca: para repetir, apagar o controle do grupo.
+- **Token entre aspas no `.env`:** no `docs/bruno/.env`, o `DECK_BRUNO_EXPERTS_TO_MICROSSERVICO_AGRUPAMENTO_GUIAS_DEV` está entre aspas. Um `grep … | cut -d= -f2-` leva as aspas para o header `x-ctbz-api-gateway-token`, e o api-gateway responde **401 Unauthorized**. Tirar as aspas antes de exportar: `v="${v#\"}"; v="${v%\"}"; export TK="$v"`. Sem o header, a resposta é `No API key found in request`.
+- **SN-11 x WhatsApp:** o catálogo espera `ENVIA` no WhatsApp do contato sem e-mail, mas desde 2026-10-15 (`1a956143`/`cdfcba3a`) `ContatoDTO.fromJson`, do WhatsApp, chama `fromJsonEmail` e exige e-mail. O WhatsApp fica `DADOS_INCOMPLETO` ("campo email obrigatório"). Visto em 2026-11-11, sem decisão ainda: ou é bug ou o catálogo precisa mudar.
+- **Mesma data de vencimento em toda a massa:** `massa` grava guias e parcelas com o mesmo `data_para_pagamento`/`vencimento` (agora + 10 dias). Para provar uma regra de "menor vencimento", antecipar a data de um documento da massa e reenviar só aquele grupo, apagando o controle do tipo.
+- **Grupo fora da massa com o contato de teste:** em dev, o grupo 3 (`id_empresa` 5775972832378880, testes da PRD-176358) usa o contato de teste e entra no `exp-sn/WHATSAPP`. O `checar` passa, porque o contato é o de teste, mas o grupo ganha controle. Para não sujá-lo, pôr `status='PROCESSANDO'` durante o disparo e voltar para `SUCESSO_AGRUPAMENTO` depois.
 - O PDF anexado é o `grupo_guia.path` (já mesclado), não os documentos: a massa reaproveita arquivos reais de dev, então o conteúdo do PDF não bate com a lista (só a lista é validada).
 - O diagnóstico de teste precisa da guia (`id_guia`) em `controle_guias` na competência, senão não é achado.
 - `PubSubInitConfig` e `application-local.yml` ao rodar local contra dev: ver [[rodar-testes-localmente]].
 
 ## Histórico de execuções
 
+- **2026-11-11 (PRD-176511/PRD-176512, !101 já no master em dev):** só a rota WhatsApp, conferindo os `metadados` em `mensagem_ativa.metadados` do atendimento-zendesk de dev contra o esperado calculado do banco. Os 16 grupos enviados deram OK (só guias, só parcelas, misto, Experts e BP LP), e o menor vencimento entre guia e parcela foi confirmado com um reenvio do LP-03. O SN-11 ficou em `DADOS_INCOMPLETO` (ver armadilhas). Evidências na pasta `tests/w4t` da feature do BahCode.
+
 - **2026-11-10 (PRD-176358, MR !99, sobre o !97):** 13 grupos (versão inicial deste catálogo). E-mail OK em todos os públicos; WhatsApp com parcela falhou → PRD-176440. Evidências na PRD-176360. Depois do review do !99 a descrição da parcela passou a ser a do `TipoParcelamento` (o esperado acima já reflete isso).
+
+- **Grupo só com guia avulsa em prd (2026-11-11, grupo `671875`):** o mesmo cenário do SN-07 aconteceu de verdade. O único item era uma guia `SIMPLES` em `EMISSAO_FUTURA`, e o e-mail terminou em `FALHA / ERRO_ENVIO_EMAIL`, com o log `NotificacaoEmailException: Notificação <idControle> Campo nomeGuia obrigatorio...`. O WhatsApp do mesmo grupo foi enviado, porque não lista as guias, e a elegibilidade (`isGrupoPossuiGuia`) só confere se há item, não se há item não avulso. Para investigar: `item_grupo_guia` join `controle_guias` pelo `grupo_guia_id`, e o log `ERROR` do container `microsservico-agrupamento-guias` no `contabilizei-prod-01`.

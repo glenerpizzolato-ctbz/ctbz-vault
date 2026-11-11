@@ -48,3 +48,7 @@ Em dev o e-mail nunca chega: o email-service de dev responde no callback `FAILED
 - `notificacaoGrupoGuiaEmail` numa fila só do app local (`ms-agrupamento-guias.p2p.notifies-email-local` / `ms-agrupamento-guias.sub.notifies-email-local`, criados em `atendimento-canais-dev` em 2026-11-10): a fila normal `notifies-email` é consumida também pelo pod de dev, que pode pegar a mensagem e mandar pelo SMTP de dev.
 - O callback de prod volta no tópico de prod, que o app local não consome: o controle fica sem o status final.
 - A rota de lote ignora grupos que já têm qualquer `controle_notificacao` do tipo: apagar o registro anterior do grupo de teste antes de disparar de novo.
+
+## Rodar uma classe de teste só
+
+Com classe que tem `@Nested`, `./mvnw test -Dtest=MetadadosGuiaFactoryTest` pode não rodar a classe e deixar em `target/surefire-reports` o relatório de uma execução antiga (visto em 2026-11-11: o arquivo tinha horário da véspera). Usar um padrão com curinga e conferir o horário do relatório: `./mvnw test -Dtest='MetadadosGuiaFactoryTest*' -Dsurefire.failIfNoSpecifiedTests=false`.
