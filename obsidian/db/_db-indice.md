@@ -17,3 +17,4 @@ Bancos Postgres no Cloud SQL acessados localmente pelos proxies de `~/dotfiles/c
 - [[auto-grant-atendimento-canais|Auto grant no atendimento-canais]] — script de "auto elevação" (do Henrique) para se dar SELECT/UPDATE/DELETE em todos os bancos da instância como usuário IAM
 - [[cloud-sql-alteracoes-com-restart|Alterações do Cloud SQL que reiniciam]] — habilitar HA (REGIONAL) e afins derrubam conexões (57P01) por minutos; como achar no audit log
 - [[status-empresa-bigquery|Status da empresa (prod) pelo BigQuery]] — status, motivo de inatividade, plano e regime por CNPJ em `contabilizei-dataflow.saude_empresa.empresa` (snapshot mensal, só prod)
+- [[zendesk-tickets-bigquery|Tickets do Zendesk (prod) pelo BigQuery]] — audits/tags/handoff dos tickets em `sbox_bi_atendimento_zendesk.raw_tb_ticket_events` (D-1), sem chamar a API de prod; comentários parados desde fev/2026
