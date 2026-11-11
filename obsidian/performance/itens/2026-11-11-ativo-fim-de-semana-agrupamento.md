@@ -27,7 +27,11 @@ Li o fluxo do `atendimento-zendesk` (`debounceToBusinessHour`, retentativa por P
 
 O envio não se perde: fica em retentativa e sai a partir de segunda às 9h. Mas a validade de 24h conta da criação da linha (no sábado/domingo), então a resposta do cliente deixa de ser ligada ao ativo. Em 2026-08-15 (sábado) foram 2 respostas reconhecidas, contra ~4 mil nos dias 15 úteis (4046, 3996, 4286), com volume de envio parecido. Correções possíveis foram mapeadas antes do dia 15/11.
 
+A correção (PRD-176856, MR !102) entrou em prod no mesmo dia, 11/11, quatro dias antes do domingo 15/11: o agrupamento manda `validadeEmMinutos = 4320`. Usei os dados de prod para responder ao review (98,6% dos ativos de 15/08 saíram na segunda às 9h, então 72h deixam pelo menos 24h de janela depois do envio). No teste E2E em DEV, o ativo criado há 50h foi reconhecido pelo bot e uma resposta real virou `RESPONDIDA`; o controle de 24h não foi reconhecido (PRD-176859).
+
 ## Evidências
 
 - [[whatsapp-ativo-fora-do-horario-comercial]]
 - [[notificacao-agrupamento-experts-bp-lp]]
+- MR: https://gitlab.com/ctbz/experts/atendimento-canais/microsservico-agrupamento-guias/-/merge_requests/102
+- Teste E2E: https://contabilizeicontabilidade.atlassian.net/browse/PRD-176859
