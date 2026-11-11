@@ -106,3 +106,23 @@ tags:
 - No Grafana, a conta do Glener é `Viewer` (org Contabilizei): dá para ler regras, contact points e histórico pela API (`/api/v1/provisioning/alert-rules`, `/api/v1/provisioning/contact-points`, `/api/v1/rules/history?ruleUID=...&from=&to=`, com a sessão do navegador). Apesar de Viewer, tem `alert.rules:write` na pasta Experts (verificado em 09/11/2026): pode criar e editar as regras dela, mas não contact points.
 - A tela de alertas do JSM Ops (`/jira/ops/alerts`) não carrega para a conta do Glener ("Não foi possível carregar os alertas"): sem acesso ao JSM Ops.
 - A configuração dos alertas não está versionada em nenhum repositório de `~/repositories`.
+
+## Simulação de 90 dias: quantos IPs as 9 regras teriam aberto com P1/P2 (11/11/2026)
+
+- Método: queries de cada regra reexecutadas no `/api/ds/query` do Grafana (sessão do navegador), de 13/08 a 11/11/2026, passo de 1 min (5 min para CPU e CSAT), com o limiar e o `for` de cada regra. Antes de 11/10 vale a simulação; de 11/10 em diante, o histórico real (`/api/v1/rules/history`). Um IP por episódio da regra inteira (o JSM Ops agrupa por `alertname`), juntando disparos a menos de 4h (supõe o alerta fechado entre episódios; com `autoClose: false` pode ser menos, se ninguém fechar).
+- Cobertura: Mimir, Loki e Cloud SQL têm os 90 dias; a métrica `ultimateai_events` só existe desde 30/09 e a do CSAT desde 27/10.
+- Calibração com o histórico real: Webhook e Technical error batem; HTTP Error % e Falha de integração ficam abaixo do real (a simulação perde o `canais-adk` de baixo volume de 12 a 15/10 e alguns disparos curtos), então os números delas são piso.
+
+| Regra | IPs estimados em 90 dias | Dias com disparo | Leitura |
+|---|---|---|---|
+| Falha em chamadas a dependências | ~52 | 42 | Ruído; 80% vem do `experts-nfs` (→ contabilizeiapp, back-worker, central-clientes, api.atlassian.com). Coincide com IP-3942 (04/09) e talvez IP-3756 (21/08). |
+| HTTP Error % • CANAIS | ≥34 | ≥31 | Ruído; quase tudo `canais-adk` e `experts-nfs`. Coincide com IP-4052 (21/09, NFEXP) e IP-4428 (09/11). |
+| Webhook respondendo erro | 26 | 25 | Ruído puro: diário entre 20h e 21h30, de 30/09 a 25/10, depois parou. |
+| Falha de integração | ≥9 | 8 | Instabilidade de integração específica; 01/10 e 03/11 (à tarde). |
+| Technical error (≥10 por bot) | 2 | 2 | 03/11 = IP-4361 (verdadeiro); 01/10 15:18, 5 min, pico 16 (falso positivo). |
+| Falha de escalonamento | 1 | 1 | 01/10, 12:55–14:30 (dia de entrada do webhook/IP-4097). |
+| High CPU • Postgres | 0 | 0 | Só um quase-disparo em 09/11 09:27 (`contabilizei-experts`, 0,86→0,96 por ~5 min), que o Grafana não disparou. |
+| /telefone 502 | 0 | 0 | — |
+| CSAT ativo WhatsApp | 0 | 0 | Métrica só desde 27/10. |
+
+- Total: ~124 IPs automáticos em 90 dias, contra uns 5 incidentes reais de Canais no período (IP-3756, IP-3942, IP-4052, IP-4097, IP-4361, IP-4428). Só o Technical error tem relação limpa com incidente; dependências e HTTP Error % precisariam de outro desenho (por serviço, `for` maior, excluir `experts-nfs`/`canais-adk` ou limiar de volume) antes de ganhar P1/P2.
