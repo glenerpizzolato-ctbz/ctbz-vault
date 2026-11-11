@@ -105,6 +105,7 @@ Levantado em 2026-11-11 sobre o código local (`contabilizei-crm-widget-window` 
 - Desde 2026-10-25, cerca de 140 tickets saíram com `sys_grupo_ouvidoria`, quase todos do chat. De 01/11 a 10/11, a maioria trouxe a tag pelo `zen:ticket:tags` do widget.
 
 - Conclusão final de 2026-11-11 (comentário 29498396 na PRD-176094): causa direta é o clique em "Reclamação/Elogio" por clientes elegíveis, com a regra das 24h como causa contribuinte; incidente e API de elegibilidade descartados.
+- 2026-11-11: ACR reclassificada para origem `Não foi identificado problema no produto` e causa `Não se aplica` (comportamento esperado, problema de experiência) e defeito PRD-176242 cancelado (transição `Archived`, que exige o motivo `customfield_18509` em ADF). Ou seja, novas ocorrências deste sintoma, quando houver o clique no botão, são experiência/regra, não bug.
 - Incidente da Ultimate de 03/11 descartado como causa (análise de 2026-11-11 na nota [[PRD-176094]]): tickets de chat nascem com ouvidoria todo dia útil (ex: 21 em 20/10, 16 em 04/11, 10 em 10/11). Entre os clientes elegíveis que abriram o chat, 2,8% (28/10), 5,5% (04/11) e 3,8% (10/11) caíram na ouvidoria e o resto foi para a IA; entre os não elegíveis, nenhum.
 
 ## Origem
