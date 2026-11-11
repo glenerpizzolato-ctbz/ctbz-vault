@@ -19,6 +19,10 @@ Como obter tokens, liberar IP e chamar APIs internas (Bruno, curl) em dev/prd. U
 
 - [[api-gateway-bots-whatsapp|API gateway dos bots de WhatsApp (Ultimate)]] — obter a `x-api-key` pela cloud function `zendeskbot-config` (sem copiar da Ultimate), rotas de busca por telefone/CNPJ e autenticação, headers obrigatórios e 403 por User-Agent
 
+## Zendesk e Sunshine em produção
+
+- [[zendesk-sunco-prod-politica|Não chamar a API de prd do Zendesk/Sunco por IA]] — pedido do time dono: aciona a renovação de tokens e quebra as integrações; alternativas para investigar e conflito com nossas skills
+
 ## Sunshine Conversations
 
 - [[sunshine-identificar-cliente|Identificar o cliente de uma conversa no Sunshine]] — do platformConversationId da Ultimate para telefone, CNPJ, ticket e sunshineUserId; BSUID (`BR.xxx`) no lugar do telefone

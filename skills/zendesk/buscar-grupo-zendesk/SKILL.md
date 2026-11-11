@@ -33,4 +33,4 @@ Os ids de grupo aparecem em tickets (`group_id`), triggers, logs dos bots e conf
 
 - 404 no `GET /groups/{id}` quer dizer que o id não existe em prd (pode ser do sandbox, ambiente `sandbox` da coleção, ou de outro objeto, como organização ou usuário).
 - Grupo excluído ainda volta no fetch por id, com `deleted: true` (o script marca "EXCLUÍDO").
-- Ids conhecidos: `15262373080476` = `Default Ultimate Bot - [Chat][WhatsApp] [BP]` (grupo do bot da Ultimate no chat/WhatsApp, criado em 2024-08-05).
+- Ids conhecidos: `15262373080476` = `Default Ultimate Bot - [Chat][WhatsApp] [BP]` (grupo do bot da Ultimate no chat/WhatsApp, criado em 2024-08-05). `20122706111516` = `Ouvidoria [WhatsApp] [Ouvidoria]` (grupo da ouvidoria no WhatsApp, criado em 2025-05-17).
