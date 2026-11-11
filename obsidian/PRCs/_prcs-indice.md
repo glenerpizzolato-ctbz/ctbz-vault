@@ -55,4 +55,4 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 
 ## Chat
 
-- [[PRD-176094 - Ticket de chat web cai na Ouvidoria sem o cliente pedir]] — `sys_grupo_ouvidoria` vem do `zen:ticket:tags` do widget (botão Reclamação/Elogio, localStorage), não da Ultimate; confirmar no `ChatStartedEvent.control_context` dos audits e no Mixpanel; ACR PRD-176094 · 1 ocorrência
+- [[PRD-176094 - Ticket de chat web cai na Ouvidoria sem o cliente pedir]] — `sys_grupo_ouvidoria` vem do `zen:ticket:tags` do widget (botão Reclamação/Elogio, localStorage), não da Ultimate; confirmar no `ChatStartedEvent.control_context` dos audits e no Mixpanel; navegação no widget pelos logs do crm-prd (elegibilidade → AuthController); ACR PRD-176094 · 1 ocorrência

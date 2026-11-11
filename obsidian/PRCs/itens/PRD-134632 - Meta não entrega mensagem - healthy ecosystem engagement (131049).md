@@ -66,6 +66,12 @@ Serviço de origem (ex.: `microsservico-agrupamento-guias`) → `atendimento-zen
 3. (Opcional) `mensagem_ativa_template`: buscar pelo `nome` = campo `template`
    da `mensagem_ativa` e comparar a `categoria` com a da WABA na Meta.
 
+## No agrupamento de guias (teste de 2026-11-11)
+
+- No `microsservico-agrupamento-guias`, o erro aparece no `controle_notificacao` como `FALHA / ERRO_CALLBACK_ENVIO_WHATSAPP`. O `external_id` é o `id_message_broker` da `mensagem_ativa`, não o `id` (`select … from mensagem_ativa where id_message_broker = '<external_id>'`).
+- Em 2026-11-11, o `mensagem_ativa_template` já mostrava `experts_empacotamento_guias_impostosb` como `MARKETING`. Nos últimos 30 dias, esse template teve 12 erros `131049` em 22.837 envios (~0,05%). O `131049` em geral, somando todos os templates, ficou entre 200 e 500 por dia útil em novembro, metade `UTILITY`.
+- Num teste com o telefone de teste, o reenvio feito logo depois de liberar o opt-out levou `131049` em ~4s. Só dá para reenviar depois de 24h (sem garantia) ou usando outro número.
+
 ## Devolutiva sugerida na PRC
 
 ```
