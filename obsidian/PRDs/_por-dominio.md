@@ -11,8 +11,10 @@ tags:
 
 Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendimento`, `copilot`, `csat`, `impostos`, `monitoria-ia`, `notas-fiscais`, `notificacoes`, `plataforma`, `ultimate`.
 
-## atendimento — Zendesk, tickets, encerramento automático, filas, canais de atendimento, e-mail inbound (80)
+## atendimento — Zendesk, tickets, encerramento automático, filas, canais de atendimento, e-mail inbound (82)
 
+- [[PRD-176242]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · backlog · 2026QD3
+- [[PRD-176094]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · pronto · 2026QD3
 - [[PRD-175483]] — [Monitoramento Ouvidoria] Subir em produção a identificação de quem entra sem empresa nem processo de abertura · backlog · 2026QD3
 - [[PRD-174558]] — [Super Ouvidoria] Subir em produção o menu de desidratação da Ouvidoria na Ultimate · pronto · 2026QD3
 - [[PRD-173035]] — Desidratar Ouvidoria em menu do número exclusivo da Super Ouvidoria · pronto · 2026QD3
@@ -585,8 +587,10 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 
 - [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
 
-## ultimate — Ultimate/URA/bots de WhatsApp, menus, autenticação no chat (68)
+## ultimate — Ultimate/URA/bots de WhatsApp, menus, autenticação no chat (70)
 
+- [[PRD-176242]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · backlog · 2026QD3
+- [[PRD-176094]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · pronto · 2026QD3
 - [[PRD-175483]] — [Monitoramento Ouvidoria] Subir em produção a identificação de quem entra sem empresa nem processo de abertura · backlog · 2026QD3
 - [[PRD-174558]] — [Super Ouvidoria] Subir em produção o menu de desidratação da Ouvidoria na Ultimate · pronto · 2026QD3
 - [[PRD-173035]] — Desidratar Ouvidoria em menu do número exclusivo da Super Ouvidoria · pronto · 2026QD3

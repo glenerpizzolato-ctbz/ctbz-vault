@@ -11,9 +11,11 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
-## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (41)
+## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (43)
 
 - [[PRD-176493]] — experts-service: aumentar a concorrência do consumer de guias de imposto para drenar rajadas do processar-guia-imposto · backlog · 2026QD3
+- [[PRD-176242]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · backlog · 2026QD3
+- [[PRD-176094]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · pronto · 2026QD3
 - [[PRD-176052]] — Opt-out em lote no contato-service: atendimento-canais-admin usar as rotas batch e search · pronto · 2026QD3
 - [[PRD-175906]] — email-service: retentar erro passageiro na validação de e-mail e reenviar os 2 e-mails perdidos na queda do banco · backlog · 2026QD3
 - [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
