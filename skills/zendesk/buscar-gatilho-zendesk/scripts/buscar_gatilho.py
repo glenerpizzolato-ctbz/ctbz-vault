@@ -47,7 +47,7 @@ FIELD_LABELS = {
     "current_tags": "Tags",
     "set_tags": "Definir tags",
     "remove_tags": "Remover tags",
-    "update_type": "Ticket é",
+    "update_type": "Atualização",
     "via_id": "Canal",
     "brand_id": "Marca",
     "ticket_form_id": "Formulário",
@@ -72,6 +72,12 @@ FIELD_LABELS = {
     "cc": "CC",
     "side_conversation": "Conversa paralela",
 }
+
+OPERATORS = {"is": "é", "is_not": "não é", "less_than": "menor que", "greater_than": "maior que",
+             "changed": "mudou", "value": "mudou para", "value_previous": "mudou de", "not_changed": "não mudou",
+             "not_value": "não mudou para", "not_value_previous": "não mudou de", "includes": "contém",
+             "not_includes": "não contém", "present": "presente", "not_present": "ausente",
+             "within_previous_n_days": "nos últimos N dias"}
 
 VIA = {0: "Web form", 4: "E-mail", 5: "Web service (API)", 8: "Regra", 29: "Chat", 30: "Twitter", 33: "Voz",
        38: "Facebook", 55: "Sistema", 56: "Messaging", 57: "Messaging", 74: "SDK", 88: "Native messaging",
@@ -222,7 +228,8 @@ def print_trigger(client: Client, t: dict) -> None:
             print(f"  {title}:")
             for c in conds:
                 label, shown = describe(client, c["field"], c.get("value"))
-                print(f"    - {label} {c.get('operator', '')} {shown}")
+                op = c.get("operator", "")
+                print(f"    - {label} {OPERATORS.get(op, op)} {shown}")
     print("  Ações:")
     for a in t.get("actions") or []:
         label, shown = describe(client, a["field"], a.get("value"))

@@ -36,6 +36,7 @@ Resolve um gatilho por id, link do admin (`https://<subdominio>.zendesk.com/admi
 ## Armadilhas
 
 - HTTP 401/403: token inválido/expirado ou sem permissão de admin. Em 2026-11-11 o `personal_user_token_sandbox` do `.env` da coleção estava dando 401: gerar outro no sandbox (Admin Center → Apps e integrações → API do Zendesk) e atualizar o `.env` (valor no Bitwarden).
+- Validado em prd em 2026-11-11 (GET, com aprovação do Glener) no gatilho `5138317000988` (`[WEBHOOK] [API] [TICKET] - Atualizações de informações Zendesk com API - PROD (Tickets)`): dispara em toda criação/atualização de ticket e manda o ticket para `POST https://api.contabilizei.com.br/crm-webhooks/zendesk-webhooks-tickets` (webhook `01G60HKBVNYA58QCQ8YS644A40`, contabilizei-crm-webhooks). No corpo, `subtema_cliente_campo_folha_pag_soc_prolab` aponta para `{{ticket.ticket_field_}}`, sem id de campo.
 - 404 por id: o gatilho não existe naquele ambiente (o id de prod não existe no sandbox e vice-versa) ou foi excluído.
 - A busca por nome (`triggers/search`) usa o índice do Zendesk: se não achar por um trecho, tentar uma palavra inteira do título.
 - Ids de grupo conhecidos: ver a skill `buscar-grupo-zendesk`.
