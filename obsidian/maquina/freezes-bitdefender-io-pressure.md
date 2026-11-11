@@ -28,4 +28,32 @@ ps -o pid,etime,time,pcpu,rss,cmd -p $(pgrep -d, bdsecd)
 
 Se o PSI de io estiver alto e o disco ocioso no `/proc/diskstats`, a espera é artificial (fanotify/agente), não do disco.
 
-O Vitals (extensão do GNOME) não mostra PSI. Ele tem só `Read rate`/`Write rate` em Storage, que nesse caso ficam baixos e não denunciam o problema.
+## Por que Read/Write rate (Vitals) não denunciam o Bitdefender
+
+`Read rate`/`Write rate` medem o volume de dados que **chega ao disco**. Com o Bitdefender, a espera acontece **antes** do disco:
+
+1. O programa (git, node, Chrome) pede para abrir um arquivo.
+2. O kernel avisa o Bitdefender via fanotify e o processo fica parado até ele liberar.
+3. Com o `ctc` em 150–240% de CPU, a liberação demora; só depois a leitura vai para o disco, e aí é rápida.
+
+O Linux conta essa espera como "esperando I/O" (`wa` no `top`, PSI de io), mesmo com o disco parado. É como uma fila enorme num caixa lento: Read/Write rate medem o que passa pelo caixa, e o PSI mede o tamanho da fila.
+
+## Diagnóstico diferencial durante um freeze
+
+| Freeze com... | Causa provável |
+|---|---|
+| Read/Write rate **altos** (dezenas/centenas de MB/s) | carga real de disco: `docker pull`, build, swap, `git clone` grande |
+| Read/Write rate **baixos** e PSI io alto | processos presos no fanotify: Bitdefender |
+
+Limitações do Vitals:
+
+- Ele roda dentro do `gnome-shell` e atualiza a cada 5s (`update-time`); num freeze forte trava junto ou mostra o valor antigo. O valor logo depois de destravar é mais confiável.
+- Não mostra PSI, que é o que de fato denuncia a fila. Chaves dos sensores de disco, se quiser na barra: `_storage_read_rate_` e `_storage_write_rate_` (em `hot-sensors`, via `dconf write /org/gnome/shell/extensions/vitals/hot-sensors`; a extensão só relê ao ser reiniciada com `gnome-extensions disable/enable Vitals@CoreCoding.com`).
+
+Para registrar evidência de cada freeze (horário, PSI de io e CPU do Bitdefender) e olhar depois que destravar:
+
+```bash
+while true; do echo "$(date +%T) $(head -1 /proc/pressure/io) $(top -b -n1 | awk '/bdsecd/{s+=$9} END{print "bdsecd="s"%"}')"; sleep 2; done | tee ~/freeze-io.log
+```
+
+Em `/proc/pressure/io`, `avg10` acima de ~20 durante o travamento confirma a fila de I/O.
