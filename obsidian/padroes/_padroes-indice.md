@@ -12,6 +12,7 @@ tags:
 Convenções que valem para qualquer serviço, uma nota por padrão.
 
 - [[pubsub-nomenclatura|Nomenclatura de Pub/Sub]] — tópico `<serviço>.p2p.<nome>`, subscription `<serviço>.sub.<nome>` e sufixo `-local` na execução local
+- [[alertas-pubsub-idade-da-mensagem|Alerta de Pub/Sub por idade da mensagem]] — alertar pela mensagem mais antiga sem ack (sustentada), não por quantidade; como calibrar o limite e a armadilha do valor parado no ackDeadline
 - [[whatsapp-limites-botoes|Limites de botões no WhatsApp]] — botão de resposta 20 caracteres, linha de lista 24 (Ultimate/Zendesk e Meta)
 - [[rotina-deploy-separada|Rotina separada para o deploy]] — fechar o card da feature e abrir uma Rotina só para o deploy em prd (mesmo épico, status To-do), para não ocupar cycle time
 - [[jira-transicoes-passo-a-passo|Transições do Jira uma por vez]] — em todos os cards, mudar o status transição por transição pelo workflow (ex: To-do → Started → Finished), com os ids conhecidos; sub-task de código é do tipo Desenvolvimento, a chamada de rotina é sempre Subtarefa (e como converter)

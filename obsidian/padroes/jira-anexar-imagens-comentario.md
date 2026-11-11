@@ -20,3 +20,8 @@ Não há token da API do Jira no `.env`; o caminho é o MCP da Atlassian (`cloud
 4. Para editar um comentário existente (ex: um que só tem o título "Testes em PRD"), ler antes com `listJiraIssueComments` em `responseContentFormat: html` e passar o corpo atual inteiro em `commentBody`, senão ele é substituído.
 
 Usado em 2026-10-30 para as evidências de teste em produção da PRD-174797.
+
+## Posicionar as imagens no meio do texto e gerar imagem a partir de evidência em texto
+
+- Para colocar cada imagem num ponto exato do comentário (e não só no final), não usar `inlineFileId`: escrever no `commentBody` HTML o nó `<figure data-type="media-single" data-layout="center" data-width="90" data-width-type="percentage"><div data-type="media" data-media-type="file" data-id="<fileId>" data-collection="<collection>" data-alt="x.png"></div><figcaption>…</figcaption></figure>`. Arquivo não-imagem (ex: zip com as evidências brutas) entra como `<div data-type="media-group"><div data-type="media" …></div></div>`. Os dois viram anexos da issue automaticamente (sem fase 2). Sem `data-width-type="percentage"` a imagem fica minúscula.
+- Quando as evidências são só texto (saídas de `psql`, logs, JSON), dá para gerar PNG legível montando um HTML com tabela/`<pre>` e tirando screenshot com `google-chrome --headless=new --no-sandbox --hide-scrollbars --user-data-dir=<tmp> --window-size=1400,4000 --screenshot=out.png file://…html`, depois cortar a sobra branca com PIL (`ImageChops.difference(...).getbbox()`). Usado em 2026-11-11 no card de teste E2E PRD-176514.
