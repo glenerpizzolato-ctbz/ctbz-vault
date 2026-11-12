@@ -113,6 +113,14 @@ Conferido em 2026-11-12 na `contabilizei-dataflow.dw_contabilizei_impostos.Guia`
 
 Distribuição na competência 202610 (prod, 2026-11-12): `ISS` 3.563 guias, 384 com vencimento ≥ dia 20 (~11%); `RETENCAO_FONTE_ISS` 241, 38 ≥ 20; `ISS_FIXO` 40, 1 ≥ 20; `ISSQN` sem volume relevante. A maior parte do ISS continua avulsa.
 
+## Notificação duplicada: guia agrupável de competência futura (2026-11-12)
+
+O `shouldSchedule` libera a notificação avulsa para **qualquer** competência diferente da atual (`periodo !== getCurrentCompetence()`), o que só é correto para competência **passada**. Uma guia agrupável gerada antes de o mês virar (competência futura, ex: ISS de 10/2026 gerado em 16/10, quando a atual ainda é 09/2026) é notificada como avulsa na hora **e** entra no grupo da competência dela, montado na madrugada do dia 15 do mês seguinte. O cliente recebe duas vezes.
+
+Volume em prod (competência 10/2026, guias criadas em outubro com `dataParaPagamento` ≥ 20/11): `ISS` 5 de 384, `RETENCAO_FONTE_ISS` 24 de 44, `ISS_FIXO` 2 de 2. Já acontecia com os outros impostos agrupáveis gerados antes da virada; com o ISS no agrupamento, o `RETENCAO_FONTE_ISS` é o mais afetado.
+
+Correção possível: segurar quando `periodo > competência atual` (só a competência passada notifica na hora). Afeta todos os agrupáveis e herda os riscos de guia segurada (se o grupo falhar, o cliente fica sem a guia).
+
 Relacionado: [[notificacao-agrupamento-experts-bp-lp]], [[arquitetura-e-migracao]].
 
 ## Opt-out (PRD-174790)
