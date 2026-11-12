@@ -107,6 +107,12 @@ Todos já existiam para os outros impostos agrupáveis; o ISS passa a estar suje
 
 Sem buraco: vencimento antes do corte (sempre avulsa), competência anterior (notifica na hora), fuso e campo de data (mesmo `dataParaPagamento` e corte UTC nos dois lados).
 
+## `periodoApuracao.periodo` é a competência, não o mês de geração
+
+Conferido em 2026-11-12 na `contabilizei-dataflow.dw_contabilizei_impostos.Guia`: as guias de ISS com `periodoApuracao_periodo = 202610` vencem (`dataParaPagamento`) em 2026-11 e foram criadas entre 2026-10 e 2026-11; as de 202609 vencem em 2026-10 (e uma minoria, recalculada, em 2026-11). Ou seja, o período é o mês de apuração (competência) e o vencimento cai no mês seguinte. É por isso que o corte do ISS é "dia 20 do mês **seguinte** ao `periodo`" (`isIssAgrupavel` no experts-service e `ElegibilidadeGuiaAgrupamento` no agrupamento fazem a mesma conta), e o `shouldSchedule` compara o `periodo` com `getCurrentCompetence()` (mês anterior ao atual).
+
+Distribuição na competência 202610 (prod, 2026-11-12): `ISS` 3.563 guias, 384 com vencimento ≥ dia 20 (~11%); `RETENCAO_FONTE_ISS` 241, 38 ≥ 20; `ISS_FIXO` 40, 1 ≥ 20; `ISSQN` sem volume relevante. A maior parte do ISS continua avulsa.
+
 Relacionado: [[notificacao-agrupamento-experts-bp-lp]], [[arquitetura-e-migracao]].
 
 ## Opt-out (PRD-174790)
