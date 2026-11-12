@@ -76,29 +76,36 @@ Atalho só para o WhatsApp: desde 2026-09-16 (PRD-167563, commit `543064a`) o `d
 
 ## ISS: quando o cliente não recebe a guia nem no grupo nem avulsa (análise de 2026-11-12, MR !152 + MR !98)
 
-Premissas: o !98 vai para prod antes do !152 e agrupa os 4 tipos de ISS (`ISS`, `ISS_FIXO`, `ISSQN`, `RETENCAO_FONTE_ISS`) com corte no dia 20. Sem essas premissas, os 4 tipos ficam segurados aqui e fora do grupo.
+Premissas: o !98 vai para prod antes do !152 e agrupa os 4 tipos de ISS (`ISS`, `ISS_FIXO`, `ISSQN`, `RETENCAO_FONTE_ISS`) com corte no dia 20; os `grupo_guia` são montados **sempre na madrugada do dia 15** (informado pelo Glener em 2026-11-12; o disparo vem do `plataforma-faturamento-worker` via `agrupar-guias-empresa` e não está no catálogo `infra/schedulers.md`).
 
 Fatos conferidos no código (branch do !98):
 
 - O experts-service **não reavalia** guia segurada: dá ack e só volta a olhar se chegar outro evento da mesma guia.
-- As crons de notificação do agrupamento rodam só **dos dias 15 a 19** (WhatsApp 09h e 15h; e-mail Exp SN 03h e 12h, Exp LP 05h e 14h) e só pegam grupo em **`SUCESSO_AGRUPAMENTO`** (`GrupoGuiaRepository.buscarGruposGuiaElegiveisNotificacao*`).
-- Guia nova agrupável da competência atual que chega com o grupo já em `SUCESSO_AGRUPAMENTO` → grupo vira **`ERRO_NOVA_GUIA`** (`AnalisaAlteracaoDocumento`), sem refazer o PDF. O `reprocessa-erros` só pega `ERRO_SISTEMA` e `ERRO_GERACAO_PDF_AGRUPAMENTO`: grupo em `ERRO_NOVA_GUIA` nunca mais é notificado.
+- Crons de notificação só **dos dias 15 a 19**: e-mail Exp SN 03h e 12h, Exp LP 05h e 14h; WhatsApp 09h e 15h. Só pegam grupo em **`SUCESSO_AGRUPAMENTO`** (`GrupoGuiaRepository.buscarGruposGuiaElegiveisNotificacao*`).
+- Guia agrupável nova da competência atual com o grupo já em `SUCESSO_AGRUPAMENTO` → grupo vira **`ERRO_NOVA_GUIA`** (`AnalisaAlteracaoDocumento`), sem refazer o PDF. O `reprocessa-erros` só pega `ERRO_SISTEMA` e `ERRO_GERACAO_PDF_AGRUPAMENTO`: grupo em `ERRO_NOVA_GUIA` nunca mais é notificado.
 - Grupo `AGRUPAMENTO_SEM_GUIA` ignora guia nova (`controleGuiaAlterado` devolve null).
-- `enviou-notificacao-agrupamento/WHATSAPP` só é true com `controle_notificacao` de WhatsApp em SUCESSO.
-- O grupo é montado quando o `plataforma-faturamento-worker` publica em `agrupar-guias-empresa` (por empresa Expert), antes das crons do dia 15.
+- `enviou-notificacao-agrupamento/WHATSAPP` só é true com `controle_notificacao` de WhatsApp em SUCESSO (o SUCESSO vem do callback do atendimento-zendesk, não do envio).
+
+Janela segura e janela de risco:
+
+- ISS gerado **até a montagem** (dias 1 a 15 de madrugada): o experts-service segura e o grupo montado no dia 15 já inclui a guia. Sem buraco.
+- ISS gerado **depois do WhatsApp do grupo com SUCESSO** (dia 15 a partir de ~09h): o experts-service notifica como avulsa. Sem buraco.
+- **Janela de risco: entre a montagem (madrugada do dia 15) e o SUCESSO do WhatsApp do grupo.**
 
 Buracos de silêncio:
 
-1. **ISS gerado depois da montagem do grupo e antes do envio do WhatsApp** (o mais provável: o ISS municipal costuma sair depois das guias federais): grupo vira `ERRO_NOVA_GUIA` e não é notificado; o experts-service segura o ISS (antes do dia 15) ou consulta o envio do grupo, que nunca acontece. O cliente perde o ISS **e o grupo inteiro**. Se o e-mail do grupo saiu às 03h do dia 15 e o ISS chegou antes das 09h, o cliente recebe só o e-mail sem o ISS.
-2. **Grupo `AGRUPAMENTO_SEM_GUIA`** e ISS chega depois: o grupo ignora; o experts-service segura porque o grupo nunca foi enviado.
-3. **WhatsApp do grupo falhou ou opt-out** e ISS chega depois do envio do e-mail do grupo: grupo em `ERRO_NOVA_GUIA` (sem renotificar) e o experts-service segura porque não há WhatsApp com SUCESSO.
-4. **Grupo só fica pronto depois do dia 19** (ex: preso em `GUIAS_AGUARDANDO_GERACAO`): as crons não rodam mais; o experts-service segura.
-5. **Guia sem `idEmpresa` a partir do dia 15**: `shouldSchedule` segura e o grupo já saiu sem ela.
-6. **Rota `enviou-notificacao-agrupamento` removida** na migração para o agrupamento-guias-service: erro → nack 5x → ack.
+1. **ISS gerado no dia 15 entre a montagem e o e-mail das 03h (LP: 05h)**: grupo vira `ERRO_NOVA_GUIA` e não sai em nenhum canal; o experts-service segura (grupo não enviado). O cliente perde o ISS **e o grupo inteiro**.
+2. **ISS gerado no dia 15 entre o e-mail e o WhatsApp das 09h**: o e-mail do grupo já saiu sem o ISS, o WhatsApp não sai mais (`ERRO_NOVA_GUIA`) e o experts-service segura (sem WhatsApp com SUCESSO). O cliente recebe só o e-mail, sem o ISS.
+3. **ISS gerado entre o disparo do WhatsApp e o callback de SUCESSO** (minutos; ou horas, com `debounceToBusinessHour`): o grupo já foi notificado, vira `ERRO_NOVA_GUIA` sem renotificar; o experts-service segura porque o controle ainda está `AGUARDANDO_NOTIFICACAO`.
+4. **WhatsApp do grupo falhou ou opt-out** e ISS chega depois do dia 15 de madrugada: o experts-service segura para sempre (nunca há WhatsApp com SUCESSO) e o grupo, já enviado por e-mail, não renotifica.
+5. **Grupo `AGRUPAMENTO_SEM_GUIA`** (sem guia agrupável na madrugada do dia 15) e ISS chega depois: o grupo ignora; o experts-service segura.
+6. **Grupo preso em `GUIAS_AGUARDANDO_GERACAO` até depois do dia 19**: as crons não rodam mais; o experts-service segura todas as agrupáveis.
+7. **Guia sem `idEmpresa` a partir do dia 15**: `shouldSchedule` segura.
+8. **Rota `enviou-notificacao-agrupamento` removida** na migração para o agrupamento-guias-service: erro → nack 5x → ack.
 
-Os buracos 1 a 6 já existiam para os outros impostos agrupáveis; o ISS passa a estar sujeito a eles, e o 1 tende a ser mais frequente com o ISS. Fechar de vez exige o experts-service perguntar se **aquela guia** entrou num grupo notificado (em vez de só "o grupo foi enviado?"), ou o agrupamento renotificar/incluir a guia nova.
+Todos já existiam para os outros impostos agrupáveis; o ISS passa a estar sujeito a eles. Fechar de vez exige o experts-service perguntar se **aquela guia** entrou num grupo notificado (em vez de só "o grupo foi enviado?"), ou o agrupamento incluir/renotificar a guia nova em vez de travar em `ERRO_NOVA_GUIA`.
 
-Sem buraco: ISS antes do dia 15 com o grupo montado depois dele; ISS depois do envio do WhatsApp do grupo (notificado avulso); vencimento antes do corte; competência anterior; fuso e campo de data (mesmo instante de `dataParaPagamento` e corte UTC nos dois lados).
+Sem buraco: vencimento antes do corte (sempre avulsa), competência anterior (notifica na hora), fuso e campo de data (mesmo `dataParaPagamento` e corte UTC nos dois lados).
 
 Relacionado: [[notificacao-agrupamento-experts-bp-lp]], [[arquitetura-e-migracao]].
 
