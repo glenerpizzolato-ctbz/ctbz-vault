@@ -74,6 +74,21 @@ Atalho só para o WhatsApp: desde 2026-09-16 (PRD-167563, commit `543064a`) o `d
 - **Migração**: o agrupamento-guias-service removeu `enviou-notificacao-agrupamento`; na virada, a chamada do experts-service quebra (erro → nack até 5 tentativas → ack), e as guias agrupáveis da competência atual a partir do dia 15 deixam de ser notificadas.
 - **ISS por vencimento no agrupamento**: experts-service (MR !152, PRD-176996, branch `feat/PRD-176996`) e agrupamento (MR !98, PRD-175884, `diaMinimoVencimento = 20`) usam o mesmo corte: dia **20** do mês seguinte à competência, `dataParaPagamento`, UTC (chegou a ir para 15 e voltou para 20 em 2026-11-12). Se um lado mudar o dia, o outro tem que acompanhar: com cortes diferentes, o ISS entre os dois dias fica sem notificação ou sai duplicado. A exigência de competência atual vem do `shouldSchedule`, não da regra do ISS. O experts-service só fica correto depois que o agrupamento estiver em produção com o ISS. ⚠️ O experts-service aplica a regra aos 4 tipos de ISS, mas o MR !98 (em 2026-11-12) agrupa só o `ISS` e tem teste garantindo que `ISS_FIXO`, `ISSQN` e `RETENCAO_FONTE_ISS` não agrupam: até o agrupamento incluí-los, essas guias com vencimento ≥ 20 da competência atual ficam sem notificação.
 
+## ISS: quando o cliente não recebe a guia nem no grupo nem avulsa (análise de 2026-11-12, MR !152 + MR !98)
+
+Premissa: o experts-service **não reavalia** guia segurada (dá ack e só volta a olhar se chegar outro evento da mesma guia). Segurar só é seguro se o agrupamento levar a guia.
+
+1. **Tipos de ISS fora do !98**: `ISS_FIXO`/`ISSQN`/`RETENCAO_FONTE_ISS` com vencimento ≥ 20 são segurados aqui, mas o !98 agrupa só `ISS` → nunca notificados. Some quando o !98 incluir os três.
+2. **Ordem de deploy**: !152 em prod antes do !98 → todo ISS ≥ 20 da competência atual segurado e nenhum grupo com ISS.
+3. **Grupo montado antes da guia, mas enviado depois** (ex: monta 06h do dia 15, guia às 08h, envio às 09h): experts segura (grupo ainda não enviado); agrupamento marca `ERRO_NOVA_GUIA` sem refazer o PDF → grupo sai sem o ISS.
+4. **Grupo `AGRUPAMENTO_SEM_GUIA`** (empresa sem guia agrupável no dia 15; ISS chega depois): o grupo ignora a guia nova e nunca é enviado; experts segura porque o grupo "não foi enviado".
+5. **WhatsApp do grupo falhou ou opt-out**: `enviou-notificacao-agrupamento` olha só o canal WHATSAPP → ISS que chega depois do dia 15 é segurado mesmo com o e-mail do grupo já enviado (sem ele).
+6. **Guia sem `idEmpresa` a partir do dia 15**: `shouldSchedule` devolve false (segura) e o grupo já saiu sem ela.
+7. **Rota `enviou-notificacao-agrupamento` removida na migração** para o agrupamento-guias-service: erro → nack 5x → ack → ISS do dia 15 em diante sem notificação.
+8. (já existia) **Dedup por CNPJ no dia** (`alreadySent`): ISS avulso que chega no mesmo dia de outra notificação de guia da empresa (task não enviada, criada ou enviada hoje) é pulado, e a mensagem de WhatsApp leva o detalhe só da guia que agendou.
+
+Sem buraco: fuso e campo de data (os dois lados usam o mesmo instante de `dataParaPagamento` e corte 00:00 UTC), competência anterior (notifica na hora), vencimento alterado depois do envio do grupo (novo evento → notifica).
+
 Relacionado: [[notificacao-agrupamento-experts-bp-lp]], [[arquitetura-e-migracao]].
 
 ## Opt-out (PRD-174790)
