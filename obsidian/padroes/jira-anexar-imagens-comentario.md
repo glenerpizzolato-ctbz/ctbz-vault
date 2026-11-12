@@ -1,15 +1,29 @@
 ---
 name: jira-anexar-imagens-comentario
-description: "Como anexar imagens locais (ex: evidências de teste) dentro de um comentário do Jira pelo MCP da Atlassian, sem token de API próprio: uploadAttachmentToJiraIssue (fase 1) + curl + addOrEditJiraIssueComment com inlineFileId"
+description: "Como documentar evidências de teste no Jira: um comentário por cenário (mais um de resumo), cada imagem inline logo abaixo do texto que a cita (nunca tudo como anexo no fim), pelo MCP da Atlassian (uploadAttachmentToJiraIssue fase 1 + curl + nó media-single no HTML)"
 metadata:
   type: reference
 tags:
   - jira
   - evidencias
-atualizado_em: 2026-11-09
+atualizado_em: 2026-11-12
 ---
 
 # Anexar imagens em um comentário do Jira
+
+## Regra (pedido do Glener, 2026-11-12)
+
+Ao documentar um relatório de teste (E2E, regressão) numa sub-task do Jira:
+
+- **Um comentário por cenário** (C0, C1…), mais um comentário de **resumo** antes deles (contexto, regra testada, massa, tabela cenário × resultado, pendências e limpeza). Publicar na ordem, para os comentários ficarem em sequência.
+- Cada comentário de cenário traz **Passos**, **Esperado** e **Resultado**, e a imagem da evidência vai **inline, logo depois da frase que a cita** (nó `<figure data-type="media-single">` no ponto exato, ver abaixo), com `figcaption` dizendo o que ela mostra.
+- **Nunca** jogar o texto e todos os arquivos só como anexos no fim do comentário (nada de `inlineFileId`, que anexa no final, nem fase 2 do upload).
+- Evidência em texto (log, `psql`, JSON) vira imagem legível: uma imagem por cenário com uma tabela-resumo (tipo, dados de entrada, decisão, resultado ✔/✘) e, abaixo, o log e a consulta de cada envio (receita no fim desta nota). Tokens sempre mascarados.
+- Cenário não executado também ganha comentário, explicando por que e onde ele está coberto.
+
+Feito assim na PRD-176998 (testes E2E da PRD-176996, 2026-11-12): 1 resumo + 11 cenários, 11 imagens.
+
+## Como subir
 
 Não há token da API do Jira no `.env`; o caminho é o MCP da Atlassian (`cloudId: contabilizeicontabilidade.atlassian.net`).
 
