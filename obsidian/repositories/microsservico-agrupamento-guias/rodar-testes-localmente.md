@@ -8,7 +8,7 @@ tags:
   - maven
   - testes
 repositorio: microsservico-agrupamento-guias
-atualizado_em: 2026-11-10
+atualizado_em: 2026-11-12
 ---
 
 # Rodar os testes localmente
@@ -44,10 +44,25 @@ O `PubSubInitConfig` (`@Profile("local")`) cria no `project-id` global os tópic
 Em dev o e-mail nunca chega: o email-service de dev responde no callback `FAILED` / `REJECTED` com `421 The from domain should be a connected email sending domain ... - hssmtp` (o SMTP/HubSpot de dev não tem o domínio do remetente conectado), e o `controle_notificacao` vira `FALHA / ERRO_CALLBACK_ENVIO_EMAIL`. Para receber, rodar local com o banco de dev e apontar **só o envio** para prod no `application-local.yml`:
 
 - `enviarAnexoEmail.project` e `enviarEmail.project` = `atendimento-canais-prd` (os **dois**: o anexo sobe no email-service e o envio referencia o id dele; anexo em dev + envio em prod não fecha). A ADC do usuário tem `pubsub.topics.publish` nesses tópicos de prod.
-- Template de prod no `templateAgrupamento*Uuid` do público (Experts SN `123ccd0f-9b37-4912-98c7-277a1473f1a2`).
+- Template de prod no `templateAgrupamento*Uuid` do público (Experts SN `25d1382f-2afc-42de-8b55-088ee67841a9`, `default-v5`).
 - `notificacaoGrupoGuiaEmail` numa fila só do app local (`ms-agrupamento-guias.p2p.notifies-email-local` / `ms-agrupamento-guias.sub.notifies-email-local`, criados em `atendimento-canais-dev` em 2026-11-10): a fila normal `notifies-email` é consumida também pelo pod de dev, que pode pegar a mensagem e mandar pelo SMTP de dev.
 - O callback de prod volta no tópico de prod, que o app local não consome: o controle fica sem o status final.
 - A rota de lote ignora grupos que já têm qualquer `controle_notificacao` do tipo: apagar o registro anterior do grupo de teste antes de disparar de novo.
+
+## Validar troca de template de e-mail (local)
+
+Usado na PRD-177099 (2026-11-12). Quando o MR só troca `template*Uuid` nos `application-{dev,prod}.yml`, o caminho mais barato e mais fiel é local com envio em prod (seção acima), sem trocar o pod de dev compartilhado:
+
+1. `application-local.yml` a partir do stash (`git show stash@{0}:src/main/resources/application-local.yml > src/main/resources/application-local.yml`, stash "WIP on master: 25bae7bd"; ele tem as credenciais de dev embutidas, então não precisa de `SSO_APP_SECRET`/`HEIMDALL_*` no ambiente). O arquivo é **rastreado no git** (a versão commitada é a do emulador): restaurar com `git checkout --` no fim.
+2. Acrescentar `processarParcela`; pôr `notificacaoGrupoGuiaEmail` em `ms-agrupamento-guias.p2p.notifies-email-local` / `ms-agrupamento-guias.sub.notifies-email-local`; `enviarAnexoEmail.project` e `enviarEmail.project` = `atendimento-canais-prd`; e os `template*Uuid` com os UUIDs **de prod** do MR (o email-service de prod não conhece os de dev).
+3. `PubSubInitConfig` com `@ConditionalOnProperty("spring.cloud.gcp.pubsub.emulator-host")` (só local).
+4. Subir com `SPRING_PROFILES_ACTIVE=local SERVER_PORT=<PORT da worktree> ./mvnw spring-boot:run` (o `application.yml` fixa `server.port: 8080`; precisa do Redis em `localhost:6379`). Não há auth na app: as rotas de lote são `GET localhost:<porta>/notificacao/envia-lote/grupo-guia/{exp-sn,exp-lp,bp-lp}/EMAIL` (o `/agrupamento-guias` é prefixo do api-gateway).
+5. Massa da skill de regressão, `checar`, e deixar em `PROCESSANDO` todo grupo de teste que não deve receber (inclusive o grupo 3 de dev), para mandar só um e-mail por público.
+6. Conferir: log local `construção do DTO… templateId=…`, `email_replications` de prod (`template_id`, `to`, `status`, só leitura) e a caixa de entrada. O `controle_notificacao` fica sem status final (o callback volta no tópico de prod).
+
+Para parar o app, matar pelo PID (`ss -ltnp | grep :<porta>`): um `pkill -f "spring-boot:run"` rodado pelo shell do agente casa com a própria linha de comando e derruba o shell junto.
+
+Permissão: `pubsub.topics.publish` nos tópicos do email-service de prod dá para conferir sem publicar, com `POST https://pubsub.googleapis.com/v1/projects/atendimento-canais-prd/topics/<topico>:testIamPermissions` e o body `{"permissions":["pubsub.topics.publish"]}` (token do `gcloud auth print-access-token`).
 
 ## Rodar uma classe de teste só
 

@@ -68,10 +68,10 @@ Consequências que os cenários cobrem: plano **nulo** (legado) não entra em ne
 
 | Público | E-mail DEV | E-mail PRD | WhatsApp |
 | --- | --- | --- | --- |
-| Experts SN | `8d278fab…` | `123ccd0f…` (`exp-email-agrupamento-guias-default-v4`) | `experts_empacotamento_guias_impostosb` |
-| Experts SN com diagnóstico `AUMENTO_FATURAMENTO` | `7c837342…` | `1daac9af…` | `exp_guias_diag_fatur_01` |
-| Experts LP | `8d278fab…` (DEV usa o de SN) | `873da0a6…` (`exp-empacotamento-lp`) | `experts_empacotamento_guias_impostosb` |
-| BP LP | `c9085510…` | `6f8764b7…` (`bpm-empacotamento-lp`) | `bpm_empacotamento_guias_impostos` |
+| Experts SN | `4947c568…` (`default-v5`; antes `8d278fab…`) | `25d1382f…` (`exp-email-agrupamento-guias-default-v5`; antes `123ccd0f…` v4) | `experts_empacotamento_guias_impostosb` |
+| Experts SN com diagnóstico `AUMENTO_FATURAMENTO` | `e1ddf12d…` (`diag-fatur-v2`; antes `7c837342…`) | `9ab02f34…` (`exp-email-agrupamento-guias-diag-fatur-v2`; antes `1daac9af…` v1) | `exp_guias_diag_fatur_01` |
+| Experts LP | `cdd471af…` (`exp-empacotamento-lp2`) | `4741257b…` (`exp-empacotamento-lp2`; antes `873da0a6…`) | `experts_empacotamento_guias_impostosb` |
+| BP LP | `0efa5f10…` (`bpm-empacotamento-lp3`; antes `c9085510…`) | `fb55a332…` (`bpm-empacotamento-lp3`; antes `6f8764b7…`) | `bpm_empacotamento_guias_impostos` |
 | Diagnóstico BP `AUMENTO_FATURAMENTO` | — | — | `bp_diag_fatur_02` |
 
 Só `AUMENTO_FATURAMENTO` está habilitado (`MotivosDiagnosticoNotificacao.EXPERTS` e `.BP`); os outros 6 motivos (`DESENQUADRAMENTO_FATOR_R`, `MUDANCA_FAIXA_SIMPLES_*`, `PROPORCAO_*`) são ignorados: Experts cai no template padrão, BP nem notifica. O diagnóstico Experts é achado por CNPJ + competência da guia (`id_guia` em `controle_guias`) e `plano LIKE 'EXPERT%'`. O template de aumento de faturamento exige `faturamentoAnterior`, `faturamentoAtual` e `porcentagemAumento` no `resultado` (sem um deles: `FALHA / ERRO_ENVIO_EMAIL`).
@@ -159,6 +159,7 @@ Para disparar só uma rota sem alcançar os outros grupos (ex: reproduzir um cen
 ## Armadilhas
 
 - Rotas de lote alcançam tudo o que for elegível: sempre `checar` antes.
+- **Troca de template de e-mail:** o `verificar` compara o `templateId` do log com a constante `TPL` do `regressao.py` (8 primeiros caracteres do UUID de dev por público). Ao trocar um UUID no `application-dev.yml`, atualizar o `TPL` antes de rodar, senão todo e-mail daquele público sai como FALHA. Para validar uma troca de template (mudança só de `application-{dev,prod}.yml`), não precisa subir a branch no pod de dev: rodar local com os mesmos UUIDs no `application-local.yml` percorre o mesmo código, e com o envio apontado para prod o e-mail chega de verdade (receita em [[rodar-testes-localmente#Validar troca de template de e-mail (local)]]).
 - Qualquer `controle_notificacao` do tipo (até FALHA) tira o grupo da busca: para repetir, apagar o controle do grupo.
 - **Token entre aspas no `.env`:** no `docs/bruno/.env`, o `DECK_BRUNO_EXPERTS_TO_MICROSSERVICO_AGRUPAMENTO_GUIAS_DEV` está entre aspas. Um `grep … | cut -d= -f2-` leva as aspas para o header `x-ctbz-api-gateway-token`, e o api-gateway responde **401 Unauthorized**. Tirar as aspas antes de exportar: `v="${v#\"}"; v="${v%\"}"; export TK="$v"`. Sem o header, a resposta é `No API key found in request`.
 - **SN-11 x WhatsApp:** o catálogo espera `ENVIA` no WhatsApp do contato sem e-mail, mas desde 2026-10-15 (`1a956143`/`cdfcba3a`) `ContatoDTO.fromJson`, do WhatsApp, chama `fromJsonEmail` e exige e-mail. O WhatsApp fica `DADOS_INCOMPLETO` ("campo email obrigatório"). Visto em 2026-11-11, sem decisão ainda: ou é bug ou o catálogo precisa mudar.
@@ -172,6 +173,7 @@ Para disparar só uma rota sem alcançar os outros grupos (ex: reproduzir um cen
 
 ## Histórico de execuções
 
+- **2026-11-12 (PRD-177099/PRD-177100, !103, troca dos templates de e-mail):** local (porta 3070) com banco de dev e envio no email-service de prd, sem deploy em dev ([[rodar-testes-localmente#Validar troca de template de e-mail (local)]]). Só SN-02, SN-04, SN-06, LP-03, BP-01 e BP-03 elegíveis (os outros grupos e o grupo 3 da empresa 5775972832378880, mais os grupos 1 e 71795 dela, em `PROCESSANDO`). Os 6 saíram `SENT` em prd com `default-v5`, `diag-fatur-v2`, `exp-empacotamento-lp2` e `bpm-empacotamento-lp3`, `nomeGuia` igual ao catálogo. O render foi conferido com o `html_content` de prd + as `variables` do `email_replications` de prd e Chrome headless. Observação: o `diag-fatur-v2` não lista as guias e repete o bloco "Atenção ao vencimento". Evidências na pasta `tests/w4x` da feature do BahCode.
 - **2026-11-11 (PRD-176856, !102, validade do WhatsApp em fim de semana):** só a rota WhatsApp. Os 16 ativos chegaram ao atendimento-zendesk com `validade_em_minutos = 4320`. Para simular o fim de semana, voltei o `criado_em` em 50h (`update mensagem_ativa set criado_em = criado_em - interval '50 hours'`, no dev) e consultei a rota do bot (`GET https://api-gateway-dev.contabilizei.com/zendesk/api/v1/bots/whatsapp/mensagem/ativa?telefoneCliente=5555996981032&fluxo=EXPERTS&cnpj=<cnpj>`, com headers `client_id`/`access_token` de `client_id_exp_dev`/`access_token_exp_dev` do `.env` de `~/repositories/experts-bruno/atendimento-zendesk`). Com 4320, o ativo foi reconhecido; com 1440, não; com 73h, também não. Numa resposta real, o ativo 2966 virou `RESPONDIDA`. Evidências na PRD-176859.
 - **2026-11-11 (PRD-176511/PRD-176512, !101 já no master em dev):** só a rota WhatsApp, conferindo os `metadados` em `mensagem_ativa.metadados` do atendimento-zendesk de dev contra o esperado calculado do banco. Os 16 grupos enviados deram OK (só guias, só parcelas, misto, Experts e BP LP), e o menor vencimento entre guia e parcela foi confirmado com um reenvio do LP-03. O SN-11 ficou em `DADOS_INCOMPLETO` (ver armadilhas). Evidências na pasta `tests/w4t` da feature do BahCode.
 
