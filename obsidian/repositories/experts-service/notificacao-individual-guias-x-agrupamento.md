@@ -11,7 +11,7 @@ sistemas:
   - experts-service
   - microsservico-agrupamento-guias
   - agrupamento-guias-service
-atualizado_em: 2026-10-28
+atualizado_em: 2026-11-12
 ---
 
 # Notificação individual de guias (experts-service) x agrupamento
@@ -22,7 +22,7 @@ atualizado_em: 2026-10-28
 
 1. Status ≠ `PENDENTE` → cancela a task da guia e sai.
 2. Só plano que contém "expert" e regime `LUCRO_PRESUMIDO` ou `SIMPLES`; precisa de telefone; `dataParaPagamento` no futuro.
-3. Imposto "do agrupamento" pela lista do próprio experts-service (`handlerLucroPresumido`: COFINS, IRPJ, CSLL, IRPJ_16, IRPJ_32, FGTS, PIS, DARF_UNIFICADO, IRPJ_COMPL; `handlerSimplesNacional`: FGTS, SIMPLES, DARF_UNIFICADO). Se for, `shouldSchedule`: competência ≠ atual → notifica; dia < 15 → não notifica; dia ≥ 15 → só notifica se `GET /agrupamento-guias/enviou-notificacao-agrupamento/WHATSAPP/idEmpresa/{id}` do microsservico-agrupamento-guias disser que o grupo da competência já foi notificado com sucesso.
+3. Imposto "do agrupamento" pela lista do próprio experts-service (`handlerLucroPresumido`: COFINS, IRPJ, CSLL, IRPJ_16, IRPJ_32, FGTS, PIS, DARF_UNIFICADO, IRPJ_COMPL; `handlerSimplesNacional`: FGTS, SIMPLES, DARF_UNIFICADO). **ISS** (só o `ISS`; `ISS_FIXO`, `RETENCAO_FONTE_ISS` e `ISSQN` não) também conta como do agrupamento nos dois regimes quando `dataParaPagamento` ≥ dia 20 do mês seguinte à competência, 00:00 UTC (`isIssAgrupavel`, `src/domain/guia-imposto/services/iss-agrupamento/`, espelho de `ElegibilidadeGuiaAgrupamento` do MR !98 do agrupamento); com vencimento antes do corte, é notificado na hora como avulso. Se for do agrupamento, `shouldSchedule`: competência ≠ atual → notifica; dia < 15 → não notifica; dia ≥ 15 → só notifica se `GET /agrupamento-guias/enviou-notificacao-agrupamento/WHATSAPP/idEmpresa/{id}` do microsservico-agrupamento-guias disser que o grupo da competência já foi notificado com sucesso.
 4. `alreadySent(cnpj)`: não agenda se já existe task não enviada ou criada/enviada hoje para o CNPJ (dedup diário por empresa, não por guia).
 
 ## Lado do agrupamento (microsservico-agrupamento-guias)
@@ -37,7 +37,7 @@ atualizado_em: 2026-10-28
 - **Guia nova depois do envio do grupo**: experts-service notifica individualmente (porque o grupo já foi enviado) e o grupo vai para `ERRO_NOVA_GUIA` sem incluir a guia no PDF. Não há renotificação do grupo, mas também não há "adicionar ao agrupamento".
 - **Buraco de silêncio**: imposto agrupável, dia ≥ 15, e grupo nunca notificado (`AGRUPAMENTO_SEM_GUIA`, `GUIAS_AGUARDANDO_GERACAO` preso, opt-out/falha no WhatsApp) → nenhum dos dois notifica a guia.
 - **Migração**: o agrupamento-guias-service removeu `enviou-notificacao-agrupamento`; na virada, a chamada do experts-service quebra (erro → nack até 5 tentativas → ack), e as guias agrupáveis da competência atual a partir do dia 15 deixam de ser notificadas.
-- **ISS pós dia 20 no agrupamento**: exige mudar os dois lados (regra por vencimento em `ImpostoPermiteAgrupamento` e nos handlers do experts-service), senão o ISS sai individual e no grupo.
+- **ISS pós dia 20 no agrupamento**: os dois lados usam o mesmo corte (dia 20 do mês seguinte à competência, `dataParaPagamento`, UTC): agrupamento no MR !98 (PRD-175884, `ImpostoPermiteAgrupamento.ISS(diaMinimoVencimento = 20)`) e experts-service na branch `feat/iss-notification-by-due-date` (2026-11-12). Se um dos lados mudar o dia, o outro tem que acompanhar: com corte diferente, o ISS entre os dois dias sai duplicado ou fica sem notificação. O experts-service só fica correto depois que o MR !98 estiver em produção; antes disso, ISS com vencimento ≥ 20 da competência atual seria segurado sem entrar no grupo.
 
 Relacionado: [[notificacao-agrupamento-experts-bp-lp]], [[arquitetura-e-migracao]].
 
