@@ -28,4 +28,6 @@ WHERE created_at_date BETWEEN "2026-11-01" AND "2026-11-10" AND ticket_id IN (30
 ORDER BY created_at
 ```
 
+Canal do ticket: o `via` do evento `Create` dentro do `child_event` separa os canais. Chat web = `Native Messaging`; WhatsApp = `WhatsApp`; API = `Web service`; follow-up = `Closed Ticket`. Para extrair, `UNNEST(JSON_QUERY_ARRAY(child_event))` e `JSON_VALUE(ce,'$.via')` / `JSON_VALUE_ARRAY(ce,'$.added_tags')`. O `via_reference_id` de um `Change` com `via: Rule` é o id do gatilho que o fez.
+
 Caso de uso: [[PRD-176094 - Ticket de chat web cai na Ouvidoria sem o cliente pedir]].

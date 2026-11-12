@@ -45,6 +45,16 @@ No caminho direto para a IA não há tema no localStorage: o WhatsApp vai sem re
 
 Os temas do widget vêm do BFF (`atendimento/widget/v2/temas`, `bank/temas`, `corretora/temas`). O cadastro equivalente com tags fica no seed `atendimento-zendesk/prisma/seeds/v3/temas-subtemas-prod.ts`: Contabilidade tem 13 temas (incluindo "Ouvidoria", com autoatendimento `sys_validar_acesso_ouvidoria`) e Bank tem 4, sem subtemas.
 
+## De onde vem a `sys_canal_chat` (e se ela garante chat web)
+
+Ela tem três origens:
+
+- **Widget, atalho da IA** (`RedirectToAIGuard`): vai junto das `conversationTags`, então já está na criação do ticket.
+- **Widget, ticket de formalização** (`createFormalizationTicketZM`): o ticket "Formalização de atendimento via Fale Conosco", criado pela API (`via: Web service`) quando o cliente encerra no FAQ ou no autoatendimento. Não é conversa de chat: é o registro de um atendimento resolvido ou abandonado dentro do widget, sem abrir canal. A rota é `atendimento/tickets/criar-ticket-formalizacao` (BFF), com `origem: Fale Conosco` e as `routing-tags` + `sys_canal_chat`. Quem dispara: o cliente responde "sim, resolveu" no FAQ (`Helpdesk/Faqs`), não interage depois dos artigos (expiração), ou passa pelo autoatendimento (impostos em aberto `DueTaxesGuard`, carta de responsabilidade, mensalidade por boleto/Pix, informe de rendimentos) e confirma ou não interage. Se o cliente diz "não resolveu", segue para o menu de canais e não cria esse ticket. Os tickets nascem `new`, sem comentário além do da API.
+- **Gatilho do Zendesk `14919819857948`**: adiciona a tag nos tickets de Native Messaging que nasceram sem ela (ex: tema/subtema → Chat, botão Reclamação/Elogio). Visto no ticket 30176681.
+
+Medição no BigQuery (`raw_tb_ticket_events`, tickets criados de 01/10 a 10/11/2026): os 31.692 tickets `Native Messaging` tinham a tag (nenhum sem), e nenhum ticket `WhatsApp` a tinha (o WhatsApp usa `sys_canal_whatsapp`). Mas 1.750 tickets com a tag (5,2%) não são conversa de chat web: 1.678 de formalização (`Web service`), 71 `Closed Ticket` (follow-up que herda as tags) e 1 `Side Conversation`. Ou seja, a tag indica "veio do Fale Conosco do app"; para ter só o chat web, filtrar também por `via = Native Messaging` (ou excluir `Web service`/`Closed Ticket`).
+
 Diagrama estilo BPMN publicado em https://claude.ai/artifact/K9Gd5f9VbosysyYTG8kfgR.
 
 Caso real: [[PRD-176094 - Ticket de chat web cai na Ouvidoria sem o cliente pedir]].
