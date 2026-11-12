@@ -16,7 +16,7 @@ atualizado_em: 2026-11-12
 
 - `docker compose up -d database pubsub` na worktree (Postgres na 5432, emulador `messagebird/gcloud-pubsub-emulator` na 8681). O `redis` do compose usa a 6379 fixa: se ela já estiver ocupada (ex: `microsservico-agrupamento-guias-cache-1`), não subir o do compose e deixar o app usar esse (o `REDIS_HOST` padrão é `localhost`; a porta não é configurável).
 - `pnpm db:migrate` (drizzle-kit, usa o `DATABASE_URL` do `.env`, `localhost:5432`).
-- `PORT=<porta> PUBSUB_ENDPOINT=localhost:8681 pnpm dev`. O `--env-file=.env` do Node não sobrescreve variáveis já definidas. Com `NODE_ENV` diferente de `production`, `getPubsub` usa o emulador; com `GCLOUD_PROJECT=contabilizei-experts-dev` no `.env`, a `Config` é a de dev (plataforma `contabilizeiapp-dev-02`, agrupamento via `api-gateway-dev`).
+- `PORT=<porta> PUBSUB_ENDPOINT=localhost:8681 VERTEXAI_PROJECT=contabilizei-experts-dev VERTEXAI_LOCATION=us-central1 pnpm dev`. Sem as duas `VERTEXAI_*` (o `.env` local não tem), o app cai na subida com `Authentication is not set up` ao construir o cliente do Gemini (`src/infra/google-cloud/genai/index.ts`), mesmo que o fluxo testado não use IA; os valores só montam o cliente. O `--env-file=.env` do Node não sobrescreve variáveis já definidas. Com `NODE_ENV` diferente de `production`, `getPubsub` usa o emulador; com `GCLOUD_PROJECT=contabilizei-experts-dev` no `.env`, a `Config` é a de dev (plataforma `contabilizeiapp-dev-02`, agrupamento via `api-gateway-dev`).
 - Os consumers criam o tópico e a subscription no emulador ao subir (`PubsubClient.getTopic/getSubscription`). Publicar depois que o app estiver de pé.
 
 ## Publicar no emulador
@@ -36,6 +36,9 @@ O `GuiaImpostoNotifierConsumer` (`processar-guia-imposto`) lê `attributes.clock
 - Limpeza: `docker compose down -v`.
 
 ## Armadilhas
+
+- Para variar o imposto, usar um valor do `impostoEnum` (`dto/enums/imposto.enum.ts`): `DARF` não existe; para "imposto avulso fora das listas" usar `TFE`. Os logs de decisão do consumer saem em `info` (`... aborting...`, `persisted in db`, `has expired`), mas o `is status <X>` do cancelamento é `debug`: a prova do cancelamento é o `task scheduling deleted for N tasks` do `CancelTaskScheduling` e o `task_scheduler`.
+- Roteiro usado no PRD-176996 (31 guias, 8 minutos): publicar, esperar a linha de decisão com `id <id> from` no log e consultar o `task_scheduler`, limpando o CNPJ antes de cada envio por causa do dedup.
 
 - `getDadosEmpresa` chama `contabilizeiapp-dev-02.appspot.com` com `auth_token` em **query param**. Um 403 em HTML (`Error: Forbidden`) é o firewall do App Engine pelo IP: liberar em https://libera-meu-ip.ctbz.com.br/ no projeto `contabilizeiapp-dev-02`. A máquina sai por IPv6 para o appspot (ver [[sso-token-dev-prd]]).
 - **O dev do experts-service é o `contabilizeiapp-dev-02`**, e os dados de empresa lá podem divergir dos outros devs. A rota do bot (`buscar-empresas-por-telefone --env dev`, outro dev) mostra a `12996446000105` como Experts Simples, mas no dev-02 ela é Experts **Lucro Presumido**. Conferir sempre pelo `getByCnpj` do dev-02 (plano em `planoPagamentoEmpresa.pagtoPlano.categoriaV2.nome`, regime em `regimeTributario`).
