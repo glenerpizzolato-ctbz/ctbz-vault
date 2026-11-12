@@ -27,7 +27,7 @@ Toda notificação vai **só** para `glener.pizzolato@contabilizei.com.br` e o t
 3. `$R limpar --aplicar`, `$R massa --aplicar` e `$R checar`.
 4. Anotar o início (`date -u +%FT%TZ`) e disparar: `$R disparar --token-env <VAR> --rotas email`, depois `--rotas whatsapp,diagnostico-bp` (só os canais pedidos). Esperar ~1 min.
 5. `$R verificar --desde <início>`: `OK` bate com o esperado, `BUG` é bug conhecido (citado no playbook), `FALHA` é regressão. Para cada `FALHA`, investigar no log do pod (`gcloud logging read … container_name="microsservico-agrupamento-guias"` em `contabilizei-dev-01`) antes de concluir: pode ser massa errada.
-6. Evidências: tabela do `verificar`, trechos de log e prints (HTML do template renderizado com as `variables` do `email_replications` de dev, via Chrome headless). Se o usuário pedir, comentar na sub-task de testes do card (upload pelo `uploadAttachmentToJiraIssue` e imagens inline).
+6. Evidências: tabela do `verificar`, trechos de log e prints (HTML do template renderizado com as `variables` do `email_replications` de dev, via Chrome headless). Se o usuário pedir, comentar na sub-task de testes do card seguindo `obsidian/padroes/jira-anexar-imagens-comentario.md`: um comentário de resumo e um por cenário, com cada imagem inline logo abaixo do texto que a cita (nunca tudo como anexo no fim).
 7. `$R limpar --aplicar` ao terminar (salvo pedido de manter a massa).
 8. Registrar a execução no "Histórico de execuções" do playbook e, se uma regra mudou, atualizar o catálogo e o script.
 
