@@ -119,6 +119,8 @@ O `shouldSchedule` libera a notificação avulsa para **qualquer** competência 
 
 Volume em prod (competência 10/2026, guias criadas em outubro com `dataParaPagamento` ≥ 20/11): `ISS` 5 de 384, `RETENCAO_FONTE_ISS` 24 de 44, `ISS_FIXO` 2 de 2. Já acontecia com os outros impostos agrupáveis gerados antes da virada; com o ISS no agrupamento, o `RETENCAO_FONTE_ISS` é o mais afetado.
 
+Work-item: experts-service #20 (https://gitlab.com/ctbz/experts/backend/experts-service/-/work_items/20).
+
 Correção possível: segurar quando `periodo > competência atual` (só a competência passada notifica na hora). Afeta todos os agrupáveis e herda os riscos de guia segurada (se o grupo falhar, o cliente fica sem a guia).
 
 Relacionado: [[notificacao-agrupamento-experts-bp-lp]], [[arquitetura-e-migracao]].
