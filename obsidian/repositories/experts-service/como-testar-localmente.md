@@ -38,7 +38,8 @@ O `GuiaImpostoNotifierConsumer` (`processar-guia-imposto`) lê `attributes.clock
 ## Armadilhas
 
 - `getDadosEmpresa` chama `contabilizeiapp-dev-02.appspot.com` com `auth_token` em **query param**. Um 403 em HTML (`Error: Forbidden`) é o firewall do App Engine pelo IP: liberar em https://libera-meu-ip.ctbz.com.br/ no projeto `contabilizeiapp-dev-02`. A máquina sai por IPv6 para o appspot (ver [[sso-token-dev-prd]]).
-- Empresa Experts Simples de dev ligada ao telefone de teste: `12996446000105` (2026-11-12). Para achar outras, skill `buscar-empresas-por-telefone --env dev`.
+- **O dev do experts-service é o `contabilizeiapp-dev-02`**, e os dados de empresa lá podem divergir dos outros devs. A rota do bot (`buscar-empresas-por-telefone --env dev`, outro dev) mostra a `12996446000105` como Experts Simples, mas no dev-02 ela é Experts **Lucro Presumido**. Conferir sempre pelo `getByCnpj` do dev-02 (plano em `planoPagamentoEmpresa.pagtoPlano.categoriaV2.nome`, regime em `regimeTributario`).
+- Massa no dev-02 (2026-11-12, todas `EXPERT_ESSENCIAL`, ATIVO, com telefone e e-mail): Simples `28758195000152`, `48904233000145`, `46859939000107`, `19423320000182`; LP `12996446000105`. O `TOKEN_PLATAFORMA` do `.env` do experts-service autentica no `auth/filtrarempresas` e no `getByCnpj` do dev-02 (query param `auth_token`). Varrendo as ativas até o limite de `cursor` 1000, aparecem dezenas de Experts (bem mais que no dev-03).
 - Não há `faketime` instalado: regras que dependem do dia (ex: dia ≥ 15 do `shouldSchedule`) só dá para ver ao vivo na data certa; os testes unitários usam `vi.setSystemTime`.
 
 Relacionado: [[notificacao-individual-guias-x-agrupamento]], [[deploy-e-variaveis-de-ambiente]].
