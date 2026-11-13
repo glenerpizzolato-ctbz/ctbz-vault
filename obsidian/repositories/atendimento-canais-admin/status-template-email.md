@@ -20,7 +20,8 @@ Contrato do email-service (feature "Soft delete de templates de e-mail", branche
 No admin (branch `feat/email-template-status`):
 
 - Tela `/notificacoes/email/templates`: ativos por padrão, `?situacao=inativos` na URL para os inativos. A rota do app sempre manda `status` para o upstream.
-- Detalhe do template: pílula de status e botão Inativar (com `AlertDialog` de confirmação) ou Reativar. Rota do app: `PATCH /api/notificacoes/email-templates/status` com `{ id, status }`, log estruturado `email-template-status-alterado` com o autor.
+- Detalhe do template: pílula de status e botão Inativar (com `AlertDialog` de confirmação) ou Reativar.
+- Listagem (branch `feat/email-template-inativar-listagem`): botão de inativar (ícone `Ban`) ao lado do Ver em cada linha ativa com id, mesma permissão `notificacoes.email.templates.status` e mesma confirmação do detalhe. Reativar continua só no detalhe. A mutation (atualiza o cache do template e invalida as listagens) fica em `-useAlterarStatusTemplate.ts` e o diálogo em `-ConfirmarInativacao.tsx`, usados pelos dois lugares. Rota do app: `PATCH /api/notificacoes/email-templates/status` com `{ id, status }`, log estruturado `email-template-status-alterado` com o autor.
 - Envio: o modal desabilita o Enviar e avisa quando o template está inativo; a rota `POST /api/notificacoes/email-envios` busca o template antes e responde 409 `template_inativo`.
 - O client lê status ausente como `active` (linhas antigas foram migradas para ativas).
 
