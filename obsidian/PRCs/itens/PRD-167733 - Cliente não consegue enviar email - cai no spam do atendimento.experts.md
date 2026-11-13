@@ -20,8 +20,9 @@ ocorrencias:
   - PRC-152605
   - PRC-153076
   - PRC-153105
-qtd_ocorrencias: 5
-ultima_ocorrencia: 2026-10-20
+  - PRC-154406
+qtd_ocorrencias: 6
+ultima_ocorrencia: 2026-11-05
 ---
 
 # Cliente não consegue enviar email — cai no spam do atendimento.experts
@@ -52,6 +53,9 @@ ultima_ocorrencia: 2026-10-20
 
 > [!tip] Triagem pelos prints da PRC
 > Se o print do cliente mostra o e-mail **na caixa de enviados**, endereçado a `atendimento.experts@` (às vezes aparece só como "Support" ou "Equipe Contabilizei Experts"), **sem NDR**, e o remetente é Gmail ou Google Workspace (a interface do Gmail mostra "enviado por <domínio>"), é este caso, não o do provedor do cliente. Anexos `.zip`/PDF aparecem com frequência nesses casos. Lote de out/2026: PRC-152490 (722.network, `.zip`), PRC-152605 (smartflowsistemas.com.br, PDF, recorrente), PRC-153076, PRC-153105 (gmail.com).
+
+> [!tip] Variações vistas no PRC-154406 (CC Iglesias, nov/2026)
+> O remetente pode enviar por um serviço como a Brevo (SPF/DKIM/DMARC ok, aceito pelo Google com 250) e a resposta a um ticket pode ir direto para `support+id…@contabilizei.zendesk.com` em vez de `atendimento.experts@`. Nesse caso a mensagem pode ficar nos *Suspended Tickets* do Zendesk, não no spam do Google: olhar os dois.
 
 - Verificar a caixa de spam de `atendimento.experts@` na janela do envio.
 - Verificar os *suspended tickets* e a *blocklist* do Zendesk.
