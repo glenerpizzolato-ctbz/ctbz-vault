@@ -9,3 +9,4 @@ metadata:
 
 - [[hdmi-nvidia-driver-kernel]] — HDMI não reconhecido quando o kernel atualiza e o módulo NVIDIA não acompanha; ⚠️ troca 570 → 580 em andamento, com plano de recuperação (recovery mode)
 - [[freezes-bitdefender-io-pressure]] — freezes com PSI de I/O alto e disco ocioso; suspeita no Bitdefender (`bdsecd` módulo `ctc`), diagnóstico diferencial pelo Vitals (Read/Write rate x PSI) e script de log
+- [[teclado-us-intl-dead-keys]] — teclado US (CK103 Motorspeed) no Ubuntu/GNOME com acentos iguais ao US-International do Windows: layout `us+intl`, `.XCompose` para o `ç` e armadilhas (`us+altgr-intl`, `.Xmodmap`)
