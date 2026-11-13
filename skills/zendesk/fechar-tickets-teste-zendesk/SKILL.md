@@ -33,3 +33,4 @@ Os testes dos bots de WhatsApp em produção (Ultimate, clientes inativos etc.) 
 - Fechar com `closed` é definitivo: o ticket não pode ser reaberto (um novo contato abre outro ticket). Por isso o filtro rígido de requester.
 - O `update_many` processa até 100 tickets por chamada; o script divide em lotes.
 - Ticket de outro canal (ex: ligação) aberto pelo mesmo usuário também entra, já que o filtro é só o requester.
+- Ticket de messaging (WhatsApp) com a conversa ainda ativa no bot (status `new`, sem grupo/assignee, audit com `ChatStartedEvent` do backend `ocb`) não muda de status pela API: o `update_many` volta `TicketNotFound` e o `PUT /tickets/{id}` responde 200 mas ignora o status (nem gera audit), mesmo atribuindo o ticket. Só dá para fechar depois que a conversa acaba (timeout de sessão do messaging, ou o bot transfere/encerra); até lá, rodar de novo mais tarde (visto em 2026-11-13, ticket 30314078).
