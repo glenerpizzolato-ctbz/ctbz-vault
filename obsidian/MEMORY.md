@@ -4,6 +4,7 @@
 - [Retrospectivas](retros/_retros-indice.md) — histórico das retros do time e pauta da próxima
 - [Comunicação](comunicacao/_comunicacao-indice.md) — onde enviar mensagens por assunto (espaços do Google Chat etc.) e como enviar
 - [APIs](apis/_apis-indice.md) — como chamar APIs internas: tokens (SSO dev/prd), liberação de IP e requisições pelo Bruno/curl
+- [Mensagem ativa](mensagem-ativa/_mensagem-ativa-indice.md) — WhatsApp ativo: envio/validação no atendimento-zendesk, números e o que os bots da Ultimate fazem com o retorno do cliente
 - [Testes](tests/_tests-indice.md) — roteiros de teste (preparar massa, disparar fluxos, conferir resultado) por domínio e por repositório
 - [Padrões](padroes/_padroes-indice.md) — convenções do time que valem para qualquer serviço (nomenclatura de recursos, organização de código)
 - [Infra](infra/_infra-indice.md) — catálogo GCP: onde cada serviço roda (GKE, Cloud Run/functions), Pub/Sub com consumidores, Scheduler e Cloud Tasks, com repositórios que citam cada recurso

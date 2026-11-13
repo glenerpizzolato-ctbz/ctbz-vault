@@ -128,6 +128,7 @@ Fora do mapeamento por decisão do usuário: `back-payments-service`, `back-emai
 - [[_ticketing-service-indice|ticketing-service]]
 - [[_ultimateai-webhook-indice|ultimateai-webhook]]
 - [[_ultimate-ai-bpmn-indice|ultimate-ai-bpmn]]
+- [[_ultimate-as-a-code-indice|ultimate-as-a-code]]
 - [[_ultimate-ia-indice|ultimate-ia]]
 - [[_vault-roleset-indice|vault-roleset]]
 - [[_webhook-gitlab-indice|webhook-gitlab]]
