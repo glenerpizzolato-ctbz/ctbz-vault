@@ -46,6 +46,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Segurança
 
+- [[2026-11-13-permissoes-auditoria-email|Permissões por operação e auditoria na área de e-mail do admin]] — 2026QD3, impacto medio
 - [[2026-11-06-autoria-auditoria-troca-assessor|Gap de integridade na auditoria de troca de assessor (experts-service)]] — 2026QD3, impacto alto
 - [[2026-10-30-cve-node2shell|Coordenação da correção da CVE-2026-111497 (node2shell)]] — 2026QD3, impacto alto
 - [[2026-10-30-remocao-servicos-expostos|Remoção de serviços Cloud Run esquecidos e expostos na internet]] — 2026QD3, impacto alto
@@ -117,6 +118,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Qualidade
 
+- [[2026-11-13-iss-agrupamento-casos-de-borda|ISS no agrupamento: casos de borda por município e ordem de deploy]] — 2026QD3, impacto alto
 - [[2026-11-11-ativo-fim-de-semana-agrupamento|WhatsApp do agrupamento em fim de semana perde o vínculo com a resposta do cliente]] — 2026QD3, impacto medio
 - [[2026-11-11-limpeza-alertas-canais|Limpeza dos alertas ruidosos da Engenharia Canais (critério, 4 alertas, padrão)]] — 2026QD3, impacto alto
 - [[2026-11-06-alerta-pubsub-falso-positivo|Alerta de Pub/Sub do experts-prd sem falso-positivo]] — 2026QD3, impacto medio
