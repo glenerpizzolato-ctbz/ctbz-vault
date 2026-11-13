@@ -27,6 +27,10 @@ O agrupamento de guias é notificado por e-mail e por WhatsApp para três públi
 3. **Consumer único** chama `NotificacaoServiceImpl.notificaGrupoGuiaEmail` / `notificaGrupoGuiaWhatsApp`, que fazem a elegibilidade (competência atual, status agrupado, tem guia, ainda não notificado com sucesso naquele tipo) e criam o `controle_notificacao`.
 4. **Roteamento:** `grupoGuia.pertenceBpLp()` (regime `LUCRO_PRESUMIDO` e plano em `PagtoPlanoCategoria.BP`: BASICO, AVANCADO, PREMIUM, MULTIBENEFICIOS) e, no e-mail, `grupoGuia.pertenceExpLp()` (regime `LUCRO_PRESUMIDO` e plano fora do BP) decidem o service específico. Os demais casos vão para Experts (SN). No WhatsApp, Experts LP ainda usa o service de Experts (sem template próprio definido).
 
+## Remetente (from) do e-mail
+
+O `from` é uma constante `FROM` em cada service, não vem de config: Experts SN (`NotificacaoRequestServiceImpl`), Experts LP (`NotificacaoRequestExpLpServiceImpl`) e os e-mails de `EmailTemplateServiceImpl` usam `Equipe Contabilizei Experts <atendimento.experts@contabilizei.com.br>`; BP LP (`NotificacaoRequestBpLpServiceImpl`) usa `Equipe Contabilizei <atendimento@contabilizei.com.br>`. O valor é repassado ao email-service em `EnviarEmailRequestDTO.from` (`EnvioEmailAgrupamentoServiceImpl.buildSendEmailDTO`). Conferido em 2026-11-13 (commit `16aa7506`).
+
 ## Services por canal
 
 | Canal | Comum | Experts (SN) | Experts LP | BP LP |

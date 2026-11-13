@@ -11,7 +11,7 @@ sistemas:
   - experts-service
   - microsservico-agrupamento-guias
   - agrupamento-guias-service
-atualizado_em: 2026-11-12
+atualizado_em: 2026-11-13
 ---
 
 # Notificação individual de guias (experts-service) x agrupamento
@@ -129,3 +129,37 @@ Relacionado: [[notificacao-agrupamento-experts-bp-lp]], [[arquitetura-e-migracao
 
 - O e-mail da notificação individual (`schedule-notification-email-task.service.ts`) leva `optout_purpose: 'TAX'` e `cnpj` no payload do `email-service`, normalizado com `normalizeCnpj` (`src/domain/utils/cnpjValidator.ts`), que tira a máscara e mantém as letras do CNPJ alfanumérico. Não usar `replace(/\D/g, '')`, que apaga as letras (ver [[contrato-optout]]). Com isso, o `email-service` consulta o opt-out de e-mail no `contato-service` e pode devolver `BLOCKED_OPTOUT`. O WhatsApp (`schedule-notification-wpp-task.service.ts`) já mandava `optoutPurpose: 'TAX'`.
 - O repositório usa **pnpm** (`pnpm-lock.yaml`): numa worktree nova, rodar `pnpm install --frozen-lockfile` (o `npm ci` falha por falta de `package-lock.json`).
+
+## Cruzamento com o calendário de ISS por município (2026-11-13, competência 10/2026)
+
+Planilha "ISS - Vcto e Data disponibilização" (`1Xnf_4yjHr5ng2Vo-pwabMBDCcdBBUIYWiGhTQCnz_FM`, aba ISS): vencimento original e "entrega até" (5 dias antes) de ~75 municípios. Cruzada com o código de `master` do experts-service (com !152 e !153) e o MR !98 do agrupamento (aberto, 4 tipos de ISS, corte dia 20) e com `controle_guias` de prd.
+
+- **Estado em 2026-11-13: o experts-service com a regra do ISS entrou em prod às 12:58 UTC (pipeline 3064398090; o deploy de 12/11 falhou), mas o MR !98 do agrupamento não está mergeado.** Desde então, ISS da competência atual com vencimento ≥ 20 é segurado (dia < 15) e o grupo montado na madrugada do dia 15 não o inclui → silêncio. O !98 precisa estar em prod antes da montagem de 15/11 (domingo); como a montagem lê o `controle_guias` na hora, as guias seguradas até lá entram no grupo. Às 13:07 UTC nenhuma guia nessa situação tinha sido criada.
+- Vencimento < 20 (RJ, Salvador, Barueri, BH, SP, Campo Grande, São Bernardo, Americana etc., de 05 a 19/11): sempre avulsa, sem buraco.
+- Vencimento 20/11 (Brasília, Cuiabá, Curitiba, Diadema, Duque de Caxias, Florianópolis, Jacareí, Limeira, Maringá, Mauá, Pinhais, São Caetano, SJC, Vitória; entrega até 13/11): segura e vai no grupo do dia 15. 20/11/2026 é feriado nacional (Consciência Negra), mas em prd a `dataParaPagamento` ficou 20/11 (191 guias), então segue agrupável.
+- Vencimento 23–25/11 (Santo André, SJC, Piracicaba, Jundiaí, São Carlos; a planilha diz "entrega até" 18–20/11 mas anota "Entrega até D14"): em prd todas foram criadas até 12/11, então entram no grupo. Se uma sair depois do dia 15, cai no caminho "grupo já foi notificado por WhatsApp?" (buracos 1–6 acima).
+- A planilha não cobre municípios com vencimento 27/11, 30/11 (33 ISS) e 04/12 (RETENCAO_FONTE_ISS), todos agrupáveis.
+- `data_para_pagamento` chega como `<dia> 23:59:59.999` UTC nos dois serviços: vencimento 19 fica antes do corte, sem buraco de fuso.
+
+### Risco novo: ISS com erro de processamento trava o grupo inteiro
+
+`EfetivaStatusAgrupamentoServiceImpl`: se qualquer documento do grupo tem `ERRO_PROCESSAR_GUIA`/`FALHA_UPLOAD`, o grupo vai para `GUIAS_COM_ERRO` e as crons (só `SUCESSO_AGRUPAMENTO`) não o notificam. Só sai disso se a guia mudar de novo (`reprocessar`). Com o experts-service segurando as agrupáveis até o grupo ser enviado, o cliente fica sem **nenhuma** guia (DAS/DARF inclusive). O ISS agrupável erra muito mais que os outros: 4,0% em 202609 (27 de 676, status final) e 8,4% em 202610 (36 de 427, em 13/11), contra 0,1–1,2% de SIMPLES/DARF_UNIFICADO e 0% de PIS/COFINS/CSLL/FGTS. Correção possível: deixar fora do grupo (ou tratar como avulsa) o ISS em erro, em vez de travar o grupo.
+
+### Duplicidade: evento novo de guia já notificada no grupo
+
+O experts-service só pergunta se o grupo foi enviado; qualquer evento `PENDENTE` da guia depois disso (recálculo, reemissão, atualização) gera a avulsa de uma guia que já foi no grupo. Em 202609, 3,7% das guias de grupos com WhatsApp em SUCESSO tiveram WhatsApp avulso criado depois (DARF_UNIFICADO 756 de 20.421, SIMPLES 701 de 15.550, IRPJ_32 172 de 4.263, CSLL 143 de 4.744). Parte é desejável (valor mudou), parte é duplicidade pura. O ISS passa a ter o mesmo comportamento.
+
+### Dedup diário por CNPJ esconde guias
+
+`alreadySent(cnpj)` barra qualquer guia avulsa da empresa se já existe task não enviada ou criada/enviada no dia. ISS + RETENCAO_FONTE_ISS (ou ISS + outra guia) liberados no mesmo dia: só a primeira é notificada e a segunda não volta a ser avaliada. Vale para ISS avulso e para o ISS liberado depois do grupo.
+
+BP LP: o experts-service ignora (só plano Experts); para BP LP o ISS ≥ 20 só chega pelo grupo (com o !98), e o WhatsApp BP LP exclui o plano BASICO. Ex: guia `5522865895768064` (ISS, venc 23/11, empresa AVANCADO/LP) sem avulsa, como esperado.
+
+## Análise: estender a avulsa para BP LP (2026-11-13)
+
+Pedido: notificar a guia avulsa também para os clientes BP no Lucro Presumido (BASICO, AVANCADO, PREMIUM, MULTIBENEFICIOS), mantendo as regras atuais. Pontos do código (`master`, `3ad8673`):
+
+- O filtro está no `GuiaImpostoNotifierConsumer`: `plano.includes('expert')`. O `getDadosEmpresa` já é chamado para toda guia, então incluir BP LP não aumenta chamadas à plataforma, só tasks no `task_scheduler`.
+- Os textos são de Experts e fixos nos mixins: WhatsApp `experts_guia_imposto`, fila `Assessores/Hubs [WHATSAPP]`, squad `EXPERTS`; e-mail `from` Experts e `guiaImpostoTemplateId`. Para BP precisa de template de WhatsApp (aprovação na Meta) e de e-mail próprios, remetente `Equipe Contabilizei <atendimento@contabilizei.com.br>` e fila `AIDA Geral [WhatsApp] [BP]`, como o agrupamento BP LP faz.
+- **Armadilha BASICO:** o BP LP tem WhatsApp do grupo (cron `bp-lp/WHATSAPP`) para AVANCADO, PREMIUM e MULTIBENEFICIOS, então para eles o `shouldSchedule` funciona sem mudança. Só o BASICO fica fora do WhatsApp do grupo (`buscarGruposGuiaElegiveisNotificacaoBpLpWpp`: "o plano não tem atendimento por WhatsApp"). Como o `shouldSchedule` libera a agrupável a partir do dia 15 só se `enviou-notificacao-agrupamento/WHATSAPP` for true, sem ajuste toda guia agrupável BASICO da competência atual fica em silêncio. Para o BASICO: consultar `EMAIL` (a rota aceita) e mandar a avulsa só por e-mail, sem WhatsApp.
+- Herdam todos os buracos e duplicidades da seção acima (ERRO_NOVA_GUIA, GUIAS_COM_ERRO, dedup diário por CNPJ, rota removida na migração para o agrupamento-guias-service).
