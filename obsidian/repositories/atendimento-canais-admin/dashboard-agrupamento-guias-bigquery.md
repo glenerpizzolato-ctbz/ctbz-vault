@@ -29,6 +29,7 @@ Tabelas replicadas no dataset (conferido em 2026-10-29): `controle_guias`, `cont
 - Uma worktree nova não tem `node_modules`: rodar `pnpm install --frozen-lockfile` (rápido, usa o store). Sem isso, `npx vitest` baixa um vitest global e falha ao carregar o config.
 - Na worktree, `biome check --write <arquivos>` ignora os caminhos passados ("provided but ignored"). Rodar `./node_modules/.bin/biome check --write` sem caminhos e conferir no `git status` que só os seus arquivos mudaram.
 - O `vitest run` com caminhos falha no threshold global de cobertura (90%) por rodar só uma parte da suíte; para ver os testes, usar `--coverage.enabled=false`, e para medir a cobertura dos arquivos alterados, usar `--coverage.reporter=json-summary`.
+- O teste `importacao.arquivo.test.ts > DecodificadorDeTexto > preserva os caracteres exclusivos do Windows-1252` falha localmente com o Node v22.19.0 do nvm (o `TextDecoder("windows-1252")` dele devolve vazio para `0x93`/`0x96`, sem ICU completo); é do ambiente, não do código, e não bloqueia o commit quando o MR não mexe em `emissao/importacao`.
 - O app é servido em produção sob `VITE_BASE_URL=/api/atendimento-canais` (Dockerfile).
 
 ## Sem coleção Bruno
