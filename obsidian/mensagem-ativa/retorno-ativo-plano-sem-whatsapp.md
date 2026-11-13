@@ -15,7 +15,7 @@ conferido_em: 2026-11-13
 
 # Retorno de ativo de cliente sem WhatsApp no plano (Básico)
 
-Conferido em 2026-11-13 no dashboard de prd da Ultimate (só leitura, com aprovação do Glener), no `atendimento-zendesk` (`origin/master` 95587b09f), nos logs de prd e no banco de prd (só leitura). O mapa nó a nó está no repo `ultimate-as-a-code`, em `docs/flows/prd/mensagem-ativa.md` (veja [[_ultimate-as-a-code-indice]]).
+Conferido em 2026-11-13 no dashboard de prd da Ultimate (só leitura, com aprovação do Glener), no `atendimento-zendesk` (`origin/master` 95587b09f), nos logs de prd e no banco de prd (só leitura). O mapa nó a nó está no repo `ultimate-as-a-code`, em `docs/flows/prd/mensagem-ativa.md` (veja [[_ultimate-as-a-code-indice]]). Explicativo com os dois fluxos: [artefato](https://claude.ai/artifact/XLQY4YwhSjyWT7PD5Rwf4n) (privado, compartilhar pelo Share) e PDF gerado em `~/Downloads/retorno-ativo-bots-main-fina-avisos.pdf`.
 
 ## Resposta curta
 

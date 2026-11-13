@@ -111,6 +111,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Processo
 
+- [[2026-11-13-mapa-retorno-ativo-ultimate|Mapa do retorno de ativo nos bots da Ultimate e brecha de plano]] — 2026QD3, impacto medio
 - [[2026-10-29-padrao-rotina-deploy|Padrão de rotina separada para o deploy (cycle time)]] — 2026QD3, impacto medio
 - [[2026-10-15-padrao-pubsub|Padrão de nomenclatura de Pub/Sub do time]] — 2026QD3, impacto medio
 - [[2026-10-01-aviso-mrs-nao-revisados|Aviso automático de MRs não revisados]] — 2026QD3, impacto medio
