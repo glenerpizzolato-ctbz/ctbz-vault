@@ -17,9 +17,11 @@ Fotografia de 2026-10-09. Formato: job · cron (fuso) · alvo · estado se não 
 
 Atendimento / canais, dev.
 
-- `ms-agrupamento-guias-cron-notify-email` · `0 03,12 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/notificacao/envia-lote/grupo-guia/experts/EMAIL` · repos: microsservico-agrupamento-guias
+- `ms-agrupamento-guias-cron-notify-email-exp-lp` · `0 05,14 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/notificacao/envia-lote/grupo-guia/exp-lp/EMAIL` · repos: microsservico-agrupamento-guias
+- `ms-agrupamento-guias-cron-notify-email-exp-sn` · `0 03,12 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/notificacao/envia-lote/grupo-guia/exp-sn/EMAIL` · repos: microsservico-agrupamento-guias
 - `ms-agrupamento-guias-cron-notify-email-bp-lp` · `0 04,13 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/notificacao/envia-lote/grupo-guia/bp-lp/EMAIL` · repos: microsservico-agrupamento-guias
-- `ms-agrupamento-guias-cron-notify-wpp` · `0 09,15 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/notificacao/envia-lote/grupo-guia/experts/WHATSAPP` · repos: microsservico-agrupamento-guias
+- `ms-agrupamento-guias-cron-notify-wpp-exp-lp` · `0 09,15 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/notificacao/envia-lote/grupo-guia/exp-lp/WHATSAPP` · repos: microsservico-agrupamento-guias
+- `ms-agrupamento-guias-cron-notify-wpp-exp-sn` · `0 09,15 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/notificacao/envia-lote/grupo-guia/exp-sn/WHATSAPP` · repos: microsservico-agrupamento-guias
 - `ms-agrupamento-guias-cron-notify-wpp-bp-lp` · `0 10 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/notificacao/envia-lote/grupo-guia/bp-lp/WHATSAPP` · repos: microsservico-agrupamento-guias
 - `ms-agrupamento-guias-cron-reprocess-group` · `30 02 16,17,18,19 * *` (America/Sao_Paulo) · GET `api-dev.contabilizei.com.br/agrupamento-guias/agrupamento-guias/reprocessa-erros` · repos: microsservico-agrupamento-guias
 
@@ -27,9 +29,11 @@ Atendimento / canais, dev.
 
 Atendimento / canais, prod.
 
-- `ms-agrupamento-guias-cron-notify-email` · `0 03,12 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/notificacao/envia-lote/grupo-guia/experts/EMAIL` · repos: microsservico-agrupamento-guias
+- `ms-agrupamento-guias-cron-notify-email-exp-lp` · `0 05,14 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/notificacao/envia-lote/grupo-guia/exp-lp/EMAIL` · repos: microsservico-agrupamento-guias
+- `ms-agrupamento-guias-cron-notify-email-exp-sn` · `0 03,12 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/notificacao/envia-lote/grupo-guia/exp-sn/EMAIL` · repos: microsservico-agrupamento-guias
 - `ms-agrupamento-guias-cron-notify-email-bp-lp` · `0 04,13 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/notificacao/envia-lote/grupo-guia/bp-lp/EMAIL` · repos: microsservico-agrupamento-guias
-- `ms-agrupamento-guias-cron-notify-wpp` · `0 09,15 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/notificacao/envia-lote/grupo-guia/experts/WHATSAPP` · repos: microsservico-agrupamento-guias
+- `ms-agrupamento-guias-cron-notify-wpp-exp-lp` · `0 09,15 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/notificacao/envia-lote/grupo-guia/exp-lp/WHATSAPP` · repos: microsservico-agrupamento-guias
+- `ms-agrupamento-guias-cron-notify-wpp-exp-sn` · `0 09,15 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/notificacao/envia-lote/grupo-guia/exp-sn/WHATSAPP` · repos: microsservico-agrupamento-guias
 - `ms-agrupamento-guias-cron-notify-wpp-bp-lp` · `0 10 15,16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/notificacao/envia-lote/grupo-guia/bp-lp/WHATSAPP` · repos: microsservico-agrupamento-guias
 - `ms-agrupamento-guias-cron-reprocess-group` · `30 02 16,17,18,19 * *` (America/Sao_Paulo) · GET `api-gateway.contabilizei.com/agrupamento-guias/agrupamento-guias/reprocessa-erros` · repos: microsservico-agrupamento-guias
 - `webhook-gitlab-canais-past-mr-reminder` · `0 10 * * 1,3,5` (America/Sao_Paulo) · POST Cloud Run `webhook-gitlab` /reminder · repos: webhook-gitlab
