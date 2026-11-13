@@ -11,8 +11,9 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
-## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (43)
+## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (44)
 
+- [[PRD-177215]] — Soft delete de templates de e-mail · backlog · 2026QD3
 - [[PRD-176493]] — experts-service: aumentar a concorrência do consumer de guias de imposto para drenar rajadas do processar-guia-imposto · backlog · 2026QD3
 - [[PRD-176242]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · arquivado · 2026QD3
 - [[PRD-176094]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · pronto · 2026QD3

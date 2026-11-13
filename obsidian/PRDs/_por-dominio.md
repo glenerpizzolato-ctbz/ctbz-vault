@@ -96,8 +96,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-88592]] — Ajustes Wpp Ativo · pronto · 2024QD2
 - [[PRD-77741]] — [Atendimento] [Expert] PRC's indevidos. · resolvido-outro-dev · 2024QD1
 
-## atendimento-canais (1)
+## atendimento-canais (2)
 
+- [[PRD-177215]] — Soft delete de templates de e-mail · backlog · 2026QD3
 - [[PRD-175906]] — email-service: retentar erro passageiro na validação de e-mail e reenviar os 2 e-mails perdidos na queda do banco · backlog · 2026QD3
 
 ## copilot — Copilot/Concierge Experts, módulo de ações, envio automático de respostas, prompts (130)
@@ -254,8 +255,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-151218]] — [CSAT Transbordo 4.3.2] Disparo de ativo em cenário limite - Endpoint utilitário e Ultimate · pronto · 2026QD2
 - [[PRD-150920]] — [CSAT Transbordo] Padronização do formulário de Ticket OFF para formalização do transbordo · pronto · 2026QD2
 
-## experts (3)
+## experts (4)
 
+- [[PRD-177215]] — Soft delete de templates de e-mail · backlog · 2026QD3
 - [[PRD-175906]] — email-service: retentar erro passageiro na validação de e-mail e reenviar os 2 e-mails perdidos na queda do banco · backlog · 2026QD3
 - [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
 - [[PRD-165484]] — Troca de assessor sem registro de autor · resolvido-outro-dev · 2026QD3
