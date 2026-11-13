@@ -21,8 +21,11 @@ O gate dos projetos da CTBZ tem `new_violations` com limite **0**: qualquer issu
 
 - **`typescript:S1135` (TODO) em comentário em português**: a regra casa a palavra `todo` sem diferenciar maiúsculas, então frases como "Todo endereço consultado volta…" viram "Complete the task associated to this TODO comment". Reescrever sem a palavra solta (ex: "Cada endereço…"). "Todos", "toda" não casam.
 - **`typescript:S3358` (ternário aninhado)**: o Biome do projeto não reclama, mas o Sonar sim. Extrair para uma função com `if`/`return`.
+- **`typescript:S3776` (complexidade cognitiva > 15)**: somar mais um `if` a uma função que já está no limite derruba o gate, mesmo sendo uma linha só (ex: `classifySendFailure` do email-service, nov/2026, ao entrar o `TemplateInactiveError`). Trocar a cadeia de `if (error instanceof X) return …` por uma tabela `[classe, valor]` com `find` e extrair o resto para uma função auxiliar.
 
 ## Branch chaining
+
+O Sonar analisa cada MR da corrente contra a branch padrão (`Merge base sha1` do log é o da `master`), não contra a branch alvo do MR, então uma issue introduzida num MR reaparece em todos os de cima.
 
 Quando a issue está num commit do MR de baixo da corrente, corrigir na branch dele (worktree temporária, para não trocar a branch da worktree do conjunto) e fazer `git merge` dessa branch na de cima, em vez de rebase com force push.
 
