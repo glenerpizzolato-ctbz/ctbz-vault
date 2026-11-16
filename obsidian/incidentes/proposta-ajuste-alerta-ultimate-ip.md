@@ -1,6 +1,6 @@
 ---
 name: proposta-ajuste-alerta-ultimate-ip
-description: "Proposta (09/11/2026) de qual alerta da Ultimate deve abrir IP automático e com qual limiar, baseada em 40 dias de dados: o Technical error quase não tem ruído, o ruído do chat vem de Falha de integração e Webhook respondendo erro; regra agregada ≥20 em 5 min por 5 min só pegaria o IP-4361"
+description: "Implantado com P1 em 16/11/2026. Proposta (09/11/2026) de qual alerta da Ultimate deve abrir IP automático e com qual limiar, baseada em 40 dias de dados: o Technical error quase não tem ruído, o ruído do chat vem de Falha de integração e Webhook respondendo erro; regra agregada ≥20 em 5 min por 5 min só pegaria o IP-4361"
 metadata:
   type: project
 tags:
@@ -78,3 +78,11 @@ O IP-4361 foi aberto à mão às 08:59, então qualquer opção abriria o IP 35 
 - A regra antiga `Technical error ... • OPSGENIE` (`dfzuj16itedc0d`) continua apontando para o `ATENDIMENTO CANAIS` (integração de Experts, não abre IP). Pode ser pausada ou removida quando as regras novas estiverem abrindo IP.
 - Documentado em 09/11/2026: seção "Alertas de abertura automática" do [post-mortem](https://outline.ctbz.com.br/doc/ip-4361-r3NlcCxCiH) (com o porquê das duas regras e a validação de 2 semanas), linha do tempo de 09/11, plano de ação IP-4381, IP-4383 e comentário no IP-4361.
 - 09/11/2026: o DevOps ligou `overridePriority: true` no `ATENDIMENTO CANAIS - V2`. A fase 2 fica definida: adicionar o label `og_priority: P2` (ou `P1`) nas duas regras; não depende mais de configurar a integração no JSM Ops. Como as regras ainda não têm o label, continuam chegando como P3 e a validação segue igual até 23/11.
+
+## Fase 2 concluída em 16/11/2026: P1
+
+- Validação de 09/11 a 16/11/2026 sem nenhum disparo das duas regras (histórico do Grafana só com transições `Normal (NoData, KeepLast) → Normal`) e sem falso positivo. O time decidiu encerrar a validação antes de 23/11.
+- As duas regras (`ag3t0pjywj3eof` e `dg3t0pjz1iw3kd`) receberam o label `og_priority: P1` pelo ruler API (`POST /api/ruler/grafana/api/v1/rules/fe83pppr9ufpcb`, reenviando só o grupo "UltimateAI IP automático (every 1m)"). Com `overridePriority: true` no V2, um disparo chega ao JSM Ops como P1 e abre o IP.
+- O teste controlado de abertura não foi feito: a primeira confirmação de ponta a ponta vai ser o primeiro disparo real.
+- Plano de ação IP-4381 e sub-task IP-4383 concluídos em 16/11/2026, post-mortem atualizado (seção "Alertas de abertura automática", linha do tempo de 16/11 e itens de ação), comentário no IP-4361.
+- Ficou fora do incidente, como melhoria contínua: pausar a regra antiga `Technical error ... • OPSGENIE` (`dfzuj16itedc0d`) e migrar as outras 9 regras do `ATENDIMENTO CANAIS` para o V2 sem prioridade.

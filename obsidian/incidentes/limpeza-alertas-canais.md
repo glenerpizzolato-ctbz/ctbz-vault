@@ -32,7 +32,7 @@ Os espaços de alerta do time ("Engenharia Canais | Grafana" e "Engenharia Canai
 ## Pendentes / candidatos
 
 - `UltimateAI - Falha de integração backend por integração (≥10 em 5 min)`: 12 disparos desde 11/10, todos de 10 a 16 erros numa integração. Proposta: `for: 5m` ou limiar maior ([[proposta-ajuste-alerta-ultimate-ip]]).
-- `Webhook respondendo erro (≥20 em 10 min)` do `ultimateai-webhook`: dispara quase todo dia entre 20:35 e 21:30. Investigar o padrão antes de mexer.
+- `Webhook respondendo erro (≥20 em 10 min)` do `ultimateai-webhook`: investigado em 16/11/2026. Era um scanner externo (AWS sa-east-1) passando uma vez por dia pela URL antiga, com 82 respostas 404 por passada, de 30/09 a 25/10. Parou sozinho e não precisou de ajuste; se voltar, contar só `POST /webhook` ou ignorar 404 ([[alerta-webhook-ultimate-scanner]]).
 - Ultimate fase 2 (a partir de 23/11/2026): adicionar `og_priority` às regras novas e pausar a antiga `• OPSGENIE`.
 - Agregador de conversa: baixar o limite de 45 min depois de corrigir a mensagem em loop (atendimento-zendesk#1).
 

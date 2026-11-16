@@ -15,3 +15,4 @@ caminho: ~/repositories/ultimateai-webhook
 Repositório em `~/repositories/ultimateai-webhook`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
 - [[eventos-de-erro-ultimate]] — como ler Technical Error x Action Failed no log para separar incidente da Zendesk de falha das nossas APIs
+- [[alerta-webhook-ultimate-scanner]] — os 404 diários (82 por passada) do alerta "Webhook respondendo erro" eram de um scanner externo na URL antiga, não da Ultimate

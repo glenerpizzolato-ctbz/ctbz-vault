@@ -33,7 +33,7 @@ tags:
 
 - **`ATENDIMENTO CANAIS - V2`** (uid `dg3sqy9a1xhj4a`, descrição "CONTACT POINT DO TIME ATENDIMENTO CANAIS - COFFEE-4106"): o contact point **certo** do time, criado pelo DevOps no [EC-1704](https://contabilizeicontabilidade.atlassian.net/browse/EC-1704) (concluído em 09/11/2026). Tipo opsgenie, URL do JSM Ops, ligado à **integração nova de Canais** no JSM Ops (criada pelo Gabriel Egydio). É para ele que vão as regras que devem abrir IP.
 - **`ATENDIMENTO CANAIS`** (uid `afrmcs26q6800a`, descrição "CONTACT POINT REFERENTE AO TIME / EXPERT"): o antigo, **mantido**. Está ligado à integração de **Experts**, nome do time antes da migração para "Atendimento Canais", e não abre IP. Continua com as 9 regras de hoje, que migram aos poucos para o V2.
-- Em 09/11/2026 o V2 foi criado com a mesma configuração do antigo (template `ctbz.message.2`, `sendTagsAs: tags`, `autoClose: false`, `overridePriority: false`). No mesmo dia recebeu as duas regras novas de Technical error (3+ bots e volume), ainda sem prioridade P1/P2, e o DevOps ligou o `overridePriority: true` (a prioridade passa a vir do label `og_priority` da regra). Antes de apontar, falta definir a prioridade P1/P2 e ajustar o limiar da regra para não abrir IP por instabilidade pequena: ver [[proposta-ajuste-alerta-ultimate-ip]].
+- Em 09/11/2026 o V2 foi criado com a mesma configuração do antigo (template `ctbz.message.2`, `sendTagsAs: tags`, `autoClose: false`, `overridePriority: false`). No mesmo dia recebeu as duas regras novas de Technical error (3+ bots e volume), ainda sem prioridade P1/P2, e o DevOps ligou o `overridePriority: true` (a prioridade passa a vir do label `og_priority` da regra). Em 16/11/2026, depois de uma semana de validação sem nenhum disparo, as duas regras receberam o label `og_priority: P1` e passaram a abrir IP: ver [[proposta-ajuste-alerta-ultimate-ip]].
 
 ## As 9 regras do contact point antigo nunca abriram IP (verificado em 09/11/2026)
 
@@ -45,7 +45,7 @@ tags:
   - Falha de integração (Ultimate): 12 (último 06/11).
   - /telefone 502, escalonamento, CSAT e CPU do Postgres: 0.
 - Dois motivos se somam: a integração de Experts não abre IP, e nenhuma das 9 tem `severity`/prioridade (chegariam como P3 mesmo numa integração que abre IP).
-- **Não migrar em bloco com prioridade:** com P1/P2, só "Falha em chamadas a dependências" teria aberto ~91 IPs em um mês. Caminho recomendado: depois da validação das regras novas (até 23/11/2026), mover as regras para o V2 ainda sem prioridade (P3, só registro no JSM Ops, permitindo aposentar a integração de Experts) e dar P1/P2 regra a regra, só depois de analisar o histórico de cada uma, como foi feito com o Technical error ([[proposta-ajuste-alerta-ultimate-ip]]).
+- **Não migrar em bloco com prioridade:** com P1/P2, só "Falha em chamadas a dependências" teria aberto ~91 IPs em um mês. Caminho recomendado: como fizemos com as regras novas (validadas sem prioridade de 09/11 a 16/11/2026 e depois P1), mover as regras para o V2 ainda sem prioridade (P3, só registro no JSM Ops, permitindo aposentar a integração de Experts) e dar P1/P2 regra a regra, só depois de analisar o histórico de cada uma, como foi feito com o Technical error ([[proposta-ajuste-alerta-ultimate-ip]]).
 
 ## Origem das 9 regras do contact point antigo (verificado em 09/11/2026)
 
@@ -91,7 +91,7 @@ tags:
 - Valores aceitos: `P1` a `P5`, exatamente. Valor inválido ou ausente faz o campo sair do payload, sem aviso, e o JSM Ops usa o padrão P3. O valor é validado antes do template, então **não dá para usar prioridade dinâmica** (ex: P1 se passar de X, P2 abaixo disso); para isso são duas regras com labels diferentes.
 - O label precisa ser **comum a todo o grupo de notificação** (`CommonLabels`): o Grafana cria um alerta no JSM Ops por grupo (o `group_by`, hoje `alertname` + `grafana_folder`), não por instância. Se instâncias do mesmo grupo tiverem `og_priority` diferentes, o campo some. Nas regras novas da Ultimate cada regra é um grupo, então não há conflito.
 - Deduplicação: o `alias` enviado é o hash do grupo, fixo enquanto o grupo existir. Com `autoClose: false` (V2 hoje), o alerta continua aberto no JSM Ops depois de resolvido, e um novo disparo do mesmo grupo cai no mesmo alerta aberto (só aumenta o contador) em vez de abrir outro, o que evita IPs repetidos.
-- Limitação na CTBZ: `overridePriority` é configuração do contact point, que só o DevOps edita. **No V2 foi ligado pelo DevOps em 09/11/2026** (conferido na API de contact points; o `ATENDIMENTO CANAIS` antigo continua com `false`). Com isso, basta pôr o label `og_priority: P1|P2` na regra, o que o time consegue editar na pasta Experts. Alternativa sem DevOps: a própria integração do JSM Ops definir a prioridade a partir das tags (ex: `severity:critical` → P2), configurada pelo Gabriel. É o que parece acontecer no time de notas, que abre IP sem `overridePriority` (a confirmar).
+- Limitação na CTBZ: `overridePriority` é configuração do contact point, que só o DevOps edita. **No V2 foi ligado pelo DevOps em 09/11/2026** (conferido na API de contact points; o `ATENDIMENTO CANAIS` antigo continua com `false`). Com isso, basta pôr o label `og_priority: P1|P2` na regra, o que o time consegue editar na pasta Experts (feito em 16/11/2026 nas duas regras de Technical error da Ultimate, com `og_priority: P1`). Alternativa sem DevOps: a própria integração do JSM Ops definir a prioridade a partir das tags (ex: `severity:critical` → P2), configurada pelo Gabriel. É o que parece acontecer no time de notas, que abre IP sem `overridePriority` (a confirmar).
 
 ## Armadilha: "Unused" na tela de contact points
 
@@ -126,3 +126,9 @@ tags:
 | CSAT ativo WhatsApp | 0 | 0 | Métrica só desde 27/10. |
 
 - Total: ~124 IPs automáticos em 90 dias, contra uns 5 incidentes reais de Canais no período (IP-3756, IP-3942, IP-4052, IP-4097, IP-4361, IP-4428). Só o Technical error tem relação limpa com incidente; dependências e HTTP Error % precisariam de outro desenho (por serviço, `for` maior, excluir `experts-nfs`/`canais-adk` ou limiar de volume) antes de ganhar P1/P2.
+
+## Como testar a abertura automática do IP (validado em 16/11/2026, sem disparar)
+
+- **Botão "Test" do contact point: não dá para a conta do Glener.** O teste de contact point exige `alert.notifications:write`, que só o DevOps tem; a conta tem só leitura em contact points e políticas (Grafana 11.2.0). O DevOps pode testar o `ATENDIMENTO CANAIS - V2` com label customizado `og_priority: P1` no próprio formulário de teste.
+- **Regra temporária: dá.** A conta tem `alert.rules:create/write/delete` na pasta Experts (`fe83pppr9ufpcb`) e `datasources:query`. Basta uma regra com condição sempre verdadeira (ex: expressão math `1 > 0`), label `og_priority: P1`, contact point `ATENDIMENTO CANAIS - V2` e `for: 0s`, e apagá-la depois do teste.
+- Cuidados: abre um **IP real** (combinar antes com o Gabriel Egydio e quem atende os IPs, e usar título "[TESTE]"); com `autoClose: false` o alerta não fecha sozinho no JSM Ops quando a regra é apagada, então precisa ser fechado à mão junto com o IP; o alias é por grupo (`alertname` + pasta), então o título diferente gera um alerta separado e não mexe nos das regras reais.
