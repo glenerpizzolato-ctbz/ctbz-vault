@@ -15,3 +15,4 @@
 - [Claude Code](claude-code/_claude-code-indice.md) — uso do próprio Claude Code: sessões, resume global (`cr`) e configurações
 - [Máquina](maquina/_maquina-indice.md) — máquina local (hardware, drivers, SO)
 - [Performance](performance/_performance-indice.md) — evidências para o ciclo de performance/promoção (segurança, IA, outros times, entregas, incidentes, processo), registradas automaticamente
+- [Informed captain](informed-captain/_informed-captain-indice.md) — quem procurar em cada assunto (sistema, ferramenta, área): a pessoa principal e as auxiliares
