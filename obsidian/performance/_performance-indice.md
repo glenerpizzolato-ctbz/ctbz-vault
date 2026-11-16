@@ -56,6 +56,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 ### IA
 
 - [[2026-11-16-testes-e2e-roteamento-n1-ativacao|Testes E2E do roteamento N1 Ativação por SOCI conduzidos com IA]] — 2026QD3, impacto medio
+- [[2026-11-16-relatorio-notificacoes-dia-15|Relatório automatizado das notificações do agrupamento (dia 15)]] — 2026QD3, impacto medio
 - [[2026-11-06-nexts-fila-priorizada|Fila do que fazer a seguir priorizada por IA (Nexts)]] — 2026QD3, impacto medio
 - [[2026-11-05-opportunities-scan|Varredura diária com IA de oportunidades de melhoria (Opportunities)]] — 2026QD3, impacto medio
 - [[2026-11-04-auto-approve-mrs|Auto-approve de MRs do time com revisão por IA e regras restritivas]] — 2026QD3, impacto medio
