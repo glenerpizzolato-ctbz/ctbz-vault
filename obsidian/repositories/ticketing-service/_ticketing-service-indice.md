@@ -14,4 +14,5 @@ caminho: ~/repositories/ticketing-service
 
 Repositório em `~/repositories/ticketing-service`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+
+- [[roteamento-n1-ativacao-soci]] — origem do `statusJira` no fluxo de processos do bot WhatsApp (telefone do sócio → empresa da Abertura → `ProcessoAbertura.status` no Datastore, sincronizado do Jira pelo `JiraSyncService`); o `ticketing-service` não entra no roteamento
