@@ -21,6 +21,8 @@ Repositório em `~/repositories/microsservico-agrupamento-guias`. Notas sobre el
 - [[metadados-whatsapp-hubspot|Metadados do WhatsApp para o HubSpot]] — chaves de grupo, guias e parcelas do `MetadadosGuiaFactory` (evento `whatsapp_ativo`), formatos e quando ficam ausentes
 - [[rodar-testes-localmente|Rodar os testes localmente]] — `contabilizei-sso-client` 3.0.9 só no registry do GitLab (403 no Artifactory): baixar o .pom/.jar pelo `glab api` para o `~/.m2`; `application-local` de dev no stash do repo principal ; `-Dtest` com `@Nested` exige curinga; validar troca de template de e-mail local com envio em prod (sem deploy em dev)
 - [[notifications-regression-tests|Testes de regressão das notificações]] — fluxo, crons, regras de elegibilidade, templates e catálogo de cenários (Experts SN, Experts LP, BP LP, diagnósticos) com a skill `regressao-notificacoes-agrupamento`; só o contato de teste
+- [[agrupamento-guias-bigquery|Dados no BigQuery]] — fonte atual é o CDC (`contabilizei-data...ms_agrupamento_guias_{raw,trusted}`, trusted D-1 às 03:00 UTC); o legado `dw_ms_agrupamento_guias` está congelado desde 19/10
+- [[relatorio-notificacoes-dia-15|Relatório das notificações do dia 15]] — status em prod por segmento × canal (skill `relatorio-notificacoes-agrupamento`): fontes, cruzamento `external_id` ↔ `mensagem_ativa.id_message_broker`, como ler, quando rodar, migração para o service e histórico
 
 - [[replicar-features-no-agrupamento-guias-service|Replicar features no agrupamento-guias-service]] — **regra**: feature de notificação mergeada aqui que não exista no service vira work-item no GitLab dele; como conferir e controle do que já foi aberto
 

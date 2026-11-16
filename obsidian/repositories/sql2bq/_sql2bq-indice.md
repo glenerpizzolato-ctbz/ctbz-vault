@@ -14,4 +14,4 @@ caminho: ~/repositories/sql2bq
 
 Repositório em `~/repositories/sql2bq`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[agrupamento-guias-bigquery]] — as bases do atendimento-canais-prd (agrupamento de guias, email-service e contato-service) saíram do sql2bq em 19/10/2026 (commit `3dcc62a`) na migração para o CDC/Datastream

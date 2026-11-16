@@ -35,3 +35,6 @@ Tabelas replicadas no dataset (conferido em 2026-10-29): `controle_guias`, `cont
 ## Sem coleção Bruno
 
 O `atendimento-canais-admin` é front (as rotas `/api/...` servem só às próprias telas), e o usuário definiu que **front não precisa de coleção Bruno**: não criar `docs/bruno` aqui, mesmo ao criar ou alterar rota de API. Uma coleção criada por engano no PRD-174490 foi removida no MR !168.
+
+> [!WARNING]
+> Desde 19/10/2026 o `dw_ms_agrupamento_guias` está congelado: o time de dados migrou a carga para o CDC/Datastream (`contabilizei-data.cloudsql_atendimento_canais_prd_atendimento_canais_ms_agrupamento_guias_trusted`, atualizado D-1 às 03:00 UTC) e desligou o sql2bq. O dashboard precisa ser apontado para a trusted. Ver [[agrupamento-guias-bigquery]].
