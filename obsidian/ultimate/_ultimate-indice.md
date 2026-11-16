@@ -20,6 +20,7 @@ Notas sobre os bots da Ultimate (Zendesk AI agents): fluxos do dialogue builder,
 
 - [[roteamento-n1-ativacao-soci]] — drops por status do SOCI: tabela V1 em prd (pronta para Google Chat), grupos da Entrega 03, diff V1 x V2 (artefato + PDF), conflitos e origem do `statusJira`
 - [[testes-roteamento-n1-ativacao]] — plano de testes da Entrega 03 (PRD-177631), por que o teste em prd travou, caminhos e regras de segurança
+- [[backup-roteamento-n1-ativacao-v1]] — backup JSON (dialogue builder) do bloco de `statusJira` da V1 (Entrega 02), para rollback da PRD-176172
 
 ## Ativação (processo de abertura / SOCI)
 

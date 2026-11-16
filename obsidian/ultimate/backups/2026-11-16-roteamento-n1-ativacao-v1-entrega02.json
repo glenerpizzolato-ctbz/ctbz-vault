@@ -1,0 +1,1988 @@
+{
+  "_id": "6afb3f0946b0921fe8a6364b",
+  "nodeType": "CONDITIONAL_ATTRIBUTE",
+  "nodeFamily": "conditional",
+  "uiState": {
+    "errors": [],
+    "hasErrors": false,
+    "isDisabled": false
+  },
+  "children": [
+    {
+      "_id": "6afb3f0946b0921fe8a6364c",
+      "nodeType": "CONDITION_SCENARIO",
+      "nodeFamily": "conditional",
+      "uiState": {
+        "errors": [],
+        "hasErrors": false,
+        "isDisabled": false
+      },
+      "children": [
+        {
+          "_id": "6afb3f0946b0921fe8a6364d",
+          "nodeType": "CONDITIONAL_ATTRIBUTE",
+          "nodeFamily": "conditional",
+          "uiState": {
+            "errors": [],
+            "hasErrors": false,
+            "isDisabled": false
+          },
+          "children": [
+            {
+              "_id": "6afb3f0946b0921fe8a6364e",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a6364f",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um assessor para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "28283501432220",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "stringIncludes",
+                  "values": [
+                    "EXPERT"
+                  ]
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                199
+              ]
+            },
+            {
+              "_id": "6afb3f0946b0921fe8a63650",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a63651",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um especialista para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "28283501432220",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "*",
+                  "values": []
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                146
+              ]
+            },
+            {
+              "_id": "6afb72a371d42f4f2ba5d4f8",
+              "nodeType": "ADD_CONDITION_SCENARIO_PLACEHOLDER",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [],
+              "size": [
+                35,
+                113
+              ]
+            }
+          ],
+          "textData": {
+            "text": "",
+            "escalateToHuman": false,
+            "escalateTo": "",
+            "email": {
+              "use": false,
+              "address": "",
+              "title": "",
+              "content": ""
+            },
+            "customEscalation": false,
+            "attachments": []
+          },
+          "integrationData": {
+            "answerNodes": []
+          },
+          "carouselData": {
+            "cards": []
+          },
+          "formData": {
+            "blockChatInput": true,
+            "fields": []
+          },
+          "conditionData": {
+            "sessionParamName": "plano",
+            "valueType": "string",
+            "conditions": [
+              {
+                "operator": "stringIncludes",
+                "values": [
+                  "EXPERT"
+                ],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a6364f",
+                  "_id": "6afb6f81ad64874e0e3fb0fb"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a6364e"
+              },
+              {
+                "operator": "*",
+                "values": [],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a63651",
+                  "_id": "6afb6f81ad64874e0e3fb0fd"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a63650"
+              }
+            ]
+          },
+          "segmentConditionData": {
+            "conditions": []
+          },
+          "feedbackData": {
+            "rated": {
+              "actionIds": []
+            },
+            "notNow": {
+              "actionIds": []
+            }
+          },
+          "llmAnswerData": {
+            "success": {
+              "sendMessage": true,
+              "actionIds": []
+            },
+            "notUnderstood": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "technicalError": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "escalation": {
+              "actionIds": []
+            },
+            "fallback": {
+              "actionIds": []
+            }
+          },
+          "gotoOffline": {
+            "_id": "6afb6f81ad64874e0e3fb0fe"
+          },
+          "actionIds": [],
+          "size": [
+            214,
+            199
+          ]
+        }
+      ],
+      "conditionData": {
+        "condition": {
+          "operator": "in",
+          "values": [
+            "Aguardando Cliente Cadastro",
+            "Aguardando Formatura",
+            "Aguardando Formatura",
+            "EM_ANALISE",
+            "PENDENCIA",
+            "REFAZER - ESCRITÓRIO VIRTUAL",
+            "Refazer Pré-Cadastro"
+          ]
+        }
+      },
+      "actionIds": [
+        "6a455a335cdfa467cf0e8e7b"
+      ],
+      "size": [
+        214,
+        228
+      ]
+    },
+    {
+      "_id": "6afb3f0946b0921fe8a63653",
+      "nodeType": "CONDITION_SCENARIO",
+      "nodeFamily": "conditional",
+      "uiState": {
+        "errors": [],
+        "hasErrors": false,
+        "isDisabled": false
+      },
+      "children": [
+        {
+          "_id": "6afb3f0946b0921fe8a63654",
+          "nodeType": "CONDITIONAL_ATTRIBUTE",
+          "nodeFamily": "conditional",
+          "uiState": {
+            "errors": [],
+            "hasErrors": false,
+            "isDisabled": false
+          },
+          "children": [
+            {
+              "_id": "6afb3f0946b0921fe8a63655",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a63656",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um assessor para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "30023019944860",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "stringIncludes",
+                  "values": [
+                    "EXPERT"
+                  ]
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                199
+              ]
+            },
+            {
+              "_id": "6afb3f0946b0921fe8a63657",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a63658",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um especialista para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "30023019944860",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "*",
+                  "values": []
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                146
+              ]
+            },
+            {
+              "_id": "6afb72a371d42f4f2ba5d4fc",
+              "nodeType": "ADD_CONDITION_SCENARIO_PLACEHOLDER",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [],
+              "size": [
+                35,
+                113
+              ]
+            }
+          ],
+          "textData": {
+            "text": "",
+            "escalateToHuman": false,
+            "escalateTo": "",
+            "email": {
+              "use": false,
+              "address": "",
+              "title": "",
+              "content": ""
+            },
+            "customEscalation": false,
+            "attachments": []
+          },
+          "integrationData": {
+            "answerNodes": []
+          },
+          "carouselData": {
+            "cards": []
+          },
+          "formData": {
+            "blockChatInput": true,
+            "fields": []
+          },
+          "conditionData": {
+            "sessionParamName": "plano",
+            "valueType": "string",
+            "conditions": [
+              {
+                "operator": "stringIncludes",
+                "values": [
+                  "EXPERT"
+                ],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a63656",
+                  "_id": "6afb6f81ad64874e0e3fb103"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a63655"
+              },
+              {
+                "operator": "*",
+                "values": [],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a63658",
+                  "_id": "6afb6f81ad64874e0e3fb105"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a63657"
+              }
+            ]
+          },
+          "segmentConditionData": {
+            "conditions": []
+          },
+          "feedbackData": {
+            "rated": {
+              "actionIds": []
+            },
+            "notNow": {
+              "actionIds": []
+            }
+          },
+          "llmAnswerData": {
+            "success": {
+              "sendMessage": true,
+              "actionIds": []
+            },
+            "notUnderstood": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "technicalError": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "escalation": {
+              "actionIds": []
+            },
+            "fallback": {
+              "actionIds": []
+            }
+          },
+          "gotoOffline": {
+            "_id": "6afb6f81ad64874e0e3fb106"
+          },
+          "actionIds": [],
+          "size": [
+            214,
+            199
+          ]
+        }
+      ],
+      "conditionData": {
+        "condition": {
+          "operator": "in",
+          "values": [
+            "Ag Análise MT",
+            "Ag Assinatura Cliente MT",
+            "Ag Assinatura Contador",
+            "Aguardando DBE MT",
+            "Aguardando Ecac",
+            "Erro Ag Assinatura MT",
+            "Erro Preenchimento MT",
+            "Gerar DBE MT",
+            "Preenchimento Cliente MT",
+            "Preenchimento MT",
+            "Processo Adm MT",
+            "Protocolo no Ecac"
+          ]
+        }
+      },
+      "actionIds": [
+        "6a455a43f49ac32ad1a53a93"
+      ],
+      "size": [
+        214,
+        228
+      ]
+    },
+    {
+      "_id": "6afb3f0946b0921fe8a6365a",
+      "nodeType": "CONDITION_SCENARIO",
+      "nodeFamily": "conditional",
+      "uiState": {
+        "errors": [],
+        "hasErrors": false,
+        "isDisabled": false
+      },
+      "children": [
+        {
+          "_id": "6afb3f0946b0921fe8a6365b",
+          "nodeType": "CONDITIONAL_ATTRIBUTE",
+          "nodeFamily": "conditional",
+          "uiState": {
+            "errors": [],
+            "hasErrors": false,
+            "isDisabled": false
+          },
+          "children": [
+            {
+              "_id": "6afb3f0946b0921fe8a6365c",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a6365d",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um assessor para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "28283527238556",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "stringIncludes",
+                  "values": [
+                    "EXPERT"
+                  ]
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                199
+              ]
+            },
+            {
+              "_id": "6afb3f0946b0921fe8a6365e",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a6365f",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um especialista para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "28283527238556",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "*",
+                  "values": []
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                146
+              ]
+            },
+            {
+              "_id": "6afb72a371d42f4f2ba5d500",
+              "nodeType": "ADD_CONDITION_SCENARIO_PLACEHOLDER",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [],
+              "size": [
+                35,
+                113
+              ]
+            }
+          ],
+          "textData": {
+            "text": "",
+            "escalateToHuman": false,
+            "escalateTo": "",
+            "email": {
+              "use": false,
+              "address": "",
+              "title": "",
+              "content": ""
+            },
+            "customEscalation": false,
+            "attachments": []
+          },
+          "integrationData": {
+            "answerNodes": []
+          },
+          "carouselData": {
+            "cards": []
+          },
+          "formData": {
+            "blockChatInput": true,
+            "fields": []
+          },
+          "conditionData": {
+            "sessionParamName": "plano",
+            "valueType": "string",
+            "conditions": [
+              {
+                "operator": "stringIncludes",
+                "values": [
+                  "EXPERT"
+                ],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a6365d",
+                  "_id": "6afb6f81ad64874e0e3fb10b"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a6365c"
+              },
+              {
+                "operator": "*",
+                "values": [],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a6365f",
+                  "_id": "6afb6f81ad64874e0e3fb10d"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a6365e"
+              }
+            ]
+          },
+          "segmentConditionData": {
+            "conditions": []
+          },
+          "feedbackData": {
+            "rated": {
+              "actionIds": []
+            },
+            "notNow": {
+              "actionIds": []
+            }
+          },
+          "llmAnswerData": {
+            "success": {
+              "sendMessage": true,
+              "actionIds": []
+            },
+            "notUnderstood": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "technicalError": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "escalation": {
+              "actionIds": []
+            },
+            "fallback": {
+              "actionIds": []
+            }
+          },
+          "gotoOffline": {
+            "_id": "6afb6f81ad64874e0e3fb10e"
+          },
+          "actionIds": [],
+          "size": [
+            214,
+            199
+          ]
+        }
+      ],
+      "conditionData": {
+        "condition": {
+          "operator": "in",
+          "values": [
+            "Em Stand-by",
+            "Iniciado",
+            "NAO_INICIADO",
+            "Pós Vendas"
+          ]
+        }
+      },
+      "actionIds": [
+        "6a455a516fa9afca537df647"
+      ],
+      "size": [
+        214,
+        228
+      ]
+    },
+    {
+      "_id": "6afb3f0946b0921fe8a63661",
+      "nodeType": "CONDITION_SCENARIO",
+      "nodeFamily": "conditional",
+      "uiState": {
+        "errors": [],
+        "hasErrors": false,
+        "isDisabled": false
+      },
+      "children": [
+        {
+          "_id": "6afb3f0946b0921fe8a63662",
+          "nodeType": "CONDITIONAL_ATTRIBUTE",
+          "nodeFamily": "conditional",
+          "uiState": {
+            "errors": [],
+            "hasErrors": false,
+            "isDisabled": false
+          },
+          "children": [
+            {
+              "_id": "6afb3f0946b0921fe8a63663",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a63664",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um assessor para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "28283155272220",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "stringIncludes",
+                  "values": [
+                    "EXPERT"
+                  ]
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                199
+              ]
+            },
+            {
+              "_id": "6afb3f0946b0921fe8a63665",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a63666",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um especialista para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "28283155272220",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "*",
+                  "values": []
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                146
+              ]
+            },
+            {
+              "_id": "6afb72a371d42f4f2ba5d504",
+              "nodeType": "ADD_CONDITION_SCENARIO_PLACEHOLDER",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [],
+              "size": [
+                35,
+                113
+              ]
+            }
+          ],
+          "textData": {
+            "text": "",
+            "escalateToHuman": false,
+            "escalateTo": "",
+            "email": {
+              "use": false,
+              "address": "",
+              "title": "",
+              "content": ""
+            },
+            "customEscalation": false,
+            "attachments": []
+          },
+          "integrationData": {
+            "answerNodes": []
+          },
+          "carouselData": {
+            "cards": []
+          },
+          "formData": {
+            "blockChatInput": true,
+            "fields": []
+          },
+          "conditionData": {
+            "sessionParamName": "plano",
+            "valueType": "string",
+            "conditions": [
+              {
+                "operator": "stringIncludes",
+                "values": [
+                  "EXPERT"
+                ],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a63664",
+                  "_id": "6afb6f81ad64874e0e3fb113"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a63663"
+              },
+              {
+                "operator": "*",
+                "values": [],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a63666",
+                  "_id": "6afb6f81ad64874e0e3fb115"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a63665"
+              }
+            ]
+          },
+          "segmentConditionData": {
+            "conditions": []
+          },
+          "feedbackData": {
+            "rated": {
+              "actionIds": []
+            },
+            "notNow": {
+              "actionIds": []
+            }
+          },
+          "llmAnswerData": {
+            "success": {
+              "sendMessage": true,
+              "actionIds": []
+            },
+            "notUnderstood": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "technicalError": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "escalation": {
+              "actionIds": []
+            },
+            "fallback": {
+              "actionIds": []
+            }
+          },
+          "gotoOffline": {
+            "_id": "6afb6f81ad64874e0e3fb116"
+          },
+          "actionIds": [],
+          "size": [
+            214,
+            199
+          ]
+        }
+      ],
+      "conditionData": {
+        "condition": {
+          "operator": "in",
+          "values": [
+            "[FSP] Follow Assinatura",
+            "[SEVEN] Aguardando Assinatura",
+            "[SEVEN] Exigência",
+            "[SEVEN] Exigência/Pendência",
+            "Aguardando assinatura",
+            "Aguardando Cliente",
+            "Aguardando pagamento",
+            "Aguardando Protocolo",
+            "Em exigência",
+            "Enviar Docusign",
+            "Enviar processo ao cliente",
+            "Erro Docusign"
+          ]
+        }
+      },
+      "actionIds": [
+        "6a455a607ef07d5bcb4fd166"
+      ],
+      "size": [
+        214,
+        228
+      ]
+    },
+    {
+      "_id": "6afb3f0946b0921fe8a63668",
+      "nodeType": "CONDITION_SCENARIO",
+      "nodeFamily": "conditional",
+      "uiState": {
+        "errors": [],
+        "hasErrors": false,
+        "isDisabled": false
+      },
+      "children": [
+        {
+          "_id": "6afb3f0946b0921fe8a63669",
+          "nodeType": "CONDITIONAL_ATTRIBUTE",
+          "nodeFamily": "conditional",
+          "uiState": {
+            "errors": [],
+            "hasErrors": false,
+            "isDisabled": false
+          },
+          "children": [
+            {
+              "_id": "6afb3f0946b0921fe8a6366a",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a6366b",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um assessor para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "5318551320604",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [
+                    "6a3c2b6ca6d3b511dfd4d607"
+                  ],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    280
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "stringIncludes",
+                  "values": [
+                    "EXPERT"
+                  ]
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                199
+              ]
+            },
+            {
+              "_id": "6afb3f0946b0921fe8a6366c",
+              "nodeType": "CONDITION_SCENARIO",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [
+                {
+                  "_id": "6afb3f0946b0921fe8a6366d",
+                  "nodeType": "ESCALATION",
+                  "nodeFamily": "escalation",
+                  "uiState": {
+                    "errors": [],
+                    "hasErrors": false,
+                    "isDisabled": false
+                  },
+                  "children": [],
+                  "textData": {
+                    "text": "Vamos chamar um especialista para te ajudar, por favor, aguarde um momento.",
+                    "escalateToHuman": true,
+                    "escalateTo": "5318551320604",
+                    "email": {
+                      "use": false,
+                      "address": "",
+                      "title": "",
+                      "content": ""
+                    },
+                    "customEscalation": false,
+                    "attachments": []
+                  },
+                  "integrationData": {
+                    "answerNodes": []
+                  },
+                  "carouselData": {
+                    "cards": []
+                  },
+                  "formData": {
+                    "fields": [],
+                    "blockChatInput": true
+                  },
+                  "conditionData": {
+                    "sessionParamName": "",
+                    "valueType": "string",
+                    "conditions": []
+                  },
+                  "segmentConditionData": {
+                    "conditions": []
+                  },
+                  "feedbackData": {
+                    "rated": {
+                      "actionIds": []
+                    },
+                    "notNow": {
+                      "actionIds": []
+                    }
+                  },
+                  "llmAnswerData": {
+                    "success": {
+                      "sendMessage": true,
+                      "actionIds": []
+                    },
+                    "notUnderstood": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "technicalError": {
+                      "useFallback": true,
+                      "actionIds": []
+                    },
+                    "escalation": {
+                      "actionIds": []
+                    },
+                    "fallback": {
+                      "actionIds": []
+                    }
+                  },
+                  "actionIds": [],
+                  "resolution": {
+                    "name": "escalatedAgent",
+                    "type": "default"
+                  },
+                  "size": [
+                    214,
+                    251
+                  ]
+                }
+              ],
+              "conditionData": {
+                "condition": {
+                  "operator": "*",
+                  "values": []
+                }
+              },
+              "actionIds": [],
+              "size": [
+                214,
+                146
+              ]
+            },
+            {
+              "_id": "6afb72a371d42f4f2ba5d508",
+              "nodeType": "ADD_CONDITION_SCENARIO_PLACEHOLDER",
+              "nodeFamily": "conditional",
+              "uiState": {
+                "errors": [],
+                "hasErrors": false,
+                "isDisabled": false
+              },
+              "children": [],
+              "size": [
+                35,
+                113
+              ]
+            }
+          ],
+          "textData": {
+            "text": "",
+            "escalateToHuman": false,
+            "escalateTo": "",
+            "email": {
+              "use": false,
+              "address": "",
+              "title": "",
+              "content": ""
+            },
+            "customEscalation": false,
+            "attachments": []
+          },
+          "integrationData": {
+            "answerNodes": []
+          },
+          "carouselData": {
+            "cards": []
+          },
+          "formData": {
+            "blockChatInput": true,
+            "fields": []
+          },
+          "conditionData": {
+            "sessionParamName": "plano",
+            "valueType": "string",
+            "conditions": [
+              {
+                "operator": "stringIncludes",
+                "values": [
+                  "EXPERT"
+                ],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a6366b",
+                  "_id": "6afb6f81ad64874e0e3fb11b"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a6366a"
+              },
+              {
+                "operator": "*",
+                "values": [],
+                "next": {
+                  "type": "node",
+                  "ref": "6afb3f0946b0921fe8a6366d",
+                  "_id": "6afb6f81ad64874e0e3fb11d"
+                },
+                "actionIds": [],
+                "_id": "6afb3f0946b0921fe8a6366c"
+              }
+            ]
+          },
+          "segmentConditionData": {
+            "conditions": []
+          },
+          "feedbackData": {
+            "rated": {
+              "actionIds": []
+            },
+            "notNow": {
+              "actionIds": []
+            }
+          },
+          "llmAnswerData": {
+            "success": {
+              "sendMessage": true,
+              "actionIds": []
+            },
+            "notUnderstood": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "technicalError": {
+              "useFallback": true,
+              "actionIds": []
+            },
+            "escalation": {
+              "actionIds": []
+            },
+            "fallback": {
+              "actionIds": []
+            }
+          },
+          "gotoOffline": {
+            "_id": "6afb6f81ad64874e0e3fb11e"
+          },
+          "actionIds": [],
+          "size": [
+            214,
+            199
+          ]
+        }
+      ],
+      "conditionData": {
+        "condition": {
+          "operator": "*",
+          "values": []
+        }
+      },
+      "actionIds": [],
+      "size": [
+        214,
+        146
+      ]
+    },
+    {
+      "_id": "6afb72a371d42f4f2ba5d509",
+      "nodeType": "ADD_CONDITION_SCENARIO_PLACEHOLDER",
+      "nodeFamily": "conditional",
+      "uiState": {
+        "errors": [],
+        "hasErrors": false,
+        "isDisabled": false
+      },
+      "children": [],
+      "size": [
+        35,
+        113
+      ]
+    }
+  ],
+  "textData": {
+    "text": "",
+    "escalateToHuman": false,
+    "escalateTo": "",
+    "email": {
+      "use": false,
+      "address": "",
+      "title": "",
+      "content": ""
+    },
+    "customEscalation": false,
+    "attachments": []
+  },
+  "integrationData": {
+    "answerNodes": []
+  },
+  "carouselData": {
+    "cards": []
+  },
+  "formData": {
+    "blockChatInput": true,
+    "fields": []
+  },
+  "conditionData": {
+    "sessionParamName": "statusJira",
+    "valueType": "string",
+    "conditions": [
+      {
+        "operator": "in",
+        "values": [
+          "Aguardando Cliente Cadastro",
+          "Aguardando Formatura",
+          "Aguardando Formatura",
+          "EM_ANALISE",
+          "PENDENCIA",
+          "REFAZER - ESCRITÓRIO VIRTUAL",
+          "Refazer Pré-Cadastro"
+        ],
+        "next": {
+          "type": "node",
+          "ref": "6afb3f0946b0921fe8a6364d",
+          "_id": "6afb6f81ad64874e0e3fb0ef"
+        },
+        "actionIds": [
+          "6a455a335cdfa467cf0e8e7b"
+        ],
+        "_id": "6afb3f0946b0921fe8a6364c"
+      },
+      {
+        "operator": "in",
+        "values": [
+          "Ag Análise MT",
+          "Ag Assinatura Cliente MT",
+          "Ag Assinatura Contador",
+          "Aguardando DBE MT",
+          "Aguardando Ecac",
+          "Erro Ag Assinatura MT",
+          "Erro Preenchimento MT",
+          "Gerar DBE MT",
+          "Preenchimento Cliente MT",
+          "Preenchimento MT",
+          "Processo Adm MT",
+          "Protocolo no Ecac"
+        ],
+        "next": {
+          "type": "node",
+          "ref": "6afb3f0946b0921fe8a63654",
+          "_id": "6afb6f81ad64874e0e3fb0f1"
+        },
+        "actionIds": [
+          "6a455a43f49ac32ad1a53a93"
+        ],
+        "_id": "6afb3f0946b0921fe8a63653"
+      },
+      {
+        "operator": "in",
+        "values": [
+          "Em Stand-by",
+          "Iniciado",
+          "NAO_INICIADO",
+          "Pós Vendas"
+        ],
+        "next": {
+          "type": "node",
+          "ref": "6afb3f0946b0921fe8a6365b",
+          "_id": "6afb6f81ad64874e0e3fb0f3"
+        },
+        "actionIds": [
+          "6a455a516fa9afca537df647"
+        ],
+        "_id": "6afb3f0946b0921fe8a6365a"
+      },
+      {
+        "operator": "in",
+        "values": [
+          "[FSP] Follow Assinatura",
+          "[SEVEN] Aguardando Assinatura",
+          "[SEVEN] Exigência",
+          "[SEVEN] Exigência/Pendência",
+          "Aguardando assinatura",
+          "Aguardando Cliente",
+          "Aguardando pagamento",
+          "Aguardando Protocolo",
+          "Em exigência",
+          "Enviar Docusign",
+          "Enviar processo ao cliente",
+          "Erro Docusign"
+        ],
+        "next": {
+          "type": "node",
+          "ref": "6afb3f0946b0921fe8a63662",
+          "_id": "6afb6f81ad64874e0e3fb0f5"
+        },
+        "actionIds": [
+          "6a455a607ef07d5bcb4fd166"
+        ],
+        "_id": "6afb3f0946b0921fe8a63661"
+      },
+      {
+        "operator": "*",
+        "values": [],
+        "next": {
+          "type": "node",
+          "ref": "6afb3f0946b0921fe8a63669",
+          "_id": "6afb6f81ad64874e0e3fb0f7"
+        },
+        "actionIds": [],
+        "_id": "6afb3f0946b0921fe8a63668"
+      }
+    ]
+  },
+  "segmentConditionData": {
+    "conditions": []
+  },
+  "feedbackData": {
+    "rated": {
+      "actionIds": []
+    },
+    "notNow": {
+      "actionIds": []
+    }
+  },
+  "llmAnswerData": {
+    "success": {
+      "sendMessage": true,
+      "actionIds": []
+    },
+    "notUnderstood": {
+      "useFallback": true,
+      "actionIds": []
+    },
+    "technicalError": {
+      "useFallback": true,
+      "actionIds": []
+    },
+    "escalation": {
+      "actionIds": []
+    },
+    "fallback": {
+      "actionIds": []
+    }
+  },
+  "gotoOffline": {
+    "_id": "6afb6f81ad64874e0e3fb0f8"
+  },
+  "actionIds": [
+    "6aac569bf8dc37a6f5d6f9d8"
+  ],
+  "size": [
+    214,
+    228
+  ]
+}
