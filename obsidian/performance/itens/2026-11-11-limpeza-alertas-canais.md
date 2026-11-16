@@ -28,6 +28,7 @@ Os espaços de alerta do time recebiam disparos quase todo dia sem problema real
   - 06/11: troquei o alerta de Pub/Sub do `contabilizei-experts-prd` por idade da mensagem.
   - 09/11: criei as regras de abertura automática de IP para a Ultimate.
   - 11/11: troquei o alerta do agregador de conversa do atendimento-zendesk de backlog para idade da mensagem.
+  - 16/11: descobri a causa do alerta diário "Webhook Ultimate respondendo erro" (20h–21h30, valor 82) cruzando os logs do Cloud Run com 47 dias da métrica de requisições. Era um scanner externo (AWS) procurando `.env`, `.git`, swagger e endpoints MCP na URL antiga do `ultimateai-webhook`, com 82 respostas 404 por passada, de 30/09 a 25/10. Não era falha do bot, e o padrão já tinha parado ([[alerta-webhook-ultimate-scanner]]).
 - Documentei o padrão para o time ([[alertas-pubsub-idade-da-mensagem]]), o registro da limpeza com os pendentes ([[limpeza-alertas-canais]]) e o caminho para alterar regras do Grafana sem permissão de admin (ruler API).
 
 ## Resultado

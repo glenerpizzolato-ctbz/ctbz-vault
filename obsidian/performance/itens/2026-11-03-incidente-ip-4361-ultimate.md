@@ -59,3 +59,8 @@ Descobri que o bot do chat web (`[prod] ctbz chat main`) nunca mandava eventos a
 
 - O contact point `ATENDIMENTO CANAIS - V2` foi criado pelo DevOps (EC-1704), ligado à integração nova de Canais no JSM Ops.
 - Para não abrir IPs por engano, simulei os limiares do alerta com 40 dias de dados da métrica `ultimateai_events` e o histórico de disparos do Grafana. Mostrei que o Technical error quase não tem ruído (só 2 episódios acima de 10 em 40 dias) e que o ruído do chat vem de outras regras (Falha de integração: 12 disparos; Webhook respondendo erro: 15, num padrão diário às 20h40). A proposta (regra agregada ≥20 em 5 min por 5 min, implantação em duas fases) pegaria só o IP-4361, 37 min antes da abertura manual. Ver [[proposta-ajuste-alerta-ultimate-ip]].
+
+## Atualização 16/11/2026: abertura automática de IP ativa e plano de ação concluído
+
+- Depois de uma semana de validação sem nenhum disparo nem falso positivo, as duas regras de abertura automática passaram para P1 (`og_priority: P1`). Um novo incidente geral da Ultimate passa a abrir o IP sozinho: na simulação com os dados do IP-4361, a regra de volume abriria o IP às ~08:22, contra a abertura manual às 08:59.
+- Plano de ação IP-4381 e IP-4383 concluídos, post-mortem atualizado.
