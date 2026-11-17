@@ -31,3 +31,4 @@ Convenções que valem para qualquer serviço, uma nota por padrão.
 - [[threads-mr-resolver-ao-responder|Resolver threads de MR ao responder]] — ao validar e responder threads de revisão (pessoas ou bots), resolver cada uma em seguida, sem deixá-la aberta
 - [[gitlab-duo-requested-changes|GitLab Duo em requested changes]] — corrigir e resolver não basta: pedir revisão de novo ao Duo para ele aprovar e liberar o MR
 - [[mr-pequeno-nao-dividir|MR pequeno não se divide]] — com poucos arquivos (até ~5 arquivos/~200 linhas), um MR só, sem forçar a corrente em branch chaining; como desfazer a corrente no BahCode
+- [[frameworks-nodejs|Frameworks Node.js]] — back-end em Fastify (padrão), NestJS em atendimento-zendesk/experts-twilio/relacionamento-service, Express só legado; front em React ou Vue
