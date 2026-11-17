@@ -34,4 +34,6 @@ Fora do CDC: `bots_api.encerramento`, `bots_api.flags_empresas`, `canais_adk` sc
 - 26/08/2026: `email_service` e `ms_agrupamento_guias` (também no sql2bq) entram; abas preenchidas pelo Rafael. Ver [[agrupamento-guias-bigquery]].
 - 17/09/2026: começa a migração da instância `contabilizei-experts` (projeto `contabilizei-experts-prd`), flag aplicada em 21/09; datasets legados `dw_experts_*` migrados pelo analytics (out–nov) e ingestões antigas desligadas em 06/11.
 
+- 17/11/2026: os datasets `cloudsql_atendimento_canais_prd_atendimento_canais_survey_service_raw` e `..._trusted` existem (o `bq ls` dá "Access Denied", não "Not found"), mas o banco `survey_service` não está na planilha acima; quais tabelas (`dispatch`, `ticket_transbordo`…) entram é a confirmar com o time de dados.
+
 Acesso: o usuário comum não tem permissão de `bigquery.tables.list` nesses datasets raw.
