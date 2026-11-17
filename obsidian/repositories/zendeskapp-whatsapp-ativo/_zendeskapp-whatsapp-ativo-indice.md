@@ -14,4 +14,4 @@ caminho: ~/repositories/zendeskapp-whatsapp-ativo
 
 Repositório em `~/repositories/zendeskapp-whatsapp-ativo`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[permissoes-por-grupo]] — como as opções (ex: ATIVACAO_MIGRACAO) são liberadas por grupo do Zendesk via settings `permissionGp*`
