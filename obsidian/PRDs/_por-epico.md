@@ -11,6 +11,16 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
+## [[PRD-124863]] — Evoluções pesquisa CSAT (7)
+
+- [[PRD-177601]] — Falha na Integração Jira-Zendesk: Interrupção do Gatilho de Pesquisa de Satisfação em Casos com Transbordo Marcado como Sim · pronto · 2026QD3
+- [[PRD-169149]] — [CSAT Transbordo] Diminuir cache no fechamento de ticket-off · pronto · 2026QD3
+- [[PRD-168648]] — Contorno em conflito de pesquisa CSAT com outros ativos · pronto · 2026QD3
+- [[PRD-168550]] — CSAT Transbordo Ajustes cenários de borda · pronto · 2026QD3
+- [[PRD-167666]] — Zendesk: rotina via API impedindo resolução de tickets em B&P · pronto · 2026QD3
+- [[PRD-167347]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
+- [[PRD-165982]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
+
 ## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (44)
 
 - [[PRD-177215]] — Soft delete de templates de e-mail · backlog · 2026QD3
@@ -109,15 +119,6 @@ tags:
 - [[PRD-146799]] — [Explicação Impostos] Remover endpoint de delete de template no email-service · pronto · 2026QD1
 - [[PRD-146143]] — [Explicação Impostos] Usar novo serviço de envio de email email-service na notificação de agrupamento de guias · pronto · 2026QD1
 - [[PRD-145521]] — [Explicação Impostos] Alterar endpoint legado envio ativo individual experts · pronto · 2026QD1
-
-## [[PRD-124863]] — Evoluções pesquisa CSAT (6)
-
-- [[PRD-169149]] — [CSAT Transbordo] Diminuir cache no fechamento de ticket-off · pronto · 2026QD3
-- [[PRD-168648]] — Contorno em conflito de pesquisa CSAT com outros ativos · pronto · 2026QD3
-- [[PRD-168550]] — CSAT Transbordo Ajustes cenários de borda · pronto · 2026QD3
-- [[PRD-167666]] — Zendesk: rotina via API impedindo resolução de tickets em B&P · pronto · 2026QD3
-- [[PRD-167347]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
-- [[PRD-165982]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
 
 ## [[PRD-153607]] — Receber clientes inativos no canal WhatsApp ZD (inadimplência, cancelamento, baixa) (10)
 

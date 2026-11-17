@@ -11,8 +11,9 @@ tags:
 
 Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendimento`, `copilot`, `csat`, `impostos`, `monitoria-ia`, `notas-fiscais`, `notificacoes`, `plataforma`, `ultimate`.
 
-## atendimento — Zendesk, tickets, encerramento automático, filas, canais de atendimento, e-mail inbound (82)
+## atendimento — Zendesk, tickets, encerramento automático, filas, canais de atendimento, e-mail inbound (83)
 
+- [[PRD-177601]] — Falha na Integração Jira-Zendesk: Interrupção do Gatilho de Pesquisa de Satisfação em Casos com Transbordo Marcado como Sim · pronto · 2026QD3
 - [[PRD-176242]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · arquivado · 2026QD3
 - [[PRD-176094]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · pronto · 2026QD3
 - [[PRD-175483]] — [Monitoramento Ouvidoria] Subir em produção a identificação de quem entra sem empresa nem processo de abertura · backlog · 2026QD3
@@ -234,8 +235,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-116380]] — Tela piscando no app copilot na zendesk · pronto · 2025QD2
 - [[PRD-115953]] — Incluir usuários para utilizar o app do concierge (copilot) · pronto · 2025QD2
 
-## csat — Pesquisas CSAT, transbordo e contenção (18)
+## csat — Pesquisas CSAT, transbordo e contenção (19)
 
+- [[PRD-177601]] — Falha na Integração Jira-Zendesk: Interrupção do Gatilho de Pesquisa de Satisfação em Casos com Transbordo Marcado como Sim · pronto · 2026QD3
 - [[PRD-169149]] — [CSAT Transbordo] Diminuir cache no fechamento de ticket-off · pronto · 2026QD3
 - [[PRD-168944]] — [ACR] Adicionar CNPJs à blocklist de CSAT de clientes que não querem receber · pronto · 2026QD3
 - [[PRD-168648]] — Contorno em conflito de pesquisa CSAT com outros ativos · pronto · 2026QD3
