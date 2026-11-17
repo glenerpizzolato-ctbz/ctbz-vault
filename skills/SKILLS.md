@@ -6,6 +6,8 @@ Mesmo sistema de índices do vault: uma pasta por domínio, cada uma com seu ín
 
 O `~/dotfiles/installers/setup.sh --symlinks` também varre `~/ctbz-vault/skills/` (quando o repositório existe) e cria um symlink plano por skill em `~/.claude/skills/` e `~/.agents/skills/`. O nome da pasta da skill precisa ser único entre todos os domínios, inclusive os do dotfiles. Editar sempre aqui, nunca pelos symlinks.
 
+Relatórios e planilhas gerados por uma skill vão sempre para `~/Downloads` (regra completa no `~/dotfiles/docs/ai/skills/SKILLS.md`).
+
 Ao criar uma skill nova:
 
 1. Colocar em `<dominio>/<skill>/SKILL.md`, criando a pasta do domínio se nenhuma existente for um bom encaixe.
@@ -19,4 +21,4 @@ Ao criar uma skill nova:
 - [GitLab](gitlab/_gitlab-indice.md) — abrir MR, tratar comentários de revisão e corrigir pipeline
 - [Impostos](impostos/_impostos-indice.md) — regressão e relatório (dia 15) das notificações do agrupamento de guias
 - [Jira](jira/_jira-indice.md) — sincronização das PRDs do vault com o Jira
-- [Zendesk](zendesk/_zendesk-indice.md) — buscar grupo por id/nome, fechar tickets de teste e mapear conversas afetadas por erros da Ultimate
+- [Zendesk](zendesk/_zendesk-indice.md) — analisar o CSAT Transbordo de tickets, buscar grupo por id/nome, fechar tickets de teste e mapear conversas afetadas por erros da Ultimate

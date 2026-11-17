@@ -15,7 +15,7 @@ Filtros (opcionais, combináveis, listas separadas por vírgula): --publico exp|
 (BASICO, AVANCADO, PREMIUM, MULTIBENEFICIOS, EXPERT_ESSENCIAL, EXPERT_PRO). BP Simples não tem notificação. --data é o dia da rodada
 (ex: 2026-10-15) e vira a competência do mês anterior (202609). Competência passada mostra o estado atual dela, não uma foto daquela data.
 
-Padrões: competência = mês anterior ao de hoje (America/Sao_Paulo); DIR = ~/relatorios/notificacoes-agrupamento/<competencia>/<AAAA-MM-DD_HHMM>.
+Padrões: competência = mês anterior ao de hoje (America/Sao_Paulo); DIR = ~/Downloads/relatorios/notificacoes-agrupamento/<competencia>/<AAAA-MM-DD_HHMM>.
 Precisa dos proxies de prd de pé: sql_atendimento_prd (5443) e sql_crm_prd (5444). Os serviços abrem em modo só leitura; o script só faz SELECT.
 Nunca grava e-mail nem telefone de cliente nas saídas: só id do agrupamento, CNPJ, segmento, plano e status.
 """
@@ -567,7 +567,7 @@ def gerar(args):
         c = args.competencia or competencia_padrao(agora)
     filtros = aplicar_filtros(args)
     sufixo = "_" + "-".join(x for x in (args.publico, args.regime, args.canal, args.plano) if x).replace(",", "+").lower() if filtros else ""
-    saida = os.path.expanduser(args.saida or f"~/relatorios/notificacoes-agrupamento/{c}/{agora:%Y-%m-%d_%H%M}{sufixo}")
+    saida = os.path.expanduser(args.saida or f"~/Downloads/relatorios/notificacoes-agrupamento/{c}/{agora:%Y-%m-%d_%H%M}{sufixo}")
     os.makedirs(saida, exist_ok=True)
     print(f"coletando competência {c} (autor {args.autor}){' · ' + filtros if filtros else ''}…", file=sys.stderr)
     d = coletar(c, args.autor)
