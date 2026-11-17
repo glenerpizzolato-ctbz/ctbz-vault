@@ -12,6 +12,7 @@ caminho: ~/repositories/atendimento-zendesk
 
 # atendimento-zendesk
 
+- [[corujao-fila-noturna-experts]] — crons `transf-hub-corujao`/`transf-corujao-default`/`exp-expediente-extend` (módulo transferencia-atendimento): critérios, tags e horários
 Repositório em `~/repositories/atendimento-zendesk`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
 - [[categoria-plano-autenticacao-whatsapp]] — valores do enum `categoriaPlano` no endpoint de autenticação basico-padrao do WhatsApp, como o plano do CRM é normalizado como o statusBot e o quantidadeEmpresas são calculados e o histórico da área OUVIDORIA (removida em 2026-11)
