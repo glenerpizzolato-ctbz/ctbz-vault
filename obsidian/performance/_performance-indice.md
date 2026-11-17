@@ -55,6 +55,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### IA
 
+- [[2026-09-29-csat-transbordo-contencao|CSAT Transbordo: regras de contenção e tickets travados]] — 2026QD3, impacto alto (inclui a skill `analisar-csat-transbordo`, que achou a causa do PRC-155098)
 - [[2026-11-16-testes-e2e-roteamento-n1-ativacao|Testes E2E do roteamento N1 Ativação por SOCI conduzidos com IA]] — 2026QD3, impacto medio
 - [[2026-11-16-relatorio-notificacoes-dia-15|Relatório automatizado das notificações do agrupamento (dia 15)]] — 2026QD3, impacto medio
 - [[2026-11-06-nexts-fila-priorizada|Fila do que fazer a seguir priorizada por IA (Nexts)]] — 2026QD3, impacto medio
