@@ -16,6 +16,7 @@ Repositório em `~/repositories/experts-service`. Notas sobre ele (como rodar lo
 
 - [[como-testar-localmente|Como testar localmente]] — compose (Postgres + emulador Pub/Sub), `PUBSUB_ENDPOINT`, publicar no emulador via REST, plataforma dev (403 = libera-meu-ip), dedup do `task_scheduler` e limpeza
 - [[fluxo-encerramento-com-ia]] — Encerramento com IA (desconexão): validações, estados, IA, timeout, fora de horário, parâmetros e tempos
+- [[csat-transbordo-regras|CSAT Transbordo: regras]] — (nota em `csat/`) regras do motor CSAT legado e do transbordo; desde ~12/11/2026 quem decide é o survey-service
 - [[notificacao-individual-guias-x-agrupamento|Notificação individual de guias x agrupamento]] — filtros do consumer `processar-guia-imposto`, regra do dia 15, como saber qual guia é cada disparo do `task_scheduler` (join com a `Guia` no BigQuery), listas de impostos divergentes, armadilhas de duplicidade/silêncio com o agrupamento e cruzamento do ISS com o calendário de vencimento por município (grupo travado por ISS em erro)
 - [[auditoria-troca-assessor|Auditoria das trocas de assessor]] — autor via Keycloak (`resolveAuthor`), tabela `event`, BigQuery e a armadilha do `data` do `UPDATED_ASSESSOR_EMPRESA`
 - [[cobertura-sonar-vitest|Cobertura do Sonar x exclusões do vitest]] — arquivo em `coverage.exclude` do vitest vira 0% no Sonar (caso do `src/infra/auth`)

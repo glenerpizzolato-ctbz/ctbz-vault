@@ -1,5 +1,6 @@
 - [PRDs](PRDs/_prds-indice.md) — demandas (PRDs) que criei na Contabilizei: uma nota por PRD, épicos e visões por épico, período e domínio; fonte da verdade das demandas
 - [PRCs](PRCs/_prcs-indice.md) — playbooks de chamados (PRC) recorrentes, uma nota por problema, por canal
+- [CSAT](csat/_csat-indice.md) — pesquisa CSAT: motores (experts-service legado e survey-service), regras de envio e do transbordo
 - [Próximas tarefas](next-tasks/_next-tasks-indice.md) — tarefas e ideias que ainda não viraram PRD, por tema
 - [Retrospectivas](retros/_retros-indice.md) — histórico das retros do time e pauta da próxima
 - [Comunicação](comunicacao/_comunicacao-indice.md) — onde enviar mensagens por assunto (espaços do Google Chat etc.) e como enviar
