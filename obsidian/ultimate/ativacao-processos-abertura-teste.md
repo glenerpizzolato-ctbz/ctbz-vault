@@ -19,7 +19,7 @@ Conseguidos pelo Glener em 2026-11-16. Use-os para testar fluxos de Ativação n
 | [SOCI-255767](https://contabilizeicontabilidade.atlassian.net/browse/SOCI-255767) | `4891157268267008` | Iniciado | Iniciado | AVANCADO | — |
 | [SOCI-255830](https://contabilizeicontabilidade.atlassian.net/browse/SOCI-255830) | `4550028081496064` | Iniciado | Download Certidão (Auto) | AVANCADO | 20881819000112 |
 
-Situação em 2026-11-16, antes de qualquer alteração. Os dois são de Curitiba/PR, com CPF responsável `21383198063`.
+Situação em 2026-11-16, antes de qualquer alteração (em 2026-11-17 o seu telefone foi removido; ver "Tirar o seu telefone dos processos"). Os dois são de Curitiba/PR, com CPF responsável `21383198063`.
 
 ## Armadilhas
 
@@ -47,6 +47,13 @@ Situação em 2026-11-16, antes de qualquer alteração. Os dois são de Curitib
 - Rota da Abertura: `POST https://contabilizei-abertura.appspot.com/rest/admin/processoabertura/atualizar-telefone-socio-login?auth_token=<token>` com `{"idProcessoAbertura": <id>, "telefone": "<DDD+número, 10-11 dígitos, sem 55>"}`. Ela troca o telefone do `socioLogin` do processo e salva pela aplicação, então o cache do Objectify fica coerente.
 - **Autenticação (testado em 2026-11-16):** as rotas `/rest/admin/*` exigem a **sessão SSO de operador** (`AuthFilter` + `RequestSSOUserFilter`), a mesma do admin da Abertura (`contabilizei-abertura-front-admin`). O `auth_token` de integração da coleção Bruno dá **401**, e sem sessão o `GET /rest/admin/processoabertura/{id}` em `appabertura.contabilizei.com` também dá 401. Chamar `/rest/public/requestloginadmin` direto dá "erro interno": o login começa pelo front-admin. Caminho: o usuário loga no admin da Abertura no Chrome e o Claude faz `fetch` same-origin em `https://appabertura.contabilizei.com/rest/admin/...` com `credentials: 'include'`.
 - Outras rotas úteis do admin: `GET /rest/admin/processoabertura/{id}` (processo completo) e `PUT /rest/admin/processoabertura` (salva o JSON alterado: `status`, `categoriaPlano`…). Ao usar o claude-in-chrome, não deixar URL com query string na aba, porque a saída do `javascript_tool` é bloqueada.
+
+## Tirar o seu telefone dos processos (feito em 2026-11-17)
+
+- Em 2026-11-17 o telefone do Glener (`5596981032`) foi **removido dos dois processos**, voltando ao valor original do cadastro de teste, **`12985858585`** (fictício, conferido no histórico de `[SOCI] Telefone` dos dois SOCIs). Para testar de novo, apontar o telefone outra vez (seção acima).
+- O telefone fica em quatro lugares: `empresa.socios[*].telefone` (o que o bot busca), `socioLogin.telefone`, `atributos.soci__telefone` e o campo `[SOCI] Telefone` (`customfield_19133`) do SOCI.
+- Passo a passo que funcionou, com o usuário logado no admin da Abertura e `fetch` same-origin numa aba de `admin.contabilizei.com`: `POST https://appabertura.contabilizei.com/rest/admin/processoabertura/atualizar-telefone-socio-login` com `{"idProcessoAbertura": <id>, "telefone": "<novo>"}` troca `socioLogin` **e os sócios da empresa que tinham o mesmo número** (no SOCI-255830 o 2º sócio também ficou `12985858585`, que já era o dele); depois `GET /rest/admin/processoabertura/{id}`, trocar `atributos.soci__telefone` e `PUT /rest/admin/processoabertura` com o JSON (o PUT grava os atributos; o status não muda); por fim editar o `customfield_19133` do SOCI pelo MCP do Jira.
+- Conferência: contagem do bot para `+555596981032` e `+5555996981032` voltou `total: 0`.
 
 ## Consultar como o bot
 

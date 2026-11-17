@@ -34,3 +34,7 @@ Montada nos testes de 2026-11-16 ([[testes-roteamento-n1-ativacao]]). Scripts em
 ## Para entender por onde a conversa passou
 
 Logs de conversa do dashboard da Ultimate, com as variáveis setadas: [[logs-conversa-ultimate]]. Por que o bot foi para tal grupo/IA: [[endpoints-autenticacao-bot]], [[rollout-ia-ativacao]], [[menu-inic-experts-ramificacoes]].
+
+## Armadilha: ativo especial pendente
+
+Se o telefone tiver uma `mensagem_ativa` habilitada e dentro da validade (banco `prd_crm_atendimento_zendesk`, `destino = '+555596981032'`, `habilitado` e `criado_em + validade_em_minutos >= now()`), a conversa entra pelo retorno de ativo (`ativos especiais` → `URA_FLOW`) e não pelo fluxo de inbound. Os processos de teste da Abertura recebem ativos reais da operação. Antes de testar inbound, contar os ativos e consumir cada um com uma conversa (cada uma abre um ticket a fechar). Caso real em [[testes-roteamento-bp-n1-n2]].
