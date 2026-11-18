@@ -38,9 +38,11 @@ Criei a base de playbooks de PRC no vault, um por problema, com sintoma, causa, 
 
 Em 2026-11-13, levei os playbooks da triagem para a resolução: na aba PRCs do BahCode, cada PRC mapeado ganha um plano feito por um agente (Claude) que lê o chamado, o playbook e os tutoriais do vault, confere o que dá em produção só leitura e devolve passos, viabilidade (o agente resolve sozinho ou precisa de uma pessoa), ACR a vincular, comentário e campos de fechamento; um segundo agente executa o plano no Jira (vínculo, comentário, transição) e anota a ocorrência no playbook, com planejamento e resolução automáticos configuráveis.
 
+Em 2026-11-18, a aba virou uma fila de trabalho por problema: os PRCs agrupados pelo playbook que resolve cada um (o que já sabemos resolver), com tags e filtros de etapa (sabemos resolver, plano pronto/errado/não planejado, execução com sucesso/falha/não executada) e um agente Claude por PRC, ao lado do chamado, que confere o playbook e o plano junto com o dev e registra as etapas de volta na aba (inclusive o playbook de um PRC que o mapeamento automático não pegou).
+
 ## Resultado
 
-Ocorrências seguintes resolvidas pelo mesmo roteiro: 5 de e-mail que não chega, 3 de pesquisa, 2 de ativo barrado pela Meta. A aba PRCs do BahCode cruza de hora em hora os chamados sem dono com os playbooks e, desde 2026-11-13, planeja e executa a resolução deles (no primeiro teste, o plano do PRC-154406 trouxe ACR, comentário pronto e os campos de fechamento do PRC anterior do mesmo problema).
+Ocorrências seguintes resolvidas pelo mesmo roteiro: 5 de e-mail que não chega, 3 de pesquisa, 2 de ativo barrado pela Meta. A aba PRCs do BahCode cruza de hora em hora os chamados sem dono com os playbooks e, desde 2026-11-13, planeja e executa a resolução deles (no primeiro teste, o plano do PRC-154406 trouxe ACR, comentário pronto e os campos de fechamento do PRC anterior do mesmo problema). Em 2026-11-18, dos 24 PRCs sem dono do board, 4 caíam em 2 playbooks, todos já com plano, e a fila mostra de cara o que falta em cada etapa.
 
 ## Evidências
 
