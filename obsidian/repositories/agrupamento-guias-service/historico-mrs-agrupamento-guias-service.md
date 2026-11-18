@@ -16,4 +16,4 @@ tags:
 - 2026-11-18: MR !7 `chore/deps-storage-9-typescript-7` — Draft: chore(deps): bump @google-cloud/storage to 9 and typescript to 7
 - 2026-11-18: MR !8 `feat/node-26-typescript-7` — Draft: feat: Node 26 e TypeScript nativo no padrão do survey-service
 - 2026-11-18: MR !9 `feat/whatsapp-validade-3-dias` — Draft: fix(notifica): validade de 3 dias no WhatsApp ativo do agrupamento
-- 2026-11-18: MR !10 `feat/templates-email-agrupamento` — Draft: feat(notifica): templates novos de e-mail do agrupamento (Experts SN, diagnóstico de faturamento e BP LP) (aberto)
+- 2026-11-18: MR !10 `feat/templates-email-agrupamento` — Draft: feat(notifica): templates novos de e-mail do agrupamento (Experts SN, diagnóstico de faturamento e BP LP)
