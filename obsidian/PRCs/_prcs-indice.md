@@ -36,7 +36,7 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 ## WhatsApp
 
 - [[PRD-134632 - Meta não entrega mensagem - healthy ecosystem engagement (131049)]] — Meta barra ativo WPP (erro 131049, limite de marketing/reclassificação de template); confirmar em `mensagem_ativa_status`, retentar só após 24h; vincular à ACR PRD-134632 · 2 ocorrências
-- [[PRD-168944 - Cliente não quer receber pesquisa (CSAT e-ou NPS)]] — só CSAT → `blocklist` no experts-service; CSAT+NPS → opt-out do contato-service no front admin; vincular à ACR PRD-168944 · 3 ocorrências
+- [[PRD-168944 - Cliente não quer receber pesquisa (CSAT e-ou NPS)]] — só CSAT → `blocklist` no experts-service; CSAT+NPS → opt-out do contato-service no front admin; vincular à ACR PRD-168944; opt-out é por par telefone + CNPJ · 4 ocorrências
 - [[PRC-155098 - CSAT sai mesmo com o atendimento transbordado]] — pesquisa sai apesar do transbordo; rodar a skill `analisar-csat-transbordo` para achar a regra; no PRC-155098 foi EXPBKO sem `due_date` no momento do motor (SLA preenchido depois); sem ACR ainda · 1 ocorrência
 - [[PRD-103649 - Cliente recebe notificações WPP com dados de outra empresa]] — telefone do cliente vinculado a outra empresa; checar usuários do telefone na Zendesk, mesclar duplicados; se Zendesk ok, chamado no CRM para validar base de envios; ACR PRD-103649 · 1 ocorrência
 - [[PRD-151519 - Cliente com mais de um contato cadastrado com mesmo telefone na zendesk]] — ticket perdido por contato duplicado na Zendesk; buscar `*<8 dígitos>` no front admin e mesclar (só contatos sem org/e-mail)
@@ -46,7 +46,7 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 ## E-mail
 
 - [[PRD-167733 - Cliente não consegue enviar email - cai no spam do atendimento.experts]] — e-mail do cliente para atendimento.experts@ cai no nosso spam (Google), sem bounce; whitelist na regra anti-spam; ACR PRD-167733 · 5 ocorrências
-- [[PRD-168944 - Cliente não quer receber pesquisa (CSAT e-ou NPS)]] — só CSAT → `blocklist` no experts-service; CSAT+NPS → opt-out do contato-service no front admin; vincular à ACR PRD-168944 · 3 ocorrências
+- [[PRD-168944 - Cliente não quer receber pesquisa (CSAT e-ou NPS)]] — só CSAT → `blocklist` no experts-service; CSAT+NPS → opt-out do contato-service no front admin; vincular à ACR PRD-168944; opt-out é por par telefone + CNPJ · 4 ocorrências
 - [[PRD-168171 - Cliente não consegue enviar email - bloqueio de spam no provedor do cliente]] — provedor do cliente (Microsoft) barra como spam, NDR 5.7.520 AS(4810); orientar contornos; ACR PRD-168171
 - [[PRD-174011 - Cliente não recebe notificação do agrupamento de guias]] — grupo_guia nunca chegou a SUCESSO_AGRUPAMENTO (sem guia ou guias emitidas depois do dia 15/vencimento, `GUIAS_AGUARDANDO_GERACAO` não é retentado); conferir grupo_guia/controle_notificacao no ms_agrupamento_guias; ACR PRD-174011 · 1 ocorrência
 
