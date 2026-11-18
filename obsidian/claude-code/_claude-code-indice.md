@@ -9,3 +9,4 @@ metadata:
 
 - [[sessoes-e-resume]]: onde ficam as sessões, como o título é gravado e o `cr` para retomar uma sessão de qualquer pasta.
 - [[custo-no-transcript]]: o `cost-state` só aparece no fim da sessão; como calcular o custo em tempo real pelos tokens das mensagens.
+- [[mcp-escopos-e-ram]]: desabilitar MCP pelo `/mcp` vale só para a pasta; cada sessão sobe o próprio servidor (sonarqube-mcp = container JVM de 400-700 MB); como remover do escopo user e parar os containers.
