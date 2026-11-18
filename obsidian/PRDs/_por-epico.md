@@ -11,18 +11,9 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
-## [[PRD-124863]] — Evoluções pesquisa CSAT (7)
+## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (45)
 
-- [[PRD-177601]] — Falha na Integração Jira-Zendesk: Interrupção do Gatilho de Pesquisa de Satisfação em Casos com Transbordo Marcado como Sim · pronto · 2026QD3
-- [[PRD-169149]] — [CSAT Transbordo] Diminuir cache no fechamento de ticket-off · pronto · 2026QD3
-- [[PRD-168648]] — Contorno em conflito de pesquisa CSAT com outros ativos · pronto · 2026QD3
-- [[PRD-168550]] — CSAT Transbordo Ajustes cenários de borda · pronto · 2026QD3
-- [[PRD-167666]] — Zendesk: rotina via API impedindo resolução de tickets em B&P · pronto · 2026QD3
-- [[PRD-167347]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
-- [[PRD-165982]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
-
-## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (44)
-
+- [[PRD-178071]] — [ACR] Cliente com opt-out de pesquisa segue exposto a NPS/CSAT - opt-out cadastrado só para parte dos pares telefone + CNPJ - SHOWCALLERS PRODUCOES LTDA · pronto · 2026QD3
 - [[PRD-177215]] — Soft delete de templates de e-mail · backlog · 2026QD3
 - [[PRD-176493]] — experts-service: aumentar a concorrência do consumer de guias de imposto para drenar rajadas do processar-guia-imposto · backlog · 2026QD3
 - [[PRD-176242]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · arquivado · 2026QD3
@@ -67,6 +58,16 @@ tags:
 - [[PRD-165453]] — Listagem e envio de email no front de atnd-canais · pronto · 2026QD3
 - [[PRD-165484]] — Troca de assessor sem registro de autor · resolvido-outro-dev · 2026QD3
 - [[PRD-157829]] — Inconsistência na Sincronização de Telefones (Plataforma vs. Zendesk) · resolvido-outro-dev · 2026QD2
+
+## [[PRD-124863]] — Evoluções pesquisa CSAT (7)
+
+- [[PRD-177601]] — Falha na Integração Jira-Zendesk: Interrupção do Gatilho de Pesquisa de Satisfação em Casos com Transbordo Marcado como Sim · pronto · 2026QD3
+- [[PRD-169149]] — [CSAT Transbordo] Diminuir cache no fechamento de ticket-off · pronto · 2026QD3
+- [[PRD-168648]] — Contorno em conflito de pesquisa CSAT com outros ativos · pronto · 2026QD3
+- [[PRD-168550]] — CSAT Transbordo Ajustes cenários de borda · pronto · 2026QD3
+- [[PRD-167666]] — Zendesk: rotina via API impedindo resolução de tickets em B&P · pronto · 2026QD3
+- [[PRD-167347]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
+- [[PRD-165982]] — CSAT Transbordo (Experts/BPMP) — tickets travados em PENDING sem dar baixa · pronto · 2026QD3
 
 ## [[PRD-164393]] — Empacotamento de Guias para BP (1)
 

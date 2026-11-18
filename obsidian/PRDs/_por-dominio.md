@@ -235,8 +235,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-116380]] — Tela piscando no app copilot na zendesk · pronto · 2025QD2
 - [[PRD-115953]] — Incluir usuários para utilizar o app do concierge (copilot) · pronto · 2025QD2
 
-## csat — Pesquisas CSAT, transbordo e contenção (19)
+## csat — Pesquisas CSAT, transbordo e contenção (20)
 
+- [[PRD-178071]] — [ACR] Cliente com opt-out de pesquisa segue exposto a NPS/CSAT - opt-out cadastrado só para parte dos pares telefone + CNPJ - SHOWCALLERS PRODUCOES LTDA · pronto · 2026QD3
 - [[PRD-177601]] — Falha na Integração Jira-Zendesk: Interrupção do Gatilho de Pesquisa de Satisfação em Casos com Transbordo Marcado como Sim · pronto · 2026QD3
 - [[PRD-169149]] — [CSAT Transbordo] Diminuir cache no fechamento de ticket-off · pronto · 2026QD3
 - [[PRD-168944]] — [ACR] Adicionar CNPJs à blocklist de CSAT de clientes que não querem receber · pronto · 2026QD3
@@ -419,8 +420,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-99472]] — Nova etapa descrição NF Ext · pronto · 2024QD3
 - [[PRD-90265]] — NF Ext · pronto · 2024QD3
 
-## notificacoes — WhatsApp ativo, templates, Meta Flows, e-mails, opt-out (96)
+## notificacoes — WhatsApp ativo, templates, Meta Flows, e-mails, opt-out (97)
 
+- [[PRD-178071]] — [ACR] Cliente com opt-out de pesquisa segue exposto a NPS/CSAT - opt-out cadastrado só para parte dos pares telefone + CNPJ - SHOWCALLERS PRODUCOES LTDA · pronto · 2026QD3
 - [[PRD-176493]] — experts-service: aumentar a concorrência do consumer de guias de imposto para drenar rajadas do processar-guia-imposto · backlog · 2026QD3
 - [[PRD-176358]] — [Agrupamento de guias] Listar todas as guias e parcelas no e-mail do agrupamento · backlog · 2026QD3
 - [[PRD-176052]] — Opt-out em lote no contato-service: atendimento-canais-admin usar as rotas batch e search · pronto · 2026QD3
