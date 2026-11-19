@@ -17,7 +17,7 @@ Sessão de 2026-11-16. O ajuste da Entrega 03 ([[PRD-176172]]) foi publicado em 
 ## Escopo combinado
 
 - **Um cenário por grupo**: Cadastro, Pós Vendas, Pré CNPJ, Pré CNPJ - Módulo tributário, Pré CNPJ - Assinatura JC, Retenção Abertura, Finalizado BP (AIDA Geral [BP]), Finalizado Expert (Onboarding [Experts]) e ELSE (Atendimento). São 9 cenários.
-- Fluxo planejado: pôr o processo de teste no status → conversar com o bot pelo WhatsApp Web (claude-in-chrome) → conferir o grupo do ticket → print e referência → comentar a evidência no PRD-177631.
+- Fluxo planejado: pôr o processo de teste no status → conversar com o bot (hoje: o Glener envia e o Claude aguarda; o Claude não acessa mais o WhatsApp Web, ver [[testar-bot-whatsapp]]) → conferir o grupo do ticket → print e referência → comentar a evidência no PRD-177631.
 - Execução em prd: o Claude **monta** as escritas (SQL, chamadas admin) e o **usuário executa** (`! psql ...`), conforme a regra de prd somente leitura do CLAUDE.md.
 
 ## O que descobrimos (e que mudou o plano)

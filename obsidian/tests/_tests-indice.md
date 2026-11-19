@@ -16,6 +16,10 @@ Roteiros para preparar massa de teste, disparar fluxos e conferir o resultado no
 - [[tests/_por-dominio|Por domínio]]
 - [[tests/_por-repositorio|Por repositório]]
 
+## Regras gerais
+
+- **Testes de WhatsApp: não acessar o WhatsApp Web do Glener.** O Claude não abre o WhatsApp Web (claude-in-chrome), não lê conversas e não envia mensagens. Pedir ao Glener para enviar ou responder (texto exato e, se importar, o momento) e aguardar a confirmação dele antes de seguir; conferir o resultado pelo Zendesk e pela Ultimate. Receita em [[testar-bot-whatsapp]].
+
 ## Estrutura
 
 - `itens/<slug>.md`: um roteiro por nota, com o front-matter `dominio` (lista), `repositorios` (lista), `ambiente` e `atualizado_em`.

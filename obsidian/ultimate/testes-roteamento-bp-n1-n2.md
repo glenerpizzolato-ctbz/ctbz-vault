@@ -81,7 +81,7 @@ Variações a cobrir em pelo menos um cenário de cada destino:
 
 ## Execução e evidência
 
-- Ciclo por cenário igual ao da [[testar-bot-whatsapp]]: preparar dado → `processos_bot.py` → baseline `zd_tickets.py` → "Oi" no WhatsApp Web → grupo pelo `zd_tickets.py --since-id` → `zd_fechar_sem_csat.py` → GIF recortado.
+- Ciclo por cenário igual ao da [[testar-bot-whatsapp]]: preparar dado → `processos_bot.py` → baseline `zd_tickets.py` → pedir ao Glener o "Oi" e aguardar a confirmação (o Claude não acessa o WhatsApp Web) → grupo pelo `zd_tickets.py --since-id` → `zd_fechar_sem_csat.py` → GIF recortado.
 - Conferir no ticket: grupo, tags (`processo:`, `escalated_to_ai`) e se o agente IA atendeu. Para entender um desvio: logs de conversa da Ultimate ([[logs-conversa-ultimate]]).
 - Evidência por cenário em comentário na sub-task de testes (E2E) do PRD-176795: ticket, grupo esperado x obtido, GIF.
 - Antes de publicar no prd: backup JSON do bloco alterado no dialogue builder (como [[backup-roteamento-n1-ativacao-v1]]) para rollback.
