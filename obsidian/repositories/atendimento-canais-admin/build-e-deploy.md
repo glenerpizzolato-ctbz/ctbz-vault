@@ -16,3 +16,8 @@ metadata:
 
 - O `Dockerfile` usa `node:24-alpine` nos estágios `build` e `runner`. Ficou fixado em `node:24.22.1-alpine` por causa da CVE-2026-111497 (PRD-174630) e voltou para a tag de linha em 2026-11-19 (MR !199, work-item #5), quando a `24-alpine` já resolvia para a 24.22.3. Antes de voltar uma tag de linha, comparar no Docker Hub o digest dela com o das tags de patch (`curl -s https://hub.docker.com/v2/repositories/library/node/tags/<tag>`).
 - Com Node 22 local, o teste `importacao.arquivo.test.ts > DecodificadorDeTexto > preserva os caracteres exclusivos do Windows-1252` falha (o `TextDecoder('windows-1252')` do Node 22 devolve `\u0093` em vez de `“`). No Node 24 passa: não é regressão, é o Node local. Rodar os testes com Node 24.
+
+## Terraform x vault-roleset (onde fica cada permissão)
+
+- O repositório tem `terraform/{dev,prd}` (state no bucket `ctbz-terraform-state`, prefixo `atendimento-canais-admin/<ambiente>`), aplicado pelo pipeline, só para recursos do próprio admin e IAM neles (ex: bucket do marketplace). A SA do Cloud Run está na variável `runtime_service_account` (prd `852985851006-compute@…`, dev `410826691463-compute@…`).
+- **Permissões da SA em projetos (inclusive de outros donos, como BigQuery no `contabilizei-data`) ficam no repositório `vault-roleset`**, em `gcp-roleset-default-user-managed/atendimento-canais-{prd,dev}/<sa>.json`, não no Terraform daqui. Ver [[_vault-roleset-indice|vault-roleset]]. O MR !203, que punha a leitura do dataset do CDC no Terraform, foi fechado por isso (e porque a permissão já existia).

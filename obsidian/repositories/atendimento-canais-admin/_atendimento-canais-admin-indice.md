@@ -14,7 +14,7 @@ caminho: ~/repositories/atendimento-canais-admin
 
 Repositório em `~/repositories/atendimento-canais-admin`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-- [[build-e-deploy|Build e deploy]] — antigo canais-bff; build local exige token do registry npm; build.sh faz deploy público sem --project (criou serviço avulso no aida-stg)
+- [[build-e-deploy|Build e deploy]] — antigo canais-bff; build local exige token do registry npm; build.sh faz deploy público sem --project (criou serviço avulso no aida-stg); Terraform próprio só para recursos do admin, permissões da SA em projetos ficam no vault-roleset
 - [[dashboard-agrupamento-guias-bigquery|Dashboard Agrupamento de Guias e BigQuery]] — tabelas de dw_ms_agrupamento_guias, item_grupo_guia com pares repetidos e órfãos, armadilhas de rodar check/testes em worktree; front não leva coleção Bruno
 - [[envio-teste-template-email|Envio de teste de template de e-mail]] — aviso fixo pós-criação (SMTP da HubSpot quebra HTML que o preview mostra certo) e atalho `?enviar=<templateId>` na tela de envios
 - [[historico-mrs-atendimento-canais-admin|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
