@@ -19,11 +19,4 @@ Repositório em `~/repositories/contato-service`. Notas sobre ele (como rodar lo
 - [[contato-service/install-local|Install local]] — token do registry @contabilizei-private para o pnpm e armadilha do origin/HEAD apontando para main (a base é master)
 - [[historico-mrs-contato-service|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
 - [[optout-registro-em-lote]] — rota `POST /optouts/batch` (array, segue nos erros com resultado por item, por que não `Promise.allSettled`, MR !58) e `purpose`/`companyCode` em array no `POST /optouts` (produto cartesiano, tudo ou nada), PRD-175747
-
-## Consumidores
-
-Quem consome os contratos deste repo (ver [[consumidores-entre-repositorios]]); a revisão de MRs confere se o diff quebra algum deles.
-
-- `atendimento-canais-admin`: `POST /api/v1/optouts`, um por registro, pela tela de contato (proxy `/api/proxy/contato-service`), ver [[optout-tela-contato]]
-- `email-service`: consulta de opt-out de e-mail antes de enviar (`optout_purpose`, `cnpj`), pelo api-gateway, ver [[contrato-optout]]
-- `experts-service`: a notificação individual de guias manda `optout_purpose: 'TAX'` e `cnpj` ao `email-service`, que consulta o opt-out aqui, ver [[notificacao-individual-guias-x-agrupamento]]
+- [[dependencias-contato-service|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome; os consumidores (antes na seção Consumidores deste índice) ficam em Consumido por

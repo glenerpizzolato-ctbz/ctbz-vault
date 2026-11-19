@@ -17,3 +17,4 @@ caminho: ~/repositories/bots-api
 Repositório em `~/repositories/bots-api`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
 - [[historico-mrs-bots-api|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-bots-api|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

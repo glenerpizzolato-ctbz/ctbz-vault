@@ -22,3 +22,4 @@ Repositório em `~/repositories/experts-service`. Notas sobre ele (como rodar lo
 - [[cobertura-sonar-vitest|Cobertura do Sonar x exclusões do vitest]] — arquivo em `coverage.exclude` do vitest vira 0% no Sonar (caso do `src/infra/auth`)
 - [[deploy-e-variaveis-de-ambiente|Deploy e variáveis de ambiente]] — variáveis de deploy e do app no repo `pipeline`, KEDA e concorrência do consumer de guias
 - [[historico-mrs-experts-service|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-experts-service|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome
