@@ -8,7 +8,7 @@ metadata:
 # Build e deploy
 
 - Imagem `node:<versão>-slim` (Debian, não Alpine): o `onnxruntime-node` só tem binários glibc.
-- Sem CI: o deploy é manual, pelo `deploy.sh` (`--skip-baseline` reaproveita o baseline já no GCS). Defaults: `PROJECT_ID=atendimento-canais-dev`, `SERVICE=agent-eval-${ENVIRONMENT}`.
+- Sem CI: não há `.gitlab-ci.yml` em nenhuma branch nem no histórico, e o projeto não tem `ci_config_path` customizado, então push e MR não disparam pipeline (o MR fica sem pipeline, não é falha). As únicas pipelines listadas no projeto são de `source: duo_workflow` (execuções do GitLab Duo em `refs/workloads/*`), não de CI. Validar MR rodando `pnpm typecheck` e `pnpm test` local. O deploy é manual, pelo `deploy.sh` (`--skip-baseline` reaproveita o baseline já no GCS). Defaults: `PROJECT_ID=atendimento-canais-dev`, `SERVICE=agent-eval-${ENVIRONMENT}`.
 - O container precisa de `/mnt/agent-eval/baseline/baseline.json` (montado do GCS no Cloud Run). Sem ele, a imagem sobe e para com ENOENT, o que é esperado num teste local.
 - Testes: `pnpm typecheck` e `pnpm test` (vitest, 65 testes), sem dependência privada.
 - Ver [[cve-2026-111497-node2shell]].
