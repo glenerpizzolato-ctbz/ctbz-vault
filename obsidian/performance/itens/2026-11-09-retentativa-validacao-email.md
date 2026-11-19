@@ -35,8 +35,15 @@ O alerta "Falha ao validar o e-mail" do email-service disparou em 09/11/2026 às
 - Uma queda de banco dentro da janela de retentativa deixa de descartar envios, e o que esgota as tentativas fica recuperável pela DLQ.
 - Validado em dev com o banco derrubado: um envio passou na 3ª tentativa depois que o banco voltou; outro esgotou as 5 tentativas, avisou a origem e foi para a DLQ com o payload inteiro (evidências com prints na pasta da feature no BahCode, `evidencias/`).
 
+## Continuação: replicação órfã em rajada (#49, caso 2, 19/11/2026)
+
+- O mesmo esgotamento do pool reapareceu em 17/11 e 19/11 com outro sintoma: o dispatch rodava antes de a linha existir (`REPLICATION_NOT_FOUND`, falha permanente) e o e-mail ficava `PENDING` para sempre (8 envios de guias do experts-service). Confirmei a sequência pelos logs e documentei no #49.
+- Corrigi pela causa, não pelo sintoma: a linha é gravada antes do publish no `send-email-validated` (validação e rota `POST /send`), com nack se o insert falhar. O consumer `replicate-record`, que concorria com o dispatch e dividia o pool, foi removido.
+- Planejei o deploy em duas etapas (código e alerta primeiro; a subscription só depois do deploy em prd), porque o terraform roda antes do helm e removê-la junto abriria uma janela com `REPLICATION_NOT_FOUND` em todos os envios.
+
 ## Evidências
 
 - Work-item: https://gitlab.com/ctbz/experts/atendimento-canais/email-service/-/work_items/52
 - Branch `fix/validation-transient-retry` (email-service)
+- Work-item #49 (caso 2): https://gitlab.com/ctbz/experts/atendimento-canais/email-service/-/work_items/49 — branches `fix/record-before-dispatch` e `chore/remove-replicate-record-sub`
 - [[alertas-de-envio]]
