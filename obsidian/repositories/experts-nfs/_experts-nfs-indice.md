@@ -14,4 +14,5 @@ caminho: ~/repositories/experts-nfs
 
 Repositório em `~/repositories/experts-nfs`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[build-e-validacao-local]] — instalar deps privadas, buildar a imagem e validar o Prisma em dev
+- [[historico-mrs-experts-nfs|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
