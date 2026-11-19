@@ -119,6 +119,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 - [[2026-10-15-padrao-pubsub|Padrão de nomenclatura de Pub/Sub do time]] — 2026QD3, impacto medio
 - [[2026-10-01-aviso-mrs-nao-revisados|Aviso automático de MRs não revisados]] — 2026QD3, impacto medio
 - [[2026-08-24-playbooks-prc|Base de playbooks de PRC (uma nota por problema)]] — 2026QD2, impacto alto
+- [[2026-11-19-mapa-dependencias-repositorios|Mapa de dependências entre repositórios no vault, mantido pelos agentes]] — 2026QD3, impacto medio
 
 ### Qualidade
 
