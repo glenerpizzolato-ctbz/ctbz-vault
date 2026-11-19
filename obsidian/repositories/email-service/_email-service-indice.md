@@ -14,7 +14,7 @@ caminho: ~/repositories/email-service
 
 Repositório em `~/repositories/email-service`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-- [[alertas-de-envio]] — card no Google Chat, policies do Cloud Monitoring e subscriptions de inspeção dos envios com falha; plan de prd só na pipeline; erro de banco no validation worker dá ack e perde o envio (corrigido no #52: nack + DLQ na última tentativa).
+- [[alertas-de-envio]] — card no Google Chat, policies do Cloud Monitoring e subscriptions de inspeção dos envios com falha; plan de prd só na pipeline; erro de banco no validation worker dá ack e perde o envio (corrigido no #52: nack + DLQ na última tentativa); REPLICATION_NOT_FOUND em rajada (pool esgotado + record e dispatch em paralelo) deixa o e-mail PENDING sem envio, e o reprocess não pega PENDING.
 - [[historico-mrs-email-service|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
 - [[contrato-optout|Contrato de opt-out]] — `optout_purpose` + `cnpj` (sem máscara, maiúsculas) no envio; `failure_reason` (não `reason`) traz a classe da falha no callback
 - [[teste-banco-fora|Testar com o banco fora]] — retentativa da validação em dev: branch local + derrubar só o proxy local, com o pod de dev escalado a 0
