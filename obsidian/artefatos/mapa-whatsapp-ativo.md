@@ -10,6 +10,7 @@ tags:
   - atendimento-zendesk
 link: https://claude.ai/artifact/6igTX8xWFNasBTFaBEDDzP
 arquivo: arquivos/mapa-whatsapp-ativo.html
+html_share: "" # pendente: gerado em ~/Downloads/mapa-whatsapp-ativo.html em 19/11/2026
 criado_em: 2026-11-19
 atualizado_em: 2026-11-19
 retrato: "zendeskapp-whatsapp-ativo origin/master db1bdc9 · atendimento-zendesk master fc5b2fe3f · configmap atendimento-zendesk-prd"

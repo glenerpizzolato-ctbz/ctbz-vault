@@ -13,6 +13,8 @@ Páginas geradas pelo Claude e publicadas como artefato (claude.ai/artifact) que
 
 Para atualizar: editar `arquivos/<slug>.html` e publicar com a ferramenta Artifact passando o `url` da nota (mantém o link); depois atualizar `atualizado_em` e o resumo da nota.
 
+Para **compartilhar com o time** (html-share), ver [[compartilhar-com-o-time]].
+
 ## WhatsApp ativo
 
 - [[mapa-whatsapp-ativo|Mapa do WhatsApp Ativo]] — Projeto do template (squad) x Atendimento do envio (integracao): quais templates aparecem, como cada campo do envio é preenchido, número de saída, resposta e opt-out, com simulador
