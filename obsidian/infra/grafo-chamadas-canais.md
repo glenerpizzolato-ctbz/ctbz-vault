@@ -12,7 +12,7 @@ fonte: "Marketplace de IA do Canais Admin (contexto global de um colega do time,
 
 # Grafo de chamadas: Canais / Experts / AIDA
 
-Mapa manual (não é gerado pela skill `atualizar-catalogo-gcp`) de quais repositórios chamam quais, para saber o impacto de mudar um contrato e por onde uma requisição passa. Fonte: o contexto global que um colega do time publicou no [Marketplace de IA](https://admin.ctbz.com.br/api/atendimento-canais/marketplace/A8ZV3J2IqTC4e4eowPKS) do `atendimento-canais-admin`. Antes de confiar numa aresta para revisar um MR, conferir no código do consumidor (ver [[consumidores-entre-repositorios]]).
+Mapa manual (não é gerado pela skill `atualizar-catalogo-gcp`) de quais repositórios chamam quais, para saber o impacto de mudar um contrato e por onde uma requisição passa. Fonte: o contexto global que um colega do time publicou no [Marketplace de IA](https://admin.ctbz.com.br/api/atendimento-canais/marketplace/A8ZV3J2IqTC4e4eowPKS) do `atendimento-canais-admin`. Antes de confiar numa aresta para revisar um MR, conferir no código do consumidor (ver [[dependencias-entre-repositorios]]).
 
 ## Papel e stack
 
