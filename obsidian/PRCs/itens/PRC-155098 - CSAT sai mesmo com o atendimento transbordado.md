@@ -48,6 +48,9 @@ Levantamento de 18/10 a 17/11/2026 (planilha caso a caso em `~/Downloads/csat-tr
 ## Como resolver
 
 - Caso pontual: não há o que desfazer (a pesquisa já saiu); responder à relatora com a causa.
+- **PRC-155098 encerrado em 19/11/2026** (Concluído), com comentário à relatora; a ACR recebeu a conclusão final no mesmo dia. Campos de encerramento: N3 "Experts - CRM / WhatsApp - Comportamento não esperado", Grau "Alto - Impactou Operação", Ofensor `csat_zendesk`, `csat_transbordo`, Resolução "Envio de orientações (devido)", Devido.
+- Causa resumida: o "Tipo de Solicitação" não é obrigatório em todos os tipos de Jira do EXPBKO, mas é o gatilho da automação de SLA que preenche o `due_date`, obrigatório para segurar a pesquisa.
+- Soluções em avaliação (19/11/2026): (a) tornar o "Tipo de Solicitação" obrigatório em todos os tipos do EXPBKO, com limitações operacionais segundo Lucas Knabben; (b) aumentar os 10 min da validação quando o Jira ainda não tem `due_date`/SLA, com números sendo levantados por Lucas Knabben.
 - Ações registradas na ACR PRD-177601 (comentário de 17/11/2026):
     1. Motor reavalia com limite quando o único candidato é um EXPBKO sem `due_date`, e segura se o limite acabar.
     2. Na origem, prazo provisório ou "Tipo de Solicitação" obrigatório no Jira, a cargo do time do Jira/BKO.
