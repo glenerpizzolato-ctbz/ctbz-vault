@@ -41,7 +41,7 @@ Campos: **repos** = repositórios em `~/repositories` cujo código cita o nome e
 
 ## Guias
 
-- [[deploy-saude-pos-deploy|Deploys e saúde pós-deploy]] — achar os deploys pela API do GitLab, ler no log do job onde foram parar (Cloud Run, Terraform, GKE) e verificar a saúde pelo Cloud Monitoring sem VPN
+- [[deploy-saude-pos-deploy|Deploys e saúde pós-deploy]] — achar os deploys pela API do GitLab, ler no log do job onde foram parar (Cloud Run, Terraform, GKE) e verificar a saúde pelo Cloud Monitoring sem VPN; conferir a versão da imagem (ex: Node da base) que subiu, sem VPN
 - [[cloud-run-gen2-container-threat-detection|Cloud Run: Container Threat Detection exige gen2]] — deploy falha com INVALID_ARGUMENT em serviço gen1; trocar EXECUTION_ENVIRONMENT para gen2 (mín. 1 CPU / 512Mi)
 
 ## Arquitetura (manual)
