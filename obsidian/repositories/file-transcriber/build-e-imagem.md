@@ -11,6 +11,7 @@ metadata:
 - O Node.js que o Wiz acusava (22.15.1, CVE-2026-111497) vinha do pacote `nodejs-wheel-binaries`, dependência do `basedpyright`, que estava nas dependências de produção. Em 2026-10-26 eles foram para o grupo `dev` (file-transcriber!25). O CI usa `uv sync --locked`, que inclui o grupo dev, então o `make lint_check` continua funcionando.
 - **Armadilha ao rodar `uv lock` localmente:** a máquina exporta `UV_EXTRA_INDEX_URL` (mirror PyPI no GitLab) e o lock passa a apontar todas as fontes para ele. Gerar o lock num container limpo: `docker run --rm -v "$PWD":/w -w /w --user $(id -u):$(id -g) -e UV_CACHE_DIR=/tmp/uvc ghcr.io/astral-sh/uv:python3.13-alpine uv lock`.
 - Testes e lint: no mesmo container, com `apk add ffmpeg build-base python3-dev crc32c-dev cmake`, rodar `uv sync --locked`, `uv run python -m pytest` (53 testes) e `uv run basedpyright app --level error`.
+- Imagem de runtime: `python:3.13-alpine` (tag de linha). O pin `python:3.13.17-alpine3.24` e o piso `'brotli-libs>=1.2.1-r0'` da CVE saíram em 2026-11-19 (file-transcriber!26, PRD-178198, work-item #3): a tag já resolvia para a 3.13.18-alpine3.24 e o `apk` instalava `brotli-libs-1.2.1-r0` sem o piso. Para conferir uma imagem: `docker run --rm <img> sh -c 'apk info -v | grep ^brotli-libs; command -v node || echo sem-node'`.
 - Ver [[cve-2026-111497-node2shell]].
 
 ## Terraform de staging é legado
