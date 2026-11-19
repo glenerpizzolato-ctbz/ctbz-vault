@@ -14,3 +14,4 @@ tags:
 - 2026-11-06: MR !57 `feat/PRD-175747` — Draft: PRD-175747 (2/2) Opt-out em lote por empresa e finalidade (aberto)
 - 2026-11-06: MR !58 `feat/PRD-175747-optouts-batch` — Draft: PRD-175747 Rota de registro de opt-outs em lote
 - 2026-11-06: MR !60 `feat/PRD-175747-optouts-arrays` — Draft: PRD-175747 (2/2) purpose e companyCode em array no registro de opt-out
+- 2026-11-19: MR !64 `chore/vitest-5` — Draft: chore(deps): update vitest and @vitest/coverage-v8 to v5
