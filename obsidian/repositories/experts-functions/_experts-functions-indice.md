@@ -15,3 +15,4 @@ caminho: ~/repositories/experts-functions
 Repositório em `~/repositories/experts-functions`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
 - [[build-e-imagem]] — Dockerfile da raiz compartilhado entre functions, tag de imagem por release
+- [[historico-mrs-experts-functions|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
