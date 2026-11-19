@@ -14,4 +14,5 @@ caminho: ~/repositories/emissor-whatsapp-reports
 
 Repositório em `~/repositories/emissor-whatsapp-reports`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-- [[build-e-teste|Build e teste]] — emissor-whatsapp-reports: clone local aponta para o Bitbucket (o atual é GitLab); build exige token npm e bundle prévio; libbrotli do Debian vem do security
+- [[build-e-teste|Build e teste]] — emissor-whatsapp-reports: clone local aponta para o Bitbucket (o atual é GitLab); build exige token npm e bundle prévio; imagem node:22-bookworm (Debian, por causa do Chrome)
+- [[historico-mrs-emissor-whatsapp-reports|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
