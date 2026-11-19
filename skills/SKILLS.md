@@ -21,4 +21,5 @@ Ao criar uma skill nova:
 - [GitLab](gitlab/_gitlab-indice.md) — abrir MR, tratar comentários de revisão e corrigir pipeline
 - [Impostos](impostos/_impostos-indice.md) — regressão e relatório (dia 15) das notificações do agrupamento de guias
 - [Jira](jira/_jira-indice.md) — sincronização das PRDs do vault com o Jira
+- [Repositórios](repositorios/_repositorios-indice.md) — dependências de cada repositório (o que consome e quem o consome) no vault
 - [Zendesk](zendesk/_zendesk-indice.md) — analisar o CSAT Transbordo de tickets, buscar grupo por id/nome, fechar tickets de teste e mapear conversas afetadas por erros da Ultimate
