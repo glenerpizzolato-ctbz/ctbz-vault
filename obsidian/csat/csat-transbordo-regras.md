@@ -58,9 +58,26 @@ O `survey-service` espelha os envios e os transbordos no banco do `experts-servi
 - **Ticket off mesclado** (tag `closed_by_merge`): `IGNORED_TICKET_MERGED`.
 - Fora do expediente, no survey-service o FUP vai para `CSAT_FUP_SCHEDULED` e sai na abertura.
 
+## Histórico da regra do `due_date` (cards)
+
+1. [[PRD-151123]] "[CSAT Transbordo] Considerar apenas SLA <= 48h corridas p/ transbordo" (sub-task PRD-151133, Rafael Maestro, concluída 06/05/2026): cria o filtro de `due_date` <= 48h no `ProcessExpertsTransbordoStrategy` (experts-service MR !68, commit `010f18f`).
+2. [[PRD-154482]] "Ajustes regras de disparo CSAT" (sub-task PRD-154488, Rafael Maestro, concluída 03/06/2026): não envia a pesquisa quando há Jira com `due_date` > 48h, mesmo sem salvar transbordo (MR !95, commit `e18214a`, branch `019-experts-csat-block-on-duedate-over-48h`).
+3. [[PRD-163772]] "[CSAT Transbordo] Aumentar observabilidade e ajustar regra do campo \"due_data\" no Jira" (sub-task PRD-163774, Glener, concluída 20/08/2026): regra por projeto, EXPBKO mantém as 48h de `due_date`, NFEXP ignora o `due_date` e os demais projetos são descartados (MR !108, commit `c76c54e`).
+- **Porquê (validado em 2026-11-19):** nenhum dos cards traz motivo de negócio; o PRD-151123 só diz "tickets com SLA maior que isso não devem avaliar transbordo", e o PRD-154482 completa com "não envia o CSAT e o cliente segue elegível no próximo atendimento". O descarte do `due_date` **nulo** não está em card nenhum: entrou como critério de aceite do WP01 do próprio dev (`AC-1`, MR !68). A primeira versão (`010f18f`) ainda media o atraso (`now - due_date > 48h`, vencido); o `e0d972c` inverteu para prazo futuro (`due_date - now`) e o PRD-155905 (`c414653`) tirou o descarte do vencido.
+- **Colaterais de tirar a regra (análise de 2026-11-19, ticketing prd, Jiras de 18/10 a 17/11):** EXPBKO com demanda preventiva válida = 6.957, dos quais 833 sem `due_date` hoje e 2.873 com prazo > 48h da criação (41%); mediana de ~24,6h até fechar e metade fecha depois de 24h, então quase todo transbordo novo vai receber o aviso de 16h úteis. Depois do aviso o status vira `CSAT_FUP_SLA_16H_EXPIRED_SENT`, que conta como ativo para o FUP mas **não** como `PENDING`, então o bloqueio por CNPJ dura no máximo ~16h úteis. `IGNORED_MULTIPLE_TRANSBORDO` não perde o FUP: os primeiros a fechar são ignorados e o último manda. Com 2+ Jiras no mesmo pai, cada transbordo agenda o próprio aviso de 16h (aviso duplicado ao cliente). NFEXP nunca tem `due_date` (5.353/5.353).
+- Relacionados: [[PRD-155905]] (demandas preventivas, mexeu na elegibilidade do Jira) e [[PRD-177601]] (ACR do EXPBKO sem `due_date` no momento do motor). No survey-service a regra foi portada em `transbordo-hold.ts` (`isJiraEligible`).
+
 ## Armadilhas que já causaram vazamento
 
 - **`due_date` preenchido depois do motor (EXPBKO):** o `due_date` é preenchido pela automação de SLA do Jira (usuário "SVC - Experts", `[SLA] Retorno da automação` de `SEM_SLA` para `VIGENTE`) só depois que o BKO classifica o "Tipo de Solicitação" (o gatilho da automação; na criação ela grava `SEM_SLA`). A automação responde em segundos; quem demora é a classificação manual, que pode passar muito dos 10 min de atraso contados do solved do atendimento. Fluxo em [[automacao-sla-jira]]. Caso do [[PRC-155098 - CSAT sai mesmo com o atendimento transbordado|PRC-155098]]: Jira EXPBKO-241737 criado 11:46, motor às 12:03 com `due_date` nulo, `due_date` preenchido às 12:35 (BRT, 10/11/2026), e a pesquisa saiu.
+- **Histórico da regra do `due_date`** (git do experts-service, datas de merge na master):
+    - 25/11/2025 a 05/05/2026: não havia regra de `due_date`. Qualquer Jira aberto dos 17 projetos, criado depois do pai, segurava. Em 11/12/2025 entrou um debounce de 5 min (`feat/PRD-134756`).
+    - 05/05/2026 (`002-csat-transbordo-delay`): o atraso passou para 10 min, só em `HUMAN_EXPERTS`. A spec assume que 10 min bastam para o Jira *existir*, sem considerar o SLA.
+    - 06/05/2026 (`004-refactor-process-experts-transbordo-execute`): nasce o descarte do Jira com `due_date` nulo, junto com o filtro de 48h, valendo para os 17 projetos. A partir daqui a corrida existe.
+    - 03/06/2026 (`019-experts-csat-block-on-duedate-over-48h`): prazo acima de 48h passa a bloquear a pesquisa. O nulo continua descartado.
+    - 07/07/2026 ([[PRD-155905]]): entra a regra da demanda preventiva. O nulo continua descartado.
+    - 20/08/2026 ([[PRD-163774]]): a regra de prazo fica só no EXPBKO, o NFEXP ignora o prazo e os outros projetos deixam de gerar transbordo.
+    - 12/11/2026: o survey-service herda a mesma regra.
 - **Demanda preventiva vazia descarta o Jira**, assim como "Sim".
 - **BPMP sem atraso:** se o ticket de conversa paralela é aberto depois do solved, o motor já decidiu.
 - **Qualquer PENDING do CNPJ segura**, inclusive um transbordo antigo travado de outro ticket ([[PRD-167347]]).
