@@ -1,0 +1,623 @@
+<title>Mapa do WhatsApp Ativo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: coluna de ~1080px; o centro da página é o diagrama Projeto ↔ Atendimento, colorido pelo número de saída. */
+:root {
+  --bg: #f5f6f3;
+  --surface: #ffffff;
+  --surface-2: #eceeea;
+  --fg: #18201c;
+  --muted: #5a665f;
+  --line: #d6dbd5;
+  --accent: #0f6b57;
+  --accent-soft: #dcefe8;
+  --proj: #6d43c4;
+  --proj-soft: #eee6fb;
+  --atd: #0f6b57;
+  --atd-soft: #dcefe8;
+  --warn: #a5420c;
+  --warn-soft: #fcece0;
+  --bad: #b3261e;
+  --bad-soft: #fbe6e4;
+  --ok: #24733f;
+  --ok-soft: #e1f2e6;
+  --n-main: #1f6fd1;
+  --n-survey: #c2368a;
+  --n-avisos: #c27a0e;
+  --n-ouvidoria: #6b7a12;
+  --n-financeiro: #0e8a8a;
+  --n-mitigacao: #8a5a3c;
+  --font-display: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121614; --surface: #1a1f1c; --surface-2: #232a26; --fg: #e5ebe7; --muted: #9ba89f; --line: #323c36;
+    --accent: #5cc8a8; --accent-soft: #1d3a31; --proj: #b79bf4; --proj-soft: #2b2340; --atd: #5cc8a8; --atd-soft: #1d3a31;
+    --warn: #f0a463; --warn-soft: #3a2a1b; --bad: #f28b82; --bad-soft: #3d1f1d; --ok: #79d196; --ok-soft: #1c3424;
+    --n-main: #6aa8f5; --n-survey: #ee7cc0; --n-avisos: #f0b450; --n-ouvidoria: #b8c95a; --n-financeiro: #4fd0d0; --n-mitigacao: #d0a07e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121614; --surface: #1a1f1c; --surface-2: #232a26; --fg: #e5ebe7; --muted: #9ba89f; --line: #323c36;
+  --accent: #5cc8a8; --accent-soft: #1d3a31; --proj: #b79bf4; --proj-soft: #2b2340; --atd: #5cc8a8; --atd-soft: #1d3a31;
+  --warn: #f0a463; --warn-soft: #3a2a1b; --bad: #f28b82; --bad-soft: #3d1f1d; --ok: #79d196; --ok-soft: #1c3424;
+  --n-main: #6aa8f5; --n-survey: #ee7cc0; --n-avisos: #f0b450; --n-ouvidoria: #b8c95a; --n-financeiro: #4fd0d0; --n-mitigacao: #d0a07e;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 72px; display: grid; gap: 60px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(30px, 5vw, 44px); letter-spacing: -0.01em; }
+h2 { font-size: 24px; }
+h3 { font-size: 16px; }
+p { margin: 0; max-width: 70ch; }
+code { font-family: var(--font-mono); font-size: 0.86em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+section { display: grid; gap: 20px; }
+section > header { display: grid; gap: 8px; }
+.k { display: inline-block; font-family: var(--font-mono); font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+.k.proj { background: var(--proj-soft); color: var(--proj); }
+.k.atd { background: var(--atd-soft); color: var(--atd); }
+
+/* veredito */
+.verdict { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.verdict .stamp { background: var(--warn-soft); padding: 22px; display: grid; gap: 8px; align-content: center; }
+.verdict .stamp b { font-family: var(--font-display); font-size: 26px; color: var(--warn); line-height: 1.15; }
+.verdict .why { padding: 20px 22px; display: grid; gap: 12px; }
+.verdict ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.verdict ol li::marker { font-family: var(--font-display); font-weight: 700; color: var(--warn); }
+
+/* equação */
+.equation { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 14px; }
+.equation .t { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); }
+.equation .t.proj { border-color: var(--proj); color: var(--proj); }
+.equation .t.atd { border-color: var(--atd); color: var(--atd); }
+.equation .op { color: var(--muted); font-size: 18px; }
+
+/* diagrama bipartido */
+.bip { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 14px; }
+.bip-scroll { overflow-x: auto; }
+.bip svg { display: block; min-width: 860px; width: 100%; height: auto; }
+.bip text { font-family: var(--font-mono); font-size: 12.5px; fill: var(--fg); }
+.bip text.h { font-family: var(--font-display); font-size: 13px; font-weight: 600; fill: var(--muted); }
+.bip text.sub { font-size: 11px; fill: var(--muted); }
+.bip .box { fill: var(--surface-2); stroke: var(--line); }
+.bip .box.orphan { fill: var(--bg); stroke-dasharray: 4 3; }
+.bip .wire { fill: none; stroke-width: 2.2; opacity: .75; transition: opacity .15s; }
+.bip .node { cursor: pointer; }
+.bip .node:focus { outline: none; }
+.bip .node:focus-visible .box { stroke: var(--fg); stroke-width: 2; }
+.bip.dim .wire { opacity: .1; }
+.bip.dim .node { opacity: .35; }
+.bip.dim .wire.on { opacity: 1; stroke-width: 3; }
+.bip.dim .node.on { opacity: 1; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.legend .tel { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+/* atendimento → campos (coordenadas paralelas) */
+#par svg { min-width: 1040px; }
+.bip .node.sel .box { stroke: var(--fg); stroke-width: 2; }
+.atd-pick { display: flex; flex-wrap: wrap; gap: 6px; }
+.atd-pick button { font: inherit; font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; }
+.atd-pick button[aria-pressed="true"] { background: var(--atd); border-color: var(--atd); color: var(--bg); }
+.atd-pick button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ficha { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.fcol { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.fcol h3 { font-size: 14px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+.fcol h3 small { font-family: var(--font-mono); font-weight: 400; font-size: 11px; color: var(--muted); }
+.frow { display: grid; gap: 2px; padding: 8px 10px; border-radius: 8px; background: var(--bg); min-width: 0; }
+.frow .f { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.frow .v { font-family: var(--font-mono); font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+.frow .v.plain { font-family: var(--font-body); font-weight: 500; }
+.frow .h { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.frow.off { opacity: .6; }
+.tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; padding: 0 7px; border-radius: 999px; white-space: nowrap; }
+.tag.eq { background: var(--atd-soft); color: var(--atd); }
+.tag.der { background: var(--proj-soft); color: var(--proj); }
+.tag.usr { background: var(--surface-2); color: var(--muted); }
+.tag.no { background: var(--bad-soft); color: var(--bad); }
+.ficha-notes { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 14px; }
+.ficha-notes:empty { display: none; }
+@media (max-width: 900px) { .ficha { grid-template-columns: 1fr; } }
+
+/* leque: um valor, várias consequências */
+.fans { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.fan { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 18px; align-items: center; }
+.fan .src { display: grid; gap: 6px; justify-items: center; text-align: center; }
+.fan .orb { width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center; text-align: center; font-family: var(--font-mono); font-size: 12px; font-weight: 600; padding: 10px; }
+.fan.proj .orb { background: var(--proj-soft); color: var(--proj); border: 2px solid var(--proj); }
+.fan.atd .orb { background: var(--atd-soft); color: var(--atd); border: 2px solid var(--atd); }
+.fan .when { font-size: 12px; color: var(--muted); max-width: 120px; }
+.fan ul { list-style: none; margin: 0; padding: 0 0 0 16px; display: grid; gap: 6px; position: relative; }
+.fan ul::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; border-left: 2px solid var(--c); }
+.fan.proj { --c: var(--proj); } .fan.atd { --c: var(--atd); }
+.fan li { position: relative; background: var(--bg); border-radius: 6px; padding: 6px 10px; font-size: 13.5px; }
+.fan li::before { content: ""; position: absolute; left: -16px; top: 50%; width: 14px; border-top: 2px solid var(--c); }
+.fan li small { display: block; color: var(--muted); font-family: var(--font-mono); font-size: 11.5px; overflow-wrap: anywhere; }
+.fan h3 { grid-column: 1 / -1; margin-bottom: 14px; }
+
+/* esteira horizontal */
+.track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; counter-reset: s; }
+.st { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 8px; align-content: start; position: relative; min-width: 0; }
+.st::before { counter-increment: s; content: counter(s); width: 26px; height: 26px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--font-display); font-weight: 700; display: grid; place-items: center; font-size: 13px; }
+.st:not(:last-child)::after { content: "→"; position: absolute; right: -10px; top: 14px; color: var(--muted); font-size: 16px; background: var(--bg); line-height: 1; padding: 2px 0; }
+.st h3 { font-size: 14.5px; }
+.st .who { font-family: var(--font-mono); font-size: 11px; color: var(--muted); overflow-wrap: anywhere; }
+.st ul { margin: 0; padding-left: 16px; font-size: 13px; display: grid; gap: 3px; }
+
+/* simulador */
+.sim { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 18px; }
+.controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.ctl { display: grid; gap: 6px; min-width: 0; }
+.ctl label { font-size: 13px; font-weight: 600; }
+select { font: inherit; font-size: 14px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); width: 100%; }
+select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.status { padding: 12px 14px; border-radius: 8px; font-weight: 500; }
+.status.ok { background: var(--ok-soft); color: var(--ok); }
+.status.bad { background: var(--bad-soft); color: var(--bad); }
+.out { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.cell { border: 1px solid var(--line); border-left: 4px solid var(--c, var(--line)); border-radius: 8px; padding: 10px 12px; display: grid; gap: 3px; align-content: start; min-width: 0; }
+.cell .lbl { font-size: 12px; color: var(--muted); }
+.cell .val { font-weight: 600; overflow-wrap: anywhere; }
+.cell .sub { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; font-family: var(--font-mono); }
+.notes { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 14px; }
+.notes:empty { display: none; }
+
+/* tabela */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 900px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-display); font-weight: 600; font-size: 13px; background: var(--surface-2); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+.dotn { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+.tel { font-family: var(--font-mono); font-size: 12px; white-space: nowrap; color: var(--muted); }
+.yes { color: var(--ok); font-weight: 600; } .no { color: var(--muted); }
+
+.traps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; }
+.trap { background: var(--warn-soft); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.trap h3 { color: var(--warn); font-size: 15px; }
+.trap p { font-size: 14px; }
+.src { font-size: 13px; color: var(--muted); display: grid; gap: 4px; }
+.src code { font-size: 11.5px; }
+
+@media (max-width: 860px) {
+  .verdict, .fans, .controls { grid-template-columns: 1fr; }
+  .track { grid-template-columns: 1fr; }
+  .st:not(:last-child)::after { content: "↓"; right: auto; left: 22px; top: auto; bottom: -14px; }
+}
+@media (max-width: 480px) {
+  .fan { grid-template-columns: 1fr; gap: 14px; }
+  .fan .orb { width: 96px; height: 96px; }
+}
+@media (prefers-reduced-motion: reduce) { .bip .wire { transition: none; } }
+</style>
+
+<div class="wrap">
+
+  <section>
+    <header>
+      <span class="eyebrow">Correspondência</span>
+      <h2>Qual Projeto aparece em qual Atendimento</h2>
+      <p class="muted">Cada linha é o filtro <code>getSquad</code> da tela. A cor é o número (WABA): à esquerda, onde o template foi criado; à direita, de onde a mensagem sai. Passe o mouse ou toque num item para destacar as ligações.</p>
+    </header>
+    <div class="bip" id="bip">
+      <div class="bip-scroll"><svg id="bip-svg" viewBox="0 0 900 640" role="img" aria-label="Diagrama de ligação entre projetos de template e atendimentos de envio"></svg></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </section>
+
+  <section>
+    <header>
+      <span class="eyebrow">Atendimento → campos do envio</span>
+      <h2>O que o Atendimento preenche em cada envio</h2>
+      <p class="muted">Cada linha é um Atendimento e passa pelo valor que ele gera em cada campo: o squad dos templates listados, a <code>categoria</code> gravada, o fluxo do bot que reconhece a resposta e o número de saída. A cor é o número. Clique num Atendimento (no diagrama ou nos botões) para fixar o caminho e ver a ficha completa do envio logo abaixo.</p>
+    </header>
+    <div class="bip" id="par">
+      <div class="atd-pick" id="atd-pick" role="group" aria-label="Escolher Atendimento"></div>
+      <div class="bip-scroll"><svg id="par-svg" viewBox="0 0 1190 560" role="img" aria-label="Diagrama de quais valores cada Atendimento gera nos campos do envio"></svg></div>
+    </div>
+    <div class="ficha" id="ficha"></div>
+    <ul class="ficha-notes" id="ficha-notes"></ul>
+  </section>
+
+  <section>
+    <header>
+      <span class="eyebrow">Um valor, dois momentos</span>
+      <h2>O que cada campo controla</h2>
+    </header>
+    <div class="fans">
+      <div class="fan proj">
+        <h3>No cadastro do template</h3>
+        <div class="src"><div class="orb">squad<br>= CORE</div><span class="when">fixo para sempre</span></div>
+        <ul>
+          <li>WABA da Meta onde o template existe<small>sunshine.createTemplate(integration)</small></li>
+          <li>Em quais Atendimentos ele aparece<small>squad === getSquad(atendimento)</small></li>
+          <li>Opt-out SURVEY, se o projeto é PESQUISA<small>resolverFinalidadeOptout</small></li>
+          <li>Botões configuráveis, só PESQUISA COM WORKFLOW<small>mensagem_ativa_workflow_config</small></li>
+        </ul>
+      </div>
+      <div class="fan atd">
+        <h3>Em cada envio</h3>
+        <div class="src"><div class="orb">integracao<br>= CORE</div><span class="when">escolhida a cada disparo</span></div>
+        <ul>
+          <li>Número de saída<small>INTEGRATIONS_JSON → integrationId</small></li>
+          <li>Filas e agente oferecidos<small>BuscarFilasService · isAgentAllowed</small></li>
+          <li>categoria gravada<small>mapearCategoriaAtivo</small></li>
+          <li>Validade para ligar a resposta<small>mapearValidadeEmMinutos</small></li>
+          <li>Fluxo do bot que reconhece a resposta<small>buscarMensagensAtivas</small></li>
+          <li>mensagem_ativa.squad (só no individual)<small>squad = integracao</small></li>
+          <li>Regras de envio: grupo de permissão, retentativa<small>permissionGp* · ATIVACAO_MIGRACAO</small></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <header>
+      <span class="eyebrow">Ponta a ponta</span>
+      <h2>Do cadastro à resposta</h2>
+    </header>
+    <div class="track">
+      <div class="st"><h3>Cadastro</h3><span class="who">ModalAddTemplate → CreateWhatsappTemplateService</span>
+        <ul><li>Projeto → WABA + <code>squad</code></li><li>Nasce PENDING; só envia depois de APPROVED</li></ul></div>
+      <div class="st"><h3>Tela de envio</h3><span class="who">WhatsappIndividual / WhatsappMassivo</span>
+        <ul><li>Atendimento liberado pelo grupo do agente</li><li>Templates filtrados por <code>getSquad</code></li><li>Fila e agente → <code>nome_grupo</code>, <code>agente_retorno</code></li></ul></div>
+      <div class="st"><h3>Enfileiramento</h3><span class="who">enfileirar-ativo · massivo/publisher</span>
+        <ul><li>Deriva <code>categoria</code>, validade e <code>squad</code> da integração</li><li>Publica em <code>envio-whatsapp-ativo</code></li></ul></div>
+      <div class="st"><h3>Worker</h3><span class="who">EnviarWhatsappAtivoService</span>
+        <ul><li>Mitigação troca a integração</li><li>Valida template, fila, empresa, ticket aberto</li><li>Opt-out, depois envio pelo número da integração</li></ul></div>
+      <div class="st"><h3>Resposta</h3><span class="who">bot → buscarMensagensAtivas</span>
+        <ul><li>Liga a resposta ao ativo por <code>integracao</code> (ou <code>categoria</code>, no ESPECIAIS)</li><li>Roteia para agente ou grupo</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <header>
+      <span class="eyebrow">Simulador</span>
+      <h2>Escolha um Projeto e um Atendimento</h2>
+      <p class="muted">Segue as regras do app e do backend. Os números são os do configmap de produção.</p>
+    </header>
+    <div class="sim">
+      <div class="controls">
+        <div class="ctl"><label for="sel-proj"><span class="k proj">Projeto</span> do template</label><select id="sel-proj"></select></div>
+        <div class="ctl"><label for="sel-atd"><span class="k atd">Atendimento</span> no envio</label><select id="sel-atd"></select></div>
+      </div>
+      <div id="sim-status" class="status ok"></div>
+      <div class="out" id="sim-out"></div>
+      <ul class="notes" id="sim-notes"></ul>
+    </div>
+  </section>
+
+  <section>
+    <header>
+      <span class="eyebrow">Referência</span>
+      <h2>Cada Atendimento do envio</h2>
+    </header>
+    <div class="tbl"><table>
+      <thead><tr><th>Atendimento (integracao)</th><th>Permissão</th><th>Lista templates do squad</th><th>Número de saída</th><th>Filas</th><th>Agente</th><th>categoria gravada</th><th>Validade</th><th>Resposta no fluxo</th></tr></thead>
+      <tbody id="ref-body"></tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <header><span class="eyebrow">Armadilhas</span><h2>O que costuma surpreender</h2></header>
+    <div class="traps">
+      <div class="trap"><h3>O squad acumula três papéis</h3><p>Visibilidade na tela, WABA e opt-out de pesquisa. Mover um template para PESQUISA, só para cair no opt-out SURVEY, obriga a enviar pelo Atendimento "Pesquisas": o número e o destino da resposta mudam.</p></div>
+      <div class="trap"><h3>"Pesquisa com Workflow" não é SURVEY</h3><p>Grava <code>squad = ATIVOS_WORKFLOW</code>. Apesar do nome, o opt-out de pesquisa não se aplica.</p></div>
+      <div class="trap"><h3>Projetos que a tela cria mas não envia</h3><p>RESERVA, REPRESENTANTES, INBOUND, JUMP e MITIGACAO: nenhum Atendimento lista esses squads. Esses templates só saem por API.</p></div>
+      <div class="trap"><h3>Dois campos chamados squad</h3><p><code>mensagem_ativa_template.squad</code> é o projeto. <code>mensagem_ativa.squad</code> é a integração do envio: o individual preenche, o massivo deixa vazio, e quem chama por API manda o valor que quiser.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <header><span class="eyebrow">Fontes</span><h2>Onde conferir</h2></header>
+    <div class="src">
+      <span><b>zendeskapp-whatsapp-ativo</b> (origin/master db1bdc9): <code>WhatsappTemplates/components/InputsModal.tsx</code>, <code>ModalAddTemplate.tsx</code>, <code>constants/squadTemplate.ts</code>, <code>atendimento-select/atendimento.service.ts</code>, <code>WhatsappIndividual/WhatsappIndividual.tsx</code>, <code>WhatsappMassivo/WhatsappMassivo.tsx</code></span>
+      <span><b>atendimento-zendesk</b> (master fc5b2fe3f): <code>templates/services/create-template.service.ts</code>, <code>zendeskapps/whatsapp-ativo/helpers/index.ts</code>, <code>enfileirar-ativo/enfileirar-whatsapp-ativo.service.ts</code>, <code>buscar-filas/buscar-filas.service.ts</code>, <code>massivo/services/publisher/publisher.service.ts</code>, <code>enviar-ativo/enviar-ativo.service.ts</code>, <code>validar-whatsapp-ativo/validar-whatsapp-ativo.service.ts</code>, <code>verificar-optout/optout-purpose.ts</code>, <code>whatsapp-mensagem-ativa/repository/mensagem-ativa.repository.ts</code></span>
+      <span><b>k8s-configmap</b>: <code>crm-prd/atendimento-zendesk-prd.yaml</code> → <code>APP_MODULES_WHATSAPP_ATIVO_INTEGRATIONS_JSON</code></span>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var NUM = {
+    MAIN: { nome: 'WhatsApp (Main)', tel: '+55 41 4101-0021', cor: 'var(--n-main)' },
+    SURVEY: { nome: 'WhatsApp (Survey)', tel: '+55 11 95817-7006', cor: 'var(--n-survey)' },
+    AVISOS: { nome: 'WhatsApp (Avisos)', tel: '+55 41 9813-0400', cor: 'var(--n-avisos)' },
+    OUVIDORIA: { nome: 'Contabilizei Ouvidoria', tel: '+55 41 4141-0099', cor: 'var(--n-ouvidoria)' },
+    FINANCEIRO: { nome: 'WhatsApp (Financeiro)', tel: '+55 11 5026-5417', cor: 'var(--n-financeiro)' },
+    MITIGACAO: { nome: 'WhatsApp (Mitigação)', tel: '+55 41 9972-0167', cor: 'var(--n-mitigacao)' }
+  };
+  var WABA = { CORE: 'MAIN', BANK: 'MAIN', EXPERTS: 'MAIN', SURVEY: 'SURVEY', RESERVA: 'AVISOS', REPRESENTANTES: 'MAIN', JUMP: 'MAIN', INBOUND: 'MAIN', OUVIDORIA: 'OUVIDORIA', CORRETORA: 'MAIN', AVISOS: 'AVISOS', MITIGACAO: 'MITIGACAO', CSA: 'MAIN', FINANCEIRO: 'FINANCEIRO', ATIVACAO_MIGRACAO: 'MAIN', FLOW: 'MAIN', ATIVOS_WORKFLOW: 'MAIN' };
+  var PROJETOS = [
+    ['CORE', 'CORE', ''], ['EXPERTS', 'EXPERTS', ''], ['BANK', 'BANK', ''], ['SURVEY', 'PESQUISA', ''],
+    ['OUVIDORIA', 'OUVIDORIA', ''], ['CORRETORA', 'CORRETORA', ''], ['AVISOS', 'AVISOS', ''],
+    ['CSA', 'CSA', 'permissionGpCsa'], ['FINANCEIRO', 'FINANCEIRO', 'permissionGpFinanceiro'],
+    ['ATIVACAO_MIGRACAO', 'ATIVAÇÃO E MIGRAÇÃO', 'permissionGpAtivacaoMigracao'], ['FLOW', 'FLOW', 'permissionGpFlow'],
+    ['ATIVOS_WORKFLOW', 'PESQUISA COM WORKFLOW', 'permissionGpAtivosWorkflow'],
+    ['RESERVA', 'RESERVA', ''], ['REPRESENTANTES', 'REPRESENTANTES', ''], ['INBOUND', 'INBOUND', ''], ['JUMP', 'JUMP', ''], ['MITIGACAO', 'MITIGACAO', '']
+  ];
+  var ATENDIMENTOS = [
+    ['CORE', 'Atendimento Core', ''], ['EXPERTS', 'Atendimento Experts', ''], ['INBOUND', 'Atendimento Inbound', 'permissionGpInbound'],
+    ['REPRESENTANTES', 'Atendimento Representantes', 'permissionGpRepresentantes'], ['BANK', 'Atendimento Bank', 'permissionGpBank'],
+    ['SURVEY', 'Pesquisas', 'permissionGpSurvey'], ['OUVIDORIA', 'Atendimento Ouvidoria', 'permissionGpOuvidoria'],
+    ['CORRETORA', 'Atendimento Corretora', 'permissionGpCorretora'], ['AVISOS', 'Contabilizei - Avisos', 'permissionGpAvisos'],
+    ['CSA', 'Atendimento CSA', 'permissionGpCsa'], ['FINANCEIRO', 'Atendimento Financeiro', 'permissionGpFinanceiro'],
+    ['ATIVACAO_MIGRACAO', 'Ativação e Migração', 'permissionGpAtivacaoMigracao'], ['FLOW', 'Atendimento Flow', 'permissionGpFlow'],
+    ['ATIVOS_WORKFLOW', 'Pesquisa com Workflow', 'permissionGpAtivosWorkflow']
+  ];
+  var ESPECIAIS = ['WORKER_CSAT', 'REPRESENTANTES_ATIVO', 'JUMP', 'INBOUND', 'CSA', 'ATIVACAO_MIGRACAO', 'FLOW', 'ATIVOS_WORKFLOW'];
+  var FLUXO_MAIN = ['BANK', 'BASICO_PADRAO', 'EXPERTS', 'EXPERTS_ATIVACAO', 'CORE', 'ESPECIAIS', 'CORRETORA', 'MITIGACAO'];
+  var DINAMICOS = { CORE: 'BASICO_PADRAO', BANK: 'BANK', OUVIDORIA: 'OUVIDORIA', CORRETORA: 'CORRETORA' };
+
+  function getSquad(a) {
+    var same = ['BANK', 'SURVEY', 'OUVIDORIA', 'CORRETORA', 'AVISOS', 'CSA', 'FINANCEIRO', 'ATIVACAO_MIGRACAO', 'FLOW', 'ATIVOS_WORKFLOW'];
+    if (a === 'CORE' || a === 'RESERVA') return 'CORE';
+    if (same.indexOf(a) >= 0) return a;
+    return 'EXPERTS';
+  }
+  function categoria(a) {
+    var m = { REPRESENTANTES: 'REPRESENTANTES_ATIVO', INBOUND: 'INBOUND', JUMP: 'JUMP', CSA: 'CSA', FINANCEIRO: 'FINANCEIRO', ATIVACAO_MIGRACAO: 'ATIVACAO_MIGRACAO', FLOW: 'FLOW', ATIVOS_WORKFLOW: 'ATIVOS_WORKFLOW' };
+    return m[a] || 'ZENDESKAPP_WHATSAPP_ATIVO';
+  }
+  function agente(a) { return ['CORE', 'EXPERTS', 'REPRESENTANTES'].indexOf(a) >= 0; }
+  function fluxoResposta(a) {
+    var c = categoria(a);
+    if (ESPECIAIS.indexOf(c) >= 0) return { fluxo: 'ESPECIAIS', por: 'categoria = ' + c };
+    if (FLUXO_MAIN.indexOf(a) >= 0) return { fluxo: a, por: 'integracao = ' + a + ' ou MITIGACAO' };
+    return { fluxo: a, por: 'integracao = ' + a };
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  /* ---------- diagrama bipartido ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('bip-svg');
+  var bip = document.getElementById('bip');
+  var ROW = 34, TOP = 48, BW = 210, BH = 26, LX = 10, RX = 450, NX = 676;
+  var H = TOP + PROJETOS.length * ROW + 10;
+  svg.setAttribute('viewBox', '0 0 900 ' + H);
+  function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }
+  function txt(x, y, s, cls, parent) { var t = el('text', { x: x, y: y, 'class': cls || '' }, parent); t.textContent = s; return t; }
+  txt(LX, 22, 'PROJETO DO TEMPLATE (squad)', 'h');
+  txt(RX, 22, 'ATENDIMENTO DO ENVIO (integracao)', 'h');
+  txt(NX, 22, 'NÚMERO DE SAÍDA', 'h');
+  var atdOffset = TOP + ((PROJETOS.length - ATENDIMENTOS.length) * ROW) / 2 - ROW * 1.5;
+  atdOffset = TOP;
+  var wiresG = el('g', {});
+  var nodes = {};
+  function linked(p) { return ATENDIMENTOS.filter(function (a) { return getSquad(a[0]) === p; }).map(function (a) { return a[0]; }); }
+  PROJETOS.forEach(function (p, i) {
+    var y = TOP + i * ROW, orphan = linked(p[0]).length === 0;
+    var g = el('g', { 'class': 'node', tabindex: '0', 'data-p': p[0] });
+    el('rect', { x: LX, y: y, width: BW, height: BH, rx: 6, 'class': 'box' + (orphan ? ' orphan' : '') }, g);
+    el('rect', { x: LX, y: y, width: 6, height: BH, rx: 2, style: 'fill:' + NUM[WABA[p[0]]].cor }, g);
+    txt(LX + 14, y + 17, p[1], '', g);
+    if (orphan) txt(LX + BW + 8, y + 17, 'só API', 'sub', g);
+    nodes['p:' + p[0]] = { g: g, y: y + BH / 2 };
+  });
+  ATENDIMENTOS.forEach(function (a, i) {
+    var y = atdOffset + i * ROW, n = NUM[WABA[a[0]]];
+    var g = el('g', { 'class': 'node', tabindex: '0', 'data-a': a[0] });
+    el('rect', { x: RX, y: y, width: BW, height: BH, rx: 6, 'class': 'box' }, g);
+    el('rect', { x: RX + BW - 6, y: y, width: 6, height: BH, rx: 2, style: 'fill:' + n.cor }, g);
+    txt(RX + 10, y + 17, a[0], '', g);
+    el('circle', { cx: NX + 6, cy: y + BH / 2, r: 5, style: 'fill:' + n.cor }, g);
+    txt(NX + 18, y + 17, n.tel, 'sub', g);
+    nodes['a:' + a[0]] = { g: g, y: y + BH / 2 };
+  });
+  var wires = [];
+  ATENDIMENTOS.forEach(function (a) {
+    var p = getSquad(a[0]), y1 = nodes['p:' + p].y, y2 = nodes['a:' + a[0]].y, x1 = LX + BW, x2 = RX;
+    var d = 'M' + x1 + ',' + y1 + ' C' + (x1 + 110) + ',' + y1 + ' ' + (x2 - 110) + ',' + y2 + ' ' + x2 + ',' + y2;
+    var w = el('path', { d: d, 'class': 'wire', style: 'stroke:' + NUM[WABA[a[0]]].cor }, wiresG);
+    wires.push({ el: w, p: p, a: a[0] });
+  });
+  function highlight(kind, id) {
+    bip.classList.add('dim');
+    var ps = {}, as = {};
+    wires.forEach(function (w) {
+      var on = (kind === 'p' && w.p === id) || (kind === 'a' && w.a === id);
+      w.el.classList.toggle('on', on);
+      if (on) { ps[w.p] = 1; as[w.a] = 1; }
+    });
+    if (kind === 'p') ps[id] = 1; else as[id] = 1;
+    Object.keys(nodes).forEach(function (k) {
+      var parts = k.split(':'); var on = parts[0] === 'p' ? ps[parts[1]] : as[parts[1]];
+      nodes[k].g.classList.toggle('on', !!on);
+    });
+  }
+  function clear() { bip.classList.remove('dim'); }
+  Object.keys(nodes).forEach(function (k) {
+    var parts = k.split(':'), g = nodes[k].g;
+    g.addEventListener('mouseenter', function () { highlight(parts[0], parts[1]); });
+    g.addEventListener('mouseleave', clear);
+    g.addEventListener('focus', function () { highlight(parts[0], parts[1]); });
+    g.addEventListener('blur', clear);
+    g.addEventListener('click', function () { highlight(parts[0], parts[1]); });
+  });
+  document.getElementById('legend').innerHTML = Object.keys(NUM).map(function (k) {
+    return '<span><i style="background:' + NUM[k].cor + '"></i>' + esc(NUM[k].nome) + ' <span class="tel">' + NUM[k].tel + '</span></span>';
+  }).join('');
+
+  /* ---------- atendimento → campos ---------- */
+  (function () {
+    var par = document.getElementById('par'), psvg = document.getElementById('par-svg');
+    var shortNum = { MAIN: 'Main', SURVEY: 'Survey', AVISOS: 'Avisos', OUVIDORIA: 'Ouvidoria', FINANCEIRO: 'Financeiro', MITIGACAO: 'Mitigação' };
+    var COLS = [
+      { key: 'squad', title: 'TEMPLATES LISTADOS (squad)', x: 300, w: 180, val: function (a) { return getSquad(a); } },
+      { key: 'cat', title: 'mensagem_ativa.categoria', x: 560, w: 230, val: function (a) { return categoria(a); } },
+      { key: 'fluxo', title: 'FLUXO DA RESPOSTA', x: 860, w: 130, val: function (a) { return fluxoResposta(a).fluxo; } },
+      { key: 'num', title: 'NÚMERO DE SAÍDA', x: 1050, w: 130, val: function (a) { return WABA[a]; }, label: function (v) { return shortNum[v]; } }
+    ];
+    var AX = 10, AW = 210, ROWH = 34, TOPY = 48, BH2 = 26;
+    var H2 = TOPY + ATENDIMENTOS.length * ROWH + 10;
+    psvg.setAttribute('viewBox', '0 0 1190 ' + H2);
+    function pel(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); (parent || psvg).appendChild(e); return e; }
+    function ptxt(x, y, s, cls, parent) { var t = pel('text', { x: x, y: y, 'class': cls || '' }, parent); t.textContent = s; return t; }
+    ptxt(AX, 22, 'ATENDIMENTO = integracao', 'h');
+    var wiresG2 = pel('g', {});
+    var pnodes = [], ppaths = [];
+    var aY = {};
+    ATENDIMENTOS.forEach(function (a, i) {
+      var y = TOPY + i * ROWH;
+      var g = pel('g', { 'class': 'node', tabindex: '0' });
+      pel('rect', { x: AX, y: y, width: AW, height: BH2, rx: 6, 'class': 'box' }, g);
+      pel('rect', { x: AX + AW - 6, y: y, width: 6, height: BH2, rx: 2, style: 'fill:' + NUM[WABA[a[0]]].cor }, g);
+      ptxt(AX + 10, y + 17, a[0], '', g);
+      aY[a[0]] = y + BH2 / 2;
+      pnodes.push({ g: g, set: [a[0]], atd: a[0] });
+    });
+    var colY = [];
+    COLS.forEach(function (c, ci) {
+      ptxt(c.x, 22, c.title, 'h');
+      var vals = [];
+      ATENDIMENTOS.forEach(function (a) { var v = c.val(a[0]); if (vals.indexOf(v) < 0) vals.push(v); });
+      var span = ATENDIMENTOS.length * ROWH, step = span / vals.length;
+      var ys = {};
+      vals.forEach(function (v, i) {
+        var y = TOPY + i * step + (step - BH2) / 2;
+        var users = ATENDIMENTOS.filter(function (a) { return c.val(a[0]) === v; }).map(function (a) { return a[0]; });
+        var g = pel('g', { 'class': 'node' });
+        pel('rect', { x: c.x, y: y, width: c.w, height: BH2, rx: 6, 'class': 'box' }, g);
+        if (c.key === 'num') pel('rect', { x: c.x, y: y, width: 6, height: BH2, rx: 2, style: 'fill:' + NUM[v].cor }, g);
+        ptxt(c.x + (c.key === 'num' ? 14 : 10), y + 17, c.label ? c.label(v) : v, '', g);
+        if (c.key === 'num') ptxt(c.x + 14, y + BH2 + 13, NUM[v].tel, 'sub', g);
+        ys[v] = y + BH2 / 2;
+        pnodes.push({ g: g, set: users });
+      });
+      colY.push(ys);
+    });
+    ATENDIMENTOS.forEach(function (a) {
+      var A = a[0], pts = [[AX + AW, aY[A]]];
+      COLS.forEach(function (c, ci) { var y = colY[ci][c.val(A)]; pts.push([c.x, y]); pts.push([c.x + c.w, y]); });
+      var d = 'M' + pts[0][0] + ',' + pts[0][1];
+      for (var i = 1; i < pts.length; i += 2) {
+        var p0 = i === 1 ? pts[0] : pts[i - 1], p1 = pts[i], m = (p1[0] - p0[0]) / 2;
+        d += ' C' + (p0[0] + m) + ',' + p0[1] + ' ' + (p1[0] - m) + ',' + p1[1] + ' ' + p1[0] + ',' + p1[1];
+        if (pts[i + 1]) d += ' L' + pts[i + 1][0] + ',' + pts[i + 1][1];
+      }
+      ppaths.push({ el: pel('path', { d: d, 'class': 'wire', style: 'stroke:' + NUM[WABA[A]].cor }, wiresG2), a: A });
+    });
+
+    var selected = 'EXPERTS';
+    function show(A) {
+      par.classList.add('dim');
+      ppaths.forEach(function (p) { p.el.classList.toggle('on', p.a === A); });
+      pnodes.forEach(function (n) { n.g.classList.toggle('on', n.set.indexOf(A) >= 0); n.g.classList.toggle('sel', n.atd === selected); });
+    }
+    function select(A) {
+      selected = A; show(A); renderFicha(A);
+      Array.prototype.forEach.call(document.querySelectorAll('#atd-pick button'), function (b) { b.setAttribute('aria-pressed', String(b.dataset.a === A)); });
+    }
+    pnodes.forEach(function (n) {
+      if (!n.atd) return;
+      n.g.addEventListener('mouseenter', function () { show(n.atd); });
+      n.g.addEventListener('mouseleave', function () { show(selected); });
+      n.g.addEventListener('click', function () { select(n.atd); });
+      n.g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(n.atd); } });
+    });
+    var pick = document.getElementById('atd-pick');
+    ATENDIMENTOS.forEach(function (a) {
+      var b = document.createElement('button'); b.type = 'button'; b.dataset.a = a[0]; b.textContent = a[1];
+      b.addEventListener('click', function () { select(a[0]); }); pick.appendChild(b);
+    });
+
+    function row(f, v, tag, h, opts) {
+      opts = opts || {};
+      var tags = { eq: '= Atendimento', der: 'derivado', usr: 'escolha na tela', no: 'não enviado' };
+      return '<div class="frow' + (opts.off ? ' off' : '') + '"><span class="f"><span>' + f + '</span>' + (tag ? '<span class="tag ' + tag + '">' + tags[tag] + '</span>' : '') + '</span><span class="v' + (opts.plain ? ' plain' : '') + '">' + v + '</span>' + (h ? '<span class="h">' + h + '</span>' : '') + '</div>';
+    }
+    function renderFicha(A) {
+      var S = getSquad(A), n = NUM[WABA[A]], fr = fluxoResposta(A), atdLabel = ATENDIMENTOS.filter(function (x) { return x[0] === A; })[0][1];
+      var ag = agente(A), filaSrc = DINAMICOS[A] ? 'grupos do Zendesk do fluxo ' + DINAMICOS[A] + ' (zendesk_grupos)' : 'tabela fila com atendimento = ' + A + ' e nome com [WHATSAPP]';
+      var tela =
+        row('Atendimento', esc(atdLabel), null, 'só aparece para quem está no grupo ' + (ATENDIMENTOS.filter(function (x) { return x[0] === A; })[0][2] || '(livre para todos)'), { plain: true }) +
+        row('template', 'squad = ' + S, 'der', 'a lista mostra só templates com squad === getSquad(' + A + ')' + (S !== A ? '. Aqui o squad é diferente do Atendimento.' : '')) +
+        row('integracao', A, 'eq', 'valor do Atendimento, sem transformação') +
+        row('fila', '&lt;nome do grupo&gt;', 'usr', 'opções vindas de ' + filaSrc) +
+        row('agente', ag ? '&lt;e-mail do agente&gt;' : '(não enviado)', ag ? 'usr' : 'no', ag ? 'agentes da fila escolhida' : 'a tela só oferece agente em CORE, EXPERTS e REPRESENTANTES', { off: !ag }) +
+        row('destino · cnpj · processoAberturaId', '&lt;cliente buscado&gt;', 'usr', 'telefone, CNPJ, contato ou processo de abertura') +
+        row('categoria · squad · validadeEmMinutos · optoutPurpose', '(não enviados)', 'no', 'o backend deriva os três primeiros; optoutPurpose a tela nunca manda', { off: true });
+      var banco =
+        row('integracao', A, 'eq', 'vira MITIGACAO se o telefone estiver em flag_tel_mitigacao' + (WABA[A] === 'MAIN' ? '' : ' (não se aplica: este número não é o Main)')) +
+        row('squad', A + ' · vazio no massivo', 'eq', 'squad = integracao no envio individual') +
+        row('categoria', categoria(A), 'der', 'mapearCategoriaAtivo(' + A + ')') +
+        row('validade_em_minutos', A === 'REPRESENTANTES' ? '2880 (48 h)' : '1440 (24 h)', 'der', 'mapearValidadeEmMinutos') +
+        row('nome_grupo · agente_retorno', 'fila · ' + (ag ? 'agente' : 'vazio'), 'usr', 'o que foi escolhido na tela') +
+        row('tipo', 'INDIVIDUAL · MASSIVA', 'der', 'pela aba usada') +
+        row('doc_tipo · doc_valor', 'cnpj · processo_abertura_id', 'der', 'pelo identificador do cliente');
+      var efeito =
+        '<div class="frow" style="border-left:4px solid ' + n.cor + '"><span class="f"><span>número de saída</span><span class="tag eq">= Atendimento</span></span><span class="v">' + esc(n.nome) + '</span><span class="h">' + n.tel + ' · INTEGRATIONS_JSON[' + A + ']</span></div>' +
+        row('resposta do cliente', 'fluxo ' + fr.fluxo, fr.fluxo === 'ESPECIAIS' ? 'der' : 'eq', 'o bot liga a resposta ao ativo por ' + fr.por + ', dentro da validade, e roteia para o agente (se online) ou para o grupo') +
+        row('opt-out de pesquisa', S === 'SURVEY' ? 'Sim (SURVEY)' : 'Não', 'der', 'vem do squad do template (' + S + '), não do Atendimento', { plain: true }) +
+        row('retentativa', A === 'ATIVACAO_MIGRACAO' ? 'cancela se houver ticket · teto 100' : 'retenta sem teto enquanto houver ticket aberto', 'der', A === 'ATIVACAO_MIGRACAO' ? 'retryIfExistsSomeTicket = false, retryLimit = 100, sem checagem de plano' : 'empresa que não é Expert só recebe em dia útil', { plain: true });
+      document.getElementById('ficha').innerHTML =
+        '<div class="fcol"><h3>A tela manda <small>POST /zendeskapps/whatsapp-ativo</small></h3>' + tela + '</div>' +
+        '<div class="fcol"><h3>mensagem_ativa grava <small>enfileirar → worker</small></h3>' + banco + '</div>' +
+        '<div class="fcol"><h3>No envio e na resposta <small>' + esc(atdLabel) + '</small></h3>' + efeito + '</div>';
+      var notes = [];
+      if (S !== A) notes.push('"' + atdLabel + '" lista templates do squad ' + S + ', mas grava integracao = ' + A + ' e squad = ' + A + ' no envio. É o caso em que o squad do template e o squad do envio ficam diferentes.');
+      if (fr.fluxo === 'ESPECIAIS') notes.push('A resposta não é procurada pela integracao: o bot no fluxo ESPECIAIS procura pela categoria ' + categoria(A) + '.');
+      if (A === 'ATIVOS_WORKFLOW') notes.push('Os botões seguem a configuração gravada no cadastro do template. O nome diz "Pesquisa", mas o opt-out de pesquisa não se aplica.');
+      if (A === 'SURVEY') notes.push('Único Atendimento em que o envio pelo app cai no opt-out de pesquisa: os templates listados são todos do squad SURVEY.');
+      document.getElementById('ficha-notes').innerHTML = notes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+    }
+    select(selected);
+  })();
+
+  /* ---------- simulador ---------- */
+  var selProj = document.getElementById('sel-proj'), selAtd = document.getElementById('sel-atd');
+  PROJETOS.forEach(function (p) { var o = document.createElement('option'); o.value = p[0]; o.textContent = p[1] + (p[0] !== p[1] ? ' (' + p[0] + ')' : ''); selProj.appendChild(o); });
+  ATENDIMENTOS.forEach(function (a) { var o = document.createElement('option'); o.value = a[0]; o.textContent = a[1] + ' (' + a[0] + ')'; selAtd.appendChild(o); });
+  function cell(lbl, val, sub, cor) { return '<div class="cell" style="--c:' + (cor || 'var(--line)') + '"><span class="lbl">' + lbl + '</span><span class="val">' + val + '</span>' + (sub ? '<span class="sub">' + sub + '</span>' : '') + '</div>'; }
+  function render() {
+    var proj = selProj.value, a = selAtd.value;
+    var st = document.getElementById('sim-status'), out = document.getElementById('sim-out'), notes = document.getElementById('sim-notes');
+    var nTpl = NUM[WABA[proj]];
+    if (getSquad(a) !== proj) {
+      var onde = ATENDIMENTOS.filter(function (x) { return getSquad(x[0]) === proj; }).map(function (x) { return '"' + x[1] + '"'; });
+      st.className = 'status bad';
+      st.textContent = 'O template não aparece nesse Atendimento. ' + (onde.length ? 'Ele só é listado em ' + onde.join(', ') + '.' : 'Nenhum Atendimento lista o projeto ' + proj + ': esse template só sai por API.');
+      out.innerHTML = cell('Template criado na WABA', esc(nTpl.nome), nTpl.tel, nTpl.cor) + cell('mensagem_ativa_template.squad', '<code>' + esc(proj) + '</code>', '', 'var(--proj)');
+      notes.innerHTML = ''; return;
+    }
+    var n = NUM[WABA[a]], fr = fluxoResposta(a), lst = [];
+    st.className = 'status ok';
+    st.textContent = 'Envio possível. squad do template = ' + proj + ', integracao do envio = ' + a + (proj === a ? ' (mesmo valor).' : ' (valores diferentes: getSquad liga os dois).');
+    out.innerHTML =
+      cell('Número de saída', esc(n.nome), n.tel, n.cor) +
+      cell('Filas oferecidas', DINAMICOS[a] ? 'Grupos do Zendesk' : 'Tabela fila', DINAMICOS[a] ? 'zendesk_grupos · fluxo ' + DINAMICOS[a] : 'fila.atendimento = ' + a, 'var(--atd)') +
+      cell('Agente de retorno', agente(a) ? 'Pode escolher' : 'Não oferecido', '', 'var(--atd)') +
+      cell('mensagem_ativa.categoria', '<code>' + categoria(a) + '</code>', '', 'var(--atd)') +
+      cell('Validade da resposta', a === 'REPRESENTANTES' ? '48 h' : '24 h', 'validade_em_minutos', 'var(--atd)') +
+      cell('Resposta reconhecida no fluxo', esc(fr.fluxo), esc(fr.por), 'var(--atd)') +
+      cell('Opt-out de pesquisa', proj === 'SURVEY' ? 'Sim, SURVEY' : 'Não', proj === 'SURVEY' ? 'template.squad = SURVEY' : 'depende do squad do template', 'var(--proj)');
+    if (WABA[a] === 'MAIN') lst.push('Se o telefone estiver em flag_tel_mitigacao, a integração vira MITIGACAO e a mensagem sai do WhatsApp (Mitigação), +55 41 9972-0167.');
+    if (a === 'ATIVACAO_MIGRACAO') lst.push('Sem validação de plano nem de dia útil; com ticket aberto o envio é cancelado em vez de retentar; teto de 100 retentativas.');
+    if (a === 'ATIVOS_WORKFLOW') lst.push('Os botões seguem a configuração gravada no cadastro. O nome diz "Pesquisa", mas não é opt-out SURVEY.');
+    var ap = PROJETOS.filter(function (p) { return p[0] === proj; })[0], aa = ATENDIMENTOS.filter(function (x) { return x[0] === a; })[0];
+    if (ap[2] || aa[2]) lst.push('Permissão: ' + (ap[2] ? 'criar o projeto exige o grupo em ' + ap[2] + '. ' : '') + (aa[2] ? 'enviar exige o grupo em ' + aa[2] + '.' : ''));
+    notes.innerHTML = lst.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+  }
+  selProj.value = 'CORE'; selAtd.value = 'CORE';
+  selProj.addEventListener('change', render); selAtd.addEventListener('change', render);
+  render();
+
+  /* ---------- tabela ---------- */
+  document.getElementById('ref-body').innerHTML = ATENDIMENTOS.map(function (x) {
+    var a = x[0], n = NUM[WABA[a]], fr = fluxoResposta(a), sq = getSquad(a);
+    return '<tr><td><b>' + esc(x[1]) + '</b><br><code>' + a + '</code></td><td>' + (x[2] ? '<code>' + x[2] + '</code>' : '<span class="no">todos</span>') + '</td><td><code>' + sq + '</code>' + (sq !== a ? ' <span class="no">≠</span>' : '') + '</td><td><span class="dotn" style="background:' + n.cor + '"></span>' + esc(n.nome) + '<br><span class="tel">' + n.tel + '</span></td><td>' + (DINAMICOS[a] ? 'Grupos Zendesk (' + DINAMICOS[a] + ')' : 'Tabela fila') + '</td><td>' + (agente(a) ? '<span class="yes">sim</span>' : '<span class="no">não</span>') + '</td><td><code>' + categoria(a) + '</code></td><td>' + (a === 'REPRESENTANTES' ? '48 h' : '24 h') + '</td><td>' + fr.fluxo + '<br><span class="no">' + esc(fr.por) + '</span></td></tr>';
+  }).join('');
+})();
+</script>

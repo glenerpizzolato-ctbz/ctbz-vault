@@ -6,6 +6,7 @@
 - [Comunicação](comunicacao/_comunicacao-indice.md) — onde enviar mensagens por assunto (espaços do Google Chat etc.) e como enviar
 - [APIs](apis/_apis-indice.md) — como chamar APIs internas: tokens (SSO dev/prd), liberação de IP e requisições pelo Bruno/curl
 - [Ultimate](ultimate/_ultimate-indice.md) — bots de WhatsApp na Ultimate: roteamento para grupos do Zendesk (N1 Ativação por SOCI), endpoints dos fluxos e testes
+- [Artefatos](artefatos/_artefatos-indice.md) — páginas visuais geradas pelo Claude (claude.ai/artifact) guardadas como referência: link, assunto e o HTML-fonte para republicar
 - [Mensagem ativa](mensagem-ativa/_mensagem-ativa-indice.md) — WhatsApp ativo: envio/validação no atendimento-zendesk, números e o que os bots da Ultimate fazem com o retorno do cliente
 - [Testes](tests/_tests-indice.md) — roteiros de teste (preparar massa, disparar fluxos, conferir resultado) por domínio e por repositório
 - [Padrões](padroes/_padroes-indice.md) — convenções do time que valem para qualquer serviço (nomenclatura de recursos, organização de código)

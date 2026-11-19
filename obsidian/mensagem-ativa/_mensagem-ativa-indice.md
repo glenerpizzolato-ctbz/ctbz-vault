@@ -17,3 +17,4 @@ Conteúdo transversal sobre o ativo: envio e validação no `atendimento-zendesk
 - [[whatsapp-ativo-fora-do-horario-comercial]] — envio fora do horário comercial
 - [[whatsapp-ativo-telefone-internacional]] — telefone internacional no ativo
 - [[teste-evento-hubspot-whatsapp-ativo]] — teste do evento HubSpot do ativo
+- [[mapa-whatsapp-ativo|Mapa do WhatsApp Ativo]] — artefato visual: Projeto do template x Atendimento do envio e como o Atendimento preenche cada campo (número, categoria, fila, resposta, opt-out)
