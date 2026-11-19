@@ -17,7 +17,7 @@ Para onde vai cada mensagem, por assunto. Quando o usuário pedir para "enviar",
 | --- | --- | --- |
 | PRCs (chamados): andamento, triagem, repasses, pedidos ao time | Espaço "PRCs \| Eng. Canais" (Google Chat) | https://mail.google.com/mail/u/0/#chat/space/AAQAfFlovh4 |
 | Alertas de prod do Cloud Monitoring (Pub/Sub, memória do Cloud Run, % de erro) e as investigações automáticas: responder na thread do alerta | Espaço "Engenharia Canais \| Alertas" (Google Chat) | https://chat.google.com/room/AAAA22umHGg |
-| Compartilhar com o time uma página (artefato do Claude, HTML ou `.md`) para ficar salva | html-share (upload pelo usuário, login Google) — ver [[compartilhar-com-o-time]] | https://html-share.ctbz.com.br/ |
+| Compartilhar com o time uma página (artefato do Claude, HTML ou `.md`) para ficar salva | HTML Share (pela tela ou pela skill `publish-html-share`; atrás do SSO) — ver [[compartilhar-com-o-time]] | https://html-share.ctbz.com.br/ |
 
 ## Como enviar
 
