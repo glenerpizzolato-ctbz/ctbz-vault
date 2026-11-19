@@ -20,3 +20,4 @@ Repositório em `~/repositories/agrupamento-guias-service`. Notas sobre ele (com
 - [[replicar-features-no-agrupamento-guias-service|Features do microsservico a replicar]] — work-items abertos aqui para cada feature de notificação do microsservico-agrupamento-guias ainda não portada (nota na pasta do microsservico)
 - [[pipeline-sem-testes-sonar|Pipeline sem testes]] — não há arquivo custom no repo de pipeline: o MR não roda teste e o Sonar reprova por cobertura; modelo no contato-service
 - [[node-26-agrupamento-guias-service|Node 26]] — migração para Node 26 com TS nativo (MR !8, #9): imports `.ts`, ioredis nomeado no `nodenext`, `noUncheckedIndexedAccess`, `env -u PORT` nos testes da worktree e como buildar/subir a imagem localmente (`/healthz`)
+- [[dependencias-agrupamento-guias-service|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

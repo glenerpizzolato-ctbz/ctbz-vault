@@ -14,4 +14,4 @@ caminho: ~/repositories/zendesk-agents
 
 Repositório em `~/repositories/zendesk-agents`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-zendesk-agents|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

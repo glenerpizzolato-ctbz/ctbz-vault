@@ -14,4 +14,4 @@ caminho: ~/repositories/invite-nps-whatsapp
 
 Repositório em `~/repositories/invite-nps-whatsapp`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-invite-nps-whatsapp|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

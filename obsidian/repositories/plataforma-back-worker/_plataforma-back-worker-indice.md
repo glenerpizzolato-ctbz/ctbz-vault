@@ -14,4 +14,4 @@ caminho: ~/repositories/plataforma-back-worker
 
 Repositório em `~/repositories/plataforma-back-worker`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-plataforma-back-worker|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

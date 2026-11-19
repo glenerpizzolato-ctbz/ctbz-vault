@@ -14,4 +14,4 @@ caminho: ~/repositories/contabilizei-agents
 
 Repositório em `~/repositories/contabilizei-agents`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-contabilizei-agents|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

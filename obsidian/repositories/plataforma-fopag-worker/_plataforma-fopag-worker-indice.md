@@ -14,4 +14,4 @@ caminho: ~/repositories/plataforma-fopag-worker
 
 Repositório em `~/repositories/plataforma-fopag-worker`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-plataforma-fopag-worker|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

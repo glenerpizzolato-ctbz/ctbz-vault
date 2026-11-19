@@ -14,4 +14,4 @@ caminho: ~/repositories/experts-admin
 
 Repositório em `~/repositories/experts-admin`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-experts-admin|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

@@ -14,4 +14,4 @@ caminho: ~/repositories/tarefas-assessor-admin
 
 Repositório em `~/repositories/tarefas-assessor-admin`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-tarefas-assessor-admin|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

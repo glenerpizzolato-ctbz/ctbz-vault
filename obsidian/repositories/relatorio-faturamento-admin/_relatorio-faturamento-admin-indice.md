@@ -14,4 +14,4 @@ caminho: ~/repositories/relatorio-faturamento-admin
 
 Repositório em `~/repositories/relatorio-faturamento-admin`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-relatorio-faturamento-admin|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

@@ -14,4 +14,4 @@ caminho: ~/repositories/tf-cloudrun
 
 Repositório em `~/repositories/tf-cloudrun`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-tf-cloudrun|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

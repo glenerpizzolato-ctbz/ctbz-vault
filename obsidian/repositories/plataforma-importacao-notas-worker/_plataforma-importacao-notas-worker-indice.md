@@ -14,4 +14,4 @@ caminho: ~/repositories/plataforma-importacao-notas-worker
 
 Repositório em `~/repositories/plataforma-importacao-notas-worker`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-plataforma-importacao-notas-worker|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

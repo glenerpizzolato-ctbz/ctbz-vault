@@ -17,3 +17,4 @@ Repositório em `~/repositories/ticketing-service`. Notas sobre ele (como rodar 
 
 - [[roteamento-n1-ativacao-soci]] — origem do `statusJira` no fluxo de processos do bot WhatsApp (telefone do sócio → empresa da Abertura → `ProcessoAbertura.status` no Datastore, sincronizado do Jira pelo `JiraSyncService`); o `ticketing-service` não entra no roteamento
 - [[automacao-sla-jira|Automação de SLA dos Jiras]] — o `due_date`/`[SLA]` dos EXPBKO é gravado pelo ticketing-service (usuário "SVC - Experts") chamado por regra do Jira Automation na criação e quando o subtipo é preenchido; sem subtipo grava `SEM_SLA`; latência ~30–50 s, o atraso real é a classificação do BKO
+- [[dependencias-ticketing-service|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

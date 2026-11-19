@@ -15,3 +15,4 @@ caminho: ~/repositories/plataforma-crm-web
 Repositório em `~/repositories/plataforma-crm-web`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
 - [[api-gateway-bots-whatsapp]] (em `apis/`) — rotas `dados-cliente/buscar-por-telefone` e `buscar-por-telefone-e-cnpj` chamadas pelo bot via gateway, como obter a `x-api-key` e o estado da collection `docs/bruno`
+- [[dependencias-plataforma-crm-web|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

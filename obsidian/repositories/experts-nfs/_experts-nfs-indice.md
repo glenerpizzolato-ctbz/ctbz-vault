@@ -16,3 +16,4 @@ Repositório em `~/repositories/experts-nfs`. Notas sobre ele (como rodar localm
 
 - [[build-e-validacao-local]] — instalar deps privadas, buildar a imagem e validar o Prisma em dev
 - [[historico-mrs-experts-nfs|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-experts-nfs|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

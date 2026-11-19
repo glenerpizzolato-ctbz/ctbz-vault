@@ -14,4 +14,4 @@ caminho: ~/repositories/proxy-feature-flags-gitlab
 
 Repositório em `~/repositories/proxy-feature-flags-gitlab`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-proxy-feature-flags-gitlab|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

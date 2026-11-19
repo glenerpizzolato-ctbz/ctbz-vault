@@ -16,3 +16,4 @@ Repositório em `~/repositories/file-transcriber`. Notas sobre ele (como rodar l
 
 - [[build-e-imagem|Build e imagem]] — file-transcriber: serviço Python (uv); o Node que o Wiz acusava vinha do basedpyright; lock deve ser gerado num container limpo do uv
 - [[historico-mrs-file-transcriber|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-file-transcriber|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

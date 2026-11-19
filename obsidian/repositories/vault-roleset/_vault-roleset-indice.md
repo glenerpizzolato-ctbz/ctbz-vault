@@ -17,3 +17,4 @@ Repositório em `~/repositories/vault-roleset`. Notas sobre ele (como rodar loca
 - [[secrets-e-permissoes]] — bindings de SA aos secrets do contabilizei-sm-prod/dev e nome completo do secret
 - [[create-secret-value-cifrao]] — no job `create-secret-value`, duplicar cada `$` do valor (`$$`), senão o secret é gravado diferente do original (ex: 401 no Kong)
 - [[permissoes-projeto-sa]] — permissões de uma SA em outros projetos (ex: BigQuery no contabilizei-data) ficam no JSON da SA; como conferir se já estão aplicadas
+- [[dependencias-vault-roleset|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

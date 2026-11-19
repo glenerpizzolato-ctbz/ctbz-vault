@@ -14,4 +14,4 @@ caminho: ~/repositories/contabilizei-front-vue
 
 Repositório em `~/repositories/contabilizei-front-vue`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-contabilizei-front-vue|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

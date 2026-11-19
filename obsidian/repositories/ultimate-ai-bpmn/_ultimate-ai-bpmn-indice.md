@@ -14,4 +14,4 @@ caminho: ~/repositories/ultimate-ai-bpmn
 
 Repositório em `~/repositories/ultimate-ai-bpmn`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-ultimate-ai-bpmn|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

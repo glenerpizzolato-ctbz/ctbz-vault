@@ -1,0 +1,77 @@
+---
+name: dependencias-back-games-on-the-schedule
+description: "Dependências do back-games-on-the-schedule: o que ele consome (outros repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome, com o contrato e onde fica no código"
+metadata:
+  type: reference
+tags:
+  - dependencias
+  - back-games-on-the-schedule
+repositorio: back-games-on-the-schedule
+---
+
+# Dependências do back-games-on-the-schedule
+
+O que o `back-games-on-the-schedule` consome e quem o consome (padrão em [[dependencias-entre-repositorios]]). As seções **Consome** e **Consumido por** são as confirmadas no código, uma linha por contrato; o **Levantamento automático**, no fim, traz os candidatos achados pela skill `mapear-dependencias`, a conferir.
+
+## Consome
+
+### Repositórios internos
+
+_Nada confirmado ainda._
+
+### Libs internas
+
+_Nada confirmado ainda._
+
+### Infra GCP
+
+_Nada confirmado ainda._
+
+### Bancos e dados
+
+_Nada confirmado ainda._
+
+### Terceiros
+
+_Nada confirmado ainda._
+
+## Consumido por
+
+Quem consome os contratos deste repositório; a revisão de MRs confere se o diff quebra algum deles.
+
+_Nada confirmado ainda._
+
+<!-- deps:auto:inicio (gerado por mapear-dependencias; não editar à mão) -->
+
+## Levantamento automático
+
+Gerado em 2026-11-19 sobre `main` @ `a1d1dc8` pela skill `mapear-dependencias`. São **candidatos**: o nome aparece no código, mas citar não prova o uso nem o sentido. Ao confirmar um no código, levar para Consome / Consumido por (acima), com o contrato e o arquivo.
+
+### Repositórios que este cita
+
+- `back-email-service` (9×): `.env.example:39`, `infra/terraform/variables.tf:128`, `internal/clients/email/client.go:22`
+- `back-payments-service` (6×): `.env.example:29`, `infra/terraform/terraform.tfvars.example:26`, `infra/terraform/variables.tf:102`
+- Configuração, CI e documentação citadas: `gateway-kong`
+
+### Repositórios que citam este
+
+- `back-payments-service` (20×): `.env.example:20`, `README.md:50`, `docs/bruno/abacatepay/payment-method/add.yml:21`
+- Configuração, CI e documentação que citam este (gateway, configmaps, roles, diagramas, coleções): `gateway-kong`
+
+### Libs internas
+
+_Nenhuma._
+
+### Infra GCP (catálogo [[por-repositorio]], de 2026-10-09)
+
+_Nenhum recurso do catálogo citado._
+
+### Bancos e dados
+
+_Nenhum driver ou dataset achado._
+
+### Terceiros
+
+_Nenhum SDK ou host de terceiro achado._
+
+<!-- deps:auto:fim -->

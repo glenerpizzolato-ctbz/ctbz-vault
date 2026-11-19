@@ -14,4 +14,4 @@ caminho: ~/repositories/fintech-payments
 
 Repositório em `~/repositories/fintech-payments`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-fintech-payments|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

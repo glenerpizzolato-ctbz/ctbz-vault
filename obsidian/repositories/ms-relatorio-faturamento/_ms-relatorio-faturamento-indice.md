@@ -14,4 +14,4 @@ caminho: ~/repositories/ms-relatorio-faturamento
 
 Repositório em `~/repositories/ms-relatorio-faturamento`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-ms-relatorio-faturamento|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

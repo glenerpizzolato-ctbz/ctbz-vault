@@ -16,3 +16,4 @@ Repositório em `~/repositories/atalhos`. Notas sobre ele (como rodar localmente
 
 - [[deploy-e-imagem|Deploy e imagem]]: Cloud Run `atalhos-engenharia` (só dev, `atendimento-canais-dev`, atrás do IAP), deploy pela pipeline central, imagem Node fixada e como validar localmente.
 - [[historico-mrs-atalhos|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-atalhos|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

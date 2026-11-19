@@ -14,4 +14,4 @@ caminho: ~/repositories/aida-front
 
 Repositório em `~/repositories/aida-front`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-aida-front|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

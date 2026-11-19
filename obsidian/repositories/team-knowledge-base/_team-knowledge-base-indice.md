@@ -16,3 +16,4 @@ Repositório em `~/repositories/team-knowledge-base`. Notas sobre ele (como roda
 
 - [[deploy-e-imagem|Deploy e imagem]] — é o código dos Cloud Run team-kb e team-kb-ui; imagem única, deploy manual via deploy.sh
 - [[historico-mrs-team-knowledge-base|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-team-knowledge-base|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

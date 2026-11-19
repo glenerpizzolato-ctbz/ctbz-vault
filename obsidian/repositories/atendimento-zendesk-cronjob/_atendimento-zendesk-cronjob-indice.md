@@ -14,4 +14,4 @@ caminho: ~/repositories/atendimento-zendesk-cronjob
 
 Repositório em `~/repositories/atendimento-zendesk-cronjob`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-atendimento-zendesk-cronjob|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

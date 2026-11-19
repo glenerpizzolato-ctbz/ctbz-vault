@@ -1,0 +1,81 @@
+---
+name: dependencias-experts-contabil
+description: "Dependências do experts-contabil: o que ele consome (outros repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome, com o contrato e onde fica no código"
+metadata:
+  type: reference
+tags:
+  - dependencias
+  - experts-contabil
+repositorio: experts-contabil
+---
+
+# Dependências do experts-contabil
+
+O que o `experts-contabil` consome e quem o consome (padrão em [[dependencias-entre-repositorios]]). As seções **Consome** e **Consumido por** são as confirmadas no código, uma linha por contrato; o **Levantamento automático**, no fim, traz os candidatos achados pela skill `mapear-dependencias`, a conferir.
+
+## Consome
+
+### Repositórios internos
+
+_Nada confirmado ainda._
+
+### Libs internas
+
+_Nada confirmado ainda._
+
+### Infra GCP
+
+_Nada confirmado ainda._
+
+### Bancos e dados
+
+_Nada confirmado ainda._
+
+### Terceiros
+
+_Nada confirmado ainda._
+
+## Consumido por
+
+Quem consome os contratos deste repositório; a revisão de MRs confere se o diff quebra algum deles.
+
+_Nada confirmado ainda._
+
+<!-- deps:auto:inicio (gerado por mapear-dependencias; não editar à mão) -->
+
+## Levantamento automático
+
+Gerado em 2026-11-19 sobre `master` @ `ea1e59e` pela skill `mapear-dependencias`. São **candidatos**: o nome aparece no código, mas citar não prova o uso nem o sentido. Ao confirmar um no código, levar para Consome / Consumido por (acima), com o contrato e o arquivo.
+
+### Repositórios que este cita
+
+_Nenhum._
+
+### Repositórios que citam este
+
+- `plataforma-central-rotinas` (10×): `src/main/resources/filtered/parametro.desenv.properties:1020`, `src/main/resources/filtered/parametro.desenvolvimento-1.properties:753`, `src/main/resources/filtered/parametro.desenvolvimento-2.properties:765`
+- `plataforma-web` (10×): `src/main/resources/filtered/parametro.desenv.properties:1024`, `src/main/resources/filtered/parametro.desenvolvimento-1.properties:763`, `src/main/resources/filtered/parametro.desenvolvimento-2.properties:772`
+- `contabilizei-movimentacao-back` (4×): `src/main/resources/application.properties:97`
+- `experts-twilio` (2×): `thunder-tests/thunderCollection.json:19`, `thunder-tests/thunderEnvironment.json:176`
+- Configuração, CI e documentação que citam este (gateway, configmaps, roles, diagramas, coleções): `atalhos`, `experts-drawio`
+
+### Libs internas
+
+_Nenhuma._
+
+### Infra GCP (catálogo [[por-repositorio]], de 2026-10-09)
+
+- **Tópico**: `fintech.update-extrato`
+- **Scheduler**: `cashflow-generate`
+- **Fila Cloud Tasks**: `cashflow-generate`
+- **Cloud Run / function**: `experts-contabil`
+
+### Bancos e dados
+
+- Tabelas/datasets do BigQuery citados: `contabilizei-dataflow.dw_contabilizei_fechamento.lancamento_usuario`, `contabilizei-dataflow.dw_contabilizei_fechamento.relatorio_movimentacao_financeira_config`, `contabilizei-dataflow.dw_contabilizei_fechamento.relatorio_movimentacao_financeira_nome`, `contabilizei-dataflow.dw_contabilizeiapp.guia`
+
+### Terceiros
+
+- Google Chat: `chat.googleapis.com` em `internal/common/google/chat.go:34`
+
+<!-- deps:auto:fim -->

@@ -14,4 +14,4 @@ caminho: ~/repositories/plataforma-central-rotinas
 
 Repositório em `~/repositories/plataforma-central-rotinas`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-plataforma-central-rotinas|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

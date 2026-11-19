@@ -14,4 +14,4 @@ caminho: ~/repositories/llm-liaa-payment-receipt
 
 Repositório em `~/repositories/llm-liaa-payment-receipt`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-llm-liaa-payment-receipt|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

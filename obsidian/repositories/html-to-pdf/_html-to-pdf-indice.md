@@ -18,3 +18,4 @@ Repositório em `~/repositories/html-to-pdf`. Notas sobre ele (como rodar localm
 - [[cloud-run-gen2-container-threat-detection|Deploy falha por gen1 (Container Threat Detection)]] — desde 2026-10-30 o deploy em dev exige gen2; config em `pipeline/custom/ctbz/experts/backend/html-to-pdf.*.yml`
 - [[smoke-test-dev]] — POST autenticado em dev para validar o deploy; o handler sempre devolve 200, então conferir o `%PDF`
 - [[historico-mrs-html-to-pdf|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-html-to-pdf|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

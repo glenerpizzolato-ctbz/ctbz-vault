@@ -14,4 +14,4 @@ caminho: ~/repositories/experts-api-gateway
 
 Repositório em `~/repositories/experts-api-gateway`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
-_Nenhuma nota ainda._
+- [[dependencias-experts-api-gateway|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

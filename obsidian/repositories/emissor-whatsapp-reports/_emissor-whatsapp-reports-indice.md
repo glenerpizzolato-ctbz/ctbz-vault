@@ -16,3 +16,4 @@ Repositório em `~/repositories/emissor-whatsapp-reports`. Notas sobre ele (como
 
 - [[build-e-teste|Build e teste]] — emissor-whatsapp-reports: clone local aponta para o Bitbucket (o atual é GitLab); build exige token npm e bundle prévio; imagem node:22-bookworm (Debian, por causa do Chrome)
 - [[historico-mrs-emissor-whatsapp-reports|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-emissor-whatsapp-reports|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

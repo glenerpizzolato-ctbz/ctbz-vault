@@ -15,3 +15,4 @@ caminho: ~/repositories/monitoria-ia
 Repositório em `~/repositories/monitoria-ia`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
 - Alerta do Grafana do agregador de conversa (entrada da monitoria-ia): fica no atendimento-zendesk, ver [[alerta-grafana-agregador-conversa]]
+- [[dependencias-monitoria-ia|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

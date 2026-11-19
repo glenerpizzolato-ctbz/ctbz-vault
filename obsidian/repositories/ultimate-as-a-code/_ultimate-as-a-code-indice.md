@@ -17,3 +17,4 @@ Repositório em `~/repositories/ultimate-as-a-code`. Notas sobre ele (como rodar
 - [[dashboard-read-api]] — ler bots/replies/integrações de prd pela API interna do dashboard (POST read*/get*, sessão do navegador) e armadilhas
 - Roteamento N1 Ativação por SOCI e testes: ver o domínio [[_ultimate-indice|Ultimate]] ([[roteamento-n1-ativacao-soci]], [[testes-roteamento-n1-ativacao]])
 - Hoje o repo versiona só o welcome reply (`intents/welcome-reply.yaml`); `environments/prd.yaml` preenchido com o bot wpp main em 2026-11-13; mapa do retorno de ativo em `docs/flows/prd/mensagem-ativa.md`. Ver [[retorno-ativo-plano-sem-whatsapp]].
+- [[dependencias-ultimate-as-a-code|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

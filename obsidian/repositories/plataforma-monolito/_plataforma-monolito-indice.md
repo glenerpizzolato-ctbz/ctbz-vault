@@ -16,3 +16,4 @@ Repositório em `~/repositories/plataforma-monolito`. Notas sobre ele (como roda
 
 - [[rotas-busca-empresa]] — `getByCnpj` e `auth/filtrarempresas` (listagem com plano no retorno), token do SSO pela coleção `contabilizeiapp`; dev-03 funcionando com token do SSO de teste para `monolito-dev-03` (passo a passo, `appId` por ambiente e listagem que quebra por enum inválido)
 - [[colecao-contabilizeiapp]] — como chamar o monolito pela coleção `contabilizeiapp` do experts-bruno: IP, `User-Agent` e geração do token do SSO em dev e prd
+- [[dependencias-plataforma-monolito|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome

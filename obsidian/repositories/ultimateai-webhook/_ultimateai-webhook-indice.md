@@ -17,3 +17,4 @@ Repositório em `~/repositories/ultimateai-webhook`. Notas sobre ele (como rodar
 - [[eventos-de-erro-ultimate]] — como ler Technical Error x Action Failed no log para separar incidente da Zendesk de falha das nossas APIs
 - [[alerta-webhook-ultimate-scanner]] — os 404 diários (82 por passada) do alerta "Webhook respondendo erro" eram de um scanner externo na URL antiga, não da Ultimate
 - [[historico-mrs-ultimateai-webhook|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
+- [[dependencias-ultimateai-webhook|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome
