@@ -11,8 +11,9 @@ tags:
 
 Períodos em quadrimestres: QD1 = jan–abr, QD2 = mai–ago, QD3 = set–dez. A data de referência é a data de pronto (ou fim, início, teste; sem nenhuma, a criação do card no Jira). O mês (`AAAAMM`) fica na propriedade `mes` de cada nota.
 
-## 2026QD3 (69)
+## 2026QD3 (70)
 
+- [[PRD-178571]] — Migrar o e-mail de holerite do Mandrill para o email-service · backlog · 2026QD3
 - [[PRD-178071]] — [ACR] Cliente com opt-out de pesquisa segue exposto a NPS/CSAT - opt-out cadastrado só para parte dos pares telefone + CNPJ - SHOWCALLERS PRODUCOES LTDA · pronto · 2026QD3
 - [[PRD-177601]] — Falha na Integração Jira-Zendesk: Interrupção do Gatilho de Pesquisa de Satisfação em Casos com Transbordo Marcado como Sim · pronto · 2026QD3
 - [[PRD-177215]] — Soft delete de templates de e-mail · backlog · 2026QD3
