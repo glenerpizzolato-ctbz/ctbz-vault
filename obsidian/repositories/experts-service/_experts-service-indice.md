@@ -23,3 +23,4 @@ Repositório em `~/repositories/experts-service`. Notas sobre ele (como rodar lo
 - [[deploy-e-variaveis-de-ambiente|Deploy e variáveis de ambiente]] — variáveis de deploy e do app no repo `pipeline`, KEDA e concorrência do consumer de guias
 - [[historico-mrs-experts-service|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
 - [[dependencias-experts-service|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome
+- [[templates-mandrill-holerite-e-guias|Template Mandrill da guia avulsa]] — `experts-disponibiliza-o-de-guias` aposentado em 18/09/2026 (migrou para o email-service, template `d8d1c1cb-…`)
