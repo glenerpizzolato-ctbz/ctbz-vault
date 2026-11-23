@@ -23,7 +23,7 @@ Datasets em `contabilizei-data`: `cloudsql_atendimento_canais_prd_atendimento_ca
 | `bots_api` | `flags_empresas_v2`, `business_hours_overrides`, `groups_flags`, `business_hours` | Merge (ALL) |
 | `canais_adk` | `public.events`, `public.sessions`, `ticket_session` | Merge (ALL) |
 | `contato_service` | `bsp_contact` | Merge (ALL) |
-| `email_service` | `email_replications`, `email_templates` | — |
+| `email_service` | `email_replications`, `email_templates` (trusted D-1, ver [[dados-no-bigquery]]) | — |
 | `ms_agrupamento_guias` | `controle_guias`, `controle_notificacao`, `historico_processamento_grupo_guia`, `grupo_guia`, `item_grupo_guia`, `diagnostico_aumento_imposto` | — |
 
 Fora do CDC: `bots_api.encerramento`, `bots_api.flags_empresas`, `canais_adk` schema `public-1-1-0` (events, sessions, user_states) e `canais_adk.public.user_states`, `ms_agrupamento_guias.flyway_schema_history`.

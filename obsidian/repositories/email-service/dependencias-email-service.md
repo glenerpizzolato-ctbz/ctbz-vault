@@ -39,7 +39,7 @@ _Nada confirmado ainda._
 
 Quem consome os contratos deste repositório; a revisão de MRs confere se o diff quebra algum deles.
 
-_Nada confirmado ainda._
+- atendimento-canais-admin lê `email_replications` e `email_templates` pela cópia CDC no BigQuery (trusted), não pela API: dashboard de e-mail, `src/server/domains/email-dashboard/email-dashboard.source.ts`. Mudança de coluna nessas tabelas quebra o dashboard (ver [[dados-no-bigquery]])
 
 <!-- deps:auto:inicio (gerado por mapear-dependencias; não editar à mão) -->
 
