@@ -43,3 +43,11 @@ Todos `APPROVED`, `ativo`, sem variáveis, sem header de mídia e sem flow (2026
 
 - Banco `dev_crm_atendimento_zendesk` (proxy `sql_crm_dev`, 5434): `mensagem_ativa` pelo `id_message_broker` e o último `mensagem_ativa_status` (`id_mensagem`, `status`, `id_erro`, `erro`). Bloqueio: `BLOQUEADA_OPTOUT`, `id_erro = OPTOUT_DO_TITULAR`, `erro` com `comunicacao <FINALIDADE>`.
 - Logs: `gcloud logging read` no `contabilizei-dev-01`, `resource.labels.container_name="atz-worker-whatsapp-ativo-dev"`, texto em `jsonPayload.message` (`envio barrado por opt-out`, `opt-out de pesquisa pelo nome do template`). Não precisa de VPN.
+
+## Armadilhas da execução (2026-11-23, E2E do PRD-178306)
+
+- **Pod antigo durante o rollout:** depois do `helm-deploy-gke-dev`, o pod antigo do `atz-worker-whatsapp-ativo-dev` continua consumindo a subscription `atendimento-zendesk.envio-whatsapp-ativo-sub` até ser encerrado (no teste, ~4 min depois do pod novo subir). Um envio nessa janela roda o código antigo. Antes de disparar, conferir que só o pod novo está de pé (evento `Killing` do antigo em `resource.type="k8s_pod"`) ou checar no log qual `pod_name` processou o ativo (`processando whatsapp ativo ID <id>`); a imagem do pod sai do evento `Pulled` (tag `<versão>-<sha curto>-dev`).
+- **Busca de log com hífen:** no `gcloud logging read`, o texto livre `"opt-out de pesquisa pelo nome"` não acha nada; filtrar pelo campo, `jsonPayload.message:"opt-out de pesquisa pelo nome do template"`.
+- O `UPDATE` que restaura os opt-outs não volta o `updated_at` original; fica registrado o horário da restauração.
+
+Resultado do E2E e evidências: comentário no PRD-178306 e `~/.local/share/bahcode/features/f1795098054786.doc/tests/w4k/evidencias/`.
