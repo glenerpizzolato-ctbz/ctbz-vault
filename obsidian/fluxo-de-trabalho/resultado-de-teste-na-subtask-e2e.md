@@ -4,7 +4,7 @@ description: "Resultados de teste (dev, prd, regressão) vão como comentário n
 metadata:
   type: feedback
 tags:
-  - padroes
+  - fluxo-de-trabalho
   - jira
   - testes
 ---

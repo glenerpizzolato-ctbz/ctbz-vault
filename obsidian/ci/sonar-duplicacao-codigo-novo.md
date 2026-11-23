@@ -4,7 +4,7 @@ description: "Quality gate do SonarQube falhando por duplicação em código nov
 metadata:
   type: reference
 tags:
-  - padroes
+  - ci
   - sonar
 ---
 

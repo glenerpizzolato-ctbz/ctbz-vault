@@ -11,6 +11,10 @@ tags:
 
 Notas sobre os bots da Ultimate (Zendesk AI agents): fluxos do dialogue builder, roteamento para grupos do Zendesk, endpoints do `atendimento-zendesk` que os fluxos chamam e como testar. O código versionado fica em [[_ultimate-as-a-code-indice|ultimate-as-a-code]].
 
+## Limites da plataforma
+
+- [[whatsapp-limites-botoes|Limites de botões no WhatsApp]] — botão de resposta 20 caracteres, linha de lista 24 (Ultimate/Zendesk e Meta)
+
 ## Testes e diagnóstico
 
 - [[corujao-fila-noturna-experts]] — Corujão (fila noturna Experts): entradas (cron 22:30 do atendimento-zendesk, reroute do bots-api, Ultimate), saída 09:05 para o Default, critérios, IDs de grupo e pontos frágeis

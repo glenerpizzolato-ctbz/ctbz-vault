@@ -9,7 +9,10 @@
 - [Artefatos](artefatos/_artefatos-indice.md) — páginas visuais geradas pelo Claude (claude.ai/artifact) guardadas como referência: link, assunto e o HTML-fonte para republicar
 - [Mensagem ativa](mensagem-ativa/_mensagem-ativa-indice.md) — WhatsApp ativo: envio/validação no atendimento-zendesk, números e o que os bots da Ultimate fazem com o retorno do cliente
 - [Testes](tests/_tests-indice.md) — roteiros de teste (preparar massa, disparar fluxos, conferir resultado) por domínio e por repositório
-- [Padrões](padroes/_padroes-indice.md) — convenções do time que valem para qualquer serviço (nomenclatura de recursos, organização de código)
+- [Padrões](padroes/_padroes-indice.md) — convenções e defaults técnicos que valem para qualquer serviço (nomenclatura, frameworks, logs, credenciais, dependências)
+- [Fluxo de trabalho](fluxo-de-trabalho/_fluxo-de-trabalho-indice.md) — como conduzir cards do Jira, MRs, commits, deploy e evidências de teste
+- [CI e Sonar](ci/_ci-indice.md) — armadilhas de pipeline e do quality gate do Sonar e como diagnosticar
+- [Bibliotecas](bibliotecas/_bibliotecas-indice.md) — comportamentos inesperados de bibliotecas (zod, event-workers) e como contornar
 - [Infra](infra/_infra-indice.md) — catálogo GCP: onde cada serviço roda (GKE, Cloud Run/functions), Pub/Sub com consumidores, Scheduler e Cloud Tasks, com repositórios que citam cada recurso
 - [Bancos de dados](db/_db-indice.md) — bancos Cloud SQL Postgres por ambiente (dev/prd): instância, porta do proxy, database e como consultar via psql
 - [Repositórios](repositories/_repositories-indice.md) — uma pasta por repositório de `~/repositories`: como rodar localmente, como testar, fluxos e particularidades

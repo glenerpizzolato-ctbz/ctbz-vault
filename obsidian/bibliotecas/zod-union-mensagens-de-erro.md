@@ -4,7 +4,7 @@ description: "zod v4: z.union de valor único ou lista (string | string[]) devol
 metadata:
   type: reference
 tags:
-  - padroes
+  - bibliotecas
   - zod
 ---
 

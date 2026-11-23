@@ -4,7 +4,7 @@ description: Repo novo no componente ci-cd sem variáveis de CI no projeto não 
 metadata:
   type: reference
 tags:
-  - padroes
+  - ci
   - gitlab-ci
   - sonar
 ---

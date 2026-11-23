@@ -4,7 +4,7 @@ description: "Quality gate do SonarQube com new_violations > 0 (limite 0): até 
 metadata:
   type: reference
 tags:
-  - padroes
+  - ci
   - sonar
 ---
 
