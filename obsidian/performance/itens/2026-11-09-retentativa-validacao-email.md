@@ -41,6 +41,9 @@ O alerta "Falha ao validar o e-mail" do email-service disparou em 09/11/2026 às
 - Corrigi pela causa, não pelo sintoma: a linha é gravada antes do publish no `send-email-validated` (validação e rota `POST /send`), com nack se o insert falhar. O consumer `replicate-record`, que concorria com o dispatch e dividia o pool, foi removido.
 - Planejei o deploy em duas etapas (código e alerta primeiro; a subscription só depois do deploy em prd), porque o terraform roda antes do helm e removê-la junto abriria uma janela com `REPLICATION_NOT_FOUND` em todos os envios.
 
+- Validação em prd no mesmo dia do deploy (23/11): teste simples pelo tópico e pela rota e rajada de 20 envios, todos `SENT` e com a linha gravada antes do enfileiramento. Os 8 e-mails presos foram reenviados e entregues, a partir do payload original do experts-service, depois de conferir que nenhuma guia tinha sido notificada de novo. O caso de 15/10 foi descartado porque as guias já estavam vencidas (PRD-178304, PRD-178307).
+- Nos testes, achei que 15 logs perdiam todos os campos em prd por causa da ordem dos argumentos do pino. Corrigi e atualizei o AGENTS.md para o agente de código não repetir o erro (MR !81, PRD-178406).
+
 ## Evidências
 
 - Work-item: https://gitlab.com/ctbz/experts/atendimento-canais/email-service/-/work_items/52
