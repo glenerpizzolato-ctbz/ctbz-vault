@@ -20,3 +20,4 @@ Convenções que valem para qualquer serviço, uma nota por padrão.
 - [[frameworks-nodejs|Frameworks Node.js]] — back-end em Fastify (padrão), NestJS em atendimento-zendesk/experts-twilio/relacionamento-service, Express só legado; front em React ou Vue
 - [[node-26-typescript-nativo|Node 26 com TS nativo]] — modelo do survey-service (Node 26, sem build, tsconfig nodenext) e o que um repo precisa mudar para adotar
 - [[pino-objeto-antes-da-mensagem|Pino: objeto antes da mensagem]] — `logger.x('msg', {campos})` descarta os campos em silêncio; usar `logger.x({campos}, 'msg')` e `err` para erro
+- [[credenciais-separadas-infra-e-usuario|Credenciais: infraestrutura e usuário]] — identity token do GCP/`apikey` do Kong e JWT do usuário nunca compartilham variável nem header, na aplicação e no Bruno (`gcp_token` × `jwt_token`); sem `X-Serverless-Authorization` pelo Kong
