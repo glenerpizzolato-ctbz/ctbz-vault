@@ -29,7 +29,7 @@ _Nada confirmado ainda._
 
 ### Bancos e dados
 
-_Nada confirmado ainda._
+- BigQuery `contabilizei-data.cloudsql_atendimento_canais_prd_atendimento_canais_email_service_trusted.email_replications` e `email_templates` (cópia CDC do banco do email-service): agregado por dia/template/aplicação/status no dashboard de e-mail, `src/server/domains/email-dashboard/email-dashboard.source.ts` (ver [[dashboard-email-bigquery]])
 
 ### Terceiros
 
