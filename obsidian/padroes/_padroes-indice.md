@@ -33,3 +33,5 @@ Convenções que valem para qualquer serviço, uma nota por padrão.
 - [[mr-pequeno-nao-dividir|MR pequeno não se divide]] — com poucos arquivos (até ~5 arquivos/~200 linhas), um MR só, sem forçar a corrente em branch chaining; como desfazer a corrente no BahCode
 - [[frameworks-nodejs|Frameworks Node.js]] — back-end em Fastify (padrão), NestJS em atendimento-zendesk/experts-twilio/relacionamento-service, Express só legado; front em React ou Vue
 - [[node-26-typescript-nativo|Node 26 com TS nativo]] — modelo do survey-service (Node 26, sem build, tsconfig nodenext) e o que um repo precisa mudar para adotar
+- [[pino-objeto-antes-da-mensagem|Pino: objeto antes da mensagem]] — `logger.x('msg', {campos})` descarta os campos em silêncio; usar `logger.x({campos}, 'msg')` e `err` para erro
+- [[resultado-de-teste-na-subtask-e2e|Resultado de teste na sub-task E2E]] — evidências de teste vão como comentário na sub-task de teste E2E do card, não no PRD principal
