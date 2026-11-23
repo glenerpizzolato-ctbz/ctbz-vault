@@ -42,7 +42,6 @@ Tarefas e ideias futuras que ainda não viraram card no Jira (substitui a aba "t
 
 ## Novos repositórios
 
-- [[task-repo-ultimate-as-a-code]] — Criar repositório ultimate-as-a-code
 - [[task-repo-agrupamento-guias-service]] — Criar repositório agrupamento-guias-service (notificações)
 
 ## Terminal
@@ -53,7 +52,3 @@ Tarefas e ideias futuras que ainda não viraram card no Jira (substitui a aba "t
 
 - [[task-mapeamento-fronts-e-skill]] — Mapear os fronts e o que fazem + skill para atualizar
 - [[task-mapeamento-zendesk]] — Mapear Zendesk (zd) (ideia)
-
-## IA do time
-
-- [[task-vault-compartilhado-time]] — Criar vault compartilhado do time / marketplace de skills (ideia)
