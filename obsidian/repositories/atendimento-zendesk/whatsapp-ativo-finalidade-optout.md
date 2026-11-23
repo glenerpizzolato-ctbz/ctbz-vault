@@ -22,6 +22,8 @@ Finalidade (`verificar-optout/optout-purpose.ts`), nesta ordem:
 
 Templates de pesquisa de outros squads (HubSpot, corretora, bank) escapam do opt-out `SURVEY`: ver o playbook [[PRD-168944 - Cliente não quer receber pesquisa (CSAT e-ou NPS)]] e o relatório https://claude.ai/artifact/TNkJBn1NwdNBMTKnet2733.
 
+Como testar em dev: [[testar-optout-whatsapp-ativo-dev]].
+
 ## Histórico
 
 - **18/08/2026**: Gabriel Ganassin implementa a validação de opt-out no ativo, com a finalidade `SURVEY` quando o template é do squad `SURVEY` ou a categoria é `WORKER_CSAT` (commit `f85de4319`), e no mesmo dia inclui o `NPS` como pesquisa (`66a6be593`). Entrou pelo PR #772 (`feat/optout-whatsapp-ativo`), mergeado em 19/08/2026 e publicado na release `0.698.0`.
