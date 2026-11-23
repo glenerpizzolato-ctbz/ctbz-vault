@@ -18,3 +18,7 @@ Para **compartilhar com o time** (HTML Share: como publicar, versões, marcaçõ
 ## WhatsApp ativo
 
 - [[mapa-whatsapp-ativo|Mapa do WhatsApp Ativo]] — Projeto do template (squad) x Atendimento do envio (integracao): quais templates aparecem, como cada campo do envio é preenchido, número de saída, resposta e opt-out, com simulador
+
+## Holerite / Experts
+
+- [[fluxo-holerite-email|Fluxo do Holerite por E-mail]] — BPMN do envio de hoje (function → html-to-pdf → Mandrill) x proposta (function → html-to-pdf → email-service/HubSpot), com pré-requisitos e riscos

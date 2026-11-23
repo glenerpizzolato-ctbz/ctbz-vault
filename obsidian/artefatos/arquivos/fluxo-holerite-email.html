@@ -1,0 +1,444 @@
+<title>Fluxo do Holerite por E-mail</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dois diagramas BPMN de cima para baixo (raias em colunas), um abaixo do outro, com legenda e notas curtas. */
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --fg: #1b2430; --muted: #5d6877; --line: #c9d0da;
+  --lane-a: #f9fafb; --lane-b: #f1f4f7; --head: #e8edf3;
+  --accent: #2563a8; --accent-soft: #e3edf8;
+  --old: #a4581a; --old-soft: #f7eadf; --new: #1f7a55; --new-soft: #e0f1e8;
+  --warn: #9a6b00; --warn-soft: #fbf1d6; --end: #b3261e;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161c; --surface: #1a2029; --fg: #e5e9ef; --muted: #9aa5b3; --line: #3a4553;
+    --lane-a: #161b22; --lane-b: #1b212a; --head: #232b36;
+    --accent: #7fb0e6; --accent-soft: #1d2b3c; --old: #e3a06a; --old-soft: #33261b;
+    --new: #6fcf9f; --new-soft: #17302a; --warn: #e6bf5c; --warn-soft: #322a14; --end: #f2867e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161c; --surface: #1a2029; --fg: #e5e9ef; --muted: #9aa5b3; --line: #3a4553;
+  --lane-a: #161b22; --lane-b: #1b212a; --head: #232b36;
+  --accent: #7fb0e6; --accent-soft: #1d2b3c; --old: #e3a06a; --old-soft: #33261b;
+  --new: #6fcf9f; --new-soft: #17302a; --warn: #e6bf5c; --warn-soft: #322a14; --end: #f2867e; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 40px 56px; display: flex; flex-direction: column; gap: 32px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: 2rem; letter-spacing: -0.01em; }
+h2 { font-size: 1.3rem; }
+p { margin: 0; }
+code { font-family: var(--font-mono); font-size: 0.82em; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; word-break: break-word; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; font-weight: 600; color: var(--muted); }
+header { display: flex; flex-direction: column; gap: 10px; max-width: 780px; }
+header p { color: var(--muted); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; font-size: 0.82rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend svg { flex: none; }
+
+.diagram { display: flex; flex-direction: column; gap: 12px; }
+.diagram-head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.diagram-head p { color: var(--muted); font-size: 0.9rem; }
+.tag { font-family: var(--font-display); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; }
+.tag.old { background: var(--old-soft); color: var(--old); }
+.tag.new { background: var(--new-soft); color: var(--new); }
+.scroll { overflow-x: auto; border-radius: 12px; }
+svg.bpmn { display: block; width: 100%; min-width: 920px; height: auto; font-family: var(--font-body); }
+
+/* BPMN */
+.lane { fill: var(--lane-a); }
+.lane:nth-of-type(odd) { fill: var(--lane-b); }
+.lane.ext { fill: var(--accent-soft); }
+.lane.gone { fill: var(--old-soft); }
+.lane.new, .lane.chg { fill: var(--new-soft); }
+.lane.bus { fill: var(--lane-b); }
+.lane-head { fill: var(--head); }
+.lane-head.gone { fill: var(--old-soft); }
+.lane-head.new, .lane-head.chg { fill: var(--new-soft); }
+.lane-head.ext { fill: var(--accent-soft); }
+.lane-sep, .pool { stroke: var(--line); stroke-width: 1; fill: none; }
+.lane-t { font-family: var(--font-display); font-weight: 600; font-size: 15px; fill: var(--fg); text-anchor: middle; }
+.lane-s { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); text-anchor: middle; }
+.task { fill: var(--surface); stroke: var(--fg); stroke-width: 1.4; }
+.task.new { stroke: var(--new); stroke-width: 2.2; }
+.tt { font-size: 12.5px; fill: var(--fg); text-anchor: middle; }
+.pill { fill: var(--new); }
+.pill-t { font-size: 10px; font-weight: 600; fill: var(--surface); text-anchor: middle; }
+.loop { fill: none; stroke: var(--muted); stroke-width: 1.4; }
+.ev-start { fill: var(--surface); stroke: var(--new); stroke-width: 2; }
+.ev-end { fill: var(--surface); stroke: var(--end); stroke-width: 4; }
+.ev-msg { fill: var(--surface); stroke: var(--accent); stroke-width: 1.6; }
+.ev-msg-in { fill: none; stroke: var(--accent); stroke-width: 1.2; }
+.env { fill: var(--surface); stroke: var(--accent); stroke-width: 1.2; }
+.evl { font-size: 11.5px; fill: var(--fg); text-anchor: middle; }
+.gw { fill: var(--surface); stroke: var(--warn); stroke-width: 1.8; }
+.gwx { stroke: var(--warn); stroke-width: 2.4; }
+.seq { fill: none; stroke: var(--fg); stroke-width: 1.5; }
+.msg { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.ah { fill: var(--fg); }
+.ahm { fill: var(--accent); }
+.ahm-o { fill: var(--surface); stroke: var(--accent); stroke-width: 1.4; }
+.elab { font-size: 11px; font-weight: 600; paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+.seq-l { fill: var(--fg); }
+.msg-l { fill: var(--accent); }
+
+.notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 860px) { .notes { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card.warn { background: var(--warn-soft); border-color: transparent; }
+.card h3 { font-size: 1rem; }
+.card ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; font-size: 0.9rem; }
+footer { font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+@media print {
+  .wrap { padding-block: 0; gap: 18px; }
+  svg.bpmn { min-width: 0; }
+  .diagram, .card { break-inside: avoid; }
+  .page-break { break-before: page; }
+  .notes { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Experts · Envio de holerites por e-mail · 23/11/2026</span>
+    <h1>Holerite por e-mail: hoje e proposta</h1>
+    <p>Cada coluna é um sistema, e o fluxo corre de cima para baixo. Na proposta, o admin, o <code>plataforma-fopag-worker</code> e o tópico continuam iguais, e a <code>function-email-holerites</code> continua com a lógica do holerite. A única troca é no fim: em vez do Mandrill, a function entrega o e-mail ao <code>email-service</code>, que envia pela HubSpot.</p>
+  </header>
+
+  <div class="legend" aria-label="Legenda">
+    <span><svg width="22" height="22"><circle cx="11" cy="11" r="8" class="ev-start"/></svg>Início</span>
+    <span><svg width="22" height="22"><circle cx="11" cy="11" r="7.5" class="ev-end"/></svg>Fim</span>
+    <span><svg width="34" height="22"><rect x="1" y="3" width="32" height="16" rx="4" class="task"/></svg>Tarefa</span>
+    <span><svg width="34" height="22"><rect x="1" y="3" width="32" height="16" rx="4" class="task new"/></svg>Tarefa nova</span>
+    <span><svg width="24" height="24"><path d="M12,2 L22,12 L12,22 L2,12 z" class="gw"/></svg>Decisão</span>
+    <span><svg width="22" height="22"><circle cx="11" cy="11" r="9" class="ev-msg"/><rect x="5" y="7.5" width="12" height="8" class="env"/></svg>Tópico Pub/Sub</span>
+    <span><svg width="40" height="12"><path d="M2,6 L36,6" class="seq"/><path d="M32,2 L38,6 L32,10z" class="ah"/></svg>Sequência</span>
+    <span><svg width="40" height="12"><path d="M2,6 L36,6" class="msg"/><path d="M32,2 L38,6 L32,10z" class="ahm"/></svg>Chamada entre sistemas (REST POST, salvo indicação)</span>
+    <span><svg width="20" height="20"><path d="M6,13 a5,5 0 1,1 5,4" class="loop"/></svg>Repete por colaborador</span>
+  </div>
+
+  <section class="diagram">
+    <div class="diagram-head"><span class="tag old">Hoje</span><h2>Mandrill via function</h2><p>A coluna em laranja (Mandrill) sai na proposta.</p></div>
+    <div class="scroll"><svg class="bpmn" viewBox="0 0 1218 1130" role="img" aria-labelledby="Fluxo de hoje-t"><title id="Fluxo de hoje-t">Fluxo de hoje</title>
+<defs><marker id="Fluxo de hoje-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker><marker id="Fluxo de hoje-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahm"/></marker><marker id="Fluxo de hoje-o" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7"><circle cx="5" cy="5" r="3.6" class="ahm-o"/></marker></defs>
+<rect x="0" y="0" width="186" height="1130" class="lane "/>
+<rect x="0" y="0" width="186" height="64" class="lane-head "/>
+<text x="93.0" y="27" class="lane-t">Admin</text>
+<text x="93.0" y="46" class="lane-s">contabilizei-front-admin</text>
+<rect x="186" y="0" width="230" height="1130" class="lane "/>
+<rect x="186" y="0" width="230" height="64" class="lane-head "/>
+<text x="301.0" y="27" class="lane-t">Folha</text>
+<text x="301.0" y="46" class="lane-s">plataforma-fopag-worker</text>
+<line x1="186" y1="0" x2="186" y2="1130" class="lane-sep"/>
+<rect x="416" y="0" width="186" height="1130" class="lane bus"/>
+<rect x="416" y="0" width="186" height="64" class="lane-head bus"/>
+<text x="509.0" y="27" class="lane-t">Pub/Sub</text>
+<text x="509.0" y="46" class="lane-s">contabilizei-experts-prd</text>
+<line x1="416" y1="0" x2="416" y2="1130" class="lane-sep"/>
+<rect x="602" y="0" width="200" height="1130" class="lane gone"/>
+<rect x="602" y="0" width="200" height="64" class="lane-head gone"/>
+<text x="702.0" y="27" class="lane-t">Function de envio</text>
+<text x="702.0" y="46" class="lane-s">function-email-holerites</text>
+<line x1="602" y1="0" x2="602" y2="1130" class="lane-sep"/>
+<rect x="802" y="0" width="230" height="1130" class="lane "/>
+<rect x="802" y="0" width="230" height="64" class="lane-head "/>
+<text x="917.0" y="27" class="lane-t">Gerador de PDF</text>
+<text x="917.0" y="46" class="lane-s">function-html-to-pdf</text>
+<line x1="802" y1="0" x2="802" y2="1130" class="lane-sep"/>
+<rect x="1032" y="0" width="186" height="1130" class="lane ext gone"/>
+<rect x="1032" y="0" width="186" height="64" class="lane-head ext gone"/>
+<text x="1125.0" y="27" class="lane-t">Mandrill</text>
+<text x="1125.0" y="46" class="lane-s">Mailchimp Transactional</text>
+<line x1="1032" y1="0" x2="1032" y2="1130" class="lane-sep"/>
+<rect x="0.5" y="0.5" width="1217" height="1129" class="pool"/>
+<path d="M93.0,125.0 L93.0,167.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M93.0,225.0 L93.0,243.0 L301.0,243.0 L301.0,261.0" class="msg" marker-end="url(#Fluxo de hoje-m)" marker-start="url(#Fluxo de hoje-o)"/>
+<path d="M301.0,319.0 L301.0,341.5 L323.0,341.5 L323.0,364.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M347.0,388.0 L372.0,388.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M323.0,412.0 L323.0,461.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M237.0,490.0 L110.0,490.0" class="msg" marker-end="url(#Fluxo de hoje-m)" marker-start="url(#Fluxo de hoje-o)"/>
+<path d="M409.0,490.0 L492.0,490.0" class="msg" marker-end="url(#Fluxo de hoje-m)" marker-start="url(#Fluxo de hoje-o)"/>
+<path d="M509.0,507.0 L509.0,537.0 L702.0,537.0 L702.0,567.0" class="msg" marker-end="url(#Fluxo de hoje-m)" marker-start="url(#Fluxo de hoje-o)"/>
+<path d="M702.0,625.0 L702.0,661.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M702.0,719.0 L702.0,761.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M788.0,780.0 L856.0,780.0" class="msg" marker-end="url(#Fluxo de hoje-m)" marker-start="url(#Fluxo de hoje-o)"/>
+<path d="M856.0,800.0 L788.0,800.0" class="msg" marker-end="url(#Fluxo de hoje-m)" marker-start="url(#Fluxo de hoje-o)"/>
+<path d="M702.0,819.0 L702.0,861.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M788.0,890.0 L1039.0,890.0" class="msg" marker-end="url(#Fluxo de hoje-m)" marker-start="url(#Fluxo de hoje-o)"/>
+<path d="M1125.0,919.0 L1125.0,969.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M702.0,919.0 L702.0,957.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<path d="M702.0,1015.0 L702.0,1059.0" class="seq" marker-end="url(#Fluxo de hoje-a)"/>
+<circle cx="93.0" cy="108" r="17" class="ev-start "/>
+<text x="69.0" y="105.5" class="evl" style="text-anchor:end">Folha</text>
+<text x="69.0" y="118.5" class="evl" style="text-anchor:end">calculada</text>
+<rect x="7.0" y="167.0" width="172" height="58" rx="9" class="task "/>
+<text x="93.0" y="192.5" class="tt">Clica “Liberar Folha</text>
+<text x="93.0" y="207.5" class="tt">para o cliente”</text>
+<rect x="215.0" y="261.0" width="172" height="58" rx="9" class="task "/>
+<text x="301.0" y="286.5" class="tt">Recebe a liberação</text>
+<text x="301.0" y="301.5" class="tt">da folha</text>
+<path d="M323.0,364 L347.0,388 L323.0,412 L299.0,388 z" class="gw"/>
+<path d="M315.0,380 L331.0,396 M331.0,380 L315.0,396" class="gwx"/>
+<text x="291.0" y="379.0" class="evl" style="text-anchor:end">Plano Expert e</text>
+<text x="291.0" y="392.0" class="evl" style="text-anchor:end">colaboradores</text>
+<text x="291.0" y="405.0" class="evl" style="text-anchor:end">ativos?</text>
+<circle cx="389.0" cy="388" r="17" class="ev-end "/>
+<text x="389.0" y="420" class="evl">Não envia</text>
+<rect x="237.0" y="461.0" width="172" height="58" rx="9" class="task "/>
+<text x="323.0" y="486.5" class="tt">Publica os dados</text>
+<text x="323.0" y="501.5" class="tt">da folha (sem PDF)</text>
+<circle cx="93.0" cy="490" r="17" class="ev-end "/>
+<text x="93.0" y="522" class="evl">Folha liberada</text>
+<text x="93.0" y="535" class="evl">(200 OK)</text>
+<circle cx="509.0" cy="490" r="17" class="ev-msg "/>
+<circle cx="509.0" cy="490" r="13" class="ev-msg-in"/>
+<rect x="501.0" y="484.5" width="16" height="11" class="env"/><path d="M501.0,484.5 L509.0,491 L517.0,484.5" class="env"/>
+<text x="509.0" y="452" class="evl">functions.</text>
+<text x="509.0" y="465" class="evl">email-holerites</text>
+<rect x="616.0" y="567.0" width="172" height="58" rx="9" class="task "/>
+<text x="702.0" y="600.0" class="tt">Recebe a folha</text>
+<rect x="616.0" y="661.0" width="172" height="58" rx="9" class="task "/>
+<text x="702.0" y="686.5" class="tt">Monta o HTML de</text>
+<text x="702.0" y="701.5" class="tt">cada holerite</text>
+<rect x="616.0" y="761.0" width="172" height="58" rx="9" class="task "/>
+<text x="702.0" y="781.5" class="tt">Pede o PDF de</text>
+<text x="702.0" y="796.5" class="tt">cada colaborador</text>
+<path d="M697.0,811.0 a5,5 0 1,1 5,4" class="loop"/><path d="M705.0,812.0 l2,3 l-4,1" class="loop"/>
+<rect x="856.0" y="761.0" width="172" height="58" rx="9" class="task "/>
+<text x="942.0" y="786.5" class="tt">Converte</text>
+<text x="942.0" y="801.5" class="tt">HTML → PDF</text>
+<rect x="616.0" y="861.0" width="172" height="58" rx="9" class="task "/>
+<text x="702.0" y="886.5" class="tt">Envia o e-mail</text>
+<text x="702.0" y="901.5" class="tt">com os PDFs</text>
+<rect x="1039.0" y="861.0" width="172" height="58" rx="9" class="task "/>
+<text x="1125.0" y="886.5" class="tt">Entrega ao</text>
+<text x="1125.0" y="901.5" class="tt">responsável</text>
+<circle cx="1125.0" cy="986" r="17" class="ev-end "/>
+<text x="1125.0" y="1018" class="evl">E-mail na caixa</text>
+<rect x="616.0" y="957.0" width="172" height="58" rx="9" class="task "/>
+<text x="702.0" y="982.5" class="tt">Registra o resultado</text>
+<text x="702.0" y="997.5" class="tt">no log</text>
+<circle cx="702.0" cy="1076" r="17" class="ev-end "/>
+<text x="702.0" y="1108" class="evl">Fim</text>
+<text x="197.0" y="236.0" style="text-anchor:middle" class="elab msg-l">REST GET</text>
+<text x="359.5" y="381.0" style="text-anchor:middle" class="elab seq-l">Não</text>
+<text x="331.0" y="440.5" style="text-anchor:start" class="elab seq-l">Sim</text>
+<text x="173.5" y="483.0" style="text-anchor:middle" class="elab msg-l">resposta</text>
+<text x="450.5" y="483.0" style="text-anchor:middle" class="elab msg-l">publica</text>
+<text x="605.5" y="530.0" style="text-anchor:middle" class="elab msg-l">push HTTP</text>
+<text x="822.0" y="773.0" style="text-anchor:middle" class="elab msg-l">HTML</text>
+<text x="822.0" y="815.0" style="text-anchor:middle" class="elab msg-l">PDF</text>
+<text x="913.5" y="883.0" style="text-anchor:middle" class="elab msg-l">API Mandrill</text>
+</svg></div>
+  </section>
+
+  <section class="diagram page-break">
+    <div class="diagram-head"><span class="tag new">Proposta</span><h2>Function entrega ao email-service</h2><p>Colunas em verde mudam ou entram no fluxo.</p></div>
+    <div class="scroll"><svg class="bpmn" viewBox="0 0 1426 1616" role="img" aria-labelledby="Fluxo proposto-t"><title id="Fluxo proposto-t">Fluxo proposto</title>
+<defs><marker id="Fluxo proposto-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker><marker id="Fluxo proposto-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahm"/></marker><marker id="Fluxo proposto-o" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7"><circle cx="5" cy="5" r="3.6" class="ahm-o"/></marker></defs>
+<rect x="0" y="0" width="176" height="1616" class="lane "/>
+<rect x="0" y="0" width="176" height="64" class="lane-head "/>
+<text x="88.0" y="27" class="lane-t">Admin</text>
+<text x="88.0" y="46" class="lane-s">contabilizei-front-admin</text>
+<rect x="176" y="0" width="220" height="1616" class="lane "/>
+<rect x="176" y="0" width="220" height="64" class="lane-head "/>
+<text x="286.0" y="27" class="lane-t">Folha</text>
+<text x="286.0" y="46" class="lane-s">plataforma-fopag-worker</text>
+<line x1="176" y1="0" x2="176" y2="1616" class="lane-sep"/>
+<rect x="396" y="0" width="170" height="1616" class="lane bus"/>
+<rect x="396" y="0" width="170" height="64" class="lane-head bus"/>
+<text x="481.0" y="27" class="lane-t">Pub/Sub</text>
+<text x="481.0" y="46" class="lane-s">contabilizei-experts-prd</text>
+<line x1="396" y1="0" x2="396" y2="1616" class="lane-sep"/>
+<rect x="566" y="0" width="210" height="1616" class="lane chg"/>
+<rect x="566" y="0" width="210" height="64" class="lane-head chg"/>
+<text x="671.0" y="27" class="lane-t">Function de envio</text>
+<text x="671.0" y="46" class="lane-s">function-email-holerites</text>
+<line x1="566" y1="0" x2="566" y2="1616" class="lane-sep"/>
+<rect x="776" y="0" width="220" height="1616" class="lane "/>
+<rect x="776" y="0" width="220" height="64" class="lane-head "/>
+<text x="886.0" y="27" class="lane-t">Gerador de PDF</text>
+<text x="886.0" y="46" class="lane-s">function-html-to-pdf</text>
+<line x1="776" y1="0" x2="776" y2="1616" class="lane-sep"/>
+<rect x="996" y="0" width="240" height="1616" class="lane new"/>
+<rect x="996" y="0" width="240" height="64" class="lane-head new"/>
+<text x="1116.0" y="27" class="lane-t">email-service</text>
+<text x="1116.0" y="46" class="lane-s">atendimento-canais-prd</text>
+<line x1="996" y1="0" x2="996" y2="1616" class="lane-sep"/>
+<rect x="1236" y="0" width="190" height="1616" class="lane ext new"/>
+<rect x="1236" y="0" width="190" height="64" class="lane-head ext new"/>
+<text x="1331.0" y="27" class="lane-t">HubSpot</text>
+<text x="1331.0" y="46" class="lane-s">API SMTP transacional</text>
+<line x1="1236" y1="0" x2="1236" y2="1616" class="lane-sep"/>
+<rect x="0.5" y="0.5" width="1425" height="1615" class="pool"/>
+<path d="M88.0,125.0 L88.0,167.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M88.0,225.0 L88.0,243.0 L286.0,243.0 L286.0,261.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M286.0,319.0 L286.0,341.5 L308.0,341.5 L308.0,364.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M332.0,388.0 L355.0,388.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M308.0,412.0 L308.0,461.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M222.0,490.0 L105.0,490.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M394.0,490.0 L464.0,490.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M481.0,507.0 L481.0,537.0 L671.0,537.0 L671.0,567.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M671.0,625.0 L671.0,661.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M671.0,719.0 L671.0,761.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M757.0,780.0 L820.0,780.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M820.0,800.0 L757.0,800.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M671.0,819.0 L671.0,861.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M757.0,880.0 L1030.0,880.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M1030.0,900.0 L757.0,900.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M671.0,919.0 L671.0,961.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M757.0,990.0 L1099.0,990.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M671.0,1019.0 L671.0,1061.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M671.0,1119.0 L671.0,1163.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M1116.0,1007.0 L1116.0,1061.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M1116.0,1119.0 L1116.0,1160.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M1140.0,1184.0 L1185.0,1184.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M1116.0,1208.0 L1116.0,1251.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M1116.0,1309.0 L1116.0,1347.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M1202.0,1376.0 L1245.0,1376.0" class="msg" marker-end="url(#Fluxo proposto-m)" marker-start="url(#Fluxo proposto-o)"/>
+<path d="M1331.0,1405.0 L1331.0,1455.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M1116.0,1405.0 L1116.0,1443.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<path d="M1116.0,1501.0 L1116.0,1545.0" class="seq" marker-end="url(#Fluxo proposto-a)"/>
+<circle cx="88.0" cy="108" r="17" class="ev-start "/>
+<text x="64.0" y="105.5" class="evl" style="text-anchor:end">Folha</text>
+<text x="64.0" y="118.5" class="evl" style="text-anchor:end">calculada</text>
+<rect x="2.0" y="167.0" width="172" height="58" rx="9" class="task "/>
+<text x="88.0" y="192.5" class="tt">Clica “Liberar Folha</text>
+<text x="88.0" y="207.5" class="tt">para o cliente”</text>
+<rect x="200.0" y="261.0" width="172" height="58" rx="9" class="task "/>
+<text x="286.0" y="286.5" class="tt">Recebe a liberação</text>
+<text x="286.0" y="301.5" class="tt">da folha</text>
+<path d="M308.0,364 L332.0,388 L308.0,412 L284.0,388 z" class="gw"/>
+<path d="M300.0,380 L316.0,396 M316.0,380 L300.0,396" class="gwx"/>
+<text x="276.0" y="379.0" class="evl" style="text-anchor:end">Plano Expert e</text>
+<text x="276.0" y="392.0" class="evl" style="text-anchor:end">colaboradores</text>
+<text x="276.0" y="405.0" class="evl" style="text-anchor:end">ativos?</text>
+<circle cx="372.0" cy="388" r="17" class="ev-end "/>
+<text x="372.0" y="420" class="evl">Não envia</text>
+<rect x="222.0" y="461.0" width="172" height="58" rx="9" class="task "/>
+<text x="308.0" y="486.5" class="tt">Publica os dados</text>
+<text x="308.0" y="501.5" class="tt">da folha (sem PDF)</text>
+<circle cx="88.0" cy="490" r="17" class="ev-end "/>
+<text x="88.0" y="522" class="evl">Folha liberada</text>
+<text x="88.0" y="535" class="evl">(200 OK)</text>
+<circle cx="481.0" cy="490" r="17" class="ev-msg "/>
+<circle cx="481.0" cy="490" r="13" class="ev-msg-in"/>
+<rect x="473.0" y="484.5" width="16" height="11" class="env"/><path d="M473.0,484.5 L481.0,491 L489.0,484.5" class="env"/>
+<text x="481.0" y="452" class="evl">functions.</text>
+<text x="481.0" y="465" class="evl">email-holerites</text>
+<rect x="585.0" y="567.0" width="172" height="58" rx="9" class="task "/>
+<text x="671.0" y="600.0" class="tt">Recebe a folha</text>
+<rect x="585.0" y="661.0" width="172" height="58" rx="9" class="task "/>
+<text x="671.0" y="686.5" class="tt">Monta o HTML de</text>
+<text x="671.0" y="701.5" class="tt">cada holerite</text>
+<rect x="585.0" y="761.0" width="172" height="58" rx="9" class="task "/>
+<text x="671.0" y="781.5" class="tt">Pede o PDF de</text>
+<text x="671.0" y="796.5" class="tt">cada colaborador</text>
+<path d="M666.0,811.0 a5,5 0 1,1 5,4" class="loop"/><path d="M674.0,812.0 l2,3 l-4,1" class="loop"/>
+<rect x="820.0" y="761.0" width="172" height="58" rx="9" class="task "/>
+<text x="906.0" y="786.5" class="tt">Converte</text>
+<text x="906.0" y="801.5" class="tt">HTML → PDF</text>
+<rect x="585.0" y="861.0" width="172" height="58" rx="9" class="task new"/>
+<text x="671.0" y="881.5" class="tt">Sobe cada PDF</text>
+<text x="671.0" y="896.5" class="tt">no email-service</text>
+<path d="M666.0,911.0 a5,5 0 1,1 5,4" class="loop"/><path d="M674.0,912.0 l2,3 l-4,1" class="loop"/>
+<rect x="723.0" y="852.0" width="34" height="16" rx="8" class="pill"/><text x="740.0" y="864.0" class="pill-t">novo</text>
+<rect x="1030.0" y="861.0" width="172" height="58" rx="9" class="task "/>
+<text x="1116.0" y="886.5" class="tt">Guarda o PDF</text>
+<text x="1116.0" y="901.5" class="tt">e devolve o fileId</text>
+<rect x="585.0" y="961.0" width="172" height="58" rx="9" class="task new"/>
+<text x="671.0" y="979.0" class="tt">Pede o envio do e-mail</text>
+<text x="671.0" y="994.0" class="tt">(template, NOME,</text>
+<text x="671.0" y="1009.0" class="tt">PERIODO, fileIds)</text>
+<rect x="723.0" y="952.0" width="34" height="16" rx="8" class="pill"/><text x="740.0" y="964.0" class="pill-t">novo</text>
+<circle cx="1116.0" cy="990" r="17" class="ev-msg "/>
+<circle cx="1116.0" cy="990" r="13" class="ev-msg-in"/>
+<rect x="1108.0" y="984.5" width="16" height="11" class="env"/><path d="M1108.0,984.5 L1116.0,991 L1124.0,984.5" class="env"/>
+<text x="1116.0" y="952" class="evl">email-service.p2p.</text>
+<text x="1116.0" y="965" class="evl">send-email</text>
+<rect x="585.0" y="1061.0" width="172" height="58" rx="9" class="task "/>
+<text x="671.0" y="1086.5" class="tt">Registra o resultado</text>
+<text x="671.0" y="1101.5" class="tt">no log</text>
+<circle cx="671.0" cy="1180" r="17" class="ev-end "/>
+<text x="671.0" y="1212" class="evl">Fim</text>
+<rect x="1030.0" y="1061.0" width="172" height="58" rx="9" class="task "/>
+<text x="1116.0" y="1086.5" class="tt">Valida template</text>
+<text x="1116.0" y="1101.5" class="tt">e variáveis</text>
+<path d="M1116.0,1160 L1140.0,1184 L1116.0,1208 L1092.0,1184 z" class="gw"/>
+<path d="M1108.0,1176 L1124.0,1192 M1124.0,1176 L1108.0,1192" class="gwx"/>
+<text x="1084.0" y="1188.0" class="evl" style="text-anchor:end">Válido?</text>
+<circle cx="1202.0" cy="1184" r="17" class="ev-end "/>
+<text x="1202.0" y="1216" class="evl">Erro no</text>
+<text x="1202.0" y="1229" class="evl">callback</text>
+<rect x="1030.0" y="1251.0" width="172" height="58" rx="9" class="task "/>
+<text x="1116.0" y="1276.5" class="tt">Grava o envio em</text>
+<text x="1116.0" y="1291.5" class="tt">email_replications</text>
+<rect x="1030.0" y="1347.0" width="172" height="58" rx="9" class="task "/>
+<text x="1116.0" y="1372.5" class="tt">Baixa os PDFs</text>
+<text x="1116.0" y="1387.5" class="tt">e monta o e-mail</text>
+<rect x="1245.0" y="1347.0" width="172" height="58" rx="9" class="task "/>
+<text x="1331.0" y="1372.5" class="tt">Entrega ao</text>
+<text x="1331.0" y="1387.5" class="tt">responsável</text>
+<circle cx="1331.0" cy="1472" r="17" class="ev-end "/>
+<text x="1331.0" y="1504" class="evl">E-mail na caixa</text>
+<rect x="1030.0" y="1443.0" width="172" height="58" rx="9" class="task "/>
+<text x="1116.0" y="1468.5" class="tt">Publica o status</text>
+<text x="1116.0" y="1483.5" class="tt">(SENT / falha)</text>
+<circle cx="1116.0" cy="1562" r="17" class="ev-end "/>
+<text x="1116.0" y="1594" class="evl">Fim</text>
+<text x="187.0" y="236.0" style="text-anchor:middle" class="elab msg-l">REST GET</text>
+<text x="343.5" y="381.0" style="text-anchor:middle" class="elab seq-l">Não</text>
+<text x="316.0" y="440.5" style="text-anchor:start" class="elab seq-l">Sim</text>
+<text x="163.5" y="483.0" style="text-anchor:middle" class="elab msg-l">resposta</text>
+<text x="429.0" y="483.0" style="text-anchor:middle" class="elab msg-l">publica</text>
+<text x="576.0" y="530.0" style="text-anchor:middle" class="elab msg-l">push HTTP</text>
+<text x="788.5" y="773.0" style="text-anchor:middle" class="elab msg-l">HTML</text>
+<text x="788.5" y="815.0" style="text-anchor:middle" class="elab msg-l">PDF</text>
+<text x="893.5" y="873.0" style="text-anchor:middle" class="elab msg-l">REST (base64)</text>
+<text x="893.5" y="915.0" style="text-anchor:middle" class="elab msg-l">fileId</text>
+<text x="928.0" y="983.0" style="text-anchor:middle" class="elab msg-l">publica (Pub/Sub)</text>
+<text x="1162.5" y="1177.0" style="text-anchor:middle" class="elab seq-l">Não</text>
+<text x="1124.0" y="1233.5" style="text-anchor:start" class="elab seq-l">Sim</text>
+<text x="1223.5" y="1369.0" style="text-anchor:middle" class="elab msg-l">SMTP</text>
+</svg></div>
+  </section>
+
+  <section class="notes">
+    <div class="card">
+      <h3>O que se ganha</h3>
+      <ul>
+        <li>Cada envio registrado em <code>email_replications</code>, com status, retry, DLQ, alerta e reprocesso. Hoje só existe o log da function.</li>
+        <li>Checagem de opt-out e desempenho no painel SMTP da HubSpot.</li>
+        <li>Sai o template do Mandrill; admin, fopag-worker e geração do PDF não mudam.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>O que precisa existir</h3>
+      <ul>
+        <li>Template de holerite no email-service com <code>NOME</code> e <code>PERIODO</code>.</li>
+        <li>Na function: trocar o envio pelo Mandrill pelo upload dos PDFs e pelo pedido de envio ao email-service.</li>
+        <li>Permissões da conta da function: chamar a rota de arquivos do email-service e publicar em <code>email-service.p2p.send-email</code> (<code>atendimento-canais-prd</code>).</li>
+        <li>Decidir o <code>optout_purpose</code> (holerite é transacional).</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>Pontos de atenção</h3>
+      <ul>
+        <li>Subir o PDF pela rota síncrona de arquivos; pelo tópico de upload o arquivo pode não estar pronto quando o envio for processado.</li>
+        <li>Conferir como a function (Cloud Run) alcança a rota de arquivos do email-service.</li>
+        <li>Se a function falhar depois do upload, o Pub/Sub reentrega a folha e os PDFs sobem de novo.</li>
+        <li>Na HubSpot o holerite só se separa dos outros envios pelo assunto.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Fontes: código do <code>plataforma-fopag-worker</code> e do <code>contabilizei-front-admin</code> (GitLab), <code>experts-functions</code> e <code>email-service</code>; Cloud Run e subscriptions de <code>contabilizei-experts-prd</code>.</footer>
+</div>

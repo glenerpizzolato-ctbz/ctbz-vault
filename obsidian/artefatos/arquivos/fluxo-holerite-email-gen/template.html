@@ -1,0 +1,168 @@
+<title>Fluxo do Holerite por E-mail</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dois diagramas BPMN de cima para baixo (raias em colunas), um abaixo do outro, com legenda e notas curtas. */
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --fg: #1b2430; --muted: #5d6877; --line: #c9d0da;
+  --lane-a: #f9fafb; --lane-b: #f1f4f7; --head: #e8edf3;
+  --accent: #2563a8; --accent-soft: #e3edf8;
+  --old: #a4581a; --old-soft: #f7eadf; --new: #1f7a55; --new-soft: #e0f1e8;
+  --warn: #9a6b00; --warn-soft: #fbf1d6; --end: #b3261e;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161c; --surface: #1a2029; --fg: #e5e9ef; --muted: #9aa5b3; --line: #3a4553;
+    --lane-a: #161b22; --lane-b: #1b212a; --head: #232b36;
+    --accent: #7fb0e6; --accent-soft: #1d2b3c; --old: #e3a06a; --old-soft: #33261b;
+    --new: #6fcf9f; --new-soft: #17302a; --warn: #e6bf5c; --warn-soft: #322a14; --end: #f2867e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161c; --surface: #1a2029; --fg: #e5e9ef; --muted: #9aa5b3; --line: #3a4553;
+  --lane-a: #161b22; --lane-b: #1b212a; --head: #232b36;
+  --accent: #7fb0e6; --accent-soft: #1d2b3c; --old: #e3a06a; --old-soft: #33261b;
+  --new: #6fcf9f; --new-soft: #17302a; --warn: #e6bf5c; --warn-soft: #322a14; --end: #f2867e; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 40px 56px; display: flex; flex-direction: column; gap: 32px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: 2rem; letter-spacing: -0.01em; }
+h2 { font-size: 1.3rem; }
+p { margin: 0; }
+code { font-family: var(--font-mono); font-size: 0.82em; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; word-break: break-word; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; font-weight: 600; color: var(--muted); }
+header { display: flex; flex-direction: column; gap: 10px; max-width: 780px; }
+header p { color: var(--muted); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; font-size: 0.82rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend svg { flex: none; }
+
+.diagram { display: flex; flex-direction: column; gap: 12px; }
+.diagram-head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.diagram-head p { color: var(--muted); font-size: 0.9rem; }
+.tag { font-family: var(--font-display); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; }
+.tag.old { background: var(--old-soft); color: var(--old); }
+.tag.new { background: var(--new-soft); color: var(--new); }
+.scroll { overflow-x: auto; border-radius: 12px; }
+svg.bpmn { display: block; width: 100%; min-width: 920px; height: auto; font-family: var(--font-body); }
+
+/* BPMN */
+.lane { fill: var(--lane-a); }
+.lane:nth-of-type(odd) { fill: var(--lane-b); }
+.lane.ext { fill: var(--accent-soft); }
+.lane.gone { fill: var(--old-soft); }
+.lane.new, .lane.chg { fill: var(--new-soft); }
+.lane.bus { fill: var(--lane-b); }
+.lane-head { fill: var(--head); }
+.lane-head.gone { fill: var(--old-soft); }
+.lane-head.new, .lane-head.chg { fill: var(--new-soft); }
+.lane-head.ext { fill: var(--accent-soft); }
+.lane-sep, .pool { stroke: var(--line); stroke-width: 1; fill: none; }
+.lane-t { font-family: var(--font-display); font-weight: 600; font-size: 15px; fill: var(--fg); text-anchor: middle; }
+.lane-s { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); text-anchor: middle; }
+.task { fill: var(--surface); stroke: var(--fg); stroke-width: 1.4; }
+.task.new { stroke: var(--new); stroke-width: 2.2; }
+.tt { font-size: 12.5px; fill: var(--fg); text-anchor: middle; }
+.pill { fill: var(--new); }
+.pill-t { font-size: 10px; font-weight: 600; fill: var(--surface); text-anchor: middle; }
+.loop { fill: none; stroke: var(--muted); stroke-width: 1.4; }
+.ev-start { fill: var(--surface); stroke: var(--new); stroke-width: 2; }
+.ev-end { fill: var(--surface); stroke: var(--end); stroke-width: 4; }
+.ev-msg { fill: var(--surface); stroke: var(--accent); stroke-width: 1.6; }
+.ev-msg-in { fill: none; stroke: var(--accent); stroke-width: 1.2; }
+.env { fill: var(--surface); stroke: var(--accent); stroke-width: 1.2; }
+.evl { font-size: 11.5px; fill: var(--fg); text-anchor: middle; }
+.gw { fill: var(--surface); stroke: var(--warn); stroke-width: 1.8; }
+.gwx { stroke: var(--warn); stroke-width: 2.4; }
+.seq { fill: none; stroke: var(--fg); stroke-width: 1.5; }
+.msg { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.ah { fill: var(--fg); }
+.ahm { fill: var(--accent); }
+.ahm-o { fill: var(--surface); stroke: var(--accent); stroke-width: 1.4; }
+.elab { font-size: 11px; font-weight: 600; paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+.seq-l { fill: var(--fg); }
+.msg-l { fill: var(--accent); }
+
+.notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 860px) { .notes { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card.warn { background: var(--warn-soft); border-color: transparent; }
+.card h3 { font-size: 1rem; }
+.card ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; font-size: 0.9rem; }
+footer { font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+@media print {
+  .wrap { padding-block: 0; gap: 18px; }
+  svg.bpmn { min-width: 0; }
+  .diagram, .card { break-inside: avoid; }
+  .page-break { break-before: page; }
+  .notes { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Experts · Envio de holerites por e-mail · 23/11/2026</span>
+    <h1>Holerite por e-mail: hoje e proposta</h1>
+    <p>Cada coluna é um sistema, e o fluxo corre de cima para baixo. Na proposta, o admin, o <code>plataforma-fopag-worker</code> e o tópico continuam iguais, e a <code>function-email-holerites</code> continua com a lógica do holerite. A única troca é no fim: em vez do Mandrill, a function entrega o e-mail ao <code>email-service</code>, que envia pela HubSpot.</p>
+  </header>
+
+  <div class="legend" aria-label="Legenda">
+    <span><svg width="22" height="22"><circle cx="11" cy="11" r="8" class="ev-start"/></svg>Início</span>
+    <span><svg width="22" height="22"><circle cx="11" cy="11" r="7.5" class="ev-end"/></svg>Fim</span>
+    <span><svg width="34" height="22"><rect x="1" y="3" width="32" height="16" rx="4" class="task"/></svg>Tarefa</span>
+    <span><svg width="34" height="22"><rect x="1" y="3" width="32" height="16" rx="4" class="task new"/></svg>Tarefa nova</span>
+    <span><svg width="24" height="24"><path d="M12,2 L22,12 L12,22 L2,12 z" class="gw"/></svg>Decisão</span>
+    <span><svg width="22" height="22"><circle cx="11" cy="11" r="9" class="ev-msg"/><rect x="5" y="7.5" width="12" height="8" class="env"/></svg>Tópico Pub/Sub</span>
+    <span><svg width="40" height="12"><path d="M2,6 L36,6" class="seq"/><path d="M32,2 L38,6 L32,10z" class="ah"/></svg>Sequência</span>
+    <span><svg width="40" height="12"><path d="M2,6 L36,6" class="msg"/><path d="M32,2 L38,6 L32,10z" class="ahm"/></svg>Chamada entre sistemas (REST POST, salvo indicação)</span>
+    <span><svg width="20" height="20"><path d="M6,13 a5,5 0 1,1 5,4" class="loop"/></svg>Repete por colaborador</span>
+  </div>
+
+  <section class="diagram">
+    <div class="diagram-head"><span class="tag old">Hoje</span><h2>Mandrill via function</h2><p>A coluna em laranja (Mandrill) sai na proposta.</p></div>
+    <div class="scroll">%%HOJE%%</div>
+  </section>
+
+  <section class="diagram page-break">
+    <div class="diagram-head"><span class="tag new">Proposta</span><h2>Function entrega ao email-service</h2><p>Colunas em verde mudam ou entram no fluxo.</p></div>
+    <div class="scroll">%%PROP%%</div>
+  </section>
+
+  <section class="notes">
+    <div class="card">
+      <h3>O que se ganha</h3>
+      <ul>
+        <li>Cada envio registrado em <code>email_replications</code>, com status, retry, DLQ, alerta e reprocesso. Hoje só existe o log da function.</li>
+        <li>Checagem de opt-out e desempenho no painel SMTP da HubSpot.</li>
+        <li>Sai o template do Mandrill; admin, fopag-worker e geração do PDF não mudam.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>O que precisa existir</h3>
+      <ul>
+        <li>Template de holerite no email-service com <code>NOME</code> e <code>PERIODO</code>.</li>
+        <li>Na function: trocar o envio pelo Mandrill pelo upload dos PDFs e pelo pedido de envio ao email-service.</li>
+        <li>Permissões da conta da function: chamar a rota de arquivos do email-service e publicar em <code>email-service.p2p.send-email</code> (<code>atendimento-canais-prd</code>).</li>
+        <li>Decidir o <code>optout_purpose</code> (holerite é transacional).</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>Pontos de atenção</h3>
+      <ul>
+        <li>Subir o PDF pela rota síncrona de arquivos; pelo tópico de upload o arquivo pode não estar pronto quando o envio for processado.</li>
+        <li>Conferir como a function (Cloud Run) alcança a rota de arquivos do email-service.</li>
+        <li>Se a function falhar depois do upload, o Pub/Sub reentrega a folha e os PDFs sobem de novo.</li>
+        <li>Na HubSpot o holerite só se separa dos outros envios pelo assunto.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Fontes: código do <code>plataforma-fopag-worker</code> e do <code>contabilizei-front-admin</code> (GitLab), <code>experts-functions</code> e <code>email-service</code>; Cloud Run e subscriptions de <code>contabilizei-experts-prd</code>.</footer>
+</div>
