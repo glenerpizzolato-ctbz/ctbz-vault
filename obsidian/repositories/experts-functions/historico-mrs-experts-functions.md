@@ -11,3 +11,4 @@ tags:
 
 ## Histórico
 - 2026-11-19: MR !9 `fix/experts-functions-node-alpine` — Volta a imagem base para node:22-alpine (CVE-2026-111497)
+- 2026-11-24: MR !10 `feat/PRD-178571` — Draft: PRD-178571 Holerite pelo email-service em vez do Mandrill (aberto)

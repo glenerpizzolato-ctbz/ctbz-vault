@@ -42,3 +42,9 @@ metadata:
 - Como validar uma imagem em produção: comparar o `status.imageDigest` da revisão (`gcloud run revisions describe`) com o digest do push no log do job `release-artifact-registry` e a linha `FROM ...@sha256` do job `build-push-container`. O Glener não tem pull nos registries (`contabilizei-tools-production` e `registry.gitlab.com/ctbz/devops/recursos/containers`), então não dá para rodar `node -v` na imagem implantada.
 - Ficou de fora o `functions/pendencias-oportunidades/Dockerfile` em `node:21` (pasta deprecated pelo `AGENTS.md`).
 - Armadilha da máquina: o credential helper do git aponta para `/usr/bin/glab`, mas o glab está em `~/.local/bin/glab`; o push HTTPS falha com `could not read Username`. Contorno: `git -c credential.helper= -c credential.helper="!$(command -v glab) auth git-credential" push ...`.
+
+## Deploy de dev a partir de branch (2026-11-24)
+
+- No pipeline de **MR**, o `deploy-dev` (`allow_failure: true`, aparece como warning) não tem imagem: o `build-push-container` só roda em tag, na branch default ou em pipeline de branch com `DEPLOY=true`. O Terraform recebe `CONTAINER_VERSION` vazio e tenta `experts-functions:` sem tag: `Error 400 ... containers[0].image: must be a container image path` nos 4 Cloud Run. Nada muda em dev (o update é recusado antes de aplicar). Visto no experts-functions!10 (job 18321451036).
+- O `DEPLOY_FROM_MR` do componente não serve aqui: só vale para `APP_TYPE` kubernetes/cloudrun/cloudrun-worker-pool, e este repo é `container`.
+- Caminho suportado para subir uma branch em dev: **Run pipeline** na branch com a variável `DEPLOY=true` (ex: `glab ci run -b <branch> --variables DEPLOY:true`). O `js-requirements` gera `VERSION=<package.json>-<sha>-dev`, o `build-push-container` publica `experts-functions:<versão>-<sha>-dev` e o `deploy-dev` aplica o Terraform de dev com ela. O próximo deploy da master volta a imagem oficial.

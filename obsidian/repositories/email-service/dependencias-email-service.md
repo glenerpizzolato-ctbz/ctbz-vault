@@ -40,6 +40,7 @@ _Nada confirmado ainda._
 Quem consome os contratos deste repositório; a revisão de MRs confere se o diff quebra algum deles.
 
 - atendimento-canais-admin lê `email_replications` e `email_templates` pela cópia CDC no BigQuery (trusted), não pela API: dashboard de e-mail, `src/server/domains/email-dashboard/email-dashboard.source.ts`. Mudança de coluna nessas tabelas quebra o dashboard (ver [[dados-no-bigquery]])
+- experts-functions (`function-email-holerites`) publica em `email-service.p2p.file-upload` e `email-service.p2p.send-email` (`application: function-email-holerites`, `optout_purpose: TRANSACTIONAL`), `functions/email-holerites/src/services/email-service.publisher.ts` (PRD-178571, MR experts-functions!10, em draft em 24/11/2026)
 
 <!-- deps:auto:inicio (gerado por mapear-dependencias; não editar à mão) -->
 

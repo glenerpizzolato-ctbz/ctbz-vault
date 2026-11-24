@@ -25,7 +25,7 @@ _Nada confirmado ainda._
 
 ### Infra GCP
 
-_Nada confirmado ainda._
+- `email-service` (tópicos em `atendimento-canais-prd`/`-dev`): a `function-email-holerites` publica os PDFs em `email-service.p2p.file-upload` (`{content: Buffer.toJSON()}`, o messageId vira o `fileId`) e o envio em `email-service.p2p.send-email`, em `functions/email-holerites/src/services/email-service.publisher.ts` (PRD-178571, MR experts-functions!10; publisher da SA via vault-roleset!723)
 
 ### Bancos e dados
 

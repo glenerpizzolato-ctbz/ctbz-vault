@@ -32,13 +32,15 @@ Levantamento de 2026-11-23 (feature "Envio de holerites por e-mail" no BahCode),
 - **Migração**: commit `34100d8` (2026-09-18, Rafael Maestro, `feat(guia-imposto): migrar o e-mail de guia avulsa para o email-service`), já no `master`. O aviso passou a sair pelo `email-service` (tópico `email-service.p2p.send-email`, projeto `atendimento-canais-prd`) com o template `d8d1c1cb-4c1e-4e62-ba9c-217817d6e33e` (`Config.emailService.guiaImpostoTemplateId`), assunto "Sua empresa tem uma nova guia de imposto disponível".
 - **Evidência no banco** (`prd_experts_experts_service`, `task_scheduler`): tasks com `template_name = experts-disponibiliza-o-de-guias` vão até 21/09/2026 (9.572 em jul, 7.730 em ago, 5.395 em set) e nenhuma pendente; a partir de então só o template novo (2.242 em set, 9.121 em out, 7.609 em nov até o dia 23).
 - **Referências que sobram**: nenhuma no código atual do GitLab (busca no grupo `ctbz`); só no histórico do git e na branch não mergeada do commit `d5752ed` (migração para HubSpot, Gabriel Oliveira), que cita o template num mapeamento.
-- **Conclusão**: pode ser arquivado no Mandrill.
+- **Conclusão**: sem uso, mas não será arquivado no Mandrill: o time não tem acesso ao painel nem à chave (decisão de 24/11/2026, PRD-178574).
 
 ## Armadilhas
 
 - A chave do Mandrill de prd fica em `contabilizei-sm-prod` como `contabilizei-experts-prd_MANDRILL_KEY` e o usuário não tem `secretmanager.versions.access` nela, então não dá para consultar `templates/info`/`time-series` da API do Mandrill pelo terminal; a evidência de uso vem dos logs e da `task_scheduler`.
 - Os logs da `function-email-sender` não trazem o nome do template, então não servem para medir uso por template.
 - Os clones locais do `plataforma-fopag-worker` e do `contabilizei-front-admin` apontam para o Bitbucket (sem acesso, parados em 2024); o código vigente está no GitLab.
+
+- **Cópia no email-service (24/11/2026)**: template `exp-email-holerite-v1` (prd `2b0b0504-203a-4da4-a42a-3993ea8cf547`, dev `11d16281-e06a-4272-88ab-e8440a96579a`), tirado de um `.eml` real de 11/07/2024, já que o HTML não está no Jira (PRD-80587, a demanda original, só tem print) nem no Confluence. Assunto original: "A folha de pagamento da sua empresa está pronta". Como foi feito: [[migrar-template-do-mandrill]].
 
 Desenho do fluxo atual e da proposta de migrar para o email-service: [[fluxo-holerite-email]].
 
