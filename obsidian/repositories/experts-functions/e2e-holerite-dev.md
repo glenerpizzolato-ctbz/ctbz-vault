@@ -47,3 +47,12 @@ As evidências ficam em `e2e-out/<run>/`: o payload, os PDFs, `email.html`, `ema
 Saída: as evidências ficam em `e2e-out/<run>/` no diretório em que o script roda. Usar `--out` apontando para o scratchpad ou para `/tmp`.
 
 Relacionado: [[templates-mandrill-holerite-e-guias]], [[migrar-template-do-mandrill]], [[smtp-dev-hubspot-dominio]], [[PRD-178571]].
+
+## Execuções
+
+- **2026-11-24, run `20261124134723`: 17/17 OK.**
+  - Versão: branch `feat/PRD-178571` (imagem `experts-functions:0.1.20-5ddb53e5-dev`, revisão `function-email-holerites-00010-zzj`), subida pela pipeline 3108775736 com `DEPLOY=true` e `DEPLOY_FROM_MR=false`.
+  - O `context` falha com "Utilize DEPLOY_FROM_MR ou deploys isolados" se só passar `DEPLOY=true`, porque o `DEPLOY_FROM_MR=true` vem de variável herdada.
+  - `service-account-dev` e `deploy-dev` são manuais nessa pipeline.
+  - Resultado: emailId `23460480395007272`, dois PDFs corretos (o colaborador só com `BASE_CALCULO` ficou de fora), `FAILED` pelo 421 conhecido da HubSpot de dev e nenhum envio para a folha sem colaborador válido.
+  - Evidências no comentário da PRD-178575.
