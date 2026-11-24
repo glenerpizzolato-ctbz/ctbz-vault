@@ -21,3 +21,7 @@ Definidas em `sentinela_atendimento/infra/config/config.py` (`ZENDESK_TAG_SO_*`)
 O gatilho é o evento Pub/Sub de classificação concluída do aida-back (`POST /ticket/super-ouvidoria/classificado`), ou seja, roda **depois** que o ticket já está com humano. No audit do Zendesk aparece como `via: Web service`, logo depois da classificação de tema (ex: `sys_tema_mensalidade`).
 
 **Não tem relação com as tags `sys_*_ouvidoria_exp`** do bot de WhatsApp: ver [[tags-ouvidoria-whatsapp-ultimate]].
+
+## Horário de operação
+
+A transferência só sai dentro do horário de operação: o `TransferDecisionService` lê `sentinela_app_settings/sentinela_operating_hours` (Firestore, por dia da semana, hoje 9h–18h em America/Sao_Paulo) e, fora dele, devolve `outside_operating_hours`. O match não fica "sticky", então a regra é reavaliada na próxima mensagem classificada. Não há tratamento de feriado. A Super-Ouvidoria também dispensa a checagem de agente online (os atendentes puxam da fila). Pulado quando o ticket está com humano (`current_assignment == HUMANO`). Efeito nos dados e nas demais origens: [[ouvidoria-origens-fora-do-horario]].

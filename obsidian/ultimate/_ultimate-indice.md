@@ -17,6 +17,8 @@ Notas sobre os bots da Ultimate (Zendesk AI agents): fluxos do dialogue builder,
 
 ## Testes e diagnóstico
 
+- [[ouvidoria-origens-fora-do-horario]] — todas as origens que levam às filas de Ouvidoria (número exclusivo, Super-Ouvidoria do sentinela, botão do chat, Feedback Experts, inativos, Bank, macro, e-mail/Reclame Aqui) e o que cada uma faz fora do expediente
+- [[ouvidoria-fora-do-horario]] — Super Ouvidoria fora do expediente (seg a sex 9h–18h): sem menu, mensagem de fora do horário, tag `sys_ouvidoria_fora_de_horario` e ticket direto na fila Ouvidoria [WhatsApp] [Ouvidoria]; sem Corujão nem IA
 - [[corujao-fila-noturna-experts]] — Corujão (fila noturna Experts): entradas (cron 22:30 do atendimento-zendesk, reroute do bots-api, Ultimate), saída 09:05 para o Default, critérios, IDs de grupo e pontos frágeis
 - [[testar-bot-whatsapp]] — receita para testar o bot em prd com o WhatsApp do Glener: envio no segundo :30, ticket e grupo pela API, fechar sem CSAT, GIF sem vazar conversas, evidência no Jira (scripts em `ultimate/scripts/`)
 - [[endpoints-autenticacao-bot]] — endpoints de identificação do bot: empresa (buscar-por-telefone, consulta CNPJ com `emailAssessorOngoing`/`jiraStatus`/`jiraFinalizado`) e processos de abertura (contagem/dados)
