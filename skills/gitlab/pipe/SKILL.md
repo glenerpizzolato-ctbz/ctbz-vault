@@ -30,3 +30,13 @@ O log do job `sonar-merge-request` só diz `QUALITY GATE STATUS: FAILED - View d
 4. Corrigir e conferir localmente antes do push com `sonar analyze --file <arquivo> [--file <outro>]` (análise local das regras, sem cobertura).
 
 Armadilhas já vistas (detalhes nas notas de `ci/` do vault): `typescript:S2699` (BLOCKER) em teste vitest cujas únicas asserções são `expect(mock).not.toHaveBeenCalled()` ou `await expect(...).rejects…`: o Sonar não as conta; usar `expect(mock).toHaveBeenCalledTimes(0)`. O gate de `new_violations` tem limite 0, então até issue INFO derruba (ex: `TODO` em comentário).
+
+## Push com o glab fora de `/usr/bin`
+
+Se o push (ou fetch) falhar com `/usr/bin/glab auth git-credential get: 1: /usr/bin/glab: not found` e `fatal: could not read Username for 'https://gitlab.com'`, o `~/.gitconfig` aponta o credential helper do GitLab para um caminho velho do glab (hoje ele fica em `~/.local/bin/glab`). Não parar nem pedir ajuda: refazer o comando trocando o helper só nele, pelo glab do `PATH`:
+
+```sh
+git -c credential.https://gitlab.com.helper= -c "credential.https://gitlab.com.helper=!$(command -v glab) auth git-credential" push <os mesmos argumentos>
+```
+
+O `helper=` vazio zera a lista do `~/.gitconfig` e o segundo `-c` põe o caminho certo. Não alterar o `~/.gitconfig` por conta própria; no fim, avisar o usuário de que a correção definitiva é `git config --global --replace-all credential.https://gitlab.com.helper '!glab auth git-credential' '/usr/bin/glab'`.

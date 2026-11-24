@@ -58,3 +58,13 @@ Senão, `glab mr create` com:
 
 - Mover no Jira (`transitionJiraIssue` pelo MCP do Atlassian) a sub-task do conjunto (a da task 1) e a de Desenvolvimento `[repo]` para *Pull Request*, só pelos status do fluxo (ignorar outros, como *Code Review*). Na corrente do BahCode, cada task a mais com `--subtask` tem a sua sub-task movida pelo próprio BahCode quando o MR dela abre (e concluída no merge); não mover a sub-task de uma task pelo MR de outra.
 - Responder com o link de cada MR (na ordem da corrente), a branch alvo de cada um e o que foi movido no Jira.
+
+## Push com o glab fora de `/usr/bin`
+
+Se o push (ou fetch) falhar com `/usr/bin/glab auth git-credential get: 1: /usr/bin/glab: not found` e `fatal: could not read Username for 'https://gitlab.com'`, o `~/.gitconfig` aponta o credential helper do GitLab para um caminho velho do glab (hoje ele fica em `~/.local/bin/glab`). Não parar nem pedir ajuda: refazer o comando trocando o helper só nele, pelo glab do `PATH`:
+
+```sh
+git -c credential.https://gitlab.com.helper= -c "credential.https://gitlab.com.helper=!$(command -v glab) auth git-credential" push <os mesmos argumentos>
+```
+
+O `helper=` vazio zera a lista do `~/.gitconfig` e o segundo `-c` põe o caminho certo. Não alterar o `~/.gitconfig` por conta própria; no fim, avisar o usuário de que a correção definitiva é `git config --global --replace-all credential.https://gitlab.com.helper '!glab auth git-credential' '/usr/bin/glab'`.

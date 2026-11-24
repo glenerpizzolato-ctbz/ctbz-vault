@@ -15,3 +15,13 @@ argument-hint: "[!iid]"
 4. Rodar os testes/lint do que foi mexido, commitar com commit semântico (`fix: …` / `refactor: …`, citando a key do card quando houver) e dar push na branch do MR.
 5. Responder cada thread em português, curto, com o que foi feito (citando o commit) ou o porquê de não mudar: `glab api -X POST "projects/:id/merge_requests/<iid>/discussions/<discussion_id>/notes" -f body="…"`. Resolver (`-X PUT …/discussions/<discussion_id> -f resolved=true`) só as que foram corrigidas; as respondidas sem mudança ficam para o revisor resolver.
 6. Responder ao usuário com a lista: thread, decisão e commit.
+
+## Push com o glab fora de `/usr/bin`
+
+Se o push (ou fetch) falhar com `/usr/bin/glab auth git-credential get: 1: /usr/bin/glab: not found` e `fatal: could not read Username for 'https://gitlab.com'`, o `~/.gitconfig` aponta o credential helper do GitLab para um caminho velho do glab (hoje ele fica em `~/.local/bin/glab`). Não parar nem pedir ajuda: refazer o comando trocando o helper só nele, pelo glab do `PATH`:
+
+```sh
+git -c credential.https://gitlab.com.helper= -c "credential.https://gitlab.com.helper=!$(command -v glab) auth git-credential" push <os mesmos argumentos>
+```
+
+O `helper=` vazio zera a lista do `~/.gitconfig` e o segundo `-c` põe o caminho certo. Não alterar o `~/.gitconfig` por conta própria; no fim, avisar o usuário de que a correção definitiva é `git config --global --replace-all credential.https://gitlab.com.helper '!glab auth git-credential' '/usr/bin/glab'`.
