@@ -32,3 +32,10 @@ Quando a issue está num commit do MR de baixo da corrente, corrigir na branch d
 Visto em nov/2026 nos MRs !177/!178 do `atendimento-canais-admin` (opt-out em lote).
 
 - Ocorrência em 2026-11-10 (experts-service, MR !151): "quase todo I/O" num comentário em minúsculas também caiu na S1135 (a regra não diferencia maiúsculas). Corrigido reescrevendo para "praticamente só I/O". Ao escrever comentário em português, evitar a palavra "todo" em qualquer forma.
+
+## Sem VPN: o `sonar` CLI (2026-11-24)
+
+- O SonarQube CLI (`sonar`, v1.4, em `~/.local/share/sonarqube-cli/bin`) já está autenticado em `https://sonarqube.ctbz.com.br` (token no keychain) e responde **sem VPN**, ao contrário do `curl` em `$SONARQUBE_URL` (`sonar.contabilizei.com.br`, que só responde com VPN; e o `SONARQUBE_TOKEN` do `~/dotfiles/.env` dá 401 no `sonarqube.ctbz.com.br`).
+- Gate do PR: `sonar api get "/api/qualitygates/project_status?projectKey=<repo>&pullRequest=<id do log>"`. Issues: `sonar api get "/api/issues/search?componentKeys=<repo>&pullRequest=<id>&resolved=false"`. Conferir localmente antes do push: `sonar analyze --file <arquivo>`.
+- Caso (experts-functions!10, PRD-178571): `new_violations` = 2 por `typescript:S2699` (BLOCKER, "Add at least one assertion") em testes vitest cujas únicas asserções eram `expect(mock).not.toHaveBeenCalled()` (e `await expect(...).rejects.toThrow`). O Sonar não conta essas formas; trocar por `expect(mock).toHaveBeenCalledTimes(0)` resolveu.
+
