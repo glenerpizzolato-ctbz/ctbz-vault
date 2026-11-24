@@ -59,6 +59,10 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 > [!warning] Armadilha do board (Engenharia Canais - PRCs)
 > A transição `Started` (To-do → Em Andamento, coluna "ajuste manual em andamento") reatribui o card para quem a executou. Para deixar o card com outra pessoa, atribuir **depois** de mover.
 
+## Indevidos (outro time)
+
+- [[Indevido - Troca do responsável da empresa (Onboarding e Retenção)]] — pedido de troca/alteração do responsável (sócio) da empresa é de Onboarding e Retenção; devolver como indevido (`Solved` com Indevido `22183` e "Envio de orientações (indevido)" `17921`) com o comentário padrão (SSO e depois admin `man-responsavel`)
+
 ## Chat
 
 - [[PRD-176094 - Ticket de chat web cai na Ouvidoria sem o cliente pedir]] — `sys_grupo_ouvidoria` vem do `zen:ticket:tags` do widget (botão Reclamação/Elogio, localStorage), não da Ultimate; confirmar no `ChatStartedEvent.control_context` dos audits e no Mixpanel; navegação no widget pelos logs do crm-prd (elegibilidade → AuthController); ACR PRD-176094 · 1 ocorrência
