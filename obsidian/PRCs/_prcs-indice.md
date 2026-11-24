@@ -47,7 +47,7 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 
 ## E-mail
 
-- [[PRD-167733 - Cliente não consegue enviar email - cai no spam do atendimento.experts]] — e-mail do cliente para atendimento.experts@ cai no nosso spam (Google), sem bounce; whitelist na regra anti-spam; ACR PRD-167733 · 5 ocorrências
+- [[PRD-167733 - Cliente não consegue enviar email - cai no spam do atendimento.experts]] — e-mail do cliente para atendimento.experts@ cai no nosso spam (Google), sem bounce; quem abriu resgata pelo [formulário de resgate do spam](https://sites.google.com/contabilizei.com.br/resgate-emails-spam); fechar na ACR PRD-167733 com a mensagem padrão marcando o reporter · 6 ocorrências
 - [[PRD-168944 - Cliente não quer receber pesquisa (CSAT e-ou NPS)]] — só CSAT → `blocklist` no experts-service; CSAT+NPS → opt-out do contato-service no front admin; vincular à ACR PRD-168944; opt-out é por par telefone + CNPJ ; duplicado → `[DUPLICADO <PRC>]` + Archived · 5 ocorrências
 - [[PRD-168171 - Cliente não consegue enviar email - bloqueio de spam no provedor do cliente]] — provedor do cliente (Microsoft) barra como spam, NDR 5.7.520 AS(4810); orientar contornos; ACR PRD-168171
 - [[PRD-174011 - Cliente não recebe notificação do agrupamento de guias]] — grupo_guia nunca chegou a SUCESSO_AGRUPAMENTO (sem guia ou guias emitidas depois do dia 15/vencimento, `GUIAS_AGUARDANDO_GERACAO` não é retentado); conferir grupo_guia/controle_notificacao no ms_agrupamento_guias; ACR PRD-174011 · 1 ocorrência

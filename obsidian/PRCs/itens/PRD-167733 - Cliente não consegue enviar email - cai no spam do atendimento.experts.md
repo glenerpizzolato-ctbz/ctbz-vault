@@ -1,6 +1,6 @@
 ---
 name: prc-email-inbound-spam-atendimento-experts
-description: PRC — cliente envia e-mail para atendimento.experts@contabilizei.com.br mas cai no spam (Google) da nossa caixa e nenhum ticket é criado; resolver com whitelist / regra anti-spam
+description: PRC — cliente envia e-mail para atendimento.experts@contabilizei.com.br mas cai no spam (Google) da nossa caixa e nenhum ticket é criado; quem abriu a PRC resgata pelo formulário de resgate do spam (Apps Script) e a PRC fecha na ACR PRD-167733 com mensagem padrão
 metadata:
   type: reference
 tags:
@@ -62,11 +62,39 @@ ultima_ocorrencia: 2026-11-05
 
 ## O que fazer
 
-- **Quem resolve:** atribuir a PRC à Murieli Schrickte, que tem acesso à caixa `atendimento.experts@` e recupera a mensagem do spam. Comentar na PRC que é caixa de spam, com remetente, assunto e data do e-mail.
-- **Janela de 30 dias:** o spam do Google guarda a mensagem por 30 dias. No comentário, marcar a Murieli (mention) dizendo se está dentro de 30 dias: se estiver, pedir para remover do spam; se passou de 30 dias, pedir para repassar para a área dedicada.
+O resgate é **autoatendimento**: quem abriu a PRC usa o formulário de resgate (Apps Script) para tirar o e-mail do spam. Nós só fechamos a PRC atrelada à ACR padrão e respondemos com a mensagem padrão abaixo, marcando quem abriu.
 
-- Adicionar o remetente ou domínio do cliente na **regra anti-spam** do e-mail
-  (whitelist) e, se preciso, no Zendesk.
+- **Formulário (script):** https://script.google.com/a/macros/contabilizei.com.br/s/AKfycbzaeSzfRGUefwIYNCu1tGlt9c2QzVk1amhSl6wA9B0s9Y-dLh-ejoj-8fckfRF0nLdx/exec
+- **Site com o formulário:** https://sites.google.com/contabilizei.com.br/resgate-emails-spam
+- **Como funciona (tela "Resgate de e-mails do spam"):** informa-se o **e-mail do cliente** (remetente) e clica-se em **Resgatar e-mail**. O script procura no spam de `atendimento.experts@` a mensagem **mais recente** desse remetente; se achar, tira a conversa do spam e devolve à caixa de entrada (vira ticket no Zendesk) e encaminha uma cópia para o e-mail corporativo de quem executou. Se não houver e-mail do cliente no spam, nada muda. Com mais de uma mensagem do mesmo cliente no spam, rodar de novo para cada uma. A cópia encaminhada pode cair no spam de quem executou. Todas as consultas ficam registradas. Acesso só com conta `@contabilizei.com.br`.
+
+### Passo a passo da PRC
+
+1. Confirmar pelo sintoma/prints que é este caso (envio para `atendimento.experts@`, sem bounce). Se houver NDR `5.7.520 AS(4810)`, é o caso do provedor do cliente, não este.
+2. Atribuir a PRC ao Glener (regra de `_prcs-indice`).
+3. Comentar a **mensagem padrão** abaixo, com **mention do reporter da PRC** (quem abriu o chamado) e o e-mail remetente do cliente preenchido.
+4. Vincular à ACR padrão [PRD-167733](https://contabilizeicontabilidade.atlassian.net/browse/PRD-167733): link `Problem/Incident` no `createJiraIssueLink`, `inwardIssue` = PRD-167733, `outwardIssue` = PRC (a PRC **is caused by** a ACR).
+5. Fechar: de `To-do`, `Started` (61, → Em Andamento) e depois `Solved` (121, → Concluído), com os 7 campos obrigatórios (Classificação N3, Devido ou Indevido?, Funcionalidade, Grau do Impacto, Ofensor do Chamado, Resolução do chamado, Tipo de chamado). Os IDs de referência estão em [[PRD-168944 - Cliente não quer receber pesquisa (CSAT e-ou NPS)]]; para este caso, usar Ofensor `email_spam_atendimento` e Resolução "Resolvido diretamente pela plataforma" (`17922`), e registrar aqui os valores de Classificação e Funcionalidade de e-mail na primeira PRC fechada por esse fluxo.
+
+### Mensagem padrão
+
+> @<reporter da PRC>, o e-mail do cliente (`<email do remetente>`) chegou até nós, mas caiu no **spam** da caixa `atendimento.experts@contabilizei.com.br`, por isso não virou ticket. Você mesmo(a) consegue resgatá-lo pelo formulário de resgate de e-mails do spam:
+>
+> https://sites.google.com/contabilizei.com.br/resgate-emails-spam
+>
+> Como usar:
+> 1. Acesse o link com a sua conta `@contabilizei.com.br`.
+> 2. Em **E-mail do cliente**, informe o e-mail remetente (`<email do remetente>`) e clique em **Resgatar e-mail**.
+> 3. O formulário tira do spam a mensagem mais recente desse remetente e a devolve para a caixa de entrada do `atendimento.experts@` (o ticket é criado no Zendesk), e encaminha uma cópia para o seu e-mail. Se o cliente enviou mais de uma mensagem, execute de novo para cada uma.
+> 4. Se a cópia não chegar em alguns minutos, olhe a sua própria pasta de spam. Se o formulário não encontrar nada, a mensagem pode ter passado dos 30 dias que o Google guarda o spam: peça para o cliente reenviar.
+>
+> Nos próximos casos de cliente que não consegue enviar e-mail para o atendimento, o formulário pode ser usado direto, sem abrir PRC. Estamos encerrando este chamado vinculado à ACR PRD-167733.
+
+### Exceções
+
+- **Formulário não encontrou a mensagem:** passou da janela de 30 dias do spam do Google ou a mensagem ficou nos *Suspended Tickets* do Zendesk (ver variação do PRC-154406 acima). Olhar os suspended tickets; se não estiver lá, orientar o reenvio.
+- **Fluxo anterior (antes do formulário):** a PRC era atribuída à Murieli Schrickte, que tem acesso à caixa `atendimento.experts@` e tirava a mensagem do spam manualmente. Fica só como contingência se o formulário estiver fora do ar.
+- **Recorrência do mesmo remetente/domínio:** adicionar o remetente ou domínio na **regra anti-spam** do e-mail (whitelist) e, se preciso, no Zendesk.
 
 > [!warning] Ponto em aberto
 > Já houve uma resolução anterior em
