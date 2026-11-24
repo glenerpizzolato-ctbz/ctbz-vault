@@ -23,7 +23,8 @@ ocorrencias:
   - PRC-148207
   - PRC-152662
   - PRC-154915
-qtd_ocorrencias: 4
+  - PRC-154410
+qtd_ocorrencias: 5
 ultima_ocorrencia: 2026-11-11
 ---
 
@@ -100,6 +101,12 @@ group by 1,2,3,4 order by 5 desc;
 ```
 
 Caso real: [PRC-154915](https://contabilizeicontabilidade.atlassian.net/browse/PRC-154915) (SHOWCALLERS, 2026-11-11), ACR [[PRD-178071]] (a PRC fica vinculada a ela, não à PRD-168944). O opt-out foi gravado para `+5521969095343`/`53848191000102` e `+5521981597842`/`09322027000175`, mas o NPS já tinha ido para `+5521981597842`/`53848191000102` e o CSAT para `+5521969095343`/`54337616000181`, pares que ficaram sem opt-out. Nenhuma pesquisa saiu depois do cadastro (13/11), e o email-service nunca enviou pesquisa (só guias).
+
+Duplicado: [PRC-154410](https://contabilizeicontabilidade.atlassian.net/browse/PRC-154410) (ELECTROSHIP PRODUCOES LTDA, CNPJ 09322027000175, aberto em 05/11) é o mesmo cliente do PRC-154915, pedindo só NPS para a outra empresa. Os opt-outs dela já tinham sido gravados pelo PRC-154915 (WhatsApp/SURVEY em 13/11 com motivo `PRC-154915`, EMAIL/SURVEY em 18/11). Foi tratado em 2026-11-24: título `[DUPLICADO PRC-154915] …`, link `Duplicate` (PRC-154410 *duplicates* PRC-154915), link `Problem/Incident` com a PRD-178071, comentário e transição `Archived` (201), sem o `Solved`.
+
+### Chamado duplicado
+
+Antes de tratar, buscar no contato-service o `reason` dos opt-outs da empresa (`contact_optout.reason` guarda a PRC que os gravou) e PRCs do mesmo cliente: se o pedido já foi tratado em outra PRC, é duplicado. Padrão da squad: prefixar o título com `[DUPLICADO <PRC original>]`, link `Duplicate` (a duplicada *duplicates* a original), link `Problem/Incident` com a ACR da original, comentar explicando e arquivar (`Archived`, 201, sai direto de To-do), sem preencher os campos do `Solved`.
 
 ## ACR para vincular
 
