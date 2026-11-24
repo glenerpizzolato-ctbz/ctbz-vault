@@ -32,6 +32,16 @@ O ticketing-service fica no grupo do GitLab `ctbz/experts/backend` e roda no GKE
 
 A automação é rápida. O que atrasa o `due_date` é a classificação humana do subtipo pelo BKO, neste caso 47,5 min depois da criação. Isso afeta o CSAT Transbordo, que descarta EXPBKO sem `due_date` ([[csat-transbordo-regras]], [[PRD-177601]]).
 
+## Onde fica o cálculo no código
+
+O cálculo da data de vencimento fica em `src/modules/sla/service/sla-service/calculate-sla.mixin.ts` (`calculate(sla, basedate)`), chamado pelo `SlaJiraUsecase`, que também define `VIGENTE`/`NAO_VIGENTE` comparando `sla.data_fim` com a hora atual de São Paulo. Os tipos de SLA:
+
+- **DU** (dias úteis): soma N dias pulando fim de semana e feriado, e fecha no `hora_fim_du` do cadastro (padrão 22:00 BRT).
+- **HU** (horas úteis): soma N horas dentro da janela `hora_inicio_du`–`hora_fim_du` (padrão 09–22 BRT), só em dia útil.
+- **DC** (dias corridos): soma N dias e fecha no fim do dia.
+
+Os feriados vêm do `feriadosService`. Além do caminho do Jira Automation, o SLA também é aplicado pelo consumer `src/consumers/sla/handler.ts` (subscription `ticketing.sub.v1.sla`), que chama `slaTicketService.updateJiraTicket`. Existe ainda `add-working-hours-to-date.usecase.ts`, com janela fixa 09–12/13–18 (horário comercial com almoço), separado do cálculo da tabela de SLAs.
+
 ## Observação
 
 No mesmo fluxo, o `relacionamento-service` (`crm-prd`) tenta atualizar o relacionamento e comentar no Jira, e recebe 404 ("Issue does not exist or you do not have permission to see it"). A causa provável é que o usuário dele não tem permissão no projeto EXPBKO. Isso não afeta o SLA.
