@@ -1,0 +1,42 @@
+{
+  "$comment": "Mapa usado pelo validar_drop.py. drops_experts = Entrega 03 (PRD-176172), publicada no bot [prod] ctbz wpp main em 2026-11-16 e testada (PRD-177631). Comparação do status sem diferenciar maiúsculas. Ao mudar o dialogue builder, atualizar aqui e a nota ultimate/roteamento-n1-ativacao-soci.md do vault.",
+  "versao_drops": "Entrega 03 (PRD-176172), prd desde 2026-11-16",
+  "grupos": {
+    "28283501432220": "Cadastro [Ativação] [Whatsapp]",
+    "28283155272220": "Pré CNPJ [Ativação] [Whatsapp]",
+    "30023019944860": "Pré CNPJ - Módulo tributário [Ativação] [WhatsApp]",
+    "30023034651676": "Pré CNPJ - Assinatura JC [Ativação] [WhatsApp]",
+    "28283527238556": "Pós Vendas [Ativação] [Whatsapp]",
+    "29996619254940": "Retenção Abertura [Ativação] [WhatsApp]",
+    "5318551320604": "Atendimento [Ativação] [Whatsapp]",
+    "5318567086108": "Onboarding [Experts]",
+    "22427993443100": "AIDA Geral [WhatsApp] [BP]",
+    "23609834550556": "AIDA Geral 24/7 [WhatsApp] [BP]",
+    "31714889423900": "AIDA [Ativação] [WhatsApp] [Experts]",
+    "29248769628572": "AIDA [Ativação] [WhatsApp] [BP]",
+    "29248799750812": "AIDA 24/7 [Ativação] [WhatsApp] [BP]",
+    "15320473247900": "Experts - Grupo Padrão [WHATSAPP] [Experts]",
+    "29190745372444": "Concierge Experts"
+  },
+  "drops_experts": {
+    "28283501432220": ["Aguardando Cliente Cadastro", "EM_ANALISE", "PENDENCIA", "REFAZER - ESCRITÓRIO VIRTUAL", "Refazer Pré-Cadastro", "Cadastro"],
+    "28283527238556": ["Iniciado", "NAO_INICIADO", "Pós Vendas"],
+    "28283155272220": ["[SEVEN] Exigência", "Aguardando Cliente", "Aguardando pagamento", "Em exigência", "[SEVEN] AGUARDANDO PAGAMENTO"],
+    "30023019944860": ["Ag Assinatura Cliente MT", "Ag Assinatura Contador", "Erro Ag Assinatura MT", "Erro Preenchimento MT", "Preenchimento Cliente MT", "Preenchimento MT", "Processo Adm MT", "Consulta MT (Auto)", "Erro Análise MT"],
+    "30023034651676": ["[FSP] Follow Assinatura", "[SEVEN] Aguardando Assinatura", "Aguardando assinatura", "Aguardando Protocolo", "Enviar Docusign", "Enviar processo ao cliente", "Erro Docusign", "[SEVEN] Aguardando Protocolo", "Protocolar JC"],
+    "29996619254940": ["Solicita Reembolso"]
+  },
+  "finalizado_experts": "5318567086108",
+  "finalizado_bp": "22427993443100",
+  "else_experts": "5318551320604",
+  "else_tag_experts": "sys_grupo_ativacao_exp",
+  "ia_ativacao_experts": "31714889423900",
+  "ia_ativacao_bp": "29248769628572",
+  "rollout_ia_experts_segundo_max": 24,
+  "grupo_padrao_experts": "15320473247900",
+  "bots": {
+    "554141010021": {"nome": "[prod] ctbz wpp main", "id": "66c6220557465548f3ff0d6e"}
+  },
+  "bot_padrao": {"nome": "[prod] ctbz wpp main", "id": "66c6220557465548f3ff0d6e"},
+  "ultimate_log_id": "9b22a569-c512-4992-ac9f-d20b7c8ac09b"
+}
