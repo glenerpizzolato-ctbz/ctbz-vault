@@ -41,6 +41,10 @@ qtd_ocorrencias: 0
 > **apenas telefone cadastrado** — **sem organização** e **sem e-mail**.
 > Caso contrário, não podem ser mesclados.
 
+## A correção na Zendesk pode ser desfeita
+
+O `plataforma-back-worker` sincroniza o usuário da Zendesk achado pelo **e-mail do responsável** da empresa, gravando o nome e o telefone do responsável da plataforma. Se o responsável na plataforma mistura dados de duas pessoas, a sincronização (ex: quando alguém entra na plataforma com a empresa) renomeia de novo o contato corrigido. Antes de dar o PRC como resolvido, conferir o cadastro do responsável na plataforma e os logs (ver [[sincronizacao-usuario-zendesk]]). Caso: PRC-155281 (2026-11-24). Quando o certo é trocar o responsável (outro sócio), o processo é SSO primeiro e depois admin `man-responsavel`, e o SSO aceita um e-mail por CPF; editar no SSO exige permissão de escrita (ver a seção "Troca de responsável" de [[sincronizacao-usuario-zendesk]]). Se o PRC só pede a troca do responsável, sem problema de contato na Zendesk, é indevido (Onboarding e Retenção): ver [[Indevido - Troca do responsável da empresa (Onboarding e Retenção)]].
+
 ## ACR para vincular
 
 PRCs que caem nesse problema devem ser vinculadas à ACR:

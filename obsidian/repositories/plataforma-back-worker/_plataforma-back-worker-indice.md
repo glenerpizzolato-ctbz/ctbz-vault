@@ -15,3 +15,4 @@ caminho: ~/repositories/plataforma-back-worker
 Repositório em `~/repositories/plataforma-back-worker`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
 - [[dependencias-plataforma-back-worker|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome
+- [[sincronizacao-usuario-zendesk]] — o worker sobrescreve nome/telefone do usuário da Zendesk achado pelo e-mail do responsável da empresa (desfaz correções manuais de contatos) e como achar nos logs
