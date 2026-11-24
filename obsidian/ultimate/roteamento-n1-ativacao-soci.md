@@ -98,3 +98,9 @@ O bot usa duas rotas do `atendimento-zendesk` (controller `whatsapp-identifcacao
 - O MCP do Atlassian lê o projeto SOCI e lista as transições com o usuário do Glener (ex: SOCI-562684).
 - O fluxo do SOCI não deixa pular para qualquer status. A partir de **Finalizado**, só existe uma transição que muda de status, para **Aguardando Finalização**. As outras 13 voltam para Finalizado e disparam ações reais, como criar cards FIN (pagamento de taxa), PLA, CIT, Controle e Auditoria Pós CNPJ e solicitar enquadramento.
 - Por isso, **não usar issue SOCI de cliente real para teste**: a mudança vai para a Abertura pelo `JiraSyncService` (macro etapa, histórico, HubSpot) e as transições criam trabalho para outros times. Para testar em prd, é preciso um processo e uma issue SOCI de teste criados pelo time da Abertura, com o telefone de teste como sócio.
+
+## Drop depois da IA (observado em 2026-11-24)
+
+- **BP também passa pelos drops:** o BP em abertura vai primeiro para a AIDA [Ativação] [BP]; quando ela transfere para humano, o ticket cai no drop do status (ex: ticket 30426186, `Aguardando Cliente (Prefeitura)`, fora do mapa → Atendimento [Ativação]). O mesmo vale para Experts no rollout da IA.
+- **A transferência da IA nem sempre segue o status:** ticket 30426058 (BP, SOCI-576142 em `Em Stand-by` desde 10/11, `[SOCI] Etapa do Processo = Cadastro`) caiu em Cadastro em vez do ELSE. Provável transferência pela etapa; conferir no log da Ultimate.
+- Para validar um ticket: skill `validar-drop-ativacao` ([[trilha-chamadas-bot-load-balancer]]).

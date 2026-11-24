@@ -21,6 +21,8 @@ Conseguidos pelo Glener em 2026-11-16. Use-os para testar fluxos de Ativação n
 
 Situação em 2026-11-16, antes de qualquer alteração (em 2026-11-17 o seu telefone foi removido; ver "Tirar o seu telefone dos processos"). Os dois são de Curitiba/PR, com CPF responsável `21383198063`.
 
+- **Link direto do processo no admin:** `https://app.contabilizei.com/abertura/sistema-admin/#/processo/<idProcesso>` (é o "Link Plataforma" que a automação grava no SOCI).
+
 ## Armadilhas
 
 - **Plano AVANCADO, não Experts:** a rota de contagem separa por `plano`. Esses processos entram em `basicoPadraoMultibeneficios`, não em `experts`. Para testar o fluxo Experts, o plano do processo provavelmente precisa ser trocado para um Experts.

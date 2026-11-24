@@ -44,3 +44,11 @@ Com a página do dialogue builder aberta (sessão logada), o JSON completo da ve
 - `GET /ai-agents/dashboard/api/replies?botId=...&limit=5000` → nome dos replies apontados por `next.type == "reply"`.
 
 O retorno do `javascript_tool` corta em ~1000 caracteres, então compactar os nós no navegador e ler em fatias.
+
+## Caso real: retorno de CSAT de cliente em abertura (ticket 30420639, 2026-11-24)
+
+- O `survey-service` mandou o ativo `csat_retorna_atendimento_0` (id 5963727, integração `EXPERTS`, categoria `WORKER_CSAT`, `csat_source = HUMAN_ATIVACAO`, documento `processo_abertura_id`, validade 60 min) às 10:18, depois do fechamento do ticket anterior (30418275, Assinatura JC). O cliente respondeu às 10:19, e o ativo passou para `RESPONDIDA` (desabilitado).
+- "Quero atendimento" → "mesmo tema ou novo assunto?" → o cliente mandou "Novo assunto" e, 6 s depois, "Mesmo tema" (vale a primeira). Como o ativo não tem CNPJ, o bot foi para Init session: nova checagem de ativo (ESPECIAIS/EXPERTS/CORE, já sem ativo válido), contagem e dados do processo, e a Ativação Inbound.
+- **A Init session refaz o sorteio da IA:** a sessão começou no segundo :33 (> 24), então não houve IA e o bot foi direto ao drop. O status era `Preparar Documentos (Auto)` (fora do mapa) → ELSE Atendimento [Ativação] com `sys_grupo_ativacao_exp`, como esperado.
+- Depois, duas "Transferência de ticket via app" para Pré CNPJ - Assinatura JC (10:32 e 10:37), as duas saindo de Atendimento: o ticket voltou para Atendimento, provavelmente por gatilho. Conferir no BigQuery (D-1).
+- Fontes que dispensam o Zendesk: `prd_crm_atendimento_zendesk.mensagem_ativa` e `mensagem_ativa_status` (o ativo e o horário da resposta), além da transcrição em `tickets.comments_formatted`. Análise pela skill `validar-drop-ativacao`.

@@ -45,6 +45,7 @@ Notas sobre os bots da Ultimate (Zendesk AI agents): fluxos do dialogue builder,
 
 - [[validar-email-tomador-nfs]] — `POST .../experts/nfs/tomadores/email/validar`: só checa formato com regex não ancorada; sempre 200 com `isValido`. Origem do `emailAssessorOngoing` (integração `[pltf-crm] GET | consulta CNPJ`, `empresaLogada.assessor`)
 
+- [[trilha-chamadas-bot-load-balancer]] — trilha da conversa sem a API do Zendesk: GETs do bot nos logs do load balancer (ativo, contagem, dados) e a tabela `tickets` do atendimento-zendesk (tags, telefone, transcrição); base da skill `validar-drop-ativacao`
 - [[logs-conversa-ultimate]] — URL dos conversation logs do dashboard (botId + período + `platformConversationId` do Sunshine, tirado da tag `conversationid:` do ticket)
 
 ## Relacionadas

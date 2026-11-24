@@ -13,6 +13,7 @@ tags:
 Conteúdo transversal sobre o ativo: envio e validação no `atendimento-zendesk`, números/integrações e o que os bots da Ultimate fazem com o retorno do cliente. Notas específicas de código continuam na pasta do repositório e são linkadas daqui.
 
 - [[retorno-ativo-plano-sem-whatsapp]] — cliente de plano sem WhatsApp (Básico) que responde a um ativo: o bot consulta o ativo antes da checagem de plano e encaminha (main com "Responder mensagem", fina + avisos direto para IA/humano)
+- [[csat-quero-atendimento-ramificacoes]] — retorno da pesquisa CSAT (ativo `csat_retorna_atendimento_0`): "Quero atendimento", mesmo tema x novo assunto; sem CNPJ (cliente em abertura) volta para a identificação normal da Ativação, com novo sorteio da IA
 - [[whatsapp-ativo-validacao-telefone-x-empresa]] — o envio não confere se o telefone de destino pertence ao CNPJ
 - [[whatsapp-ativo-fora-do-horario-comercial]] — envio fora do horário comercial
 - [[whatsapp-ativo-telefone-internacional]] — telefone internacional no ativo
