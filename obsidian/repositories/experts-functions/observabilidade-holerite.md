@@ -51,4 +51,12 @@ Levantamento de 24/11/2026 (PRD-178571), com o fluxo novo pelo email-service.
 
 Grafana: painel com volume diário, latência p90/p99, 5xx e status por `email_replications` (fonte Cloud Monitoring + BigQuery). Serve para acompanhar a tendência, mas o aviso de falha fica melhor no chat.
 
+## P1 implementada: subscription própria com DLQ (2026-11-24)
+
+- [experts-functions!11](https://gitlab.com/ctbz/experts/backend/experts-functions/-/merge_requests/11) (branch `feat/PRD-178821`, sub-task PRD-178822, draft): `function-email-holerites-sub` (push com OIDC da `var.eventrc_sa`, ack 600 s, backoff 10–600 s, DLQ com 10 tentativas, sem expiração), tópico `functions.email-holerites.dlq` + pull `functions.email-holerites.dlq-sub` (7 dias), IAM do service agent do Pub/Sub e remoção do `google_eventarc_trigger.trigger_email_holerites` no mesmo MR. Variável nova `project_number` (prd `754947058455`, dev `416872398669`).
+- O handler lê `request.body.message`, o push padrão com wrapper: trocar o Eventarc por push próprio não exige mudança de código.
+- Armadilha: a SA de deploy do repo (vault-roleset `gcp-roleset-bb_pipelines/contabilizei-experts-{dev,prd}/pipeline-container.hcl`) tem `roles/pubsub.editor`, que **não** tem `setIamPolicy` em tópico/subscription; os `google_pubsub_*_iam_member` falham com 403 até liberar (ex: `roles/pubsub.admin`). Em prd ela já tem `roles/monitoring.alertPolicyEditor` e `notificationChannelViewer` (base da P2–P4); em dev, não. Em prd o service agent do Pub/Sub já tem `roles/pubsub.editor` no projeto; em dev só `roles/pubsub.serviceAgent`.
+- Em dev, aplicado em 2026-11-24 (pipeline 3109977522): `function-email-holerites-sub` ativa (ack 600 s, DLQ 10), DLQ criada, trigger removido; os 2 IAM falharam com 403 (`Error retrieving IAM policy`), então o encaminhamento para a DLQ não funciona em dev até liberar a permissão. Solução: os bindings saíram do Terraform (commit `e11fc72`) e a permissão vai no próprio service agent pelo vault-roleset ([vault-roleset!728](https://gitlab.com/ctbz/devops/recursos/vault-roleset/-/merge_requests/728), PRD-178846, só dev; prd já tem `roles/pubsub.editor`), sem `roles/pubsub.admin` na SA de deploy.
+- Armadilha: criar a sub nova e destruir o trigger no mesmo apply roda em paralelo, sem ordem garantida; rodar o `deploy-prd` fora do horário de liberação de folha.
+
 Relacionado: [[templates-mandrill-holerite-e-guias]], [[e2e-holerite-dev]], [[alertas-de-envio]], [[PRD-178571]].

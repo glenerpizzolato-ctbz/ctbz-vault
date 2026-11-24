@@ -50,6 +50,8 @@ metadata:
 - Caminho suportado para subir uma branch em dev: **Run pipeline** na branch com a variável `DEPLOY=true` (ex: `glab ci run -b <branch> --variables DEPLOY:true`). O `js-requirements` gera `VERSION=<package.json>-<sha>-dev`, o `build-push-container` publica `experts-functions:<versão>-<sha>-dev` e o `deploy-dev` aplica o Terraform de dev com ela. O próximo deploy da master volta a imagem oficial.
 - Na prática (2026-11-24): passar também `DEPLOY_FROM_MR=false` (`glab ci run -b <branch> --variables DEPLOY:true --variables DEPLOY_FROM_MR:false`), senão o job `context` falha com "Utilize DEPLOY_FROM_MR ou deploys isolados. Não ambos!" (o `DEPLOY_FROM_MR=true` vem herdado, não está nas variáveis do projeto). Nessa pipeline, `service-account-dev` e `deploy-dev` ficam manuais: dar play nos dois, em ordem.
 
+- Armadilha (2026-11-24, experts-functions!11): o `deploy-dev` automático do pipeline de MR falha nos Cloud Run (imagem sem tag), mas **aplica o resto do Terraform** (tópicos, subscriptions, remoção de trigger). No !11 ele destruiu o trigger do Eventarc do holerites e criou a DLQ às 17:58, mas não criou a subscription nova (ela depende do `module.email_holerites`, que falhou): dev ficou ~5 min sem entrega no `functions.email-holerites` até o `deploy-dev` da pipeline com `DEPLOY=true`. Mudança de Pub/Sub/Eventarc no MR já vale em dev no primeiro push.
+
 ## deploy-prd com `Invalid JWT Signature` depois de 30 min (2026-11-24)
 
 - No merge do experts-functions!10 (pipeline 3108948569), o `deploy-prd` falhou duas vezes, às 14:56 e às 14:57 UTC, já no `terraform init`: `Failed to get existing workspaces … ctbz-terraform-state … oauth2: cannot fetch token: 400 … {"error":"invalid_grant","error_description":"Invalid JWT Signature."}`.
