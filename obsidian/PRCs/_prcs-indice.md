@@ -61,7 +61,7 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 
 ## Indevidos (outro time)
 
-- [[Indevido - Troca do responsável da empresa (Onboarding e Retenção)]] — pedido de troca/alteração do responsável (sócio) da empresa é de Onboarding e Retenção; devolver como indevido (`Solved` com Indevido `22183` e "Envio de orientações (indevido)" `17921`) com o comentário padrão (SSO e depois admin `man-responsavel`)
+- [[Indevido - Troca do responsável da empresa (Onboarding e Retenção)]] — pedido de troca/alteração do responsável (sócio) da empresa é de Onboarding e Retenção; fechar como indevido (squad errada; `Solved` com Indevido `22183` e "Envio de orientações (indevido)" `17921`) com o comentário padrão: a própria operação faz pelo SSO e depois admin `man-responsavel`, e a Zendesk só é atualizada depois que a plataforma estiver correta
 
 ## Chat
 

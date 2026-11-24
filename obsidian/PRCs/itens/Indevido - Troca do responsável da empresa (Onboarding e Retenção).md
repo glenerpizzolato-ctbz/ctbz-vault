@@ -1,6 +1,6 @@
 ---
 name: prc-indevido-troca-responsavel-empresa
-description: PRC — pedido para trocar o responsável (sócio) da empresa ou os dados dele chega a nós, mas é de Onboarding e Retenção; devolver como indevido com a orientação padrão (SSO e depois admin man-responsavel)
+description: PRC — pedido para trocar o responsável (sócio) da empresa ou os dados dele chega a nós, mas é de Onboarding e Retenção; fechar como indevido (squad errada) com a orientação padrão - a própria operação faz pelo SSO e depois admin man-responsavel, e a Zendesk só é atualizada depois que a plataforma estiver correta
 metadata:
   type: reference
 tags:
@@ -43,14 +43,16 @@ Devolver como **indevido**, sem fazer a troca:
 
 ### Comentário padrão
 
-> Olá! Esse tipo de solicitação (troca/alteração do responsável da empresa) pertence ao time de **Onboarding e Retenção**, e não à Engenharia Canais, por isso estamos devolvendo o chamado como indevido.
+> Olá! Vamos fechar este chamado como **indevido**, pois a squad está errada: a troca/alteração do responsável da empresa é do time de **Onboarding e Retenção**, e não da Engenharia Canais.
 >
-> Geralmente, a orientação que eles dão é que a alteração de informações do responsável da empresa pode ser realizada através dos nossos sistemas:
+> A própria operação consegue fazer essa alteração pelos nossos sistemas, que é a mesma orientação que o time de Onboarding e Retenção costuma dar:
 >
 > 1. Primeiro no SSO: https://docs.google.com/presentation/d/1ICG8L4P4IQVNChxLFO5Q7kQRTUWW5e2f4emirJRkoDo/edit?usp=sharing
 > 2. Depois no Responsável na plataforma: https://admin.ctbz.com.br/#/man-responsavel
+>
+> A Zendesk só deve ser atualizada depois que o cadastro na plataforma estiver correto: o contato da Zendesk é sincronizado a partir do responsável da plataforma, então uma correção feita só na Zendesk é sobrescrita na próxima sincronização.
 
-Detalhes do processo (SSO aceita um e-mail por CPF, permissão de escrita no SSO, efeito na Zendesk) na seção "Troca de responsável da empresa" de [[sincronizacao-usuario-zendesk]].
+Por que a Zendesk vem por último: o `plataforma-back-worker` regrava o nome e o telefone do usuário da Zendesk com os dados do responsável da plataforma, achando o usuário pelo e-mail do responsável (ver [[sincronizacao-usuario-zendesk]]). Detalhes do processo (SSO aceita um e-mail por CPF, permissão de escrita no SSO, efeito na Zendesk) na seção "Troca de responsável da empresa" de [[sincronizacao-usuario-zendesk]].
 
 ## Ocorrências
 
