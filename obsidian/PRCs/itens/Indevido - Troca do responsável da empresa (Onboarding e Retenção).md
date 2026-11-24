@@ -15,10 +15,12 @@ dominio:
 sistemas:
   - sso
   - plataforma-admin
-acr: []
-ocorrencias: []
-qtd_ocorrencias: 0
-ultima_ocorrencia:
+acr:
+  - PRD-77741
+ocorrencias:
+  - PRC-155281
+qtd_ocorrencias: 1
+ultima_ocorrencia: 2026-11-16
 ---
 
 # Troca do responsável da empresa - indevido (Onboarding e Retenção)
@@ -34,12 +36,17 @@ Não confundir com o caso em que o contato da Zendesk está errado por causa do 
 Devolver como **indevido**, sem fazer a troca:
 
 1. Comentar no PRC com o texto padrão abaixo.
-2. Atribuir ao Glener (`assignee` = `{"accountId": "712020:71b4f148-e139-4098-b2b0-0fe4e7a37cf1"}` no `editJiraIssue`).
-3. Fechar com `Solved` (saindo de `To-do`, passar antes por `Started`, 61; depois `Solved`, 121), com:
+2. Vincular à ACR de indevidos do time, **PRD-77741** ("[Atendimento] [Expert] PRC's indevidos.", tipo Rotina, já arquivada, mas é a que o time usa: mais de 450 PRCs vinculados), link `Problem/Incident` com o PRC *is caused by* PRD-77741 (`createJiraIssueLink` com `inwardIssue: PRD-77741`, `outwardIssue: <PRC>`). Existe também a PRD-163003 ("Orientações de Processos que Podem Ser Realizados em Nossos Sistemas"), mas é do squad Onboarding e Retenção.
+3. Atribuir ao Glener (`assignee` = `{"accountId": "712020:71b4f148-e139-4098-b2b0-0fe4e7a37cf1"}` no `editJiraIssue`).
+4. Fechar com `Solved` (saindo de `To-do`, passar antes por `Started`, 61; depois `Solved`, 121), com:
    - Devido ou Indevido? (`customfield_19805`): **Indevido** (`22183`)
    - Resolução do chamado (`customfield_18429`): **Envio de orientações (indevido)** (`17921`)
    - Tipo de chamado (`customfield_18460`): Suporte a operação (`18048`)
-   - Os demais obrigatórios (Classificação N3, Funcionalidade, Grau do Impacto, Ofensor) seguem o padrão de [[PRD-168944 - Cliente não quer receber pesquisa (CSAT e-ou NPS)]]; registrar aqui os valores usados na primeira PRC fechada por esse fluxo.
+   - Classificação do chamado (N3) (`customfield_18430`): Experts - CRM → Indevido (`39474` / `39475`)
+   - Funcionalidade (`customfield_18681`): Atendimento - WhatsApp (`28568`) ou Atendimento - E-mail (`28569`), conforme o canal
+   - Grau do Impacto (`customfield_19493`): Alto - Impactou Operação (`20700`)
+   - Ofensor do Chamado (`customfield_21097`, labels): `crm_chamado_indevido_canais`
+   - Os 7 campos vão direto no `transitionJiraIssue` do `Solved` (121); de `Em Andamento` ele sai sem passar por outra transição.
 
 ### Comentário padrão
 
@@ -56,4 +63,4 @@ Por que a Zendesk vem por último: o `plataforma-back-worker` regrava o nome e o
 
 ## Ocorrências
 
-_Nenhuma ainda._
+- PRC-155281 (KLASS PLATAFORMA DE APOIO A EDUCACAO LTDA, aberto em 2026-11-16, fechado em 2026-11-24): sócio pedia para direcionar os contatos ao outro sócio. Investigamos e ajustamos a Zendesk antes de perceber que era troca de responsável (ver [[sincronizacao-usuario-zendesk]]); o comentário da investigação foi trocado pelo texto padrão e o PRC fechou como indevido na PRD-77741.
