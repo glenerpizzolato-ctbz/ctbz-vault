@@ -44,6 +44,7 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 - [[PRD-151519 - Cliente com mais de um contato cadastrado com mesmo telefone na zendesk]] — ticket perdido por contato duplicado na Zendesk; buscar `*<8 dígitos>` no front admin e mesclar (só contatos sem org/e-mail)
 - [[PRD-172999 - Cadastro de telefone internacional]] — cliente no exterior pede cadastro de telefone com DDI ≠ +55; cadastrar pelo CRUD de telefone internacional do front admin (ou direto pela API do atendimento-zendesk), vincular à ACR (Rotina) PRD-172999 e fechar com `Solved` · 4 ocorrências
 - [[PRD-174011 - Cliente não recebe notificação do agrupamento de guias]] — grupo_guia nunca chegou a SUCESSO_AGRUPAMENTO (sem guia ou guias emitidas depois do dia 15/vencimento, `GUIAS_AGUARDANDO_GERACAO` não é retentado); conferir grupo_guia/controle_notificacao no ms_agrupamento_guias; ACR PRD-174011 · 1 ocorrência
+- [[PRD-169300 - Dado já está correto - PRC sem ação necessária]] — pedido já atendido/dado já correto (ex: nome do cliente na Zendesk já atualizado); comentar com print, vincular à ACR PRD-169300 e arquivar (`Archived`, 201) · 1 ocorrência
 
 ## E-mail
 
