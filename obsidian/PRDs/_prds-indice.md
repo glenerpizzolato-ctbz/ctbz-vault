@@ -38,8 +38,8 @@ Todo PRD novo vai para um épico, nesta ordem: o citado na demanda; senão um é
 
 ## Números
 
-- 401 demandas, 47 épicos
-- pronto: 347, backlog: 19, arquivado: 13, resolvido-outro-dev: 13, esquecido: 9
+- 402 demandas, 47 épicos
+- pronto: 347, backlog: 20, arquivado: 13, resolvido-outro-dev: 13, esquecido: 9
 
 ## Campos do Jira na criação
 

@@ -11,8 +11,9 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
-## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (46)
+## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (47)
 
+- [[PRD-178821]] — Holerites: alertas da function-email-holerites e fim do e-mail em dobro · backlog · 2026QD3
 - [[PRD-178571]] — Migrar o e-mail de holerite do Mandrill para o email-service · backlog · 2026QD3
 - [[PRD-178071]] — [ACR] Cliente com opt-out de pesquisa segue exposto a NPS/CSAT - opt-out cadastrado só para parte dos pares telefone + CNPJ - SHOWCALLERS PRODUCOES LTDA · pronto · 2026QD3
 - [[PRD-177215]] — Soft delete de templates de e-mail · backlog · 2026QD3
