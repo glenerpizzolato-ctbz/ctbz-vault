@@ -14,6 +14,9 @@ jira: https://contabilizeicontabilidade.atlassian.net/browse/PRD-177631
 
 Sessão de 2026-11-16. O ajuste da Entrega 03 ([[PRD-176172]]) foi publicado em prd pelo Glener no dialogue builder da Ultimate (bot `[prd] ctbz zendesk 41 41010021 main`). A sub-task de testes é o PRD-177631. Mapa, diff e origem do `statusJira`: [[roteamento-n1-ativacao-soci]].
 
+> [!TIP]
+> Desde 2026-11-24 o teste é a skill `testar-roteamento-n1-ativacao` (`~/ctbz-vault/skills/ativacao/`), com a tabela dos 9 cenários, a preparação, o ciclo e os scripts.
+
 ## Escopo combinado
 
 - **Um cenário por grupo**: Cadastro, Pós Vendas, Pré CNPJ, Pré CNPJ - Módulo tributário, Pré CNPJ - Assinatura JC, Retenção Abertura, Finalizado BP (AIDA Geral [BP]), Finalizado Expert (Onboarding [Experts]) e ELSE (Atendimento). São 9 cenários.

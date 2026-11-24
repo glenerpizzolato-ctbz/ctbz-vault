@@ -16,6 +16,7 @@ Ao criar uma skill nova:
 
 ## Domínios
 
+- [Ativação](ativacao/_ativacao-indice.md) — teste do roteamento N1 Ativação do bot de WhatsApp por status do SOCI
 - [Empresas](empresas/_empresas-indice.md) — massa de teste por plano, busca de empresas por telefone e autenticação no bot de WhatsApp
 - [GCP](gcp/_gcp-indice.md) — catálogo de infraestrutura GCP no vault
 - [GitLab](gitlab/_gitlab-indice.md) — abrir MR, tratar comentários de revisão e corrigir pipeline
