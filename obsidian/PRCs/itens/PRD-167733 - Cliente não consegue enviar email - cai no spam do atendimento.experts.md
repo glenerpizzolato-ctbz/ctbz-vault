@@ -64,8 +64,10 @@ ultima_ocorrencia: 2026-11-05
 
 O resgate é **autoatendimento**: quem abriu a PRC usa o formulário de resgate (Apps Script) para tirar o e-mail do spam. Nós só fechamos a PRC atrelada à ACR padrão e respondemos com a mensagem padrão abaixo, marcando quem abriu.
 
-- **Formulário (script):** https://script.google.com/a/macros/contabilizei.com.br/s/AKfycbzaeSzfRGUefwIYNCu1tGlt9c2QzVk1amhSl6wA9B0s9Y-dLh-ejoj-8fckfRF0nLdx/exec
-- **Site com o formulário:** https://sites.google.com/contabilizei.com.br/resgate-emails-spam
+- **Link principal (usar este):** https://sites.google.com/contabilizei.com.br/resgate-spam-experts
+- **Fallback (se o principal estiver fora do ar):**
+  - Site antigo com o formulário: https://sites.google.com/contabilizei.com.br/resgate-emails-spam
+  - Formulário direto (script): https://script.google.com/a/macros/contabilizei.com.br/s/AKfycbzaeSzfRGUefwIYNCu1tGlt9c2QzVk1amhSl6wA9B0s9Y-dLh-ejoj-8fckfRF0nLdx/exec
 - **Como funciona (tela "Resgate de e-mails do spam"):** informa-se o **e-mail do cliente** (remetente) e clica-se em **Resgatar e-mail**. O script procura no spam de `atendimento.experts@` a mensagem **mais recente** desse remetente; se achar, tira a conversa do spam e devolve à caixa de entrada (vira ticket no Zendesk) e encaminha uma cópia para o e-mail corporativo de quem executou. Se não houver e-mail do cliente no spam, nada muda. Com mais de uma mensagem do mesmo cliente no spam, rodar de novo para cada uma. A cópia encaminhada pode cair no spam de quem executou. Todas as consultas ficam registradas. Acesso só com conta `@contabilizei.com.br`.
 
 ### Passo a passo da PRC
@@ -80,7 +82,9 @@ O resgate é **autoatendimento**: quem abriu a PRC usa o formulário de resgate 
 
 > @<reporter da PRC>, o e-mail do cliente (`<email do remetente>`) chegou até nós, mas caiu no **spam** da caixa `atendimento.experts@contabilizei.com.br`, por isso não virou ticket. Você mesmo(a) consegue resgatá-lo pelo formulário de resgate de e-mails do spam:
 >
-> https://sites.google.com/contabilizei.com.br/resgate-emails-spam
+> https://sites.google.com/contabilizei.com.br/resgate-spam-experts
+>
+> (se esse link não abrir, use https://sites.google.com/contabilizei.com.br/resgate-emails-spam)
 >
 > Como usar:
 > 1. Acesse o link com a sua conta `@contabilizei.com.br`.
