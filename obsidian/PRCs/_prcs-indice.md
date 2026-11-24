@@ -42,7 +42,7 @@ Playbooks de chamados (PRC) já investigados: **uma nota por problema** (não po
 - [[PRC-155098 - CSAT sai mesmo com o atendimento transbordado]] — pesquisa sai apesar do transbordo; rodar a skill `analisar-csat-transbordo` para achar a regra; no PRC-155098 foi EXPBKO sem `due_date` no momento do motor (SLA preenchido depois); sem ACR ainda · 1 ocorrência
 - [[PRD-103649 - Cliente recebe notificações WPP com dados de outra empresa]] — telefone do cliente vinculado a outra empresa; checar usuários do telefone na Zendesk, mesclar duplicados; se Zendesk ok, chamado no CRM para validar base de envios; ACR PRD-103649 · 1 ocorrência
 - [[PRD-151519 - Cliente com mais de um contato cadastrado com mesmo telefone na zendesk]] — ticket perdido por contato duplicado na Zendesk; buscar `*<8 dígitos>` no front admin e mesclar (só contatos sem org/e-mail)
-- [[PRD-172999 - Cadastro de telefone internacional]] — cliente no exterior pede cadastro de telefone com DDI ≠ +55; cadastrar pelo CRUD de telefone internacional do front admin, vincular à ACR (Rotina) PRD-172999 e fechar com `Solved` · 3 ocorrências
+- [[PRD-172999 - Cadastro de telefone internacional]] — cliente no exterior pede cadastro de telefone com DDI ≠ +55; cadastrar pelo CRUD de telefone internacional do front admin (ou direto pela API do atendimento-zendesk), vincular à ACR (Rotina) PRD-172999 e fechar com `Solved` · 4 ocorrências
 - [[PRD-174011 - Cliente não recebe notificação do agrupamento de guias]] — grupo_guia nunca chegou a SUCESSO_AGRUPAMENTO (sem guia ou guias emitidas depois do dia 15/vencimento, `GUIAS_AGUARDANDO_GERACAO` não é retentado); conferir grupo_guia/controle_notificacao no ms_agrupamento_guias; ACR PRD-174011 · 1 ocorrência
 
 ## E-mail
