@@ -7,6 +7,7 @@
 - [APIs](apis/_apis-indice.md) — como chamar APIs internas: tokens (SSO dev/prd), liberação de IP e requisições pelo Bruno/curl
 - [Ultimate](ultimate/_ultimate-indice.md) — bots de WhatsApp na Ultimate: roteamento para grupos do Zendesk (N1 Ativação por SOCI), endpoints dos fluxos e testes
 - [Artefatos](artefatos/_artefatos-indice.md) — páginas visuais geradas pelo Claude (claude.ai/artifact) guardadas como referência: link, assunto e o HTML-fonte para republicar
+- [Apps Zendesk](zendesk-apps/_zendesk-apps-indice.md) — apps do Zendesk (ZAF, zcli) do atendimento: secrets e parâmetros, deploy e particularidades comuns a todos os zendeskapp-*
 - [Mensagem ativa](mensagem-ativa/_mensagem-ativa-indice.md) — WhatsApp ativo: envio/validação no atendimento-zendesk, números e o que os bots da Ultimate fazem com o retorno do cliente
 - [Testes](tests/_tests-indice.md) — roteiros de teste (preparar massa, disparar fluxos, conferir resultado) por domínio e por repositório
 - [Padrões](padroes/_padroes-indice.md) — convenções e defaults técnicos que valem para qualquer serviço (nomenclatura, frameworks, logs, credenciais, dependências)
