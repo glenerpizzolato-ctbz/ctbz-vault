@@ -46,6 +46,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Segurança
 
+- [[2026-11-26-segredo-jwt-zendesk-apps|Riscos no segredo do JWT dos apps Zendesk (dev = prd, vazamento no log do deploy)]] — 2026QD3, impacto alto
 - [[2026-11-13-permissoes-auditoria-email|Permissões por operação e auditoria na área de e-mail do admin]] — 2026QD3, impacto medio
 - [[2026-11-06-autoria-auditoria-troca-assessor|Gap de integridade na auditoria de troca de assessor (experts-service)]] — 2026QD3, impacto alto
 - [[2026-10-30-cve-node2shell|Coordenação da correção da CVE-2026-111497 (node2shell)]] — 2026QD3, impacto alto
@@ -124,6 +125,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Qualidade
 
+- [[2026-11-25-alertas-e-duplicatas-holerite|Fim do holerite em dobro e alertas do envio de holerite por e-mail]] — 2026QD3, impacto alto
 - [[2026-11-13-iss-agrupamento-casos-de-borda|ISS no agrupamento: casos de borda por município e ordem de deploy]] — 2026QD3, impacto alto
 - [[2026-11-11-ativo-fim-de-semana-agrupamento|WhatsApp do agrupamento em fim de semana perde o vínculo com a resposta do cliente]] — 2026QD3, impacto medio
 - [[2026-11-11-limpeza-alertas-canais|Limpeza dos alertas ruidosos da Engenharia Canais (critério, 4 alertas, padrão)]] — 2026QD3, impacto alto
