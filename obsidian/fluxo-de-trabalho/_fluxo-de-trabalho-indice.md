@@ -20,3 +20,4 @@ Como o time trabalha no dia a dia: transições e tipos de card no Jira, evidên
 - [[gitlab-duo-requested-changes|GitLab Duo em requested changes]] — corrigir e resolver não basta: pedir revisão de novo ao Duo para ele aprovar e liberar o MR
 - [[mr-pequeno-nao-dividir|MR pequeno não se divide]] — com poucos arquivos (até ~5 arquivos/~200 linhas), um MR só, sem forçar a corrente em branch chaining; como desfazer a corrente no BahCode
 - [[resultado-de-teste-na-subtask-e2e|Resultado de teste na sub-task E2E]] — evidências de teste vão como comentário na sub-task de teste E2E do card, não no PRD principal
+- [[metrica-e2e-critico|Métrica de E2E crítico]] — link do dashboard GE Qualidade – Automação (Metabase), o que a meta de 85% mede (gauge % criticidade ALTA em stg), por que um teste "desenvolvido" não conta e como tirar a lista de um squad pela API
