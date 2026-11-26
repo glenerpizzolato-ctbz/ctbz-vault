@@ -39,7 +39,7 @@ _Nada confirmado ainda._
 
 Quem consome os contratos deste repositório; a revisão de MRs confere se o diff quebra algum deles.
 
-_Nada confirmado ainda._
+- [[_teste-e2e-plataforma-crm-indice|teste-e2e-plataforma-crm]] — testes E2E (Cypress) que dirigem o widget em stg pelos `data-testid` (`primary-btn`, `confirm-theme-button`, `confirm-subtheme-button`, `channel-btn`, `history-btn`, `attendance-button`, `tracked-link`, `title-ref`) e comparam os textos do bot com fixtures. Mudar texto de menu/mensagem ou `data-testid` quebra o E2E (ver [[e2e-criticos-canais]])
 
 <!-- deps:auto:inicio (gerado por mapear-dependencias; não editar à mão) -->
 

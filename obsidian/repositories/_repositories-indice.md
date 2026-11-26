@@ -125,6 +125,7 @@ Fora do mapeamento por decisão do usuário: `back-payments-service`, `back-emai
 - [[_team-kb-indice|team-kb]]
 - [[_team-knowledge-base-indice|team-knowledge-base]]
 - [[_tarefas-assessor-admin-indice|tarefas-assessor-admin]]
+- [[_teste-e2e-plataforma-crm-indice|teste-e2e-plataforma-crm]]
 - [[_tf-cloudrun-indice|tf-cloudrun]]
 - [[_ticketing-service-indice|ticketing-service]]
 - [[_ultimateai-webhook-indice|ultimateai-webhook]]

@@ -39,7 +39,7 @@ _Nada confirmado ainda._
 
 Quem consome os contratos deste repositório; a revisão de MRs confere se o diff quebra algum deles.
 
-_Nada confirmado ainda._
+- [[_teste-e2e-plataforma-crm-indice|teste-e2e-plataforma-crm]] — `POST /rest/carregar-dados/deleta-e-cria-fatura-pendente/{cnpj}` em `contabilizei-pagamentos-teste.appspot.com` (massa do E2E de segunda via da fatura, `cypress/support/autoatendimento/services.js`)
 
 <!-- deps:auto:inicio (gerado por mapear-dependencias; não editar à mão) -->
 
