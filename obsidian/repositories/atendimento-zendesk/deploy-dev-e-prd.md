@@ -15,6 +15,7 @@ A doc oficial fica no `README.md` do repositório, seção "Fluxo de branches e 
 ## Dev
 
 - Existe **um único ambiente de dev** para os 15 serviços (web e 14 workers), e ele sobe **só da branch `develop`**. Subir de outra branch sobrescreve o que outra pessoa está testando.
+- **Nunca rodar os jobs de dev (`service-account-dev`, `migrations-run-dev`, `helm-deploy-gke-dev`) na pipeline da `master`** gerada pelo merge: ela é só para prd. A regra está no `AGENTS.md` do repositório (seção "Deploy Rules"), referenciada no `CLAUDE.md`, para os agentes seguirem.
 - A `develop` nunca vai para a `master`: o MR para a `master` é sempre da sua branch.
 - Passo a passo:
   1. Mergear a sua branch na `develop`: `git switch develop && git pull && git merge <sua-branch> && git push`.
