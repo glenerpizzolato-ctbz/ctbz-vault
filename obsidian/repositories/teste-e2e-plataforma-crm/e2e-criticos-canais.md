@@ -1,6 +1,6 @@
 ---
 name: e2e-criticos-canais
-description: Testes E2E críticos do squad Canais na métrica de Qualidade (Metabase) ligados às specs do teste-e2e-plataforma-crm, o percentual atual e o que falta (o #3, finalizar atendimento via chat do Fale Conosco, sem a tag @regression desde 2024)
+description: Testes E2E críticos do squad Canais na métrica de Qualidade (Metabase) ligados às specs do teste-e2e-plataforma-crm, o percentual atual e o que falta (o #3, finalizar atendimento via chat do Fale Conosco, sem a tag @regression desde 2024, corrigido na branch fix/PRD-179610)
 metadata:
   type: reference
 tags:
@@ -54,7 +54,7 @@ Os `test_client_platform_data_e2e:40` a `:50` (Canais) estão `deleted=true`: s�
 
 ## O #3 ainda faz sentido?
 
-Sim. O cenário é a entrada principal do chat web: home → botão "Fale conosco" (iframe `iframe-helpdesk`) → Contabilidade → "Quero falar sobre um novo assunto" → tema Impostos / subtema "Quanto vou pagar de imposto (DAS/DARF)…" → FAQ → "Não, ainda preciso de ajuda" → menu de canais (Chat e Email) → Chat → abre o Zendesk Messaging (iframe "Janela de mensagens") e fecha. Pelo [mapa do widget](https://claude.ai/artifact/K9Gd5f9VbosysyYTG8kfgR) ([[widget-tags-roteamento-ouvidoria]]) esse caminho existe; no `master` do widget de 18/11/2026 continuam os `data-testid` (`primary-btn`, `confirm-theme-button`, `confirm-subtheme-button`, `channel-btn`) e os textos ("Quero falar sobre um novo assunto", "ainda preciso de ajuda", "Como você quer falar conosco?").
+Sim. O cenário é a entrada principal do chat web: home → botão "Fale conosco" (iframe `iframe-helpdesk`) → Contabilidade → "Quero falar sobre um novo assunto" → tema Impostos → menu de canais (Chat e Email) → Chat → abre o Zendesk Messaging (iframe "Janela de mensagens" / "Messaging window") e fecha. Até a inativação dos subtemas, havia ainda o subtema "Quanto vou pagar de imposto (DAS/DARF)…", o FAQ e "Não, ainda preciso de ajuda" antes dos canais. Pelo [mapa do widget](https://claude.ai/artifact/K9Gd5f9VbosysyYTG8kfgR) ([[widget-tags-roteamento-ouvidoria]]) esse caminho existe; no `master` do widget de 18/11/2026 continuam os `data-testid` (`primary-btn`, `confirm-theme-button`, `confirm-subtheme-button`, `channel-btn`) e os textos ("Quero falar sobre um novo assunto", "ainda preciso de ajuda", "Como você quer falar conosco?").
 
 Histórico: a tag `@regression` saiu em 31/10/2024 (commit `f8482fe`, "removed tag regression from failed test") e não voltou; desde então o teste não roda na pipeline (o job filtra `@regression+@autoatendimento`).
 
@@ -67,3 +67,14 @@ Riscos para ele voltar a passar:
 - Ouvidoria: se o usuário ficar elegível (ticket nas últimas 24 h, por exemplo do `self-service`), aparece o menu "Atendimento / Reclamação/Elogio" antes dos temas.
 
 Rodar: [[rodar-testes-e2e-plataforma-crm]] (precisa da VPN para stg).
+
+## Correção (26/11/2026, PRD-179610)
+
+Rodado em stg com VPN, o teste falhava por dois motivos, nenhum ligado a bug do produto:
+
+1. **Subtemas inativos.** Em `bots_temas` (atendimento-zendesk), todos os 22 subtemas de Impostos estão `ativo=false`, em dev/stg (tema 3054) e em prod (tema 685). Sem subtema, o widget vai do tema direto para "Como você quer falar conosco?" (Chat/Email), sem seletor de subtema nem FAQ; o teste esperava o seletor (`indicatorContainer`) e dava timeout. Em prod só a Folha de Pagamento ainda tem subtemas ativos; em dev também Declarações e Documentos (o dev diverge de prod).
+2. **Idioma do Zendesk Messaging.** O messenger segue o idioma do navegador: no Chrome headless o iframe é `Messaging window` e o botão `Close`, e não `Janela de mensagens` / `Fechar`.
+
+Correção na branch `fix/PRD-179610` (commits `55426a7`, `06682e6`, `c059048`): novo comando `chooseThemeWithoutSubthemeIframe` (escolhe só o tema, espera o `roteamento` e confere Chat e Email), fixtures reduzidas para "Impostos" e as duas mensagens do bot, seletores do Zendesk nos dois idiomas e a tag `@regression @crm` de volta. Passou duas vezes em stg na primeira tentativa (uma delas com `grepTags="@regression+@autoatendimento"`, o filtro da pipeline). Com o merge, o Canais vai a 100% no ALTA.
+
+Observação: em stg o bot do chat responde "Não foi possível autenticar você em nosso chat", a autenticação do Messaging no sandbox não funciona para esse usuário. O teste não valida isso (só abre e fecha o chat).

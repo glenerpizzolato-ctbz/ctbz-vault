@@ -39,7 +39,12 @@ yarn open:stg   # modo interativo
 ```
 
 - **Precisa da VPN.** Sem ela, `app-stg.ctbz.com.br` responde **403 Forbidden** na borda (página "Error Details" com "Your IP") e o teste falha no login com `Expected to find element: input[id="user"]`.
-- `--config retries=0` não desliga as retentativas: o `retries.runMode: 4` vem aninhado do `cypress.config.js`; cada falha roda 5 vezes (~45 s de timeout por tentativa). Para iterar rápido, usar `yarn open:stg`.
+- `--config retries=0` (nem `--config '{"retries":{"runMode":0}}'`) desliga as retentativas: o `retries.runMode: 4` vem aninhado do `cypress.config.js`; cada falha roda 5 vezes (~45 s de timeout por tentativa). O que funciona é `{ retries: 0 }` no próprio `describe`/`it`, ou `yarn open:stg`.
+- Mesmo com VPN, o stg às vezes responde **403** no meio da execução (no `cy.visit` ou nas rotas `/api/plataforma/atendimento/...`), principalmente depois de várias tentativas seguidas; o `curl` volta 200 logo depois. Rodar de novo antes de concluir que é bug.
+- O Zendesk Messaging segue o idioma do navegador: no Chrome headless (local e pipeline) os rótulos vêm em inglês (`Messaging window`, `Close`, `Type a message`). Seletores do Zendesk precisam aceitar pt e en.
+- Para investigar um seletor que sumiu, criar uma spec temporária (ex: `zz-debug.cy.js`, com `{ retries: 0 }`) que repete os passos e grava com `cy.writeFile` os `iframe`/`button` do `contentDocument` em `cypress/downloads/`; apagar depois. Rodar uma spec apaga `cypress/downloads/example.txt` (versionado): restaurar com `git checkout -- cypress/downloads/example.txt`.
+- Os temas/subtemas do widget em stg vêm do banco `atendimento-zendesk` de dev (`bots_temas`, `id_tema_antecessor` = tema pai, `ativo`); consultar lá (serviço `dev_crm_atendimento_zendesk`, proxy `sql_crm_dev`) quando o fluxo do widget não bater com as fixtures.
+- Commits: o hook do repo (commitlint) exige primeira linha com no máximo 80 caracteres e tipos `fix`, `docs`, `refactor`, `test`, `build`.
 - Relatórios e screenshots em `cypress/reports/` (`yarn report:create:linux` monta o HTML).
 
 ## Na pipeline
