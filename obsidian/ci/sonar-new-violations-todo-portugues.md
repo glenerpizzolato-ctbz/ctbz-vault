@@ -39,3 +39,7 @@ Visto em nov/2026 nos MRs !177/!178 do `atendimento-canais-admin` (opt-out em lo
 - Gate do PR: `sonar api get "/api/qualitygates/project_status?projectKey=<repo>&pullRequest=<id do log>"`. Issues: `sonar api get "/api/issues/search?componentKeys=<repo>&pullRequest=<id>&resolved=false"`. Conferir localmente antes do push: `sonar analyze --file <arquivo>`.
 - Caso (experts-functions!10, PRD-178571): `new_violations` = 2 por `typescript:S2699` (BLOCKER, "Add at least one assertion") em testes vitest cujas únicas asserções eram `expect(mock).not.toHaveBeenCalled()` (e `await expect(...).rejects.toThrow`). O Sonar não conta essas formas; trocar por `expect(mock).toHaveBeenCalledTimes(0)` resolveu.
 
+
+## Análise do MR sobrescrita por pipeline mais antiga (2026-11-26)
+
+Com dois pushes seguidos, as duas pipelines rodam o `sonar-merge-request` para o mesmo `pullRequest`. Se a do commit anterior terminar depois, ela sobrescreve a análise do MR com o código antigo: o Sonar volta a mostrar issues/hotspots já corrigidos, mesmo com a pipeline do último commit verde. Correção: retry do `sonar-merge-request` da pipeline mais nova (`glab api -X POST projects/<id>/jobs/<job>/retry`) e conferir com `sonar api get "/api/qualitygates/project_status?projectKey=<repo>&pullRequest=<id>"`. Visto no zendeskapp-warnings-and-messages !1.
