@@ -11,8 +11,11 @@ tags:
 
 Períodos em quadrimestres: QD1 = jan–abr, QD2 = mai–ago, QD3 = set–dez. A data de referência é a data de pronto (ou fim, início, teste; sem nenhuma, a criação do card no Jira). O mês (`AAAAMM`) fica na propriedade `mes` de cada nota.
 
-## 2026QD3 (71)
+## 2026QD3 (74)
 
+- [[PRD-179460]] — Cadastro de Avisos e Mensagens: telas e regras no app Zendesk · backlog · 2026QD3
+- [[PRD-179459]] — Cadastro de Avisos e Mensagens: API no atendimento-zendesk · backlog · 2026QD3
+- [[PRD-179389]] — Cadastro de Avisos e Mensagens: repositório e configuração do app Zendesk · backlog · 2026QD3
 - [[PRD-178821]] — Holerites: alertas da function-email-holerites e fim do e-mail em dobro · backlog · 2026QD3
 - [[PRD-178571]] — Migrar o e-mail de holerite do Mandrill para o email-service · backlog · 2026QD3
 - [[PRD-178071]] — [ACR] Cliente com opt-out de pesquisa segue exposto a NPS/CSAT - opt-out cadastrado só para parte dos pares telefone + CNPJ - SHOWCALLERS PRODUCOES LTDA · pronto · 2026QD3

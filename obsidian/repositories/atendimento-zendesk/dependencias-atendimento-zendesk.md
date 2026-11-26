@@ -39,7 +39,7 @@ _Nada confirmado ainda._
 
 Quem consome os contratos deste repositório; a revisão de MRs confere se o diff quebra algum deles.
 
-_Nada confirmado ainda._
+- `zendeskapp-warnings-and-messages`: API de avisos e mensagens (domínio novo, PRD-179389, em desenvolvimento), via proxy do ZAF com JWT — `src/lib/http/api-client.ts` do app
 
 <!-- deps:auto:inicio (gerado por mapear-dependencias; não editar à mão) -->
 

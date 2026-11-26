@@ -11,6 +11,12 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
+## [[PRD-164638]] — Apoio ATD-104 (3)
+
+- [[PRD-179460]] — Cadastro de Avisos e Mensagens: telas e regras no app Zendesk · backlog · 2026QD3
+- [[PRD-179459]] — Cadastro de Avisos e Mensagens: API no atendimento-zendesk · backlog · 2026QD3
+- [[PRD-179389]] — Cadastro de Avisos e Mensagens: repositório e configuração do app Zendesk · backlog · 2026QD3
+
 ## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (47)
 
 - [[PRD-178821]] — Holerites: alertas da function-email-holerites e fim do e-mail em dobro · backlog · 2026QD3

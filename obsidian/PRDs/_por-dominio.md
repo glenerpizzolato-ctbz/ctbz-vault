@@ -11,8 +11,11 @@ tags:
 
 Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendimento`, `copilot`, `csat`, `impostos`, `monitoria-ia`, `notas-fiscais`, `notificacoes`, `plataforma`, `ultimate`.
 
-## atendimento — Zendesk, tickets, encerramento automático, filas, canais de atendimento, e-mail inbound (83)
+## atendimento — Zendesk, tickets, encerramento automático, filas, canais de atendimento, e-mail inbound (86)
 
+- [[PRD-179460]] — Cadastro de Avisos e Mensagens: telas e regras no app Zendesk · backlog · 2026QD3
+- [[PRD-179459]] — Cadastro de Avisos e Mensagens: API no atendimento-zendesk · backlog · 2026QD3
+- [[PRD-179389]] — Cadastro de Avisos e Mensagens: repositório e configuração do app Zendesk · backlog · 2026QD3
 - [[PRD-177601]] — Falha na Integração Jira-Zendesk: Interrupção do Gatilho de Pesquisa de Satisfação em Casos com Transbordo Marcado como Sim · pronto · 2026QD3
 - [[PRD-176242]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · arquivado · 2026QD3
 - [[PRD-176094]] — Atribuição Indevida de Chats Operacionais para a Caixa de Ouvidoria Chat BP · pronto · 2026QD3

@@ -138,5 +138,6 @@ Fora do mapeamento por decisão do usuário: `back-payments-service`, `back-emai
 - [[_zendeskapp-concierge-indice|zendeskapp-concierge]]
 - [[_zendeskapp-dados-basicos-cliente-indice|zendeskapp-dados-basicos-cliente]]
 - [[_zendeskapp-timeline-indice|zendeskapp-timeline]]
+- [[_zendeskapp-warnings-and-messages-indice|zendeskapp-warnings-and-messages]]
 - [[_zendeskapp-whatsapp-ativo-indice|zendeskapp-whatsapp-ativo]]
 - [[_zendeskbot-functions-indice|zendeskbot-functions]]
