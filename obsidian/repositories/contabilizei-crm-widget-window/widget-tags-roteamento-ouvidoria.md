@@ -43,6 +43,8 @@ Antes de qualquer canal, grava `roteamento.tags` em `helpdesk:routing-tags` (ou 
 
 No caminho direto para a IA não há tema no localStorage: o WhatsApp vai sem registro de tema e com o texto genérico, e o E-mail abre o formulário padrão.
 
+Estado dos subtemas em 26/11/2026 (`bots_temas`, `id_tema_antecessor`): em prod, só a **Folha de Pagamento** tem subtemas ativos; nos demais temas da Contabilidade (Impostos, Notas Fiscais, Mensalidade, Certificado Digital etc.) os subtemas estão todos `ativo=false`, então o widget vai do tema direto para o `RoutingIteration`/menu de canais, sem seletor de subtema nem FAQ. O dev/stg diverge um pouco (Declarações e Documentos ainda tem subtemas ativos lá). Visto ao corrigir o E2E [[e2e-criticos-canais]].
+
 Os temas do widget vêm do BFF (`atendimento/widget/v2/temas`, `bank/temas`, `corretora/temas`). O cadastro equivalente com tags fica no seed `atendimento-zendesk/prisma/seeds/v3/temas-subtemas-prod.ts`: Contabilidade tem 13 temas (incluindo "Ouvidoria", com autoatendimento `sys_validar_acesso_ouvidoria`) e Bank tem 4, sem subtemas.
 
 ## De onde vem a `sys_canal_chat` (e se ela garante chat web)
