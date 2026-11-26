@@ -40,4 +40,6 @@ Mesmo vocabulário (`IntegracaoWhatsapp`), mas não é espelho. O backend nunca 
 - O massivo não grava `mensagem_ativa.squad` (o individual grava `squad = integracao`).
 - Integração na WABA Main + telefone em `flag_tel_mitigacao` → `integracao = MITIGACAO` (número de mitigação).
 
+Segredo do JWT (fluxo e riscos): [[zendesk-apps-segredo-jwt]]; passo a passo em [[subir-secrets-em-apps-zendesk]].
+
 Opt-out em detalhe: [[whatsapp-ativo-finalidade-optout]]. Permissões: [[permissoes-por-grupo]].
