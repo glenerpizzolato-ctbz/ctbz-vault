@@ -60,3 +60,48 @@ Grafana: painel com volume diário, latência p90/p99, 5xx e status por `email_r
 - Armadilha: criar a sub nova e destruir o trigger no mesmo apply roda em paralelo, sem ordem garantida; rodar o `deploy-prd` fora do horário de liberação de folha.
 
 Relacionado: [[templates-mandrill-holerite-e-guias]], [[e2e-holerite-dev]], [[alertas-de-envio]], [[PRD-178571]].
+
+## P1 em prd (2026-11-25)
+
+- `deploy-prd` da pipeline 3110577602 (experts-functions!11) criou `function-email-holerites-sub` (ack 600 s, DLQ `functions.email-holerites.dlq` com 10 tentativas) e `functions.email-holerites.dlq-sub`. O trigger do Eventarc continua até o MR de remoção.
+- Primeiro envio depois do deploy (19:48 UTC): 1 evento virou **3 e-mails**. A sub nova entregou 1 vez (`push_request_count` ack=1, ~10,5 s, sem reentrega); a do Eventarc deu `deadline_exceeded` (>10 s) e reentregou 23 s depois.
+- Como validar qual subscription entregou: o log da function não diz (User-Agent `APIs-Google` nas duas); usar a métrica `pubsub.googleapis.com/subscription/push_request_count` por `subscription_id` e `response_class` (atraso de 2 a 4 min). Script de monitor usado: logs "Holerites enviados por email" + essa métrica + `num_undelivered_messages` da DLQ.
+- Até remover o trigger, todo holerite em prd sai no mínimo em dobro (em triplo quando a function passa de 10 s).
+
+## Duplicados medidos em prd (26/10 a 25/11/2026)
+
+- 1.913 e-mails para 1.377 folhas (CNPJ + período); **267 duplicados técnicos (14%) em 211 folhas (15,3%)**, mediana de 14 s entre o envio e a cópia. Out (26–31): 8,5% das folhas; nov (1–25): 21,6%.
+- Duplicado técnico = nova cópia da mesma folha até 15 min depois (reentrega); >15 min = reenvio posterior (nova liberação, fora da conta).
+- Como refazer (ex: para medir depois da remoção do trigger): exportar `gcloud logging read '... "Holerites enviados por email"' --freshness=31d --format=json`, rodar `scripts/holerite_duplicados_classifica.py <json> <dir>` e `uv run --with openpyxl --with matplotlib python scripts/holerite_duplicados_planilha.py <dir>` (planilha + gráfico semanal). Os logs só guardam 30 dias.
+- Planilha, gráfico e PDF dos alertas anexados no PRD-178821.
+
+## Como testar o alerta de DLQ em prd sem impacto (PRD-178824)
+
+Validado em 25/11/2026, com evidências no comentário 30045804 da PRD-178827.
+
+1. Publicar a mensagem de teste **direto no tópico da DLQ**, nunca no `functions.email-holerites`. Ela não chama a function nem envia e-mail:
+   `gcloud pubsub topics publish functions.email-holerites.dlq --project contabilizei-experts-prd --attribute=teste=PRD-178824 --message='{"TESTE":"não reprocessar"}'`
+2. Em ~3 min, a `num_undelivered_messages` da `dlq-sub` vai a 1. Em ~11 min, o incidente "holerite na DLQ" abre e notifica o `[chat] Alertas - GCP Experts`.
+3. Fazer o pull e o ack **só da mensagem de teste**, filtrando pelo atributo `teste`. Antes, conferir se a DLQ tem folha real. Em ~10 min, o incidente fecha.
+
+O alerta "folha parada na fila há mais de 30 min" não se testa em prd: exigiria segurar folhas reais mais de 30 min. Valida-se pela configuração e pela métrica `oldest_unacked_message_age`, que fica em 0 s no dia a dia.
+
+## Como testar os alertas de log ERROR e de 5xx em prd (PRD-178825)
+
+Validado em 25/11/2026, com evidências no comentário 30048729 da PRD-178827.
+
+**Log ERROR**
+- Gravar pela API `logging.googleapis.com/v2/entries:write` uma entrada `severity: ERROR` com `resource.type=cloud_run_revision`. Os labels são `service_name=function-email-holerites`, a `revision_name` atual, `location` e `configuration_name`. O `logName` é próprio, ex: `teste-prd-178825`.
+- A mensagem segue o formato `… De "<nome> (<cnpj>)", período "<ano>/<mês>"`. Nenhum serviço é chamado.
+- O incidente abre em ~20 s, com os labels `cnpj` e `periodo` extraídos.
+- **Fechar à mão no console:** alerta por log só fecha sozinho em 1 dia, e enquanto está aberto segura novos incidentes com os mesmos labels.
+
+**Taxa de 5xx**
+- Fazer 6 POSTs autenticados (`gcloud auth print-identity-token`) ao `function-html-to-pdf` com um HTML cuja `<img>` aponta para `10.255.255.1`. O puppeteer estoura o timeout de 30 s e o serviço responde 500, sem afetar cliente.
+- Ocupa até 6 instâncias por ~40 s.
+- O incidente abre em ~5 min e fecha sozinho uns 10 min depois da janela limpar.
+- Os `TimeoutError` também abrem o alerta de log ERROR para o `html-to-pdf`.
+
+**Armadilhas**
+- O alerta de log abre um incidente por combinação de recurso e labels: abriram 2 em 83 s na mesma policy.
+- Logs de auditoria de deploy com ERROR (`UpdateService` "Internal error encountered") também casam com o filtro.
