@@ -125,6 +125,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Qualidade
 
+- [[2026-11-26-e2e-critico-canais-fale-conosco|E2E crítico do Canais de volta à regressão (75% → 100% dos críticos ALTA em stg)]] — 2026QD3, impacto medio
 - [[2026-11-25-alertas-e-duplicatas-holerite|Fim do holerite em dobro e alertas do envio de holerite por e-mail]] — 2026QD3, impacto alto
 - [[2026-11-13-iss-agrupamento-casos-de-borda|ISS no agrupamento: casos de borda por município e ordem de deploy]] — 2026QD3, impacto alto
 - [[2026-11-11-ativo-fim-de-semana-agrupamento|WhatsApp do agrupamento em fim de semana perde o vínculo com a resposta do cliente]] — 2026QD3, impacto medio
