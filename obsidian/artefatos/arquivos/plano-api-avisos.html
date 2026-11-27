@@ -1,0 +1,476 @@
+<title>Plano da API de Avisos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: coluna única de leitura (~980px), seções com rótulo à esquerda; diagramas em caixas HTML, opções em cartões lado a lado */
+:root{
+  --bg:#f6f8fc; --surface:#ffffff; --surface-2:#eef2fa; --fg:#14203a; --muted:#56627c; --line:#d8dfec;
+  --accent:#1f5bd8; --accent-soft:#e3ebfd; --accent-fg:#ffffff;
+  --ok:#11845b; --ok-soft:#dcf3e9; --warn:#a86300; --warn-soft:#fdf0d9; --bad:#c2362b; --bad-soft:#fbe3e0; --info:#2563c9; --info-soft:#e1ebfc;
+  --code-bg:#0f1830; --code-fg:#dbe4ff; --code-key:#8fb4ff; --code-str:#9be3b9; --code-com:#7d8ab0;
+  --font-display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --font-body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1222; --surface:#131b30; --surface-2:#1a2440; --fg:#e4eaf8; --muted:#97a3bf; --line:#2a3553;
+  --accent:#6f9bff; --accent-soft:#1c2a52; --accent-fg:#0c1222;
+  --ok:#4fd39d; --ok-soft:#12352a; --warn:#f2b45a; --warn-soft:#3a2a12; --bad:#ff8a7e; --bad-soft:#3d1c1a; --info:#7fb0ff; --info-soft:#17284a;
+  --code-bg:#080d1a; --code-fg:#d6e0ff; --code-key:#8fb4ff; --code-str:#9be3b9; --code-com:#6d7aa0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1222; --surface:#131b30; --surface-2:#1a2440; --fg:#e4eaf8; --muted:#97a3bf; --line:#2a3553;
+  --accent:#6f9bff; --accent-soft:#1c2a52; --accent-fg:#0c1222;
+  --ok:#4fd39d; --ok-soft:#12352a; --warn:#f2b45a; --warn-soft:#3a2a12; --bad:#ff8a7e; --bad-soft:#3d1c1a; --info:#7fb0ff; --info-soft:#17284a;
+  --code-bg:#080d1a; --code-fg:#d6e0ff; --code-key:#8fb4ff; --code-str:#9be3b9; --code-com:#6d7aa0; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.55;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(26px,4vw,36px);font-weight:700}
+h2{font-size:22px;font-weight:600}
+h3{font-size:16px;font-weight:600}
+p{margin:0;max-width:72ch}
+code{font-family:var(--font-mono);font-size:.86em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lead{color:var(--muted);font-size:16px}
+header{display:flex;flex-direction:column;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12.5px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+.chip b{color:var(--fg);font-weight:600}
+section{display:flex;flex-direction:column;gap:16px}
+.sec-head{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:20px}
+.callout{background:var(--accent-soft);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.callout strong{color:var(--accent)}
+/* Diagrama da regra */
+.tree{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px;overflow-x:auto}
+.node{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.op{font-family:var(--font-mono);font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.op.or{background:var(--warn-soft);color:var(--warn)}
+.op.and{background:var(--info-soft);color:var(--info)}
+.op.not{background:var(--bad-soft);color:var(--bad)}
+.op.in{background:var(--ok-soft);color:var(--ok)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.rule{border:1px dashed var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0;background:var(--bg)}
+.rule-h{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.cond{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13.5px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+.cond .c{font-weight:600}
+.val{font-family:var(--font-mono);font-size:12px;background:var(--surface-2);border-radius:4px;padding:1px 6px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted)}
+.legend span{display:flex;gap:6px;align-items:center}
+/* Tabelas */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td.mono{font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 7px;border-radius:999px;white-space:nowrap}
+.tag.c{background:var(--info-soft);color:var(--info)}
+.tag.a{background:var(--ok-soft);color:var(--ok)}
+.tag.q{background:var(--warn-soft);color:var(--warn)}
+/* Opções */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+.opt{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.opt.rec{border:2px solid var(--accent)}
+.opt-h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.badge{font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:3px 9px;border-radius:999px;background:var(--accent);color:var(--accent-fg);white-space:nowrap}
+.badge.no{background:var(--surface-2);color:var(--muted)}
+.pc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;font-size:13.5px}
+.pc li{padding-left:20px;position:relative}
+.pc li::before{position:absolute;left:0;top:0;font-weight:700}
+.pc .p::before{content:"+";color:var(--ok)}
+.pc .m::before{content:"−";color:var(--bad)}
+.opt .when{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+pre{margin:0;background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:14px 16px;font-family:var(--font-mono);font-size:12.5px;line-height:1.6;overflow-x:auto}
+pre .k{color:var(--code-key)} pre .s{color:var(--code-str)} pre .cm{color:var(--code-com)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.two>*{min-width:0}
+/* Fluxo do motor */
+.flow{display:grid;grid-template-columns:1fr auto 1.2fr auto 1fr;gap:10px;align-items:stretch}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;min-width:0}
+.box.core{background:var(--accent-soft);border-color:var(--accent)}
+.box h3{font-size:14px}
+.arrow{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px}
+@media (max-width:760px){.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+/* Etapas */
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.steps li::before{content:counter(s);font-family:var(--font-display);font-weight:700;font-size:15px;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.steps .t{display:flex;flex-direction:column;gap:3px;min-width:0}
+.steps .t span{color:var(--muted);font-size:13.5px}
+.open{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.open .box{border-left:3px solid var(--warn)}
+ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">PRD-179459 · sub-task PRD-179410 · atendimento-zendesk</div>
+  <h1>Plano da API de Avisos e Mensagens</h1>
+  <p class="lead">A rota principal recebe um atendimento (ticket ID) e devolve as mensagens e avisos que valem para ele agora. O cadastro e a listagem com filtros existem para alimentar essa consulta. Base: o protótipo "versão final" e a especificação do épico PRD-164638 (RN01–RN22).</p>
+  <div class="chips">
+    <span class="chip">Stack <b>NestJS 10 · Prisma 5 · Postgres</b></span>
+    <span class="chip">Módulo <b>zendeskapps/warnings-and-messages</b> (MR !255)</span>
+    <span class="chip">Retrato <b>27/11/2026</b></span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">1 · Rota principal</div>
+    <h2>Dado um ticket, quais avisos valem agora</h2>
+  </div>
+  <div class="callout">
+    <p><strong><code>GET /zendeskapps/warnings-and-messages/tickets/:ticketId/avisos?paraQuem=CLIENTE,ATENDENTE</code></strong></p>
+    <p>Só leitura. Descobre o cliente e o guardião do ticket, avalia as regras na hora (RN17) e devolve duas listas na ordem da RN22: o que o guardião repassa ao cliente e os recados da operação para o guardião.</p>
+  </div>
+
+  <div class="flow" style="grid-template-columns:1fr auto 1fr auto 1fr auto 1fr">
+    <div class="box"><h3>Ticket</h3><span>Tabela <code>tickets</code> (espelho do Zendesk): <code>organization_cnpj</code>, <code>organization_plano</code>, <code>assignee_id</code>, <code>group_id</code>.</span><span>Ticket ainda não sincronizado: API do Zendesk.</span></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="box"><h3>Contextos</h3><span><b>Cliente</b>: CNPJ ou processo de abertura + atributos atuais (plano, status, CNAE, UF…).</span><span><b>Guardião</b>: assignee + grupos dele no Zendesk.</span></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="box core"><h3>Mensagens no ar</h3><span>Conjunto já compilado em memória (regras viram <code>Set</code>s), recarregado quando alguém salva. Sem ir ao banco a cada ticket.</span></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="box"><h3>Avaliar e ordenar</h3><span><code>matches(rules, ctx)</code> em cada uma, filtro de horário com o agora, ordem RN22.</span></div>
+  </div>
+
+  <div class="two">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h3>Resposta</h3>
+<pre>{
+  <span class="k">"atendimento"</span>: {
+    <span class="k">"ticketId"</span>: 48211,
+    <span class="k">"cliente"</span>: { <span class="k">"cnpj"</span>: <span class="s">"45111115000155"</span>,
+      <span class="k">"nome"</span>: <span class="s">"OFIANK SOLUCOES TECNOLOGIA LTDA"</span> },
+    <span class="k">"guardiao"</span>: { <span class="k">"id"</span>: 3812, <span class="k">"nome"</span>: <span class="s">"Ana Ribeiro"</span> }
+  },
+  <span class="k">"cliente"</span>: {
+    <span class="k">"quantidade"</span>: 2, <span class="k">"aviso"</span>: null,
+    <span class="k">"mensagens"</span>: [
+      { <span class="k">"id"</span>: 14, <span class="k">"criticidade"</span>: <span class="s">"CRITICO"</span>,
+        <span class="k">"conteudo"</span>: <span class="s">"Pedir ao cliente o **extrato** de novembro…"</span> },
+      { <span class="k">"id"</span>: 9, <span class="k">"criticidade"</span>: <span class="s">"ATENCAO"</span>, <span class="cm">…</span> }
+    ]
+  },
+  <span class="k">"atendente"</span>: { <span class="k">"quantidade"</span>: 1, <span class="k">"mensagens"</span>: [ <span class="cm">…</span> ] }
+}</pre>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h3>Casos da spec</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Situação</th><th>Resposta</th></tr></thead>
+        <tbody>
+          <tr><td>Nada no ar</td><td>200 com listas vazias</td></tr>
+          <tr><td>Ticket sem cliente</td><td>200, lista do cliente vazia com <code>aviso: "Ticket sem cliente identificado"</code>; atendente normal</td></tr>
+          <tr><td>Ticket inexistente</td><td>404 "Ticket não encontrado."</td></tr>
+          <tr><td>Outro guardião ou CNPJ (prévia)</td><td>Só Publicador/Leitor; senão 403 "Você não tem acesso a este atendimento."</td></tr>
+          <tr><td>Falha interna</td><td>503 "Não foi possível consultar os avisos agora. Tente novamente."</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="plain">
+        <li>Não devolve regras, autor nem histórico.</li>
+        <li>Agendadas, inativas e vencidas nunca voltam.</li>
+        <li>Mesmo cliente e guardião pelo ticket ou pelo CNPJ dão a mesma resposta.</li>
+        <li>Telemetria <code>avisos_consultados</code>: origem, ticket, quantidades, tempo, erro.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Por que fica rápida</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Custo</th><th>Como resolver</th></tr></thead>
+    <tbody>
+      <tr><td>Ler as mensagens no ar</td><td>Poucas dezenas ou centenas: carregadas uma vez, compiladas e mantidas em memória. Uma chave no Redis com a "versão do conjunto" (o maior <code>atualizado_em</code>) faz cada pod recarregar quando alguém salva. Ao virar um início ou fim, a avaliação compara com o agora, sem recarregar.</td></tr>
+      <tr><td>Planilhas com milhares de CNPJs</td><td>Compiladas em <code>Set</code> uma vez; o teste é O(1) por cliente.</td></tr>
+      <tr><td>Dados do cliente</td><td>Uma busca por ticket na fonte oficial, com cache curto (ex.: 1–5 min) para respeitar a RN17 sem bater na fonte a cada abertura de ticket.</td></tr>
+      <tr><td>Grupos do guardião</td><td>Memberships do Zendesk em cache (mudam pouco).</td></tr>
+      <tr><td>Critérios sem dado necessário</td><td>Só busca os atributos que algum critério no ar usa. Se ninguém usa certificadora, não chama a fonte dela.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">2 · O que o protótipo pede</div>
+    <h2>As regras têm forma fixa: OU de E, com "não é"</h2>
+  </div>
+  <div class="callout">
+    <p><strong>Não há aninhamento livre de if/else.</strong> No protótipo (<code>ruleHitsC</code>, <code>condHits</code>) a mensagem tem uma lista de <b>regras</b> somadas com OU. Cada regra tem <b>critérios</b> ligados por E. Cada critério tem relação <b>é / não é</b> e uma lista de <b>valores</b>, que valem como OU entre si.</p>
+    <p>É a forma normal disjuntiva: qualquer combinação de E, OU e NÃO pode ser escrita nela. Basta guardar dois níveis fixos, sem árvore de profundidade arbitrária.</p>
+  </div>
+
+  <div class="tree" role="img" aria-label="Exemplo de regra: Regra 1 com Grupo de atendimento é Atendimento BP ou Experts, E Guardião não é Wanderlan; OU Regra 2 com Guardião é Karina Duarte">
+    <div class="node"><span class="op or">OU</span><b>Mensagem para Atendente</b><span style="color:var(--muted);font-size:13px">"Treinamento obrigatório sobre a reforma tributária…"</span></div>
+    <div class="rules">
+      <div class="rule">
+        <div class="rule-h"><b>Regra 1</b><span class="op and">E</span></div>
+        <div class="cond"><span class="c">Grupo de atendimento</span><span class="op in">é</span><span class="val">Atendimento BP</span><span class="val">Atendimento Experts</span></div>
+        <div class="cond"><span class="c">Guardião (individual)</span><span class="op not">não é</span><span class="val">Wanderlan Souza</span></div>
+      </div>
+      <div class="rule">
+        <div class="rule-h"><b>Regra 2</b><span class="op and">E</span></div>
+        <div class="cond"><span class="c">Guardião (individual)</span><span class="op in">é</span><span class="val">Karina Duarte</span></div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><span class="op or">OU</span> entre regras: basta uma</span>
+      <span><span class="op and">E</span> entre critérios: todos</span>
+      <span><span class="op in">é</span> algum dos valores</span>
+      <span><span class="op not">não é</span> nenhum dos valores</span>
+    </div>
+  </div>
+
+  <h3>Semântica que o motor precisa fixar (vem do protótipo e das RNs)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Caso</th><th>Regra</th><th>Origem</th></tr></thead>
+    <tbody>
+      <tr><td>Avaliação</td><td><code>regras.some(r =&gt; r.conds.every(c =&gt; c.op === 'not' ? !test(c) : test(c)))</code></td><td>RN12, <code>ruleHitsC</code></td></tr>
+      <tr><td>Regra sem critério ou critério sem valor</td><td>Inválido: não salva ("Preencha este critério ou remova-o.")</td><td>RN12</td></tr>
+      <tr><td>Dado do cliente ausente (ex.: sem processo de abertura)</td><td><code>é</code> → falso · <code>não é</code> → verdadeiro (o protótipo faz assim)</td><td><code>proc.test</code></td></tr>
+      <tr><td>Fonte do dado fora do ar</td><td>Decidir: falhar fechado (não exibe) é o mais seguro</td><td>A decidir</td></tr>
+      <tr><td>Status</td><td>Gravado só Ativa/Inativa. Agendada e Vencida saem da comparação com o agora (UTC)</td><td>RN06, RN07</td></tr>
+      <tr><td>No ar</td><td><code>status = ATIVA AND inicio &lt;= now AND (fim IS NULL OR fim &gt;= now)</code></td><td><code>isLive</code></td></tr>
+      <tr><td>Ordem</td><td>Crítico → Atenção → Informativo; dentro, cadastro mais recente primeiro</td><td>RN22</td></tr>
+      <tr><td>Avaliação no tempo</td><td>Sempre com os dados atuais do cliente/guardião, nada é materializado</td><td>RN17</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Catálogo de critérios (16)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Id</th><th>Critério</th><th>Para</th><th>Tipo de valor</th><th>Teste</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">plano</td><td>Plano do cliente</td><td><span class="tag c">Cliente</span></td><td>lista fixa (6)</td><td>plano ∈ valores</td></tr>
+      <tr><td class="mono">cnpj</td><td>CNPJ</td><td><span class="tag c">Cliente</span></td><td>CNPJs digitados (com razão social)</td><td>cnpj ∈ valores</td></tr>
+      <tr><td class="mono">planilha_cnpj</td><td>Planilha de CNPJ</td><td><span class="tag c">Cliente</span></td><td>arquivo + CNPJs aceitos</td><td>cnpj ∈ aceitos</td></tr>
+      <tr><td class="mono">processo</td><td>Processo de abertura</td><td><span class="tag c">Cliente</span></td><td>IDs digitados</td><td>processo ∈ valores</td></tr>
+      <tr><td class="mono">planilha_processo</td><td>Planilha de processo</td><td><span class="tag c">Cliente</span></td><td>arquivo + IDs aceitos</td><td>processo ∈ aceitos</td></tr>
+      <tr><td class="mono">status_empresa</td><td>Status da empresa</td><td><span class="tag c">Cliente</span></td><td>lista fixa (5)</td><td>status ∈ valores</td></tr>
+      <tr><td class="mono">tipo_contrato</td><td>Tipo de contrato</td><td><span class="tag c">Cliente</span></td><td>Abertura, Migração</td><td>contrato ∈ valores</td></tr>
+      <tr><td class="mono">ramo</td><td>Ramo de atividade</td><td><span class="tag c">Cliente</span></td><td>Comércio, Serviço</td><td>derivado do CNAE</td></tr>
+      <tr><td class="mono">cnae</td><td>CNAE</td><td><span class="tag c">Cliente</span></td><td>lista com busca</td><td>cnae ∈ valores</td></tr>
+      <tr><td class="mono">natureza</td><td>Natureza jurídica</td><td><span class="tag c">Cliente</span></td><td>tabela da Receita</td><td>natureza ∈ valores</td></tr>
+      <tr><td class="mono">certificadora</td><td>Certificadora</td><td><span class="tag c">Cliente</span></td><td>lista fixa (5)</td><td>certificadora ∈ valores</td></tr>
+      <tr><td class="mono">regime</td><td>Regime tributário</td><td><span class="tag c">Cliente</span></td><td>SN, LP</td><td>regime ∈ valores</td></tr>
+      <tr><td class="mono">uf</td><td>Estado (UF)</td><td><span class="tag c">Cliente</span></td><td>UFs</td><td>uf ∈ valores</td></tr>
+      <tr><td class="mono">cidade</td><td>Cidade</td><td><span class="tag c">Cliente</span></td><td>código IBGE (o protótipo usa "UF|Nome")</td><td>municipio ∈ valores</td></tr>
+      <tr><td class="mono">grupo_atendimento</td><td>Grupo de atendimento</td><td><span class="tag a">Atendente</span></td><td>grupos ativos do Zendesk</td><td>grupos ∩ valores ≠ ∅</td></tr>
+      <tr><td class="mono">guardiao</td><td>Guardião (individual)</td><td><span class="tag a">Atendente</span></td><td>agentes ativos do Zendesk</td><td>id ∈ valores</td></tr>
+    </tbody>
+  </table></div>
+  <p style="color:var(--muted);font-size:13.5px">No repositório já existe um precedente, <code>ValidarRestricaoService</code> (bots), que guarda <code>restricoes</code> em JSON e avalia com um if por campo, só com E. O motor novo troca os ifs por um catálogo: critério novo = um item novo, sem mudar o modelo nem o motor.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">3 · Persistência</div>
+    <h2>Como guardar as regras</h2>
+  </div>
+  <div class="opts">
+    <div class="opt rec">
+      <div class="opt-h"><h3>A. JSONB com regras em OU de E + colunas derivadas</h3><span class="badge">Recomendada</span></div>
+      <p style="font-size:13.5px">Uma coluna <code>regras jsonb</code> no formato da spec, validada por schema Zod com <code>schemaVersion</code>. Colunas derivadas, gravadas no mesmo save, atendem os filtros da lista.</p>
+      <ul class="pc">
+        <li class="p">É o formato que a spec já define e o front já monta</li>
+        <li class="p">Histórico simples: antes e depois de <code>regras</code> num diff só</li>
+        <li class="p">Versão otimista cobre a mensagem inteira, regras inclusas</li>
+        <li class="p">Mesmo padrão de <code>restricoes Json</code> que o repo já usa</li>
+        <li class="m">Sem integridade no banco: a validação é toda no Zod</li>
+        <li class="m">Filtros "Critério" e "Plano" precisam das colunas derivadas</li>
+      </ul>
+      <div class="when">Encaixa na rota principal: ela parte do ticket e testa cada mensagem no ar contra o cliente. Nunca pergunta ao banco "quais mensagens citam este CNPJ", então não precisa de índice por valor.</div>
+    </div>
+    <div class="opt">
+      <div class="opt-h"><h3>B. Tabelas normalizadas</h3><span class="badge no">Descartada</span></div>
+      <p style="font-size:13.5px"><code>mensagem_regra</code> → <code>regra_condicao</code> → <code>condicao_valor</code>, uma linha por valor.</p>
+      <ul class="pc">
+        <li class="p">Integridade e índices por valor (ex.: achar mensagens de um CNPJ)</li>
+        <li class="p">Planilhas grandes viram linhas, sem JSON gordo</li>
+        <li class="m">Editar uma regra = apagar e recriar 3 níveis na transação</li>
+        <li class="m">Histórico tem que remontar o antes e o depois</li>
+        <li class="m">A consulta nunca busca "mensagens de um CNPJ" no banco (RN17 avalia na hora)</li>
+      </ul>
+      <div class="when">Só compensaria se a consulta precisasse filtrar no SQL quem vê o quê.</div>
+    </div>
+    <div class="opt">
+      <div class="opt-h"><h3>C. Árvore genérica (JSON Logic / AST)</h3><span class="badge no">Descartada</span></div>
+      <p style="font-size:13.5px">Nós <code>and</code>/<code>or</code>/<code>not</code> com profundidade livre, avaliados por uma lib como <code>json-logic-js</code>.</p>
+      <ul class="pc">
+        <li class="p">Expressa qualquer aninhamento</li>
+        <li class="m">A tela não monta árvore: só regras (OU) e critérios (E)</li>
+        <li class="m">"Alcance por regra" deixa de ter sentido numa árvore</li>
+        <li class="m">Texto por extenso na lista e diff do histórico ficam difíceis</li>
+        <li class="m">Abre espaço para regras que o front não consegue editar</li>
+      </ul>
+      <div class="when">Se um dia vier aninhamento, entra como <code>schemaVersion: 2</code> sem migrar a tabela.</div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h3>Modelo de dados (opção A)</h3>
+<pre><span class="k">avisos_mensagens</span>
+  id              bigserial PK
+  conteudo        text        <span class="cm">-- Markdown restrito</span>
+  criticidade     enum  CRITICO | ATENCAO | INFORMATIVO
+  para_quem       enum  CLIENTE | ATENDENTE
+  inicio_em       timestamptz <span class="cm">-- UTC</span>
+  fim_em          timestamptz NULL
+  status          enum  ATIVA | INATIVA
+  regras          jsonb
+  criterios       text[]      <span class="cm">-- derivado: filtro Critério</span>
+  planos          text[] NULL <span class="cm">-- derivado: filtro Plano</span>
+  termos_busca    text        <span class="cm">-- derivado: CNPJs, guardiões</span>
+  versao          int         <span class="cm">-- concorrência otimista</span>
+  criado_por/_em, atualizado_por/_em
+  <span class="cm">idx (status, inicio_em, fim_em) · gin(criterios)</span>
+
+<span class="k">avisos_mensagens_historico</span>   <span class="cm">-- só INSERT</span>
+  id, mensagem_id FK, versao
+  acao       enum CADASTROU | EDITOU | INATIVOU
+                  | ATIVOU | DESFEZ_INATIVACAO
+  alteracoes jsonb  <span class="cm">-- [{campo, antes, depois}]</span>
+  autor, criado_em</pre>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h3>Conteúdo de <code>regras</code></h3>
+<pre>{
+  <span class="k">"schemaVersion"</span>: 1,
+  <span class="k">"rules"</span>: [
+    { <span class="k">"conds"</span>: [
+      { <span class="k">"criterio"</span>: <span class="s">"plano"</span>, <span class="k">"op"</span>: <span class="s">"is"</span>,
+        <span class="k">"valores"</span>: [<span class="s">"PREMIUM"</span>] },
+      { <span class="k">"criterio"</span>: <span class="s">"uf"</span>, <span class="k">"op"</span>: <span class="s">"is"</span>,
+        <span class="k">"valores"</span>: [<span class="s">"SP"</span>] }
+    ]},
+    { <span class="k">"conds"</span>: [
+      { <span class="k">"criterio"</span>: <span class="s">"planilha_cnpj"</span>, <span class="k">"op"</span>: <span class="s">"not"</span>,
+        <span class="k">"arquivo"</span>: <span class="s">"clientes_nov.xlsx"</span>,
+        <span class="k">"valores"</span>: [<span class="s">"45111115000155"</span>, <span class="cm">…</span>] }
+    ]}
+  ]
+}</pre>
+      <ul class="plain">
+        <li>Mensagem e histórico no mesmo <code>prisma.$transaction</code>.</li>
+        <li>Edição: <code>updateMany where {id, versao}</code>; 0 linhas → <b>409</b>.</li>
+        <li>Recusados da planilha não são gravados (spec).</li>
+        <li>Nunca há DELETE; a retenção de 5 anos é uma rotina futura.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">4 · Contrato REST</div>
+    <h2>Como carregar as regras pelo REST</h2>
+  </div>
+  <div class="opts">
+    <div class="opt rec">
+      <div class="opt-h"><h3>A. Regras no formato gravado + catálogo à parte</h3><span class="badge">Recomendada</span></div>
+      <p style="font-size:13.5px">O detalhe devolve <code>rules</code> igual ao banco, com os rótulos já resolvidos (razão social, nome do grupo). O front monta a tela a partir de <code>GET /criterios</code>. A lista devolve também o <code>resumo</code> por extenso e o alcance.</p>
+      <ul class="pc">
+        <li class="p">O mesmo JSON vai e volta: o que o front salva é o que ele lê</li>
+        <li class="p">Critério novo aparece no front sem deploy do app</li>
+        <li class="p">Texto "Plano é Premium E UF é SP" sai de um lugar só</li>
+      </ul>
+    </div>
+    <div class="opt">
+      <div class="opt-h"><h3>B. Só o texto pronto</h3><span class="badge no">Só para a lista</span></div>
+      <p style="font-size:13.5px">Servidor devolve apenas o resumo legível.</p>
+      <ul class="pc"><li class="p">Ótimo na tabela da lista</li><li class="m">Não dá para editar a partir dele</li></ul>
+    </div>
+    <div class="opt">
+      <div class="opt-h"><h3>C. Árvore/JSON Logic no contrato</h3><span class="badge no">Descartada</span></div>
+      <p style="font-size:13.5px">Expor uma árvore genérica para o front interpretar.</p>
+      <ul class="pc"><li class="m">Front teria que converter para regras e critérios</li><li class="m">Duplica a lógica, contra o "motor único"</li></ul>
+    </div>
+  </div>
+
+  <h3>Rotas (prefixo <code>/zendeskapps/warnings-and-messages</code>)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Método</th><th>Rota</th><th>O que faz</th><th>Papel</th></tr></thead>
+    <tbody>
+      <tr style="background:var(--accent-soft)"><td class="mono"><b>GET</b></td><td class="mono"><b>/tickets/:ticketId/avisos?paraQuem=</b></td><td><b>Rota principal.</b> Listas do cliente e do atendente no ar, ordem RN22</td><td><span class="tag c">Qualquer agente</span></td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/criterios?paraQuem=</td><td>Catálogo: id, rótulo, tipo, relações, se tem busca</td><td><span class="tag q">Leitor+</span></td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/criterios/:id/valores?busca=&amp;uf=</td><td>Valores do critério com a quantidade de clientes/guardiões</td><td><span class="tag q">Leitor+</span></td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/criterios/:id/valores/:valor</td><td>Valida um CNPJ ou processo e devolve o nome ("inválido", "não encontrado")</td><td><span class="tag q">Leitor+</span></td></tr>
+      <tr><td class="mono">POST</td><td class="mono">/planilhas?tipo=cnpj|processo</td><td>Upload XLS/XLSX: valida DV, tira repetidos, devolve aceitos e recusados com motivo</td><td><span class="tag a">Publicador</span></td></tr>
+      <tr><td class="mono">POST</td><td class="mono">/alcance</td><td><code>{paraQuem, rules}</code> → alcance por regra, total sem repetir e guardiões</td><td><span class="tag q">Leitor+</span></td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/mensagens?filtros&amp;page&amp;sort</td><td>Lista paginada (8), status calculado, resumo e alcance</td><td><span class="tag q">Leitor+</span></td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/mensagens/:id</td><td>Detalhe com <code>rules</code> e <code>versao</code></td><td><span class="tag q">Leitor+</span></td></tr>
+      <tr><td class="mono">POST</td><td class="mono">/mensagens</td><td>Cadastra e grava "Cadastrou"</td><td><span class="tag a">Publicador</span></td></tr>
+      <tr><td class="mono">PUT</td><td class="mono">/mensagens/:id</td><td>Edita com <code>versao</code>; 409 se mudou; histórico campo a campo</td><td><span class="tag a">Publicador</span></td></tr>
+      <tr><td class="mono">PATCH</td><td class="mono">/mensagens/:id/status</td><td><code>{status, desfazer?}</code>: Ativou, Inativou, Desfez a inativação</td><td><span class="tag a">Publicador</span></td></tr>
+      <tr><td class="mono">GET</td><td class="mono">/mensagens/:id/historico</td><td>Linha do tempo: quem, quando, ação, antes → depois</td><td><span class="tag q">Leitor+</span></td></tr>
+    </tbody>
+  </table></div>
+  <p style="color:var(--muted);font-size:13.5px">A consulta por ticket aceita <code>?cnpj=</code> / <code>?guardiao=</code> só para Publicador e Leitor (prévia). Ela não devolve regras, autor nem histórico. Cada rota ganha o seu <code>.bru</code> no mesmo commit.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">5 · Motor de regras</div>
+    <h2>Um motor, dois usos: consulta e alcance</h2>
+  </div>
+  <div class="flow">
+    <div class="box"><h3>Catálogo</h3><span>Um arquivo por critério: <code>id</code>, <code>paraQuem</code>, schema Zod dos valores, <code>loadValues()</code>, <code>test(valores, ctx)</code>.</span></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="box core"><h3>RuleEngine</h3><span><code>validate(rules)</code>: critério conhecido, do público certo, com valor.</span><span><code>matches(rules, ctx)</code>: OU de E com "não é".</span><span><code>describe(rules)</code>: texto por extenso.</span></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="box"><h3>Contexto</h3><span><b>ClienteContext</b>: plano, status, CNAE, UF, município… do ticket.</span><span><b>GuardiaoContext</b>: id e grupos do Zendesk.</span></div>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>Consulta por ticket (rota principal)</h3>
+      <ul class="plain">
+        <li>Um cliente contra as N mensagens no ar.</li>
+        <li>É o uso que define o desenho: o motor é pensado para avaliar um contexto rápido.</li>
+        <li>Detalhes na seção 1.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Alcance (debounce ~300 ms)</h3>
+      <ul class="plain">
+        <li><b>Recomendado:</b> base de clientes em memória/Redis, atualizada por rotina; roda <code>matches</code> em cada cliente. Mesmo código da consulta.</li>
+        <li><b>Alternativa:</b> cada critério também gera SQL/BigQuery (<code>toSql</code>). Mais rápido em base grande, mas são duas lógicas, testadas com as mesmas fixtures.</li>
+        <li>Guardiões: lista pequena do Zendesk, sempre em memória.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">6 · Entrega</div>
+    <h2>Sequência de MRs</h2>
+    <p class="lead">MRs pequenos em corrente, a partir do módulo do MR !255. A rota principal vem logo depois do motor: com mensagens criadas por seed em dev, ela já pode ser testada antes do cadastro.</p>
+  </div>
+  <ol class="steps">
+    <li><div class="t"><b>Modelo e repositório</b><span>Prisma + migration das duas tabelas, repositório com transação, versão otimista e histórico só de inserção.</span></div></li>
+    <li><div class="t"><b>Motor de regras e catálogo</b><span>Schema Zod de <code>rules</code>, os 16 critérios, <code>validate</code>/<code>matches</code>/<code>describe</code>. Código puro e todo testado, incluindo os casos de aceite da API.</span></div></li>
+    <li><div class="t"><b>Consulta por ticket (rota principal)</b><span>Ticket → contextos do cliente e do guardião, conjunto de mensagens no ar em memória, ordem RN22, respostas de erro da spec, telemetria <code>avisos_consultados</code>.</span></div></li>
+    <li><div class="t"><b>CRUD, status e histórico</b><span>Rotas de mensagens, diff campo a campo, guard de papel (Publicador/Leitor), Markdown restrito sanitizado com limite de 500 visíveis, invalidação do conjunto no ar, telemetria <code>mensagem_salva</code>.</span></div></li>
+    <li><div class="t"><b>Listagem com filtros</b><span>Paginação de 8, busca, filtros combinados com E, ordenação por coluna, status calculado e resumo por extenso.</span></div></li>
+    <li><div class="t"><b>Critérios, valores e planilha</b><span>Catálogo e valores com contagem, validação de CNPJ/processo, upload com recusados e motivo.</span></div></li>
+    <li><div class="t"><b>Alcance</b><span>Base de clientes para contagem, rota <code>/alcance</code> e alcance na lista; bloqueio de "ninguém recebe" (RN14) também no save.</span></div></li>
+  </ol>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">7 · Antes de codar</div>
+    <h2>Pontos em aberto que mudam o plano</h2>
+  </div>
+  <div class="open">
+    <div class="box"><h3>Ticket de cliente em ativação</h3><span>Sem CNPJ, o ticket precisa levar ao processo de abertura. Falta confirmar de onde: campo do ticket, <code>organization_external_id</code> ou telefone do solicitante.</span></div>
+    <div class="box"><h3>Fonte dos dados do cliente</h3><span>De onde vem cada atributo dos critérios (plano, status, CNAE, natureza, certificadora, regime, município) e com que atraso. Define o ClienteContext e a base do alcance.</span></div>
+    <div class="box"><h3>Grupos dos papéis</h3><span>Quais grupos do Zendesk são Publicador e Leitor. O guard já recebe <code>x-zendesk-user-id</code>; falta mapear grupo → papel.</span></div>
+    <div class="box"><h3>Fonte fora do ar</h3><span>Na consulta, falhar fechado (não exibe a mensagem) ou aberto. Sugestão: fechado, com log.</span></div>
+    <div class="box"><h3>Tamanho da base</h3><span>Quantos clientes entram no alcance. Até algumas centenas de milhares, memória resolve; acima disso, partir para <code>toSql</code>.</span></div>
+  </div>
+</section>
+
+</div>

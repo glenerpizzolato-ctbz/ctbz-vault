@@ -19,6 +19,10 @@ Para **compartilhar com o time** (HTML Share: como publicar, versões, marcaçõ
 
 - [[mapa-whatsapp-ativo|Mapa do WhatsApp Ativo]] — Projeto do template (squad) x Atendimento do envio (integracao): quais templates aparecem, como cada campo do envio é preenchido, número de saída, resposta e opt-out, com simulador
 
+## Avisos e Mensagens
+
+- [[plano-api-avisos|Plano da API de Avisos e Mensagens]] — Regras de destinatários em OU de E (protótipo), persistência em JSONB, contrato REST, motor único e MRs do PRD-179459
+
 ## Holerite / Experts
 
 - [[fluxo-holerite-email|Fluxo do Holerite por E-mail]] — BPMN do envio de hoje (function → html-to-pdf → Mandrill) x proposta (function → html-to-pdf → email-service/HubSpot), com pré-requisitos e riscos

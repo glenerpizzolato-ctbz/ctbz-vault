@@ -33,3 +33,4 @@ Repositório em `~/repositories/atendimento-zendesk`. Notas sobre ele (como roda
 - [[testar-optout-whatsapp-ativo-dev]] — testar o opt-out do ativo em dev: envio pelo gateway heimdall (Kong de dev com token vencido), telefone de teste `+5555996981032` e as manifestações dele no contato-service (alternar por UPDATE, sem INSERT), templates com nps/csat, status e logs do worker
 - [[whatsapp-ativo-finalidade-optout]] — como o ativo decide a finalidade do opt-out (optoutPurpose > squad SURVEY/categoria NPS-WORKER_CSAT > categoria Meta) e consulta o contato-service
 - [[dependencias-atendimento-zendesk|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome
+- [[plano-api-avisos|Plano da API de Avisos e Mensagens]] — artefato do PRD-179459: regras de destinatários em OU de E, persistência em JSONB, contrato REST e motor único de regras
