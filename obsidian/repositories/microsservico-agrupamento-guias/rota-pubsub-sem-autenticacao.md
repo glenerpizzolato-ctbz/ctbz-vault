@@ -30,3 +30,8 @@ Remover `PubSubApi.kt`, `PubSubApiTest.kt` e as duas rotas do `src/main/catalog-
 
 - Card [[PRD-179714]] (épico CTS Eng Canais), sub-tasks PRD-179715 (dev) e PRD-179716 (e2e). MR draft !105, branch `feat/PRD-179714`, remove `PubSubApi`, o teste e as rotas do `api-docs.yaml`.
 - Em aberto: IAM da SA e autenticação na aplicação.
+
+## Origem do PubSubApi (git)
+
+- Criado em 2022-10-18 por Kathelin D'Agostin (`573338bc`), poucos dias após o commit inicial do repo (2022-10-06), como utilitário para simular os eventos de guia: atributos fixos de dev (`sistema-origem=s~contabilizeiapp-dev-02`, `bucket-name=impostos-teste`, CNPJ fixo). Ajustes até 2022-12-01 (Kathelin, Renan Monticelli). O tópico sempre foi livre pelo path e o controller sempre subiu em prod.
+- 2026-11-09, Bruno Menescal (`356ca28d`, "[PRD-167515] Ajuste rota local"): os atributos passaram a vir livres da query, o que ampliou o risco. Isso perdeu o `deleted`, que voltou em 2026-11-10 (`aa58fc48`), junto com o `PubSubApiTest`. A intenção era uso local, mas faltou o `@Profile("local")`.
