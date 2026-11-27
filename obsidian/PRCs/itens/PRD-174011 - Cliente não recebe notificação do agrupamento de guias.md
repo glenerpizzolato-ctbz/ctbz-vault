@@ -16,10 +16,12 @@ sistemas:
   - agrupamento-guias-service
 acr:
   - "[[PRD-174011]]"
+  - "[[PRD-179702]]"
 ocorrencias:
   - PRC-151642
-qtd_ocorrencias: 1
-ultima_ocorrencia: 2026-10-02
+  - PRC-153307
+qtd_ocorrencias: 2
+ultima_ocorrencia: 2026-11-27
 ---
 
 # Cliente não recebe notificação do agrupamento de guias
@@ -29,6 +31,8 @@ ultima_ocorrencia: 2026-10-02
 Cliente (Expert) diz que não recebe mais as notificações de "empacotamento" dos impostos mensais (e-mail/WhatsApp com o PDF das guias agrupadas).
 
 ## Como investigar
+
+Atalho: a skill `investigar-notificacoes-guias-empresa` (`~/ctbz-vault/skills/impostos/investigar-notificacoes-guias-empresa/`) roda todas as consultas abaixo, mais o WhatsApp ativo, as avulsas do experts-service e o plano mês a mês no BigQuery, e classifica cada competência. As consultas ficam aqui como referência.
 
 Banco `prd_atendimento_canais_ms_agrupamento_guias` (proxy `sql_atendimento_prd`, porta 5443; ver [[_db-indice|db]]). Achar a empresa pelo nome do responsável ou pelo CNPJ:
 
@@ -58,6 +62,7 @@ Só é notificado o grupo da competência anterior em `SUCESSO_AGRUPAMENTO`. Ler
 | `AGRUPAMENTO_SEM_GUIA` | nenhuma guia agrupável no dia 15 (ex: só `TFE`, ou nenhuma guia em `controle_guias`): não há o que notificar. Se a plataforma mostra guias naquele mês, o problema é a sincronização das guias com o microsserviço |
 | `GUIAS_AGUARDANDO_GERACAO` | no dia 15 havia guia ainda sem PDF. Fica preso para sempre se a guia só sair depois do vencimento ou depois da virada do mês (ver causa) |
 | `GUIAS_AGUARDANDO_GERACAO` com `path` preenchido | o grupo foi reprocessado (guia alterada dentro do vencimento) e o PDF chegou a ser gerado com as guias prontas, mas uma guia do grupo continua sem arquivo, então o status volta para aguardando. Procurar no `item_grupo_guia` a guia em `AGUARDANDO_EMISSAO`/sem `id_arquivo` (ex: duplicata órfã do mesmo imposto, ver abaixo) |
+| **sem `grupo_guia` e sem `historico_processamento_grupo_guia`** | a empresa nem foi enviada ao agrupamento no dia 15. Conferir o plano no mês (BigQuery `saude_empresa.empresa`): até 22/10/2026 o `plataforma-faturamento-worker` só publicava `EXPERT_ESSENCIAL` (hoje: Experts SN/LP, BP LP e BP Simples). Com plano elegível, a mensagem de `agrupar-guias-empresa` não chegou |
 | `ERRO_GUIA_ALTERADA*` / `ERRO_NOVA_GUIA` | guias mudaram depois do agrupamento: não há nova notificação com as guias novas |
 
 ## Causa (PRC-151642, ELENA KATSORCHIS, CNPJ 03916262000199)
@@ -82,3 +87,16 @@ Por que o grupo `GUIAS_AGUARDANDO_GERACAO` não é retentado (`microsservico-agr
 ## Variação: guia duplicada presa em AGUARDANDO_EMISSAO (empresa 6417390000930816, 202609, investigado em 2026-11-11)
 
 Grupo `732155` (CNPJ 26120247000135, Experts SN) ficou em `GUIAS_AGUARDANDO_GERACAO` e nunca foi notificado, embora tenha `path`. O grupo tem 3 itens: `SIMPLES` (19455277) e `DARF_UNIFICADO` (19507039), ambos `REGISTRADO` com PDF e vencimento 10-27, e uma segunda `DARF_UNIFICADO` (19526831, `id_guia` 6551924603879424, mesmo principal de R$ 495, vencimento 10-20) em `AGUARDANDO_EMISSAO` sem `id_arquivo`, sem atualização desde 2026-10-07 e com `clock` anterior ao da DARF válida. O `EfetivaStatusAgrupamentoServiceImpl` exige que **todas** as guias do grupo estejam com PDF; a duplicata órfã (provavelmente substituída no sistema de impostos sem o evento de cancelamento chegar) trava o grupo. Os reprocessamentos de 10-21 e 10-23 (DARF/DAS recalculadas com multa) mantiveram o status. Correção: confirmar no sistema de impostos o status da guia `6551924603879424` (se cancelada, o evento precisa chegar ao microsserviço ou a guia sair do grupo) e reprocessar o grupo.
+
+## PRC-153307 (TERAVI, CNPJ 26120247000135, Experts SN, investigado em 2026-11-27)
+
+ACR própria: [[PRD-179702]] (Problem/Incident com o PRC), finalizada em 2026-11-27 como "Não foi identificado problema no produto", causa "Não se aplica", Produto `Empacotamento Guias > Notificação guias agrupadas (E-mail/Whatsapp)`. Resposta no PRC orientando a devolutiva à cliente (troca de plano) e direcionando a guia duplicada de 202609 ao time de impostos.
+
+PRC fechado em 2026-11-27: de `Paused`, `Restarted` (141, → Em Andamento) e `Solved` (121, → Concluído) com Classificação N3 Expert - Projetos (`31450`), Devido (`22182`), Funcionalidade Imposto (`19022`), Grau do Impacto Altíssimo - Impactou Cliente (`20698`), Ofensor `notificacao_agrupamento_guias`, Resolução "Envio de orientações (devido)" (`18253`), Tipo Suporte a operação (`18048`). Usar esses valores nos próximos PRCs deste playbook em que não houver correção de dados.
+
+Cliente reclamou de não ter recebido o empacotamento de 04, 05, 06 e 10/2026. Rodado com a skill `investigar-notificacoes-guias-empresa`:
+
+- **202603, 202604, 202605 (envios de abril, maio e junho): fora do agrupamento por plano.** Não existe `grupo_guia` nem histórico de processamento nesses meses, embora `SIMPLES` e `DARF_UNIFICADO` estivessem `REGISTRADO` antes do dia 15. No BigQuery a empresa aparece como **AVANCADO** (BP) de 202603 a 202606 e volta a `EXPERT_ESSENCIAL` em 202607 (snapshot de fim de mês: a troca aconteceu depois de 15/03 e antes de 15/07). Na época, o `AgrupamentoGuiasFacade.isClienteExpert` só aceitava `EXPERT_ESSENCIAL`, e BP no Simples não tem notificação nem hoje. A avulsa também não saiu: o experts-service só notifica plano Experts (única avulsa do ano: 16/01).
+- **202609 (envio de outubro): guia duplicada travando**, como na seção acima. 8 eventos de reprocessamento (21 e 23/10), status final `GUIAS_AGUARDANDO_GERACAO`. Sem avulsa: SIMPLES/DARF agrupáveis da competência atual ficam seguradas pelo experts-service até o grupo ter WhatsApp com `SUCESSO`, que nunca veio. O status da guia `6551924603879424` no sistema de impostos não pôde ser lido (Datastore de `contabilizei-impostos` dá `PERMISSION_DENIED`): pedir ao Fiscal.
+- 202512–202602, 202606–202608 e 202610: enviados por e-mail e WhatsApp (WhatsApp `ENTREGUE` no ativo).
+- `controle_guias.id_arquivo` da duplicata é string vazia, não `NULL`: usar `nullif(id_arquivo, '')`.
