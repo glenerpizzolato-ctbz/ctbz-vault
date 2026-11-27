@@ -17,7 +17,8 @@ O que o `atendimento-zendesk` consome e quem o consome (padrão em [[dependencia
 
 ### Repositórios internos
 
-_Nada confirmado ainda._
+- `plataforma-crm-web`: `GET /auth/atendimento/v2/bots/whatsapp/dados-cliente/basico-padrao` e `/experts` (dados da empresa), `GET /auth/atendimento/processo/telefone` (processo de abertura), `GET /auth/atendimento/v2/bots/core/dados-cliente/certificado/emissor`, `GET /auth/atendimento/v2/apps/gerenciamento-faqs/municipios` — `src/infra/clients/plataforma-crm-web/` (ver [[fontes-dados-cliente]])
+- `plataforma-web` (contabilizeiapp): `GET /empresa/auth/getByCnpj` e `GET /nfse/rest/cnae-empresa/listar/{id}` — `src/infra/clients/plataforma-notas-worker/empresas`, `.../cnaes`
 
 ### Libs internas
 
@@ -29,11 +30,11 @@ _Nada confirmado ainda._
 
 ### Bancos e dados
 
-_Nada confirmado ainda._
+- BigQuery → Postgres pelo `src/domain/painel-sync` (manifests em `manifests/`): `dw_contabilizeiapp.Empresa`, `operacao_cliente.cnae_empresas`, `expert_dm_painel_assessor.tb_matriz_clientes_painel_assessor` e outras, no banco `painel-assessor`
 
 ### Terceiros
 
-_Nada confirmado ainda._
+- Zendesk: `api/v2/tickets/:id`, `api/v2/users/:id/group_memberships`, `api/v2/groups`, `api/v2/users` — `src/infra/clients/zendesk/`
 
 ## Consumido por
 

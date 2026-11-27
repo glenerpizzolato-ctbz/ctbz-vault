@@ -34,3 +34,4 @@ Repositório em `~/repositories/atendimento-zendesk`. Notas sobre ele (como roda
 - [[whatsapp-ativo-finalidade-optout]] — como o ativo decide a finalidade do opt-out (optoutPurpose > squad SURVEY/categoria NPS-WORKER_CSAT > categoria Meta) e consulta o contato-service
 - [[dependencias-atendimento-zendesk|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome
 - [[plano-api-avisos|Plano da API de Avisos e Mensagens]] — artefato do PRD-179459: regras de destinatários em OU de E, persistência em JSONB, contrato REST e motor único de regras
+- [[fontes-dados-cliente]] — de onde vem cada dado do cliente (crm-web, plataforma, Zendesk para 1 cliente; BigQuery `saude_empresa`/`dw_contabilizeiapp.Empresa` para a base), clients prontos e lacunas (natureza, tipo de contrato, certificadora)

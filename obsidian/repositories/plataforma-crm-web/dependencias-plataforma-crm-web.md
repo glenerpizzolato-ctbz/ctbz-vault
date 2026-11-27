@@ -39,7 +39,7 @@ _Nada confirmado ainda._
 
 Quem consome os contratos deste repositório; a revisão de MRs confere se o diff quebra algum deles.
 
-_Nada confirmado ainda._
+- `atendimento-zendesk`: `GET /auth/atendimento/v2/bots/whatsapp/dados-cliente/basico-padrao` e `/experts`, `GET /auth/atendimento/processo/telefone`, `GET /auth/atendimento/v2/bots/core/dados-cliente/certificado/emissor`, `GET /auth/atendimento/v2/apps/gerenciamento-faqs/municipios` — `src/infra/clients/plataforma-crm-web/` do atendimento-zendesk; também vão alimentar o motor de regras de avisos e mensagens (PRD-179459)
 
 <!-- deps:auto:inicio (gerado por mapear-dependencias; não editar à mão) -->
 
