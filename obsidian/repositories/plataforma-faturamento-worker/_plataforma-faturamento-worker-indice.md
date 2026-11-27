@@ -14,4 +14,5 @@ caminho: ~/repositories/plataforma-faturamento-worker
 
 Repositório em `~/repositories/plataforma-faturamento-worker`. Notas sobre ele (como rodar localmente, como testar, como funciona cada fluxo, particularidades), uma linha por nota.
 
+- [[envio-empresas-agrupamento-guias|Envio das empresas ao agrupamento de guias]] — quem vai para `agrupar-guias-empresa` por plano e regime, e a mudança de 22/10/2026 (antes só `EXPERT_ESSENCIAL`)
 - [[dependencias-plataforma-faturamento-worker|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome
