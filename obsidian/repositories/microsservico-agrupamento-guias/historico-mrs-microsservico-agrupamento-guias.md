@@ -15,3 +15,4 @@ tags:
 - 2026-11-10: MR !99 `feat/lista-guias-email-agrupamento` — Draft: Lista todas as guias e parcelas no nomeGuia dos e-mails do agrupamento
 - 2026-11-10: MR !101 `feat/PRD-176511` — Draft: PRD-176511 parcelas do agrupamento nos metadados do WhatsApp
 - 2026-11-12: MR !103 `feat/troca-templates-email-agrupamento` — Draft: Troca templates de e-mail do agrupamento pelas versões novas
+- 2026-11-27: MR !105 `feat/PRD-179714` — Draft: PRD-179714 Remove rotas /pubsub sem autenticação (aberto)

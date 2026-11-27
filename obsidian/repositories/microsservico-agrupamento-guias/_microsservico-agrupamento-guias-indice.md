@@ -28,5 +28,6 @@ Repositório em `~/repositories/microsservico-agrupamento-guias`. Notas sobre el
 
 A parte de notificação foi portada para o [[_agrupamento-guias-service-indice|agrupamento-guias-service]] em 2026-10-15 (ver [[arquitetura-e-migracao|arquitetura e migração]]); até a virada, as duas implementações coexistem.
 
+- [[rota-pubsub-sem-autenticacao|Rota /pubsub sem autenticação (Farol P0)]] — o que está exposto de fato (Kong key-auth+ACL com 5 consumers, rede do cluster sem nada) e a correção
 - [[historico-mrs-microsservico-agrupamento-guias|Histórico de MRs]] — MRs abertos e mergeados, registrados pelo BahCode
 - [[dependencias-microsservico-agrupamento-guias|Dependências]] — o que consome (repositórios, libs internas, infra GCP, bancos, terceiros) e quem o consome
