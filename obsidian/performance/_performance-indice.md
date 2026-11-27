@@ -46,6 +46,7 @@ fontes: ["[[PRD-xxxxx]]", "[[nota]]"]
 
 ### Segurança
 
+- [[2026-11-27-rotas-pubsub-abertas-agrupamento|Rotas /pubsub abertas no microsservico-agrupamento-guias (Farol P0)]] — 2026QD3, impacto alto
 - [[2026-11-26-segredo-jwt-zendesk-apps|Riscos no segredo do JWT dos apps Zendesk (dev = prd, vazamento no log do deploy)]] — 2026QD3, impacto alto
 - [[2026-11-13-permissoes-auditoria-email|Permissões por operação e auditoria na área de e-mail do admin]] — 2026QD3, impacto medio
 - [[2026-11-06-autoria-auditoria-troca-assessor|Gap de integridade na auditoria de troca de assessor (experts-service)]] — 2026QD3, impacto alto
