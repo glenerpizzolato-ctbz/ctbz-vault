@@ -11,8 +11,9 @@ tags:
 
 Épicos ordenados pela demanda mais recente. Cada épico também tem sua própria nota em `epicos/`.
 
-## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (48)
+## [[PRD-165450]] — [2026-QD3] CTS - Eng Canais (49)
 
+- [[PRD-179714]] — Segurança P0: remover as rotas /pubsub do microsservico-agrupamento-guias que publicam em qualquer tópico sem autenticação · backlog · 2026QD3
 - [[PRD-179702]] — Cliente não recebe notificação do agrupamento de guias por troca de plano e guia duplicada travando o grupo · pronto · 2026QD3
 - [[PRD-178821]] — Holerites: alertas da function-email-holerites e fim do e-mail em dobro · backlog · 2026QD3
 - [[PRD-178571]] — Migrar o e-mail de holerite do Mandrill para o email-service · backlog · 2026QD3
