@@ -43,7 +43,7 @@ Os disparos ficam na tabela `task_scheduler` do banco do experts-service, replic
 
 Também existem `retry` e `error` (tentativas e último erro do envio) e `start_date`/`stop_date`/`start_time`/`stop_time` (janela em que o disparo pode sair: WhatsApp seg–sex 9h–18h, e-mail na hora, até 3 dias).
 
-**Descobrir o imposto de cada disparo**: cruzar `event_source_id` com o `id` da guia em `contabilizei-dataflow.dw_contabilizei_impostos.Guia` (campos `imposto`, `tipoImposto`, `periodoApuracao_periodo`, `dataParaPagamento`, `valorPrincipal`, `status`, `guiaAvulsa`, `idEmpresa`). O `id` da `Guia` é INT64 e o `event_source_id` é STRING, então precisa de `CAST`:
+**Descobrir o imposto de cada disparo** (⚠️ em 2026-11-27 a tabela `contabilizei-dataflow.dw_contabilizei_impostos.Guia` não existe mais nessa localização: `Not found ... in location US`; sem ela, cruzar o `event_source_id` com `controle_guias.id_guia` do banco do agrupamento, que só tem as guias agrupáveis): cruzar `event_source_id` com o `id` da guia em `contabilizei-dataflow.dw_contabilizei_impostos.Guia` (campos `imposto`, `tipoImposto`, `periodoApuracao_periodo`, `dataParaPagamento`, `valorPrincipal`, `status`, `guiaAvulsa`, `idEmpresa`). O `id` da `Guia` é INT64 e o `event_source_id` é STRING, então precisa de `CAST`:
 
 ```sql
 SELECT t.cnpj, t.created_at, t.sent_date, t.is_sent,
