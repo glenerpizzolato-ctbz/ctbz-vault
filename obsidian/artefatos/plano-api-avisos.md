@@ -16,17 +16,18 @@ retrato: "atendimento-zendesk e20a15a20 (master) · protótipo 'Cadastro de Avis
 
 # Plano da API de Avisos e Mensagens
 
-Plano do back-end do Cadastro de Avisos e Mensagens no `atendimento-zendesk` ([[PRD-179459]], sub-task PRD-179410, épico [[PRD-164638]]). Versão enxuta de 27/11/2026, com 7 seções curtas:
+Plano do back-end do Cadastro de Avisos e Mensagens no `atendimento-zendesk` ([[PRD-179459]], sub-task PRD-179410, épico [[PRD-164638]]). Versão enxuta de 27/11/2026, com 8 seções curtas:
 
 1. **Rota principal**: `GET /zendeskapps/warnings-and-messages/tickets/:ticketId/avisos`. É a rota central, por decisão do usuário em 27/11/2026. Ela vai do ticket (tabela `tickets`, ou a API do Zendesk se ele ainda não sincronizou) aos dados atuais do cliente e do guardião, avalia as mensagens no ar (em memória, recarregadas quando alguém salva) e ordena pela RN22.
 2. **Regras**: OU de E, com é/não é. É a forma do protótipo (`ruleHitsC`/`condHits`): sem aninhamento livre, mas expressa qualquer combinação. São 16 critérios, com um motor único.
-3. **Persistência**: `regras jsonb` (`{schemaVersion, rules:[{conds:[{criterio, op, valores}]}]}`), com as colunas derivadas `criterios[]` e `planos[]` para os filtros, `versao` para concorrência e histórico só de inserção. Tabelas normalizadas e JSON Logic foram descartadas.
-4. **Rotas**: consulta por ticket, CRUD de `/mensagens` (sem exclusão, com `PATCH /status` e `/historico`), `/criterios/:id/valores`, `/planilhas` e `/alcance`. Os caminhos são proposta e ainda serão combinados com o PRD-179460. O `GET /criterios` (catálogo servido pela API) foi retirado: a lista dos 16 critérios fica fixa no front.
-5. **Alcance e planilha**:
+3. **Dependências** (adicionada em 27/11/2026): tabela por critério com a fonte na consulta por ticket (crm-web, plataforma, Zendesk; clients prontos) e na base para o alcance (BigQuery `saude_empresa.empresa` + `dw_contabilizeiapp.Empresa` via manifest novo no `painel-sync`), marcando o que está pronto, parcial ou faltando. O processo de abertura de ticket sem CNPJ sai das tags `processo_id:`/`processo:` (conferido em prod em 27/11/2026). Detalhes em [[fontes-dados-cliente]].
+4. **Persistência**: `regras jsonb` (`{schemaVersion, rules:[{conds:[{criterio, op, valores}]}]}`), com as colunas derivadas `criterios[]` e `planos[]` para os filtros, `versao` para concorrência e histórico só de inserção. Tabelas normalizadas e JSON Logic foram descartadas.
+5. **Rotas**: consulta por ticket, CRUD de `/mensagens` (sem exclusão, com `PATCH /status` e `/historico`), `/criterios/:id/valores`, `/planilhas` e `/alcance`. Os caminhos são proposta e ainda serão combinados com o PRD-179460. O `GET /criterios` (catálogo servido pela API) foi retirado: a lista dos 16 critérios fica fixa no front.
+6. **Alcance e planilha**:
    - O alcance é calculado por `POST /alcance` com debounce de cerca de 300 ms, contando sobre um retrato da base de clientes. Nada é gravado.
    - A planilha é lida e descartada, **sem bucket**. Só o nome do arquivo e os aceitos entram na regra; os recusados voltam com o motivo.
-6. **MRs**: 7, com a consulta por ticket em 3º.
-7. **Em aberto**: a fonte dos dados do cliente e a base do alcance; o processo de abertura de um ticket sem CNPJ; os grupos de Publicador e Leitor; o que fazer quando a fonte cai.
+7. **MRs**: 7, com a consulta por ticket em 3º.
+8. **Em aberto**: a fonte dos dados do cliente e a base do alcance; os grupos de Publicador e Leitor; o que fazer quando a fonte cai.
 
 O que é RN e o que é proposta: só o alcance tem RN numerada (RN14). Planilha e valores dos critérios vêm de outras seções da especificação (tabela "Critérios disponíveis" e "Considerações"). Os caminhos e formatos das rotas são proposta, inclusive o da consulta.
 

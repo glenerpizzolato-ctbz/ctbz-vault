@@ -71,6 +71,12 @@ tr.main td{background:var(--accent-soft)}
 .tag.c{background:var(--info-soft);color:var(--info)}
 .tag.a{background:var(--ok-soft);color:var(--ok)}
 .tag.q{background:var(--warn-soft);color:var(--warn)}
+.tag.n{background:var(--bad-soft);color:var(--bad)}
+.tag.y{background:var(--ok-soft);color:var(--ok)}
+.deps td{font-size:13px}
+.deps td small{display:block;color:var(--muted);font-family:var(--font-mono);font-size:11.5px;margin-top:2px;word-break:break-word}
+.sys{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.sys .box b{font-family:var(--font-display)}
 pre{margin:0;background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:14px 16px;font-family:var(--font-mono);font-size:12.5px;line-height:1.6;overflow-x:auto}
 pre .k{color:var(--code-key)} pre .s{color:var(--code-str)} pre .cm{color:var(--code-com)}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
@@ -153,7 +159,44 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;f
 </section>
 
 <section>
-  <div class="sec-head"><div class="eyebrow">3 · Persistência</div><h2>Regras em JSONB, na própria mensagem</h2></div>
+  <div class="sec-head"><div class="eyebrow">3 · Dependências</div><h2>De onde vem o dado de cada critério</h2></div>
+  <p>São dois jeitos de consumir. A <b>consulta por ticket</b> precisa dos dados atuais de um cliente só (RN17). O <b>alcance</b>, a planilha e a contagem por valor precisam da base inteira de clientes, e chamar uma API cliente a cliente não funciona.</p>
+  <div class="sys">
+    <div class="box"><b>plataforma-crm-web</b><span>Núcleo da consulta: uma chamada traz plano, status, regime, ramo e município. Clients prontos.</span></div>
+    <div class="box"><b>Zendesk</b><span>Ticket, assignee, grupos e agentes. Clients prontos.</span></div>
+    <div class="box"><b>BigQuery via painel-sync</b><span>Base para o alcance. O motor de sync existe (BigQuery → Postgres); falta um manifest novo.</span></div>
+    <div class="box"><b>Não precisa</b><span><code>back-worker</code> (só aparece num comentário do concierge) e <code>contabilizei-abertura</code> direto (o crm-web já acha o processo pelo telefone).</span></div>
+  </div>
+  <div class="tbl"><table class="deps">
+    <thead><tr><th>Critério</th><th>Consulta por ticket (1 cliente)</th><th></th><th>Alcance e planilha (base toda)</th><th></th></tr></thead>
+    <tbody>
+      <tr><td><b>Ticket → cliente e guardião</b></td><td>Tabela <code>tickets</code> (<code>organization_cnpj</code>, <code>assignee_id</code>, <code>requester_phone</code>); reserva na API do Zendesk<small>zendesk/buscar-ticket-por-id</small></td><td><span class="tag y">Pronto</span></td><td>—</td><td></td></tr>
+      <tr><td>Plano</td><td>crm-web <code>categoriaPlano</code>; Experts em rota própria<small>plataforma-crm-web/dados-cliente-basico-padrao · dados-clientes-experts</small></td><td><span class="tag y">Pronto</span></td><td>BigQuery <code>saude_empresa.empresa.plano</code></td><td><span class="tag n">Novo</span></td></tr>
+      <tr><td>CNPJ / planilha de CNPJ</td><td>O CNPJ do ticket</td><td><span class="tag y">Pronto</span></td><td>Validar existência e razão social em lote: base</td><td><span class="tag n">Novo</span></td></tr>
+      <tr><td>Processo / planilha de processo</td><td>Tags do ticket <code>processo_id:N</code> (WhatsApp ativo) ou <code>processo:N</code>; 2.040 dos 4.839 tickets sem CNPJ tinham a tag, todos do WhatsApp (amostra de 20 mil tickets, 25–27/11/2026)<small>domain/tickets/obter-processo-do-ticket (só lê processo:)</small></td><td><span class="tag y">Pronto</span></td><td>Validar ID digitado e listar clientes em ativação: não há busca por ID</td><td><span class="tag n">Novo</span></td></tr>
+      <tr><td>Status da empresa</td><td>crm-web <code>status</code> (Ativo/Inativo); "Em ativação" sai do processo</td><td><span class="tag q">Parcial</span></td><td><code>saude_empresa.status</code></td><td><span class="tag n">Novo</span></td></tr>
+      <tr><td>Tipo de contrato</td><td>Nenhum client traz Abertura/Migração</td><td><span class="tag n">Falta</span></td><td><code>dw_contabilizeiapp.Empresa.abertura</code> (bool)</td><td><span class="tag n">Novo</span></td></tr>
+      <tr><td>Ramo de atividade</td><td>crm-web <code>ramosAtividade</code> (COMERCIO/SERVICO)</td><td><span class="tag y">Pronto</span></td><td>Derivar do CNAE principal</td><td><span class="tag n">Novo</span></td></tr>
+      <tr><td>CNAE</td><td>plataforma <code>cnae-empresa/listar/{id}</code>, antes <code>getByCnpj</code> para o id<small>plataforma-notas-worker/cnaes · empresas</small></td><td><span class="tag y">Pronto</span></td><td><code>saude_empresa.cnae_principal</code> ou <code>operacao_cliente.cnae_empresas</code> (já no painel-sync)</td><td><span class="tag q">Parcial</span></td></tr>
+      <tr><td>Natureza jurídica</td><td>Nenhum client</td><td><span class="tag n">Falta</span></td><td><code>dw_contabilizeiapp.Empresa.naturezaJuridica</code></td><td><span class="tag n">Novo</span></td></tr>
+      <tr><td>Certificadora</td><td>crm-web <code>certificado/emissor</code>, só CERTISIGN ou SOLUTI<small>plataforma-crm-web/buscar-dados-integracoes</small></td><td><span class="tag q">Parcial</span></td><td>Sem fonte geral (<code>dim_certificado</code> é só da carteira Experts)</td><td><span class="tag n">Falta</span></td></tr>
+      <tr><td>Regime tributário</td><td>crm-web <code>regimeTributario</code></td><td><span class="tag y">Pronto</span></td><td><code>saude_empresa.regime_tributario</code></td><td><span class="tag n">Novo</span></td></tr>
+      <tr><td>UF e cidade</td><td>crm-web <code>codMunicipioIbge</code> (UF = 2 primeiros dígitos)</td><td><span class="tag y">Pronto</span></td><td><code>saude_empresa.ibge</code>, <code>uf</code>; lista de cidades no crm-web<small>plataforma-crm-web/municipios-atendidos</small></td><td><span class="tag q">Parcial</span></td></tr>
+      <tr><td>Grupo de atendimento</td><td>Grupos do assignee no Zendesk<small>zendesk/agent-groups</small></td><td><span class="tag y">Pronto</span></td><td>Grupos e membros do Zendesk<small>zendesk/grupos-atendimento-zendesk</small></td><td><span class="tag y">Pronto</span></td></tr>
+      <tr><td>Guardião</td><td><code>assignee_id</code> do ticket</td><td><span class="tag y">Pronto</span></td><td>Agentes ativos do Zendesk<small>zendesk/agentes</small></td><td><span class="tag y">Pronto</span></td></tr>
+      <tr><td><b>Papel Publicador/Leitor</b></td><td>Grupos do usuário logado no Zendesk<small>zendesk/agent-groups</small></td><td><span class="tag y">Pronto</span></td><td>—</td><td></td></tr>
+    </tbody>
+  </table></div>
+  <ul class="plain">
+    <li><b>Consulta:</b> crm-web (dados da empresa + certificado + processo) e Zendesk cobrem 11 dos 14 critérios de cliente e os 2 de atendente. Natureza jurídica e tipo de contrato não têm API: ler da base diária, mesmo na consulta (D-1), ou pedir uma rota ao crm-web.</li>
+    <li><b>Base:</b> um manifest novo no <code>painel-sync</code> copia <code>saude_empresa.empresa</code> + <code>dw_contabilizeiapp.Empresa</code> (natureza, abertura) para uma tabela do domínio de avisos. Ela serve ao alcance, à planilha e às contagens por valor.</li>
+    <li><b>Processo do ticket:</b> pelas tags <code>processo_id:</code> e <code>processo:</code> (o <code>ObterProcessoDoTicketService</code> atual só reconhece a segunda e precisa aceitar as duas). O crm-web <code>processo/telefone</code> fica como reserva.</li>
+    <li><b>Confirmar:</b> se a rota <code>basico-padrao</code> do crm-web aceita só o CNPJ, sem telefone; e como os status "Em migração" e "Migrada" da especificação aparecem nas fontes.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head"><div class="eyebrow">4 · Persistência</div><h2>Regras em JSONB, na própria mensagem</h2></div>
   <div class="two">
 <pre><span class="k">avisos_mensagens</span>
   conteudo, criticidade, para_quem
@@ -183,7 +226,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;f
 </section>
 
 <section>
-  <div class="sec-head"><div class="eyebrow">4 · Rotas</div><h2>O que a API expõe</h2></div>
+  <div class="sec-head"><div class="eyebrow">5 · Rotas</div><h2>O que a API expõe</h2></div>
   <div class="tbl"><table>
     <thead><tr><th>Rota</th><th>Para quê</th><th>Papel</th></tr></thead>
     <tbody>
@@ -204,7 +247,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;f
 </section>
 
 <section>
-  <div class="sec-head"><div class="eyebrow">5 · Alcance e planilha</div><h2>Como funcionam na tela de cadastro</h2></div>
+  <div class="sec-head"><div class="eyebrow">6 · Alcance e planilha</div><h2>Como funcionam na tela de cadastro</h2></div>
   <div class="two">
     <div class="box">
       <h3>Alcance</h3>
@@ -228,23 +271,24 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;f
 </section>
 
 <section>
-  <div class="sec-head"><div class="eyebrow">6 · Entrega</div><h2>Sequência de MRs</h2></div>
+  <div class="sec-head"><div class="eyebrow">7 · Entrega</div><h2>Sequência de MRs</h2></div>
   <ol class="steps">
     <li><div><b>Modelo e repositório</b> <span>· tabelas, transação, versão, histórico</span></div></li>
     <li><div><b>Motor de regras</b> <span>· schema das regras, 16 critérios, testes</span></div></li>
-    <li class="hl"><div><b>Consulta por ticket</b> <span>· a rota principal, testável com seed em dev</span></div></li>
+    <li class="hl"><div><b>Consulta por ticket</b> <span>· a rota principal com os clients prontos (crm-web, Zendesk), testável com seed em dev</span></div></li>
     <li><div><b>Cadastro, status e histórico</b> <span>· papéis, Markdown restrito, telemetria</span></div></li>
     <li><div><b>Listagem com filtros</b></div></li>
     <li><div><b>Valores dos critérios e planilha</b></div></li>
-    <li><div><b>Alcance</b></div></li>
+    <li><div><b>Base de clientes e alcance</b> <span>· manifest no painel-sync (BigQuery → tabela do domínio), rota /alcance</span></div></li>
   </ol>
 </section>
 
 <section>
-  <div class="sec-head"><div class="eyebrow">7 · Em aberto</div><h2>O que precisa de resposta antes de codar</h2></div>
+  <div class="sec-head"><div class="eyebrow">8 · Em aberto</div><h2>O que precisa de resposta antes de codar</h2></div>
   <ul class="plain">
-    <li>De onde vem cada dado do cliente usado nos critérios, e a base para o alcance.</li>
-    <li>Como achar o processo de abertura de um ticket de cliente sem CNPJ.</li>
+    <li>Natureza jurídica e tipo de contrato só existem no BigQuery: aceitar D-1 na consulta ou pedir uma rota ao crm-web.</li>
+    <li>Certificadora: a fonte só distingue Certisign e Soluti; GVS, Outra e Sem certificado não têm origem.</li>
+    <li>Status "Em migração" e "Migrada": de qual campo saem.</li>
     <li>Quais grupos do Zendesk são Publicador e Leitor.</li>
     <li>Se a fonte de dados cair durante a consulta: não exibir (sugestão) ou exibir.</li>
   </ul>
