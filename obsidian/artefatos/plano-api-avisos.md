@@ -16,19 +16,20 @@ retrato: "atendimento-zendesk e20a15a20 (master) · protótipo 'Cadastro de Avis
 
 # Plano da API de Avisos e Mensagens
 
-Plano do back-end do Cadastro de Avisos e Mensagens no `atendimento-zendesk` ([[PRD-179459]], sub-task PRD-179410, épico [[PRD-164638]]).
+Plano do back-end do Cadastro de Avisos e Mensagens no `atendimento-zendesk` ([[PRD-179459]], sub-task PRD-179410, épico [[PRD-164638]]). Versão enxuta de 27/11/2026, com 7 seções curtas:
 
-A página mostra:
+1. **Rota principal**: `GET /zendeskapps/warnings-and-messages/tickets/:ticketId/avisos`. É a rota central, por decisão do usuário em 27/11/2026. Ela vai do ticket (tabela `tickets`, ou a API do Zendesk se ele ainda não sincronizou) aos dados atuais do cliente e do guardião, avalia as mensagens no ar (em memória, recarregadas quando alguém salva) e ordena pela RN22.
+2. **Regras**: OU de E, com é/não é. É a forma do protótipo (`ruleHitsC`/`condHits`): sem aninhamento livre, mas expressa qualquer combinação. São 16 critérios, com um motor único.
+3. **Persistência**: `regras jsonb` (`{schemaVersion, rules:[{conds:[{criterio, op, valores}]}]}`), com as colunas derivadas `criterios[]` e `planos[]` para os filtros, `versao` para concorrência e histórico só de inserção. Tabelas normalizadas e JSON Logic foram descartadas.
+4. **Rotas**: consulta por ticket, CRUD de `/mensagens` (sem exclusão, com `PATCH /status` e `/historico`), `/criterios/:id/valores`, `/planilhas` e `/alcance`. Os caminhos são proposta e ainda serão combinados com o PRD-179460. O `GET /criterios` (catálogo servido pela API) foi retirado: a lista dos 16 critérios fica fixa no front.
+5. **Alcance e planilha**:
+   - O alcance é calculado por `POST /alcance` com debounce de cerca de 300 ms, contando sobre um retrato da base de clientes. Nada é gravado.
+   - A planilha é lida e descartada, **sem bucket**. Só o nome do arquivo e os aceitos entram na regra; os recusados voltam com o motivo.
+6. **MRs**: 7, com a consulta por ticket em 3º.
+7. **Em aberto**: a fonte dos dados do cliente e a base do alcance; o processo de abertura de um ticket sem CNPJ; os grupos de Publicador e Leitor; o que fazer quando a fonte cai.
 
-- **Rota principal**: `GET /zendeskapps/warnings-and-messages/tickets/:ticketId/avisos` (decisão do usuário em 27/11/2026: a consulta por ticket é a rota central; a listagem com filtros existe para o cadastro). O ticket sai da tabela `tickets` (espelho do Zendesk: `organization_cnpj`, `organization_plano`, `assignee_id`, `group_id`), com a API do Zendesk como reserva quando ele ainda não sincronizou. As mensagens no ar ficam compiladas em memória e são recarregadas quando alguém salva, com a versão do conjunto guardada no Redis. Os dados do cliente têm cache curto. A página traz o formato da resposta e os casos de erro da especificação.
-- **Forma das regras no protótipo**: a mensagem tem regras somadas com OU. Cada regra junta critérios com E, e cada critério tem a relação é/não é e valores que valem como OU entre si (`ruleHitsC`/`condHits` no protótipo). Não há if/else aninhado livre: é forma normal disjuntiva, que expressa qualquer combinação. Inclui a tabela de semântica (dado ausente: `é` → falso, `não é` → verdadeiro; status calculado; ordem RN22) e o catálogo dos 16 critérios.
-- **Persistência**: recomendada a coluna `regras jsonb` (`{schemaVersion, rules:[{conds:[{criterio, op, valores}]}]}`) validada por Zod, com colunas derivadas (`criterios[]`, `planos[]`, `termos_busca`) para os filtros da lista. Tabelas normalizadas e árvore genérica (JSON Logic) foram descartadas. Modelo das tabelas `avisos_mensagens` e `avisos_mensagens_historico`.
-- **Contrato REST**: o detalhe devolve `rules` no mesmo formato gravado (com rótulos resolvidos) e o front monta a tela pelo `GET /criterios`; a lista traz `resumo` e alcance. Tabela com as 12 rotas e o papel de cada uma.
-- **Motor de regras**: catálogo (um item por critério com `test`) → `RuleEngine` (`validate`, `matches`, `describe`) → contextos de cliente e guardião, usado pela consulta por ticket e pelo alcance. Alcance recomendado sobre uma base de clientes em memória/Redis; alternativa `toSql`.
-- **Sequência de 7 MRs** (a consulta por ticket vem logo depois do motor) e os pontos em aberto (ticket de cliente em ativação sem CNPJ, fonte dos dados do cliente, grupos dos papéis, fonte fora do ar, tamanho da base).
+O que é RN e o que é proposta: só o alcance tem RN numerada (RN14). Planilha e valores dos critérios vêm de outras seções da especificação (tabela "Critérios disponíveis" e "Considerações"). Os caminhos e formatos das rotas são proposta, inclusive o da consulta.
 
-Conclusão principal: guardar as regras como JSON em OU de E, que é o formato que o front já monta, e ter um único motor com catálogo de critérios, em vez dos ifs do `ValidarRestricaoService` dos bots.
-
-Atualizar quando os pontos em aberto forem decididos ou se o modelo mudar na implementação.
+Atualizar quando os pontos em aberto forem decididos ou se o contrato mudar na conversa com o front.
 
 Relacionado: [[_atendimento-zendesk-indice|atendimento-zendesk]], [[PRD-179459]], [[PRD-179460]], [[PRD-179389]].
