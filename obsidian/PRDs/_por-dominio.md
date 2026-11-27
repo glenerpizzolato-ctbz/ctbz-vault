@@ -268,8 +268,9 @@ Uma demanda pode aparecer em mais de um domínio. Vocabulário fechado: `atendim
 - [[PRD-175691]] — experts-service: rotas /view aceitam JWT sem verificar a assinatura (autoria da auditoria forjável) · backlog · 2026QD3
 - [[PRD-165484]] — Troca de assessor sem registro de autor · resolvido-outro-dev · 2026QD3
 
-## impostos — Guias de imposto, agrupamento de guias, diagnóstico/explicação de impostos (87)
+## impostos — Guias de imposto, agrupamento de guias, diagnóstico/explicação de impostos (88)
 
+- [[PRD-179702]] — Cliente não recebe notificação do agrupamento de guias por troca de plano e guia duplicada travando o grupo · pronto · 2026QD3
 - [[PRD-176493]] — experts-service: aumentar a concorrência do consumer de guias de imposto para drenar rajadas do processar-guia-imposto · backlog · 2026QD3
 - [[PRD-176358]] — [Agrupamento de guias] Listar todas as guias e parcelas no e-mail do agrupamento · backlog · 2026QD3
 - [[PRD-174792]] — [Agrupamento de guias Experts] Separar a notificação em lote de Experts em Experts SN e Experts LP, com template de e-mail próprio para o LP · backlog · 2026QD3

@@ -11,8 +11,9 @@ tags:
 
 Períodos em quadrimestres: QD1 = jan–abr, QD2 = mai–ago, QD3 = set–dez. A data de referência é a data de pronto (ou fim, início, teste; sem nenhuma, a criação do card no Jira). O mês (`AAAAMM`) fica na propriedade `mes` de cada nota.
 
-## 2026QD3 (74)
+## 2026QD3 (75)
 
+- [[PRD-179702]] — Cliente não recebe notificação do agrupamento de guias por troca de plano e guia duplicada travando o grupo · pronto · 2026QD3
 - [[PRD-179460]] — Cadastro de Avisos e Mensagens: telas e regras no app Zendesk · backlog · 2026QD3
 - [[PRD-179459]] — Cadastro de Avisos e Mensagens: API no atendimento-zendesk · backlog · 2026QD3
 - [[PRD-179389]] — Cadastro de Avisos e Mensagens: repositório e configuração do app Zendesk · backlog · 2026QD3
